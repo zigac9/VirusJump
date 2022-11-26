@@ -11,5 +11,16 @@ namespace VirusJump.Classes.Graphics
 {
     class GameRenderer
     {
+
+        public GameRenderer() 
+        {
+        }
+
+
+
+        public void RePosition()
+        {
+
+        }
     }
 }

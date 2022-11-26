@@ -76,4 +76,3 @@ namespace VirusJump.Classes.Scene.Objects
         }
     }
 }
-}
