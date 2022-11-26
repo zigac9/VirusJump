@@ -798,15 +798,12 @@ namespace VirusJump
                     }
                     break;
             }
-            // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -825,7 +822,6 @@ namespace VirusJump
                 }
                 Fanar.draw(spriteBatch, fCheck);
 
-                // TODO: Add your drawing code here
                 Doodle.draw(spriteBatch, ref dir, m, gameState);
             }
             if (gameState == introMenu)
