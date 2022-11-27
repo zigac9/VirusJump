@@ -1,3 +1,2 @@
-﻿
-using var game = new VirusJump.Game1();
+﻿using var game = new VirusJump.Game1();
 game.Run();
