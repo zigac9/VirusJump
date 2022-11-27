@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct3D9;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    public class Board
+    public class FakeBoard
     {
         private Texture2D _texture;
         private Rectangle _position;
-
         Sprite _sprite;
 
-        public Board(ContentManager content)
+
+        public FakeBoard(ContentManager content)
         {
             _sprite = new Sprite();
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p1");
