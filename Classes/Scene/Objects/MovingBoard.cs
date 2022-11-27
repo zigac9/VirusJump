@@ -6,43 +6,47 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    class MovingBoard : Sprite
+    class MovingBoard
     {
-        private Texture2D texture;
-        private Vector2 cords;
-        private Rectangle posize;
-        private int speed;
+        private Texture2D _texture;
+        private Rectangle _position;
+        private int _speed;
 
-        private Sprite _sprite;
-
-        public MovingBoard() 
+        public void DrawSprite(SpriteBatch s)
         {
-            _sprite = new Sprite();
+            s.Draw(_texture, _position, Color.White);
         }
 
-        public void draw(SpriteBatch s)
+        public void Move()
         {
-            s.Draw(texture, posize, Color.White);
+            _position.X += _speed;
+            if (_position.X > 420 || _position.X < 0) _speed *= -1;
         }
 
-        public void move()
+        public bool Collision(doodle s)
         {
-            posize.X += speed;
-            if (posize.X > 420 || posize.X < 0) speed *= -1;
+            if ((s.posize.X + 15 > _position.X && s.posize.X + 15 < _position.X + 60) || (s.posize.X + 45 > _position.X && s.posize.X + 45 < _position.X + 60))
+
+                if (_position.Y - s.posize.Y - 60 < 5 && _position.Y - s.posize.Y - 60 > -20 && s.speed.Y > 0)
+                    return true;
+                else return false;
+            else return false;
         }
 
-        public bool Collision(Player doodleJumper)
+        public Rectangle BoardPosition
         {
-            //if ((s.posize.X + 15 > posize.X && s.posize.X + 15 < posize.X + 60) || (s.posize.X + 45 > posize.X && s.posize.X + 45 < posize.X + 60))
+            get { return _position; }
+            set { _position = value; }
+        }
 
-            //    if (posize.Y - s.posize.Y - 60 < 5 && posize.Y - s.posize.Y - 60 > -20 && s.speed.Y > 0)
-            //        return true;
-            //    else return false;
-            //else return false;
-            return false;
+        public int Speed
+        {
+            get { return _speed; }
+            set { _speed = value; }
         }
     }
 }
