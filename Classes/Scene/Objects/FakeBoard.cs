@@ -28,7 +28,7 @@ namespace VirusJump.Classes.Scene.Objects
             _position = new Rectangle(0, 0, 0, 0);
         }
 
-        public void draw(SpriteBatch s)
+        public void DrawSprite(SpriteBatch s)
         {
             s.Draw(_texture, _position, Color.White);
         }

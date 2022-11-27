@@ -771,13 +771,13 @@ namespace VirusJump
             {
                 for (int i = 0; i < boards_arr.Length; i++)
                 {
-                    boards_arr[i].draw(spriteBatch);
+                    boards_arr[i].DrawSprite(spriteBatch);
                 }
 
                 for (int i = 0; i < 4; i++)
                 {
                     mr[i].draw(spriteBatch);
-                    fakeBoard[i].draw(spriteBatch);
+                    fakeBoard[i].DrawSprite(spriteBatch);
                     gr[i].draw(spriteBatch);
                 }
                 Fanar.draw(spriteBatch, fCheck);
