@@ -4,17 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    class MovingBoard
+    public class MovingBoard
     {
         private Texture2D _texture;
         private Rectangle _position;
         private int _speed;
+        Sprite _sprite;
+
+        public MovingBoard(ContentManager content)
+        {
+            _sprite = new Sprite();
+            _texture = content.Load<Texture2D>("Doodle_jumpContent/p2");
+            _position = new Rectangle(0, 0, 0, 0);
+            _speed = 0;
+        }
 
         public void DrawSprite(SpriteBatch s)
         {
