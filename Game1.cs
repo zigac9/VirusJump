@@ -3,9 +3,11 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Reflection.Metadata;
 
 namespace VirusJump
 {
@@ -13,26 +15,6 @@ namespace VirusJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-
-        public struct rect
-        {
-            public Texture2D texture;
-            public Rectangle posize;
-            public void draw(SpriteBatch s)
-            {
-                s.Draw(texture, posize, Color.White);
-            }
-
-            public bool Collision(doodle s)
-            {
-                if ((s.posize.X + 15 > posize.X && s.posize.X + 15 < posize.X + 60) || (s.posize.X + 45 > posize.X && s.posize.X + 45 < posize.X + 60))
-
-                    if (posize.Y - s.posize.Y - 60 < 5 && posize.Y - s.posize.Y - 60 > -20 && s.speed.Y > 0)
-                        return true;
-                    else return false;
-                else return false;
-            }
-        }
 
         public struct fakeRect
         {
@@ -256,37 +238,36 @@ namespace VirusJump
             }
         }
 
-        public void playAgain(ref doodle Doodle, ref scor score, ref List<rect> rects, ref fakeRect[] fr, ref goneRect[] gr, ref movingRect[] mr, ref fanar Fanar, ref background Backgraound, ref int gameState)
+        public void PlayAgain(ref doodle Doodle, ref scor score, ref fakeRect[] fr, ref goneRect[] gr, ref movingRect[] mr, ref fanar Fanar, ref background Backgraound, ref int gameState)
         {
 
             gameState = gameRunning;
-            rect[] r = rects.ToArray();
             collisionCheck = true;
             score.check = true;
             gameover = false;
             Doodle.posize = new Rectangle(230, 560, 60, 60);
-            r[0].posize = new Rectangle(40, 700, 60, 14);
-            r[1].posize = new Rectangle(240, 640, 60, 14);
-            r[2].posize = new Rectangle(400, 620, 60, 14);
-            r[3].posize = new Rectangle(250, 600, 60, 14);
-            r[4].posize = new Rectangle(290, 570, 60, 14);
-            r[5].posize = new Rectangle(240, 550, 60, 14);
-            r[6].posize = new Rectangle(200, 580, 60, 14);
-            r[7].posize = new Rectangle(160, 530, 60, 14);
-            r[8].posize = new Rectangle(100, 500, 60, 14);
-            r[9].posize = new Rectangle(180, 460, 60, 14);
-            r[10].posize = new Rectangle(270, 430, 60, 14);
-            r[11].posize = new Rectangle(310, 390, 60, 14);
-            r[12].posize = new Rectangle(350, 360, 60, 14);
-            r[13].posize = new Rectangle(310, 320, 60, 14);
-            r[14].posize = new Rectangle(310, 290, 60, 14);
-            r[15].posize = new Rectangle(200, 250, 60, 14);
-            r[16].posize = new Rectangle(160, 220, 60, 14);
-            r[17].posize = new Rectangle(140, 180, 60, 14);
-            r[18].posize = new Rectangle(400, 140, 60, 14);
-            r[19].posize = new Rectangle(360, 110, 60, 14);
-            r[20].posize = new Rectangle(300, 70, 60, 14);
-            r[21].posize = new Rectangle(240, 40, 60, 14);
+            boards_arr[0].BoardPosition = new Rectangle(40, 700, 60, 14);
+            boards_arr[1].BoardPosition = new Rectangle(240, 640, 60, 14);
+            boards_arr[2].BoardPosition = new Rectangle(400, 620, 60, 14);
+            boards_arr[3].BoardPosition = new Rectangle(250, 600, 60, 14);
+            boards_arr[4].BoardPosition = new Rectangle(290, 570, 60, 14);
+            boards_arr[5].BoardPosition = new Rectangle(240, 550, 60, 14);
+            boards_arr[6].BoardPosition = new Rectangle(200, 580, 60, 14);
+            boards_arr[7].BoardPosition = new Rectangle(160, 530, 60, 14);
+            boards_arr[8].BoardPosition = new Rectangle(100, 500, 60, 14);
+            boards_arr[9].BoardPosition = new Rectangle(180, 460, 60, 14);
+            boards_arr[10].BoardPosition = new Rectangle(270, 430, 60, 14);
+            boards_arr[11].BoardPosition = new Rectangle(310, 390, 60, 14);
+            boards_arr[12].BoardPosition = new Rectangle(350, 360, 60, 14);
+            boards_arr[13].BoardPosition = new Rectangle(310, 320, 60, 14);
+            boards_arr[14].BoardPosition = new Rectangle(310, 290, 60, 14);
+            boards_arr[15].BoardPosition = new Rectangle(200, 250, 60, 14);
+            boards_arr[16].BoardPosition = new Rectangle(160, 220, 60, 14);
+            boards_arr[17].BoardPosition = new Rectangle(140, 180, 60, 14);
+            boards_arr[18].BoardPosition = new Rectangle(400, 140, 60, 14);
+            boards_arr[19].BoardPosition = new Rectangle(360, 110, 60, 14);
+            boards_arr[20].BoardPosition = new Rectangle(300, 70, 60, 14);
+            boards_arr[21].BoardPosition = new Rectangle(240, 40, 60, 14);
             mr[0].posize = new Rectangle(100, 335, 60, 14);
             mr[1].posize = new Rectangle(250, 15, 60, 14);
             mr[2].posize = new Rectangle(0, -20, 60, 14);
@@ -314,9 +295,6 @@ namespace VirusJump
             Backgraound.gameStateCheck = true;
             meRnd = true;
             mecolosion = false;
-            rects.Clear();
-            for (int i = 0; i < 22; i++)
-                rects.Add(r[i]);
 
         }
 
@@ -346,26 +324,23 @@ namespace VirusJump
 
         }
 
-        public void rePosition(ref List<rect> rects, ref movingRect[] mr, ref fakeRect[] fr, ref goneRect[] gr)
+        public void rePosition(Board[] boards_arr, ref movingRect[] mr, ref fakeRect[] fr, ref goneRect[] gr)
         {
             int minY = 500;
-            rect[] temp = rects.ToArray();
             Random rnd = new Random();
-            for (int i = 0; i < rects.Count; i++)
+            for (int i = 0; i < boards_arr.Length; i++)
             {
-                if (temp[i].posize.Y > 800)
+                if (boards_arr[i].BoardPosition.Y > 800)
                 {
-                    for (int j = 0; j < rects.Count; j++)
-                        if (temp[j].posize.Y < minY) minY = temp[j].posize.Y;
+                    for (int j = 0; j < boards_arr.Length; j++)
+                        if (boards_arr[j].BoardPosition.Y < minY) minY = boards_arr[j].BoardPosition.Y;
                     for (int j = 0; j < 4; j++)
                     {
                         if (mr[j].posize.Y < minY) minY = mr[j].posize.Y;
                         if (fr[j].posize.Y < minY) minY = fr[j].posize.Y;
                         if (gr[j].posize.Y < minY) minY = gr[j].posize.Y;
                     }
-                    
-                    temp[i].posize.Y = rnd.Next(minY - 90, minY - 40);
-                    temp[i].posize.X = rnd.Next(0, 420);
+                    boards_arr[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 90, minY - 40), boards_arr[i].BoardPosition.Width, boards_arr[i].BoardPosition.Height);
                 }
             }
 
@@ -373,8 +348,8 @@ namespace VirusJump
             {
                 if (mr[i].posize.Y > 740)
                 {
-                    for (int j = 0; j < rects.Count; j++)
-                        if (temp[j].posize.Y < minY) minY = temp[j].posize.Y;
+                    for (int j = 0; j < boards_arr.Length; j++)
+                        if (boards_arr[j].BoardPosition.Y < minY) minY = boards_arr[j].BoardPosition.Y;
                     for (int j = 0; j < 4; j++)
                     {
                         if (mr[j].posize.Y < minY) minY = mr[j].posize.Y;
@@ -386,8 +361,8 @@ namespace VirusJump
                 }
                 if (fr[i].posize.Y > 740)
                 {
-                    for (int j = 0; j < rects.Count; j++)
-                        if (temp[j].posize.Y < minY) minY = temp[j].posize.Y;
+                    for (int j = 0; j < boards_arr.Length; j++)
+                        if (boards_arr[j].BoardPosition.Y < minY) minY = boards_arr[j].BoardPosition.Y;
                     for (int j = 0; j < 4; j++)
                     {
                         if (mr[j].posize.Y < minY) minY = mr[j].posize.Y;
@@ -400,8 +375,8 @@ namespace VirusJump
                 }
                 if (gr[i].posize.Y > 740)
                 {
-                    for (int j = 0; j < rects.Count; j++)
-                        if (temp[j].posize.Y < minY) minY = temp[j].posize.Y;
+                    for (int j = 0; j < boards_arr.Length; j++)
+                        if (boards_arr[j].BoardPosition.Y < minY) minY = boards_arr[j].BoardPosition.Y;
                     for (int j = 0; j < 4; j++)
                     {
                         if (mr[j].posize.Y < minY) minY = mr[j].posize.Y;
@@ -413,8 +388,7 @@ namespace VirusJump
                     gr[i].posize.X = rnd.Next(0, 420);
                 }
             }
-            rects.Clear();
-            rects = temp.ToList();
+
         }
 
         //tipkovnica in miska
@@ -437,8 +411,7 @@ namespace VirusJump
         public scor score;
         public doodle Doodle;
         public doodle menuDoodle;
-        public rect[] r = new rect[22];
-        public List<rect> rects = new List<rect>();
+        public Board[] boards_arr = new Board[22];
         public movingRect[] mr = new movingRect[4];
         public fakeRect[] fr = new fakeRect[4];
         public goneRect[] gr = new goneRect[4];
@@ -485,6 +458,7 @@ namespace VirusJump
             mPoint.posize = new Rectangle(0, 0, 20, 20);
             score.pos = new Vector2(15f, 4f);
             Fanar.posize = new Rectangle(-100, 730, 20, 30);
+
         }
 
 
@@ -521,11 +495,11 @@ namespace VirusJump
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < boards_arr.Length; i++)
             {
-                r[i].texture = Content.Load<Texture2D>("Doodle_jumpContent/p1");
-                rects.Add(r[i]);
+                boards_arr[i] = new Board(this.Content);
             }
+            
             for (int i = 0; i < 4; i++)
             {
                 mr[i].texture = Content.Load<Texture2D>("Doodle_jumpContent/p2");
@@ -588,13 +562,13 @@ namespace VirusJump
                             do
                             {
                                 Random rnd = new Random();
-                                fRnd = rnd.Next(0, rects.Count - 1);
-                            } while (!(rects[fRnd].posize.Y < 0) && eRnd != fRnd);
+                                fRnd = rnd.Next(0, boards_arr.Length - 1);
+                            } while (!(boards_arr[fRnd].BoardPosition.Y < 0) && eRnd != fRnd);
                         }
                         if (fRnd != -1)
                         {
-                            Fanar.posize.Y = rects[fRnd].posize.Y - 30;
-                            Fanar.posize.X = rects[fRnd].posize.X + 10;
+                            Fanar.posize.Y = boards_arr[fRnd].BoardPosition.Y - 30;
+                            Fanar.posize.X = boards_arr[fRnd].BoardPosition.X + 10;
                         }
                         if (!fCheck)
                         {
@@ -609,15 +583,15 @@ namespace VirusJump
                             fCheck = false;
                         }
 
-                        if (Doodle.posize.Y < 300) //to move rects and background
+                        if (Doodle.posize.Y < 300) //to move boards_list and background
                         {
                             int speed = (int)Doodle.speed.Y;
                             Doodle.posize.Y -= (int)Doodle.speed.Y;
-                            rect[] temp = rects.ToArray();
-                            for (int i = 0; i < rects.Count; i++)
-                                temp[i].posize.Y -= speed;
-                            rects.Clear();
-                            rects = temp.ToList();
+                            Board[] temp = boards_arr.ToArray();
+                            for (int i = 0; i < boards_arr.Length; i++)
+                                temp[i].BoardPosition = new Rectangle(temp[i].BoardPosition.X, temp[i].BoardPosition.Y - speed, temp[i].BoardPosition.Width, temp[i].BoardPosition.Height);
+                            
+                            boards_arr = temp.ToArray();
                             for (int i = 0; i < 4; i++)
                             {
                                 mr[i].posize.Y -= speed;
@@ -633,10 +607,10 @@ namespace VirusJump
                         }
                         Backgraound.sideCheck();
 
-                        rePosition(ref rects, ref mr, ref fr, ref gr);//to re position rects and movable enemys
+                        rePosition(boards_arr, ref mr, ref fr, ref gr);//to re position boards_list and movable enemys
 
-                        for (int i = 0; i < rects.Count; i++)//to check rects coliision
-                            if (rects[i].Collision(Doodle) && !gameover && collisionCheck == true)
+                        for (int i = 0; i < boards_arr.Length; i++)//to check boards_list coliision
+                            if (boards_arr[i].Collision(Doodle) && !gameover && collisionCheck == true)
                             {
                                 Doodle.speed.Y = -13;
                             }
@@ -755,7 +729,7 @@ namespace VirusJump
                                 m = m_temp;
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
-                                playAgain(ref Doodle, ref score, ref rects, ref fr, ref gr, ref mr, ref Fanar, ref Backgraound, ref gameState);
+                                PlayAgain(ref Doodle, ref score, ref fr, ref gr, ref mr, ref Fanar, ref Backgraound, ref gameState);
                             }
                         if (m.X > 274 && m.X < 446)
                             if (m.Y > 510 && m.Y < 570 && gameState == introMenu)
@@ -785,7 +759,7 @@ namespace VirusJump
                     {
                         if (m.X > 110 && m.X < 272)
                             if (m.Y > 467 && m.Y < 535)
-                                playAgain(ref Doodle, ref score, ref rects, ref fr, ref gr, ref mr, ref Fanar, ref Backgraound, ref gameState);
+                                PlayAgain(ref Doodle, ref score, ref fr, ref gr, ref mr, ref Fanar, ref Backgraound, ref gameState);
                         if (m.X > 240 && m.X < 416)
                             if (m.Y > 522 && m.Y < 612)
                             {
@@ -810,10 +784,15 @@ namespace VirusJump
 
             spriteBatch.Begin();
             Backgraound.draw(spriteBatch, gameState, score);
+            
+
             if (gameState == gameRunning)
             {
-                for (int i = 0; i < rects.Count; i++)
-                    rects[i].draw(spriteBatch);
+                for (int i = 0; i < boards_arr.Length; i++)
+                {
+                    boards_arr[i].draw(spriteBatch);
+                }
+
                 for (int i = 0; i < 4; i++)
                 {
                     mr[i].draw(spriteBatch);
