@@ -24,7 +24,7 @@ namespace VirusJump.Classes.Scene.Objects
         public FakeBoard(ContentManager content)
         {
             _sprite = new Sprite();
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p1");
+            _texture = content.Load<Texture2D>("Doodle_jumpContent/p3");
             _position = new Rectangle(0, 0, 0, 0);
         }
 
