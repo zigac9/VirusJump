@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
-using Microsoft.Xna.Framework.Input;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
-using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
@@ -60,6 +51,18 @@ namespace VirusJump.Classes.Scene.Objects
             _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
             _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
             _hScore = content.Load<Texture2D>("Doodle_jumpContent/Hscore");
+            _bPosize = new Rectangle(0, -6480, 480, 7200);
+            _kPosize = new Rectangle(0, 0, 480, 720);
+            _introMenuposize = new Rectangle(0, 0, 480, 720);
+            _optionposize = new Rectangle(0, 0, 480, 720);
+            _sOnposize = new Rectangle(100, 330, 136, 45);
+            _sOffposize = new Rectangle(100, 330, 136, 45);
+            _notifposize = new Rectangle(0, 0, 480, 60);
+            _pauseposize = new Rectangle(0, 0, 480, 720);
+            _gameOverposize = new Rectangle(0, 0, 480, 720);
+            _hScoreposize = new Rectangle(0, 0, 480, 720);
+            _soundCheck = true;
+            _gameStateCheck = true;
         }
 
 
@@ -131,46 +134,6 @@ namespace VirusJump.Classes.Scene.Objects
         {
             get { return _sPosise2; }
             set { _sPosise2 = value; }
-        }
-        public Rectangle IntroMenuPosize
-        {
-            get { return _introMenuposize; }
-            set { _introMenuposize = value; }
-        }
-        public Rectangle HScorePosize
-        {
-            get { return _hScoreposize; }
-            set { _hScoreposize = value; }
-        }
-        public Rectangle OptionPosize
-        {
-            get { return _optionposize; }
-            set { _optionposize = value; }
-        }
-        public Rectangle NotifPosize
-        {
-            get { return _notifposize; }
-            set { _notifposize = value; }
-        }
-        public Rectangle PausePosize
-        {
-            get { return _pauseposize; }
-            set { _pauseposize = value; }
-        }
-        public Rectangle GameOverPosize
-        {
-            get { return _gameOverposize; }
-            set { _gameOverposize = value; }
-        }
-        public Rectangle SOnPosize
-        {
-            get { return _sOnposize; }
-            set { _sOnposize = value; }
-        }
-        public Rectangle SOffPosize
-        {
-            get { return _sOffposize; }
-            set { _sOffposize = value; }
         }
 
         public bool SoundCheck

@@ -20,7 +20,6 @@ namespace VirusJump
         //playagain gre v renderer
         public void PlayAgain(Player player, Scoring score, FakeBoard[] fakeBoards, GoneBoard[] goneBoards, MovingBoard[] movingBoards, Background background, ref int gameState)
         {
-
             gameState = gameRunning;
             collisionCheck = true;
             score.Check = true;
@@ -74,7 +73,6 @@ namespace VirusJump
             background.GameStateCheck = true;
             meRnd = true;
             mecolosion = false;
-
         }
 
         public void rePosition(Board[] boards_arr, MovingBoard[] movingBoards, FakeBoard[] fakeBoards, GoneBoard[] goneBoards)
@@ -133,8 +131,6 @@ namespace VirusJump
                         if (fakeBoards[j].BoardPosition.Y < minY) minY = fakeBoards[j].BoardPosition.Y;
                         if (goneBoards[j].BoardPosition.Y < minY) minY = goneBoards[j].BoardPosition.Y;
                     }
-
-                    //popravi
                     goneBoards[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 80, minY - 20), goneBoards[i].BoardPosition.Width, goneBoards[i].BoardPosition.Height);
                 }
             }
@@ -188,23 +184,15 @@ namespace VirusJump
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 480;
             Content.RootDirectory = "Content";
-
-            
-
         }
 
-
         protected override void Initialize()
-        {
-            
+        {    
             dir = cond.Right;
-
             tirCheck = false;
             fCheck = false;
             tCheck = false;
             collisionCheck = true;
-  
-
             mecolosion = false;
             gameover = false;
             meRnd = true;
@@ -212,11 +200,8 @@ namespace VirusJump
             tRnd = -1;
             eRnd = -1;
             e2Rnd = -1;
-            
-
             base.Initialize();
         }
-
 
         protected override void LoadContent()
         {
@@ -243,37 +228,15 @@ namespace VirusJump
             player.PlayerSpeed = new Vector2(0, -13);
             playerMenu.PlayerPosition = new Rectangle(100, 520, 80, 80);
             playerMenu.PlayerSpeed = new Vector2(0, -13);
-            playerMenu.Ch = 0;
             player.Degree = 0;
-            player.Ch = 0;
 
             background = new Background(this.Content);
-            background.BPosize = new Rectangle(0, -6480, 480, 7200);
-            background.KPosize = new Rectangle(0, 0, 480, 720);
-            background.IntroMenuPosize = new Rectangle(0, 0, 480, 720);
-            background.OptionPosize = new Rectangle(0, 0, 480, 720);
-            background.SOnPosize = new Rectangle(100, 330, 136, 45);
-            background.SOffPosize = new Rectangle(100, 330, 136, 45);
-            background.NotifPosize = new Rectangle(0, 0, 480, 60);
-            background.PausePosize = new Rectangle(0, 0, 480, 720);
-            background.GameOverPosize = new Rectangle(0, 0, 480, 720);
-            background.HScorePosize = new Rectangle(0, 0, 480, 720);
-            background.SoundCheck = true;
-            background.GameStateCheck = true;
-
             score = new Scoring(this.Content);
-            score.ScoringPosition = new Vector2(15f, 4f);
-            score.SNevem = 0;
-            score.BestS = "";
-            score.Check = true;
-
             pointer = new Pointer(this.Content);
         }
 
-
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
@@ -484,11 +447,8 @@ namespace VirusJump
                     }
                     break;
             }
-
-
             base.Update(gameTime);
         }
-
 
         protected override void Draw(GameTime gameTime)
         {
@@ -496,7 +456,6 @@ namespace VirusJump
 
             spriteBatch.Begin();
             background.Draw(spriteBatch, gameState, score);
-            
 
             if (gameState == gameRunning)
             {
