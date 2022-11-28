@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using VirusJump.Classes.Scene.Objects.Supplements;
 using Microsoft.Xna.Framework.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 using static VirusJump.Game1;
@@ -62,7 +63,7 @@ namespace VirusJump.Classes.Scene.Objects
         }
 
 
-        public void Draw(SpriteBatch s, int game, scor score)
+        public void Draw(SpriteBatch s, int game, Scoring score)
         {
             s.Draw(_back, _bPosize, Color.White);
             s.Draw(_kooh, _kPosize, Color.White);
@@ -83,17 +84,17 @@ namespace VirusJump.Classes.Scene.Objects
             if (game == 4)
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
-                s.DrawString(score.spFont, score.s.ToString(), new Vector2(308f, 245f), Color.Black);
-                s.DrawString(score.spFont, score.bestS, new Vector2(295f, 297f), Color.Black);
+                s.DrawString(score.SFont, score.SNevem.ToString(), new Vector2(308f, 245f), Color.Black);
+                s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
             }
             if (game == 5)
             {
                 s.Draw(_hScore, _hScoreposize, Color.White);
-                s.DrawString(score.spFont, _hScore1.ToString(), new Vector2(215f, 245f), Color.Black);
-                s.DrawString(score.spFont, _hScore2.ToString(), new Vector2(215f, 290f), Color.Black);
-                s.DrawString(score.spFont, _hScore3.ToString(), new Vector2(215f, 335f), Color.Black);
-                s.DrawString(score.spFont, _hScore4.ToString(), new Vector2(215f, 380f), Color.Black);
-                s.DrawString(score.spFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
+                s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(215f, 245f), Color.Black);
+                s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(215f, 290f), Color.Black);
+                s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(215f, 335f), Color.Black);
+                s.DrawString(score.SFont, _hScore4.ToString(), new Vector2(215f, 380f), Color.Black);
+                s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
             }
         }
         public void Notifdraw(SpriteBatch s, int game)

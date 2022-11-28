@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using System.Reflection.Metadata;
+using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump
 {
@@ -17,12 +18,12 @@ namespace VirusJump
         SpriteBatch spriteBatch;
 
         //playagain gre v renderer
-        public void PlayAgain(Player player, ref scor score, FakeBoard[] fakeBoards, GoneBoard[] goneBoards, MovingBoard[] movingBoards, Background background, ref int gameState)
+        public void PlayAgain(Player player, Scoring score, FakeBoard[] fakeBoards, GoneBoard[] goneBoards, MovingBoard[] movingBoards, Background background, ref int gameState)
         {
 
             gameState = gameRunning;
             collisionCheck = true;
-            score.check = true;
+            score.Check = true;
             gameover = false;
             player.PlayerPosition = new Rectangle(230, 560, 60, 60);
             boards_arr[0].BoardPosition = new Rectangle(40, 700, 60, 14);
@@ -65,7 +66,7 @@ namespace VirusJump
             background.SPosise2 = new Rectangle(0, -6480, 480, 3600);
             background.BPosize = new Rectangle(background.BPosize.X, -7200 + 720, background.BPosize.Width, background.BPosize.Height);
             dir = cond.Right;
-            score.s = 0;
+            score.SNevem = 0;
             fRnd = -1;
             tRnd = -1;
             eRnd = -1;
@@ -73,21 +74,6 @@ namespace VirusJump
             background.GameStateCheck = true;
             meRnd = true;
             mecolosion = false;
-
-        }
-
-        public struct scor
-        {
-            public int s;
-            public string bestS;
-            public Vector2 pos;
-            public SpriteFont spFont;
-            public bool check;
-            public void draw(SpriteBatch sp, int game)
-            {
-                if (game != 0 && game != 3 && game != 5)
-                    sp.DrawString(spFont, s.ToString(), pos, Color.White);
-            }
 
         }
 
@@ -183,7 +169,7 @@ namespace VirusJump
         public const int hScore = 5;
 
         public enum cond { Left = 1, Right, Tir, HeliL, HeliR, JetL, jetR, BargL, BargR } //kako bo obrnjena slika
-        public scor score;
+        public Scoring score;
         public Player player;
         public Player playerMenu;
         public Board[] boards_arr = new Board[22];
@@ -216,7 +202,6 @@ namespace VirusJump
 
             
             mPoint.posize = new Rectangle(0, 0, 20, 20);
-            score.pos = new Vector2(15f, 4f);
 
         }
 
@@ -225,13 +210,12 @@ namespace VirusJump
         {
             
             dir = cond.Right;
-            score.s = 0;
-            score.bestS = "";
+
             tirCheck = false;
             fCheck = false;
             tCheck = false;
             collisionCheck = true;
-            score.check = true;
+  
 
             mecolosion = false;
             gameover = false;
@@ -289,8 +273,13 @@ namespace VirusJump
             background.SoundCheck = true;
             background.GameStateCheck = true;
 
+            score = new Scoring(this.Content);
+            score.ScoringPosition = new Vector2(15f, 4f);
+            score.SNevem = 0;
+            score.BestS = "";
+            score.Check = true;
+
             mPoint.texture = Content.Load<Texture2D>("Doodle_jumpContent/pointer");
-            score.spFont = Content.Load<SpriteFont>("Doodle_jumpContent/SpriteFont1");
 
 
         }
@@ -341,7 +330,7 @@ namespace VirusJump
                                 background.BPosize = new Rectangle(background.BPosize.X, background.BPosize.Y - (speed / 2), background.BPosize.Width, background.BPosize.Height);
                             background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
                             background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
-                            score.s -= speed / 2;
+                            score.SNevem -= speed / 2;
                         }
                         background.SideCheck();
 
@@ -467,7 +456,7 @@ namespace VirusJump
                                 m = m_temp;
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
-                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
+                                PlayAgain(player, score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
                             }
                         if (m.X > 274 && m.X < 446)
                             if (m.Y > 510 && m.Y < 570 && gameState == introMenu)
@@ -497,7 +486,7 @@ namespace VirusJump
                     {
                         if (m.X > 110 && m.X < 272)
                             if (m.Y > 467 && m.Y < 535)
-                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
+                                PlayAgain(player, score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
                         if (m.X > 240 && m.X < 416)
                             if (m.Y > 522 && m.Y < 612)
                             {
@@ -543,7 +532,7 @@ namespace VirusJump
             if (gameState == introMenu)
                 playerMenu.Draw(spriteBatch, ref dir, 1);
             background.Notifdraw(spriteBatch, gameState);
-            score.draw(spriteBatch, gameState);
+            score.Draw(spriteBatch, gameState);
             mPoint.draw(spriteBatch);
 
             spriteBatch.End();
