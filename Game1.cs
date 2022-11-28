@@ -343,7 +343,7 @@ namespace VirusJump
                             background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
                             score.s -= speed / 2;
                         }
-                        background.sideCheck();
+                        background.SideCheck();
 
                         rePosition(boards_arr, movingBoards, fakeBoards, goneBoards);//to re position boards_list and movable enemys
 
@@ -521,7 +521,7 @@ namespace VirusJump
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            background.draw(spriteBatch, gameState, score);
+            background.Draw(spriteBatch, gameState, score);
             
 
             if (gameState == gameRunning)
@@ -542,7 +542,7 @@ namespace VirusJump
             }
             if (gameState == introMenu)
                 playerMenu.Draw(spriteBatch, ref dir, 1);
-            background.notifdraw(spriteBatch, gameState);
+            background.Notifdraw(spriteBatch, gameState);
             score.draw(spriteBatch, gameState);
             mPoint.draw(spriteBatch);
 

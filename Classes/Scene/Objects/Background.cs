@@ -62,7 +62,7 @@ namespace VirusJump.Classes.Scene.Objects
         }
 
 
-        public void draw(SpriteBatch s, int game, scor score)
+        public void Draw(SpriteBatch s, int game, scor score)
         {
             s.Draw(_back, _bPosize, Color.White);
             s.Draw(_kooh, _kPosize, Color.White);
@@ -96,13 +96,13 @@ namespace VirusJump.Classes.Scene.Objects
                 s.DrawString(score.spFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
             }
         }
-        public void notifdraw(SpriteBatch s, int game)
+        public void Notifdraw(SpriteBatch s, int game)
         {
             if (game != 0 && game != 3 && game != 5)
                 s.Draw(_notif, _notifposize, Color.White);
         }
 
-        public void sideCheck()
+        public void SideCheck()
         {
             if (_sPosise1.Y > 720)
                 _sPosise1.Y = _sPosise2.Y - 3600;
