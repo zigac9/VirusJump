@@ -16,11 +16,9 @@ namespace VirusJump.Classes.Scene.Objects
     {
         private Texture2D _texture;
         private Rectangle _position;
-        Sprite _sprite;
 
         public GoneBoard(ContentManager content)
         {
-            _sprite = new Sprite();
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p4");
             _position = new Rectangle(0, 0, 0, 0);
         }
@@ -30,11 +28,11 @@ namespace VirusJump.Classes.Scene.Objects
             s.Draw(_texture, _position, Color.White);
         }
 
-        public bool Collision(doodle s)
+        public bool Collision(Player player)
         {
-            if ((s.posize.X + 15 > _position.X && s.posize.X + 15 < _position.X + 60) || (s.posize.X + 45 > _position.X && s.posize.X + 45 < _position.X + 60))
+            if ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60))
 
-                if (_position.Y - s.posize.Y - 60 < 5 && _position.Y - s.posize.Y - 60 > -20 && s.speed.Y > 0)
+                if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.PlayerSpeed.Y > 0)
                     return true;
                 else return false;
             else return false;

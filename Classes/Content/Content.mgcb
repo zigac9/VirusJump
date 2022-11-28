@@ -97,6 +97,18 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/DoodleRj.png
 
+#begin Doodle_jumpContent/DoodleShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/DoodleShoot.png
+
 #begin Doodle_jumpContent/DoodleT.png
 /importer:TextureImporter
 /processor:TextureProcessor

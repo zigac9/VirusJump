@@ -13,19 +13,17 @@ using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    class Player
+    public class Player
     {
         private Texture2D _playerTexture;
         private Texture2D _shootTexture;
+        private Texture2D _noseTexture;
         private Rectangle _position;
-        private SpriteEffects _orientation;
         private Vector2 _speed;
         private int _accelarator;
         private int _ch;
         private float _degree;
-        private bool _draw = false;
 
-        Sprite _sprite;
 
         public Player(ContentManager content)
         {
@@ -33,9 +31,8 @@ namespace VirusJump.Classes.Scene.Objects
             _ch = 0;
             _speed = Vector2.Zero;
             _degree = 0f;
-            _sprite = new Sprite();
-            _orientation = SpriteEffects.None;
-            _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleShoot");
+            _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleT");
+            _noseTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleKH");
             _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
             _position = new Rectangle(0, 0, 0, 0);
         }
@@ -53,24 +50,43 @@ namespace VirusJump.Classes.Scene.Objects
             _position.Y += (int)_speed.Y;
         }
 
-        public void Draw(SpriteBatch s, ref cond name, MouseState m, int game)
+        public void Draw(SpriteBatch s, ref cond name, int game)
         {
             if (game == gameRunning)
-                if (!_draw) 
-                {
-                    s.Draw(_shootTexture, _position, null, Color.White, 0f, Vector2.Zero, _orientation, 0f);
-                    _draw = true;
-                }
                 switch (name)
                 {
-                    case cond.Left: _orientation = SpriteEffects.FlipHorizontally; break;
-                    case cond.Right: _orientation = SpriteEffects.None; break;
+                    case cond.Left: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f); break;
+                    case cond.Right: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f); break;
                     case cond.Tir:
                         s.Draw(_shootTexture, _position, Color.White);
-                        _draw= false;
+                        s.Draw(_noseTexture, _position, Color.White);
                         name = cond.Left;
                         break;
                 }
+        }
+
+        public Rectangle PlayerPosition
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+
+        public Vector2 PlayerSpeed
+        {
+            get { return _speed; }
+            set { _speed = value; }
+        }
+
+        public int Ch
+        {
+            get { return _ch; }
+            set { _ch = value; }
+        }
+
+        public float Degree
+        {
+            get { return _degree; }
+            set { _degree = value; }
         }
 
 
