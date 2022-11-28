@@ -77,17 +77,6 @@ namespace VirusJump
 
         }
 
-        public struct pointer
-        {
-            public Rectangle posize;
-            public Texture2D texture;
-            public void draw(SpriteBatch s)
-            {
-                s.Draw(texture, posize, Color.White);
-            }
-
-        }
-
         public void rePosition(Board[] boards_arr, MovingBoard[] movingBoards, FakeBoard[] fakeBoards, GoneBoard[] goneBoards)
         {
             int minY = 500;
@@ -179,7 +168,7 @@ namespace VirusJump
         public cond dir;
         public Texture2D back1;
         public Background background;
-        public pointer mPoint;
+        public Pointer pointer;
         public bool tirCheck;
         public bool fCheck;
         public bool collisionCheck;
@@ -201,7 +190,6 @@ namespace VirusJump
             Content.RootDirectory = "Content";
 
             
-            mPoint.posize = new Rectangle(0, 0, 20, 20);
 
         }
 
@@ -279,9 +267,7 @@ namespace VirusJump
             score.BestS = "";
             score.Check = true;
 
-            mPoint.texture = Content.Load<Texture2D>("Doodle_jumpContent/pointer");
-
-
+            pointer = new Pointer(this.Content);
         }
 
 
@@ -293,8 +279,7 @@ namespace VirusJump
 
             m = Mouse.GetState();
             k = Keyboard.GetState();
-            mPoint.posize.X = m.X - 10;
-            mPoint.posize.Y = m.Y - 10;
+            pointer.PointerPosition = new Rectangle(m.X - 10, m.Y - 10, pointer.PointerPosition.Width, pointer.PointerPosition.Height);
             switch (gameState)
             {
                 case gameRunning:
@@ -533,7 +518,7 @@ namespace VirusJump
                 playerMenu.Draw(spriteBatch, ref dir, 1);
             background.Notifdraw(spriteBatch, gameState);
             score.Draw(spriteBatch, gameState);
-            mPoint.draw(spriteBatch);
+            pointer.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);
