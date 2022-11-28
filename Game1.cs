@@ -16,90 +16,8 @@ namespace VirusJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        public struct background
-        {
-            public Texture2D back;
-            public Texture2D kooh;
-            public Texture2D sides;
-            public Texture2D introMenu;
-            public Texture2D option;
-            public Texture2D notif;
-            public Texture2D pause;
-            public Texture2D sOn;
-            public Texture2D sOff;
-            public Texture2D gameOvre;
-            public Texture2D hScore;
-            public Rectangle bPosize;
-            public Rectangle kPosize;
-            public Rectangle sPosise1;
-            public Rectangle sPosise2;
-            public Rectangle introMenuposize;
-            public Rectangle hScoreposize;
-            public Rectangle optionposize;
-            public Rectangle notifposize;
-            public Rectangle pauseposize;
-            public Rectangle gameOverposize;
-            public Rectangle sOnposize;
-            public Rectangle sOffposize;
-            public int hScore1;
-            public int hScore2;
-            public int hScore3;
-            public int hScore4;
-            public int hScore5;
-            public bool soundCheck;
-            public bool gameStateCheck;
-
-            public void draw(SpriteBatch s, int game, scor score)
-            {
-                s.Draw(back, bPosize, Color.White);
-                s.Draw(kooh, kPosize, Color.White);
-                s.Draw(sides, sPosise1, Color.White);
-                s.Draw(sides, sPosise2, Color.White);
-                if (game == 0)
-                    s.Draw(introMenu, introMenuposize, Color.White);
-                if (game == 2)
-                    s.Draw(pause, pauseposize, Color.White);
-                if (game == 3)
-                {
-                    s.Draw(option, optionposize, Color.White);
-                    if (soundCheck == true)
-                        s.Draw(sOn, sOnposize, Color.White);
-                    else
-                        s.Draw(sOff, sOffposize, Color.White);
-                }
-                if (game == 4)
-                {
-                    s.Draw(gameOvre, gameOverposize, Color.White);
-                    s.DrawString(score.spFont, score.s.ToString(), new Vector2(308f, 245f), Color.Black);
-                    s.DrawString(score.spFont, score.bestS, new Vector2(295f, 297f), Color.Black);
-                }
-                if (game == 5)
-                {
-                    s.Draw(hScore, hScoreposize, Color.White);
-                    s.DrawString(score.spFont, hScore1.ToString(), new Vector2(215f, 245f), Color.Black);
-                    s.DrawString(score.spFont, hScore2.ToString(), new Vector2(215f, 290f), Color.Black);
-                    s.DrawString(score.spFont, hScore3.ToString(), new Vector2(215f, 335f), Color.Black);
-                    s.DrawString(score.spFont, hScore4.ToString(), new Vector2(215f, 380f), Color.Black);
-                    s.DrawString(score.spFont, hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
-                }
-            }
-            public void notifdraw(SpriteBatch s, int game)
-            {
-                if (game != 0 && game != 3 && game != 5)
-                    s.Draw(notif, notifposize, Color.White);
-            }
-
-            public void sideCheck()
-            {
-                if (sPosise1.Y > 720)
-                    sPosise1.Y = sPosise2.Y - 3600;
-                if (sPosise2.Y > 720)
-                    sPosise2.Y = sPosise1.Y - 3600;
-            }
-        }
-
         //playagain gre v renderer
-        public void PlayAgain(Player player, ref scor score, FakeBoard[] fakeBoards, GoneBoard[] goneBoards, MovingBoard[] movingBoards, ref background Backgraound, ref int gameState)
+        public void PlayAgain(Player player, ref scor score, FakeBoard[] fakeBoards, GoneBoard[] goneBoards, MovingBoard[] movingBoards, Background background, ref int gameState)
         {
 
             gameState = gameRunning;
@@ -141,18 +59,18 @@ namespace VirusJump
             goneBoards[1].BoardPosition = new Rectangle(30, 330, 60, 14);
             goneBoards[2].BoardPosition = new Rectangle(410, -50, 60, 14);
             goneBoards[3].BoardPosition = new Rectangle(74, 660, 60, 14);
-            Backgraound.bPosize = new Rectangle(0, -6480, 480, 7200);
-            Backgraound.kPosize = new Rectangle(0, 0, 480, 720);
-            Backgraound.sPosise1 = new Rectangle(0, -2880, 480, 3600);
-            Backgraound.sPosise2 = new Rectangle(0, -6480, 480, 3600);
-            Backgraound.bPosize.Y = -7200 + 720;
+            background.BPosize = new Rectangle(0, -6480, 480, 7200);
+            background.KPosize = new Rectangle(0, 0, 480, 720);
+            background.SPosise1 = new Rectangle(0, -2880, 480, 3600);
+            background.SPosise2 = new Rectangle(0, -6480, 480, 3600);
+            background.BPosize = new Rectangle(background.BPosize.X, -7200 + 720, background.BPosize.Width, background.BPosize.Height);
             dir = cond.Right;
             score.s = 0;
             fRnd = -1;
             tRnd = -1;
             eRnd = -1;
-            Backgraound.soundCheck = true;
-            Backgraound.gameStateCheck = true;
+            background.SoundCheck = true;
+            background.GameStateCheck = true;
             meRnd = true;
             mecolosion = false;
 
@@ -274,7 +192,7 @@ namespace VirusJump
         public GoneBoard[] goneBoards = new GoneBoard[4];
         public cond dir;
         public Texture2D back1;
-        public background Backgraound;
+        public Background background;
         public pointer mPoint;
         public bool tirCheck;
         public bool fCheck;
@@ -295,17 +213,8 @@ namespace VirusJump
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 480;
             Content.RootDirectory = "Content";
+
             
-            Backgraound.bPosize = new Rectangle(0, -6480, 480, 7200);
-            Backgraound.kPosize = new Rectangle(0, 0, 480, 720);
-            Backgraound.introMenuposize = new Rectangle(0, 0, 480, 720);
-            Backgraound.optionposize = new Rectangle(0, 0, 480, 720);
-            Backgraound.sOnposize = new Rectangle(100, 330, 136, 45);
-            Backgraound.sOffposize = new Rectangle(100, 330, 136, 45);
-            Backgraound.notifposize = new Rectangle(0, 0, 480, 60);
-            Backgraound.pauseposize = new Rectangle(0, 0, 480, 720);
-            Backgraound.gameOverposize = new Rectangle(0, 0, 480, 720);
-            Backgraound.hScoreposize = new Rectangle(0, 0, 480, 720);
             mPoint.posize = new Rectangle(0, 0, 20, 20);
             score.pos = new Vector2(15f, 4f);
 
@@ -323,8 +232,7 @@ namespace VirusJump
             tCheck = false;
             collisionCheck = true;
             score.check = true;
-            Backgraound.soundCheck = true;
-            Backgraound.gameStateCheck = true;
+
             mecolosion = false;
             gameover = false;
             meRnd = true;
@@ -367,17 +275,20 @@ namespace VirusJump
             player.Degree = 0;
             player.Ch = 0;
 
-            Backgraound.back = Content.Load<Texture2D>("Doodle_jumpContent/gradient");
-            Backgraound.kooh = Content.Load<Texture2D>("Doodle_jumpContent/kooh");
-            Backgraound.introMenu = Content.Load<Texture2D>("Doodle_jumpContent/mainMenu");
-            Backgraound.option = Content.Load<Texture2D>("Doodle_jumpContent/option");
-            Backgraound.sOn = Content.Load<Texture2D>("Doodle_jumpContent/sOn");
-            Backgraound.sOff = Content.Load<Texture2D>("Doodle_jumpContent/sOff");
-            Backgraound.notif = Content.Load<Texture2D>("Doodle_jumpContent/notif");
-            Backgraound.pause = Content.Load<Texture2D>("Doodle_jumpContent/puase");
-            Backgraound.sides = Content.Load<Texture2D>("Doodle_jumpContent/sides");
-            Backgraound.gameOvre = Content.Load<Texture2D>("Doodle_jumpContent/gameOver");
-            Backgraound.hScore = Content.Load<Texture2D>("Doodle_jumpContent/Hscore");
+            background = new Background(this.Content);
+            background.BPosize = new Rectangle(0, -6480, 480, 7200);
+            background.KPosize = new Rectangle(0, 0, 480, 720);
+            background.IntroMenuPosize = new Rectangle(0, 0, 480, 720);
+            background.OptionPosize = new Rectangle(0, 0, 480, 720);
+            background.SOnPosize = new Rectangle(100, 330, 136, 45);
+            background.SOffPosize = new Rectangle(100, 330, 136, 45);
+            background.NotifPosize = new Rectangle(0, 0, 480, 60);
+            background.PausePosize = new Rectangle(0, 0, 480, 720);
+            background.GameOverPosize = new Rectangle(0, 0, 480, 720);
+            background.HScorePosize = new Rectangle(0, 0, 480, 720);
+            background.SoundCheck = true;
+            background.GameStateCheck = true;
+
             mPoint.texture = Content.Load<Texture2D>("Doodle_jumpContent/pointer");
             score.spFont = Content.Load<SpriteFont>("Doodle_jumpContent/SpriteFont1");
 
@@ -426,13 +337,13 @@ namespace VirusJump
                                 goneBoards[i].BoardPosition = new Rectangle(goneBoards[i].BoardPosition.X, goneBoards[i].BoardPosition.Y - speed, goneBoards[i].BoardPosition.Width, goneBoards[i].BoardPosition.Height);
                             }
 
-                            if (Backgraound.bPosize.Y < 0)
-                                Backgraound.bPosize.Y -= speed / 2;
-                            Backgraound.sPosise1.Y -= speed / 2;
-                            Backgraound.sPosise2.Y -= speed / 2;
+                            if (background.BPosize.Y < 0)
+                                background.BPosize = new Rectangle(background.BPosize.X, background.BPosize.Y - (speed / 2), background.BPosize.Width, background.BPosize.Height);
+                            background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
+                            background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
                             score.s -= speed / 2;
                         }
-                        Backgraound.sideCheck();
+                        background.sideCheck();
 
                         rePosition(boards_arr, movingBoards, fakeBoards, goneBoards);//to re position boards_list and movable enemys
 
@@ -525,38 +436,38 @@ namespace VirusJump
                     if (k_temp.IsKeyDown(Keys.Escape) && !k_temp1.IsKeyDown(Keys.Escape))
                         gameState = gameRunning;
                     k_temp1 = k_temp;
-                    Backgraound.gameStateCheck = false;
+                    background.GameStateCheck = false;
                     break;
                 case option:
                     if (m.LeftButton == ButtonState.Pressed)
                     {
                         if (m.X > 80 && m.X < 240)
                             if (m.Y > 592 && m.Y < 652)
-                                if (Backgraound.gameStateCheck == true)
+                                if (background.GameStateCheck == true)
                                     gameState = introMenu;
                                 else
                                     gameState = pause;
 
                         if (m.X > 100 && m.X < 160)
                             if (m.Y > 330 && m.Y < 375)
-                                Backgraound.soundCheck = false;
+                                background.SoundCheck = false;
                         if (m.X > 160 && m.X < 236)
                             if (m.Y > 330 && m.Y < 375)
-                                Backgraound.soundCheck = true;
+                                background.SoundCheck = true;
                     }
                     break;
                 case introMenu:
                     m = Mouse.GetState();
                     if (m.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
                     {
-                        Backgraound.gameStateCheck = true;
+                        background.GameStateCheck = true;
                         if (m.X > 68 && m.X < 240)
                             if (m.Y > 210 && m.Y < 270)
                             {
                                 m = m_temp;
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
-                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, ref Backgraound, ref gameState);
+                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
                             }
                         if (m.X > 274 && m.X < 446)
                             if (m.Y > 510 && m.Y < 570 && gameState == introMenu)
@@ -586,7 +497,7 @@ namespace VirusJump
                     {
                         if (m.X > 110 && m.X < 272)
                             if (m.Y > 467 && m.Y < 535)
-                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, ref Backgraound, ref gameState);
+                                PlayAgain(player, ref score, fakeBoards, goneBoards, movingBoards, background, ref gameState);
                         if (m.X > 240 && m.X < 416)
                             if (m.Y > 522 && m.Y < 612)
                             {
@@ -610,7 +521,7 @@ namespace VirusJump
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            Backgraound.draw(spriteBatch, gameState, score);
+            background.draw(spriteBatch, gameState, score);
             
 
             if (gameState == gameRunning)
@@ -631,7 +542,7 @@ namespace VirusJump
             }
             if (gameState == introMenu)
                 playerMenu.Draw(spriteBatch, ref dir, 1);
-            Backgraound.notifdraw(spriteBatch, gameState);
+            background.notifdraw(spriteBatch, gameState);
             score.draw(spriteBatch, gameState);
             mPoint.draw(spriteBatch);
 
