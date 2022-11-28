@@ -4,57 +4,75 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SharpDX.Direct3D9;
 using SharpDX.X3DAudio;
+using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    class Player: Sprite
+    class Player
     {
-        private Texture2D playerTexture;
-        private Rectangle posize;
-        private Vector2 speed;
-        private const int accelarator = +1;
-        private int ch; //kaj je to??
-        //public float degree;
+        private Texture2D _playerTexture;
+        private Texture2D _shootTexture;
+        private Rectangle _position;
+        private SpriteEffects _orientation;
+        private Vector2 _speed;
+        private int _accelarator;
+        private int _ch;
+        private float _degree;
+        private bool _draw = false;
 
-        private Sprite _sprite;
+        Sprite _sprite;
 
-        //get in set dodat
-
-        public Player() //not dodat elemente za sprite
+        public Player(ContentManager content)
         {
-            _sprite= new Sprite(); //spremenit konstruktor za elemente
+            _accelarator = 1;
+            _ch = 0;
+            _speed = Vector2.Zero;
+            _degree = 0f;
+            _sprite = new Sprite();
+            _orientation = SpriteEffects.None;
+            _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleShoot");
+            _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
+            _position = new Rectangle(0, 0, 0, 0);
         }
 
-        public void move()
+        public void Move()
         {
-            if (ch == 0)
+            if (_ch == 0)
             {
-                speed.Y += accelarator;
-                ch = 1;
+                _speed.Y += _accelarator;
+                _ch = 1;
             }
             else
-                ch = 0;
+                _ch = 0;
 
-            posize.Y += (int)speed.Y;
+            _position.Y += (int)_speed.Y;
         }
 
-        public void draw(SpriteBatch spriteBatch, bool direction, MouseState mouse, int game)
+        public void Draw(SpriteBatch s, ref cond name, MouseState m, int game)
         {
-            //if (game == gameRunning)
-            //    switch (name)
-            //    {
-            //        case cond.Left: s.Draw(textureL, posize, Color.White); break;
-            //        case cond.Right: s.Draw(textureR, posize, Color.White); break;
-            //        case cond.Tir:
-            //            s.Draw(textureC, posize, Color.White);
-            //            s.Draw(nose, posize, Color.White);
-            //            name = cond.Left;
-            //            break;
-
-            //    }
+            if (game == gameRunning)
+                if (!_draw) 
+                {
+                    s.Draw(_shootTexture, _position, null, Color.White, 0f, Vector2.Zero, _orientation, 0f);
+                    _draw = true;
+                }
+                switch (name)
+                {
+                    case cond.Left: _orientation = SpriteEffects.FlipHorizontally; break;
+                    case cond.Right: _orientation = SpriteEffects.None; break;
+                    case cond.Tir:
+                        s.Draw(_shootTexture, _position, Color.White);
+                        _draw= false;
+                        name = cond.Left;
+                        break;
+                }
         }
+
+
     }
 }
