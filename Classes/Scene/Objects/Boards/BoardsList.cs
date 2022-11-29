@@ -52,10 +52,10 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             }
             for (int i = 0; i < _movingBoards.Length; i++)
             {
-                var exclude = new HashSet<int>() { 0 };
-                var range = Enumerable.Range(-4, 4).Where(i => !exclude.Contains(i));
                 var rand = new System.Random();
-                _movingBoards[i] = new MovingBoard(_content, _boardsCoords.MovingBoardsCoordsArr[i], rand.Next(-4,4 -exclude.Count));
+                int num = rand.Next(-4,4);
+                if (num == 0) num = 1;
+                _movingBoards[i] = new MovingBoard(_content, _boardsCoords.MovingBoardsCoordsArr[i], num);
             }
         }
 
