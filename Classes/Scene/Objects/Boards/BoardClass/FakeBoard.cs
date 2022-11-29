@@ -4,15 +4,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace VirusJump.Classes.Scene.Objects
 {
-    public class Board
+    public class FakeBoard
     {
         private Texture2D _texture;
         private Rectangle _position;
 
-        public Board(ContentManager content)
+
+        public FakeBoard(ContentManager content, Rectangle position)
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p1");
-            _position = new Rectangle(0, 0, 0, 0);
+            _texture = content.Load<Texture2D>("Doodle_jumpContent/p3");
+            _position = position;
         }
 
         public void DrawSprite(SpriteBatch s)

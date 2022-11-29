@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VirusJump.Classes.Scene.Objects
+namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class MovingBoard
     {
@@ -10,11 +10,11 @@ namespace VirusJump.Classes.Scene.Objects
         private Rectangle _position;
         private int _speed;
 
-        public MovingBoard(ContentManager content)
+        public MovingBoard(ContentManager content, Rectangle position, int speed)
         {
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p2");
-            _position = new Rectangle(0, 0, 0, 0);
-            _speed = 0;
+            _position = position;
+            _speed = speed;
         }
 
         public void DrawSprite(SpriteBatch s)
@@ -30,7 +30,7 @@ namespace VirusJump.Classes.Scene.Objects
 
         public bool Collision(Player player)
         {
-            if ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60))
+            if (player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60 || player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60)
 
                 if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.PlayerSpeed.Y > 0)
                     return true;
