@@ -25,7 +25,7 @@ namespace VirusJump
             collisionCheck = true;
             score.Check = true;
             gameover = false;
-            player.PlayerPosition = new Rectangle(230, 560, 60, 60);  
+            player.Initialize(); 
             boardsList.Initialize();
             background.BPosize = new Rectangle(0, -6480, 480, 7200);
             background.KPosize = new Rectangle(0, 0, 480, 720);

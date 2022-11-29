@@ -26,7 +26,12 @@ namespace VirusJump.Classes.Scene.Objects
             _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleT");
             _noseTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleKH");
             _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
-            _position = new Rectangle(0, 0, 0, 0);
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            _position = new Rectangle(230, 560, 60, 60);
         }
 
         public void Move()
