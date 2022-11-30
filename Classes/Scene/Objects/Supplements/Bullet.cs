@@ -41,6 +41,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _speed.Y += _accelertion;
             _position.Y += (int)_speed.Y;
             _position.X += (int)_speed.X;
+            Debug.WriteLine(_position.ToString());
         }
 
         public Rectangle BulletPosition

@@ -304,11 +304,11 @@ namespace VirusJump
                                     tirCheck = true;
                                 }
                             }
-                            if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < 0 || bullet.BulletPosition.X > 480 || bullet.BulletPosition.Y < 0)
-                                tirCheck = false;
                             if (mouseState.Y < 280)
                                 dir = cond.Tir;
                         }
+                        if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < -20 || bullet.BulletPosition.X > 500 || bullet.BulletPosition.Y < -20)
+                            tirCheck = false;
                         if (tirCheck && gameState == 1)
                             bullet.Move();
 
