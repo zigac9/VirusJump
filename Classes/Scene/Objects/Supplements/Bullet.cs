@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,9 +17,17 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private Vector2 _speed;
         private float _accelertion;
 
-        public Bullet() 
+        public Bullet(ContentManager content) 
         {
+            _texture = content.Load<Texture2D>("Doodle_jumpContent/tir");
             _accelertion = 0.5f;
+            _speed = new Vector2(0, 0);
+            Initialize();
+        }
+
+        public void Initialize()
+        {
+            _position = new Rectangle(-50, -50, 20, 20);
         }
 
         public void Draw(SpriteBatch s, int game)
@@ -26,7 +35,8 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             if (game == 1)
                 s.Draw(_texture, _position, Color.White);
         }
-        public void Move(Player player)
+
+        public void Move()
         {
             _speed.Y += _accelertion;
             _position.Y += (int)_speed.Y;

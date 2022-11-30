@@ -10,6 +10,8 @@ using System;
 using System.Reflection.Metadata;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
+using System.Diagnostics;
+using static VirusJump.Game1;
 
 namespace VirusJump
 {
@@ -27,6 +29,7 @@ namespace VirusJump
             gameover = false;
             player.Initialize(); 
             boardsList.Initialize();
+            bullet.Initialize();
             background.BPosize = new Rectangle(0, -6480, 480, 7200);
             background.KPosize = new Rectangle(0, 0, 480, 720);
             background.SPosise1 = new Rectangle(0, -2880, 480, 3600);
@@ -108,7 +111,7 @@ namespace VirusJump
         public KeyboardState k;
         public KeyboardState k_temp;
         public KeyboardState k_temp1;
-        public MouseState m;
+        public MouseState mouseState;
         public MouseState m_temp;
         public MouseState m_temp1;
 
@@ -129,6 +132,7 @@ namespace VirusJump
         public Texture2D back1;
         public Background background;
         public Pointer pointer;
+        public Bullet bullet;
         public bool tirCheck;
         public bool fCheck;
         public bool collisionCheck;
@@ -184,6 +188,8 @@ namespace VirusJump
             background = new Background(this.Content);
             score = new Scoring(this.Content);
             pointer = new Pointer(this.Content);
+            bullet = new Bullet(this.Content);
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -191,9 +197,9 @@ namespace VirusJump
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            m = Mouse.GetState();
+            mouseState = Mouse.GetState();
             k = Keyboard.GetState();
-            pointer.PointerPosition = new Rectangle(m.X - 10, m.Y - 10, pointer.PointerPosition.Width, pointer.PointerPosition.Height);
+            pointer.PointerPosition = new Rectangle(mouseState.X - 10, mouseState.Y - 10, pointer.PointerPosition.Width, pointer.PointerPosition.Height);
             switch (gameState)
             {
                 case gameRunning:
@@ -272,48 +278,63 @@ namespace VirusJump
                         }
                         
 
-                        m = Mouse.GetState();//check mouse state for shoot and pause menu 
-                        if (m.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed))
+                        mouseState = Mouse.GetState();//check mouse state for shoot and pause menu 
+                        if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed) && gameState == 1)
                         {
-                            if (m.X > 420 && m.X < 470 && m.Y > 5 && m.Y < 40)
+                            if (mouseState.X > 420 && mouseState.X < 470 && mouseState.Y > 5 && mouseState.Y < 40)
                             {
                                 gameState = pause;
                                 MediaPlayer.Pause();
                             }
-                            else //to shoot tir
+                            //to shoot tir
+                            else
                             {
-
-                                if (!tirCheck && m.Y < 280)
+                                if (!tirCheck && mouseState.Y < 280)
                                 {
-                                    player.Degree = (float)Math.Atan((-(m.Y - player.PlayerPosition.Y - 27)) / (m.X - player.PlayerPosition.X - 30));
+                                    player.Degree = (float)Math.Atan((-(mouseState.Y - player.PlayerPosition.Y - 27)) / (mouseState.X - player.PlayerPosition.X - 30));
+                                    bullet.BulletPosition = new Rectangle(player.PlayerPosition.X + 30,player.PlayerPosition.Y + 27, bullet.BulletPosition.Width, bullet.BulletPosition.Height);
+                                    if (mouseState.X < player.PlayerPosition.X + 30)
+                                    {
+                                        bullet.BulletSpeed = new Vector2(-25 * (float)Math.Cos(player.Degree), +25 * (float)Math.Sin(player.Degree));
+                                    }
+                                    else
+                                    {
+                                        bullet.BulletSpeed = new Vector2(25 * (float)Math.Cos(player.Degree), -25 * (float)Math.Sin(player.Degree));
+                                    }
                                     tirCheck = true;
                                 }
                             }
-                            if (m.Y < 280)
+                            if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < 0 || bullet.BulletPosition.X > 480 || bullet.BulletPosition.Y < 0)
+                                tirCheck = false;
+                            if (mouseState.Y < 280)
                                 dir = cond.Tir;
                         }
-                        if (player.PlayerPosition.Y > 720)//to end and gameovering game
+                        if (tirCheck && gameState == 1)
+                            bullet.Move();
+
+                        //to end and gameovering game
+                        if (player.PlayerPosition.Y > 720)
                             gameState = gameOver;
                     }
                     break;
 
                 case pause:
-                    if (m.LeftButton == ButtonState.Pressed)
+                    if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (m.X > 248 && m.X < 446)
-                            if (m.Y > 510 && m.Y < 570)
+                        if (mouseState.X > 248 && mouseState.X < 446)
+                            if (mouseState.Y > 510 && mouseState.Y < 570)
                             {
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
                             }
-                        if (m.X > 280 && m.X < 458)
-                            if (m.Y > 600 && m.Y < 660)
+                        if (mouseState.X > 280 && mouseState.X < 458)
+                            if (mouseState.Y > 600 && mouseState.Y < 660)
                             {
                                 gameState = introMenu;
                                 dir = cond.Right;
                             }
-                        if (m.X > 170 && m.X < 340)
-                            if (m.Y > 420 && m.Y < 480)
+                        if (mouseState.X > 170 && mouseState.X < 340)
+                            if (mouseState.Y > 420 && mouseState.Y < 480)
                             {
                                 gameState = option;
                                 dir = cond.Right;
@@ -326,44 +347,44 @@ namespace VirusJump
                     background.GameStateCheck = false;
                     break;
                 case option:
-                    if (m.LeftButton == ButtonState.Pressed)
+                    if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (m.X > 80 && m.X < 240)
-                            if (m.Y > 592 && m.Y < 652)
+                        if (mouseState.X > 80 && mouseState.X < 240)
+                            if (mouseState.Y > 592 && mouseState.Y < 652)
                                 if (background.GameStateCheck == true)
                                     gameState = introMenu;
                                 else
                                     gameState = pause;
 
-                        if (m.X > 100 && m.X < 160)
-                            if (m.Y > 330 && m.Y < 375)
+                        if (mouseState.X > 100 && mouseState.X < 160)
+                            if (mouseState.Y > 330 && mouseState.Y < 375)
                                 background.SoundCheck = false;
-                        if (m.X > 160 && m.X < 236)
-                            if (m.Y > 330 && m.Y < 375)
+                        if (mouseState.X > 160 && mouseState.X < 236)
+                            if (mouseState.Y > 330 && mouseState.Y < 375)
                                 background.SoundCheck = true;
                     }
                     break;
                 case introMenu:
-                    m = Mouse.GetState();
-                    if (m.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
+                    mouseState = Mouse.GetState();
+                    if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
                     {
                         background.GameStateCheck = true;
-                        if (m.X > 68 && m.X < 240)
-                            if (m.Y > 210 && m.Y < 270)
+                        if (mouseState.X > 68 && mouseState.X < 240)
+                            if (mouseState.Y > 210 && mouseState.Y < 270)
                             {
-                                m = m_temp;
+                                mouseState = m_temp;
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
                                 PlayAgain(player, score, background, ref gameState);
                             }
-                        if (m.X > 274 && m.X < 446)
-                            if (m.Y > 510 && m.Y < 570 && gameState == introMenu)
+                        if (mouseState.X > 274 && mouseState.X < 446)
+                            if (mouseState.Y > 510 && mouseState.Y < 570 && gameState == introMenu)
                                 this.Exit();
-                        if (m.X > 240 && m.X < 412)
-                            if (m.Y > 415 && m.Y < 475)
+                        if (mouseState.X > 240 && mouseState.X < 412)
+                            if (mouseState.Y > 415 && mouseState.Y < 475)
                                 gameState = option;
-                        if (m.X > 200 && m.X < 365)
-                            if (m.Y > 330 && m.Y < 395)
+                        if (mouseState.X > 200 && mouseState.X < 365)
+                            if (mouseState.Y > 330 && mouseState.Y < 395)
                                 gameState = hScore;
                     }
                     playerMenu.Move();
@@ -371,29 +392,29 @@ namespace VirusJump
                         playerMenu.PlayerSpeed = new Vector2(playerMenu.PlayerSpeed.X, -13);
                     break;
                 case hScore:
-                    m = Mouse.GetState();
-                    if (m.LeftButton == ButtonState.Pressed)
+                    mouseState = Mouse.GetState();
+                    if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (m.X > 295 && m.X < 460)
-                            if (m.Y > 600 && m.Y < 660)
+                        if (mouseState.X > 295 && mouseState.X < 460)
+                            if (mouseState.Y > 600 && mouseState.Y < 660)
                                 gameState = introMenu;
                     }
                     break;
                 case gameOver:
-                    if (m.LeftButton == ButtonState.Pressed)
+                    if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (m.X > 110 && m.X < 272)
-                            if (m.Y > 467 && m.Y < 535)
+                        if (mouseState.X > 110 && mouseState.X < 272)
+                            if (mouseState.Y > 467 && mouseState.Y < 535)
                                 PlayAgain(player, score, background, ref gameState);
-                        if (m.X > 240 && m.X < 416)
-                            if (m.Y > 522 && m.Y < 612)
+                        if (mouseState.X > 240 && mouseState.X < 416)
+                            if (mouseState.Y > 522 && mouseState.Y < 612)
                             {
                                 gameState = introMenu;
                                 MediaPlayer.Pause();
                                 dir = cond.Right;
 
                             }
-                        m = m_temp1;
+                        mouseState = m_temp1;
                     }
                     break;
             }
@@ -423,8 +444,11 @@ namespace VirusJump
 
                 player.Draw(spriteBatch, ref dir, gameState);
             }
-            if (gameState == introMenu)
+            if (gameState == introMenu) 
+            {
                 playerMenu.Draw(spriteBatch, ref dir, 1);
+            }
+            bullet.Draw(spriteBatch, gameState);
             background.Notifdraw(spriteBatch, gameState);
             score.Draw(spriteBatch, gameState);
             pointer.Draw(spriteBatch);

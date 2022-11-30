@@ -22,7 +22,7 @@ namespace VirusJump.Classes.Scene.Objects
             _accelarator = 1;
             _ch = 0;
             _speed = Vector2.Zero;
-            _degree = 0f;
+            _degree = 0;
             _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleT");
             _noseTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleKH");
             _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
