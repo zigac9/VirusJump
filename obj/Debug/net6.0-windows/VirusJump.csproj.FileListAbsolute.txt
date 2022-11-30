@@ -82,3 +82,4 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpCo
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\tir.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\toshak.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\DoodleShoot.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\mainMenu1.xnb

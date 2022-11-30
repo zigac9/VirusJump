@@ -42,7 +42,7 @@ namespace VirusJump.Classes.Scene.Objects
         {
             _back = content.Load<Texture2D>("Doodle_jumpContent/gradient");
             _kooh = content.Load<Texture2D>("Doodle_jumpContent/kooh");
-            _introMenu = content.Load<Texture2D>("Doodle_jumpContent/mainMenu");
+            _introMenu = content.Load<Texture2D>("Doodle_jumpContent/mainMenu1");
             _option = content.Load<Texture2D>("Doodle_jumpContent/option");
             _sOn = content.Load<Texture2D>("Doodle_jumpContent/sOn");
             _sOff = content.Load<Texture2D>("Doodle_jumpContent/sOff");

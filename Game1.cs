@@ -181,7 +181,7 @@ namespace VirusJump
 
             player.PlayerPosition = new Rectangle(230, 660, 60, 60);
             player.PlayerSpeed = new Vector2(0, -13);
-            playerMenu.PlayerPosition = new Rectangle(100, 520, 80, 80);
+            playerMenu.PlayerPosition = new Rectangle(60, 520, 80, 80);
             playerMenu.PlayerSpeed = new Vector2(0, -13);
             player.Degree = 0;
 
@@ -369,22 +369,23 @@ namespace VirusJump
                     if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
                     {
                         background.GameStateCheck = true;
-                        if (mouseState.X > 68 && mouseState.X < 240)
-                            if (mouseState.Y > 210 && mouseState.Y < 270)
+                        Debug.WriteLine(mouseState.ToString());
+                        if (mouseState.X > 67 && mouseState.X < 185)
+                            if (mouseState.Y > 283 && mouseState.Y < 337)
                             {
                                 mouseState = m_temp;
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
                                 PlayAgain(player, score, background, ref gameState);
                             }
-                        if (mouseState.X > 274 && mouseState.X < 446)
-                            if (mouseState.Y > 510 && mouseState.Y < 570 && gameState == introMenu)
+                        if (mouseState.X > 292 && mouseState.X < 410)
+                            if (mouseState.Y > 528 && mouseState.Y < 582 && gameState == introMenu)
                                 this.Exit();
-                        if (mouseState.X > 240 && mouseState.X < 412)
-                            if (mouseState.Y > 415 && mouseState.Y < 475)
+                        if (mouseState.X > 217 && mouseState.X < 335)
+                            if (mouseState.Y > 454 && mouseState.Y < 508)
                                 gameState = option;
-                        if (mouseState.X > 200 && mouseState.X < 365)
-                            if (mouseState.Y > 330 && mouseState.Y < 395)
+                        if (mouseState.X > 130 && mouseState.X < 248)
+                            if (mouseState.Y > 373 && mouseState.Y < 427)
                                 gameState = hScore;
                     }
                     playerMenu.Move();

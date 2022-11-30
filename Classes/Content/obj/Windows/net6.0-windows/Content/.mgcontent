@@ -29,6 +29,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/jet.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/kooh.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/mainMenu.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/mainMenu1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/notif.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/oFanar.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/option.png</File>
@@ -50,6 +51,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/toshak.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
