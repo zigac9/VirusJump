@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace VirusJump.Classes.Scene.Objects
 {
@@ -51,8 +52,6 @@ namespace VirusJump.Classes.Scene.Objects
             _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
             _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
             _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
-            _bPosize = new Rectangle(0, -6480, 480, 7200);
-            _kPosize = new Rectangle(0, 0, 480, 720);
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
             _sOnposize = new Rectangle(100, 330, 136, 45);
@@ -61,6 +60,17 @@ namespace VirusJump.Classes.Scene.Objects
             _pauseposize = new Rectangle(0, 0, 480, 720);
             _gameOverposize = new Rectangle(0, 0, 480, 720);
             _hScoreposize = new Rectangle(0, 0, 480, 720);
+            Initialize();
+
+        }
+
+        public void Initialize()
+        {
+            _bPosize = new Rectangle(0, -6480, 480, 7200);
+            _kPosize = new Rectangle(0, 0, 480, 720);
+            _sPosise1 = new Rectangle(0, -2880, 480, 3600);
+            _sPosise2 = new Rectangle(0, -6480, 480, 3600);
+            _bPosize = new Rectangle(_bPosize.X, -7200 + 720, _bPosize.Width, _bPosize.Height);
             _soundCheck = true;
             _gameStateCheck = true;
         }

@@ -31,18 +31,12 @@ namespace VirusJump
             player.Initialize(); 
             boardsList.Initialize();
             bullet.Initialize();
-            background.BPosize = new Rectangle(0, -6480, 480, 7200);
-            background.KPosize = new Rectangle(0, 0, 480, 720);
-            background.SPosise1 = new Rectangle(0, -2880, 480, 3600);
-            background.SPosise2 = new Rectangle(0, -6480, 480, 3600);
-            background.BPosize = new Rectangle(background.BPosize.X, -7200 + 720, background.BPosize.Width, background.BPosize.Height);
+            background.Initialize();
             dir = cond.Right;
             score.SNevem = 0;
             fRnd = -1;
             tRnd = -1;
             eRnd = -1;
-            background.SoundCheck = true;
-            background.GameStateCheck = true;
             meRnd = true;
             mecolosion = false;
         }
