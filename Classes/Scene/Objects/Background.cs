@@ -47,10 +47,10 @@ namespace VirusJump.Classes.Scene.Objects
             _sOn = content.Load<Texture2D>("Doodle_jumpContent/sOn");
             _sOff = content.Load<Texture2D>("Doodle_jumpContent/sOff");
             _notif = content.Load<Texture2D>("Doodle_jumpContent/notif");
-            _pause = content.Load<Texture2D>("Doodle_jumpContent/puase");
+            _pause = content.Load<Texture2D>("Doodle_jumpContent/pause");
             _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
             _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
-            _hScore = content.Load<Texture2D>("Doodle_jumpContent/Hscore");
+            _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
             _bPosize = new Rectangle(0, -6480, 480, 7200);
             _kPosize = new Rectangle(0, 0, 480, 720);
             _introMenuposize = new Rectangle(0, 0, 480, 720);

@@ -7,6 +7,7 @@ using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Threading;
 using System.Reflection.Metadata;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
@@ -321,20 +322,21 @@ namespace VirusJump
                 case pause:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (mouseState.X > 248 && mouseState.X < 446)
-                            if (mouseState.Y > 510 && mouseState.Y < 570)
+                        if (mouseState.X > 131 && mouseState.X < 251)
+                            if (mouseState.Y > 372 && mouseState.Y < 428)
                             {
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
                             }
-                        if (mouseState.X > 280 && mouseState.X < 458)
-                            if (mouseState.Y > 600 && mouseState.Y < 660)
+                        if (mouseState.X > 215 && mouseState.X < 335)
+                            if (mouseState.Y > 454 && mouseState.Y < 510)
                             {
                                 gameState = introMenu;
                                 dir = cond.Right;
+                                Thread.Sleep(100);
                             }
-                        if (mouseState.X > 170 && mouseState.X < 340)
-                            if (mouseState.Y > 420 && mouseState.Y < 480)
+                        if (mouseState.X > 66 && mouseState.X < 186)
+                            if (mouseState.Y > 282 && mouseState.Y < 338)
                             {
                                 gameState = option;
                                 dir = cond.Right;
@@ -349,10 +351,13 @@ namespace VirusJump
                 case option:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (mouseState.X > 80 && mouseState.X < 240)
-                            if (mouseState.Y > 592 && mouseState.Y < 652)
+                        if (mouseState.X > 297 && mouseState.X < 415)
+                            if (mouseState.Y > 530 && mouseState.Y < 584)
                                 if (background.GameStateCheck == true)
+                                {
                                     gameState = introMenu;
+                                    Thread.Sleep(100);
+                                }
                                 else
                                     gameState = pause;
 
@@ -377,16 +382,23 @@ namespace VirusJump
                                 gameState = gameRunning;
                                 MediaPlayer.Resume();
                                 PlayAgain(player, score, background, ref gameState);
+                                Thread.Sleep(100);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
                             if (mouseState.Y > 528 && mouseState.Y < 582 && gameState == introMenu)
                                 this.Exit();
                         if (mouseState.X > 217 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 508)
+                            {
                                 gameState = option;
+                                Thread.Sleep(100);
+                            }
                         if (mouseState.X > 130 && mouseState.X < 248)
                             if (mouseState.Y > 373 && mouseState.Y < 427)
+                            {
                                 gameState = hScore;
+                                Thread.Sleep(100);
+                            }
                     }
                     playerMenu.Move();
                     if (playerMenu.PlayerPosition.Y > 550)
@@ -396,9 +408,12 @@ namespace VirusJump
                     mouseState = Mouse.GetState();
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (mouseState.X > 295 && mouseState.X < 460)
-                            if (mouseState.Y > 600 && mouseState.Y < 660)
+                        if (mouseState.X > 296 && mouseState.X < 415)
+                            if (mouseState.Y > 529 && mouseState.Y < 584)
+                            {
                                 gameState = introMenu;
+                                Thread.Sleep(100);
+                            }
                     }
                     break;
                 case gameOver:
@@ -413,7 +428,7 @@ namespace VirusJump
                                 gameState = introMenu;
                                 MediaPlayer.Pause();
                                 dir = cond.Right;
-
+                                Thread.Sleep(100);
                             }
                         mouseState = m_temp1;
                     }
