@@ -97,6 +97,18 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/DoodleRj.png
 
+#begin Doodle_jumpContent/DoodleShoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/DoodleShoot.png
+
 #begin Doodle_jumpContent/DoodleT.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -253,6 +265,18 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/heli.png
 
+#begin Doodle_jumpContent/highscore.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/highscore.png
+
 #begin Doodle_jumpContent/Hscore.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -289,7 +313,7 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/kooh.png
 
-#begin Doodle_jumpContent/mainMenu.png
+#begin Doodle_jumpContent/mainMenu1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -299,7 +323,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/mainMenu.png
+/build:Doodle_jumpContent/mainMenu1.png
 
 #begin Doodle_jumpContent/notif.png
 /importer:TextureImporter
@@ -391,6 +415,18 @@
 /processorParam:Quality=Best
 /build:Doodle_jumpContent/patmat.mp3
 
+#begin Doodle_jumpContent/pause.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/pause.png
+
 #begin Doodle_jumpContent/Pink.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
@@ -462,6 +498,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/sOn.png
+
+#begin Doodle_jumpContent/soundOff.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/soundOff.png
+
+#begin Doodle_jumpContent/soundOn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/soundOn.png
 
 #begin Doodle_jumpContent/SpriteFont1.spritefont
 /importer:FontDescriptionImporter

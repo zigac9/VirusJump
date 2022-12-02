@@ -11,6 +11,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/DoodleR1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/DoodleRh.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/DoodleRj.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/DoodleShoot.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/DoodleT.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/doubleRect.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/e1.png</File>
@@ -24,10 +25,11 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/gameOver.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/gradient.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/heli.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/highscore.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/Hscore.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/jet.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/kooh.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/mainMenu.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/mainMenu1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/notif.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/oFanar.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/option.png</File>
@@ -36,6 +38,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/p3.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/p4.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/patmat.mp3</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/pause.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/Pink.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/pointer.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/puase.png</File>
@@ -43,12 +46,19 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/sides.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/sOff.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/sOn.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/soundOff.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/soundOn.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/SpriteFont1.spritefont</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/test.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/tir.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/toshak.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
