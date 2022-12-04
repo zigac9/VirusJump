@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
 {
@@ -30,9 +31,9 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _position = new Rectangle(-50, -50, 20, 20);
         }
 
-        public void Draw(SpriteBatch s, int game)
+        public void Draw(SpriteBatch s, gameStateEnum gameState)
         {
-            if (game == 1)
+            if (gameState == gameStateEnum.gameRunning)
                 s.Draw(_texture, _position, Color.White);
         }
 

@@ -47,17 +47,18 @@ namespace VirusJump.Classes.Scene.Objects
             _position.Y += (int)_speed.Y;
         }
 
-        public void Draw(SpriteBatch s, ref cond name, int game)
+        public void Draw(SpriteBatch s, ref playerOrientEnum name, gameStateEnum game)
         {
-            if (game == gameRunning)
+            if (game == gameStateEnum.gameRunning)
                 switch (name)
                 {
-                    case cond.Left: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f); break;
-                    case cond.Right: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f); break;
-                    case cond.Tir:
-                        s.Draw(_shootTexture, _position, Color.White);
-                        s.Draw(_noseTexture, _position, Color.White);
-                        name = cond.Left;
+                    case playerOrientEnum.Left: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f); break;
+                    case playerOrientEnum.Right: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f); break;
+                    case playerOrientEnum.Tir:
+                        //s.Draw(_shootTexture, _position, Color.White);
+                        //s.Draw(_noseTexture, _position, Color.White);
+                        s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
+                        name = playerOrientEnum.Left;
                         break;
                 }
         }

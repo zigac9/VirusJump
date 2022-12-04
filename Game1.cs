@@ -22,9 +22,9 @@ namespace VirusJump
         SpriteBatch spriteBatch;
 
         //playagain in reposition gre v renderer
-        public void PlayAgain(Player player, Scoring score, Background background, ref int gameState)
+        public void PlayAgain(Player player, Scoring score, Background background, ref gameStateEnum gameState)
         {
-            gameState = gameRunning;
+            currentGameState = gameState;//menjaj 
             collisionCheck = true;
             score.Check = true;
             gameover = false;
@@ -32,11 +32,8 @@ namespace VirusJump
             boardsList.Initialize();
             bullet.Initialize();
             background.Initialize();
-            dir = cond.Right;
+            playerOrientation = playerOrientEnum.Right;
             score.SNevem = 0;
-            fRnd = -1;
-            tRnd = -1;
-            eRnd = -1;
             meRnd = true;
             mecolosion = false;
         }
@@ -110,24 +107,23 @@ namespace VirusJump
         public MouseState m_temp;
         public MouseState m_temp1;
 
-        public int gameState = 0;
-        public const int introMenu = 0;
-        public const int gameRunning = 1;
-        public const int pause = 2;
-        public const int option = 3;
-        public const int gameOver = 4;
-        public const int hScore = 5;
+        public gameStateEnum currentGameState;
 
-        public enum cond { Left = 1, Right, Tir, HeliL, HeliR, JetL, jetR, BargL, BargR } //kako bo obrnjena slika
+        public enum gameStateEnum { introMenu = 0, gameRunning, pause, option, gameOver, hScore};
+        public gameStateEnum gameState;
+
+        public enum playerOrientEnum { Left = 1, Right, Tir, HeliL, HeliR, JetL, jetR, BargL, BargR } //kako bo obrnjena slika
+        public playerOrientEnum playerOrientation;
+
         public Scoring score;
         public Player player;
         public Player playerMenu;
         public BoardsList boardsList;
-        public cond dir;
         public Texture2D back1;
         public Background background;
         public Pointer pointer;
         public Bullet bullet;
+        
         public bool tirCheck;
         public bool fCheck;
         public bool collisionCheck;
@@ -135,10 +131,6 @@ namespace VirusJump
         public bool gameover;
         public bool meRnd;
         public bool mecolosion;
-        public int fRnd;//for checking fanars randoom
-        public int tRnd;//for checking fanars randoom
-        public int eRnd;//for checking StaticEnemies randoom
-        public int e2Rnd;//for checking BigEnemies randoom
 
         public Game1()
         {
@@ -151,7 +143,7 @@ namespace VirusJump
 
         protected override void Initialize()
         {    
-            dir = cond.Right;
+            playerOrientation = playerOrientEnum.Right;
             tirCheck = false;
             fCheck = false;
             tCheck = false;
@@ -159,10 +151,6 @@ namespace VirusJump
             mecolosion = false;
             gameover = false;
             meRnd = true;
-            fRnd = -1;
-            tRnd = -1;
-            eRnd = -1;
-            e2Rnd = -1;
             base.Initialize();
         }
 
@@ -195,9 +183,9 @@ namespace VirusJump
             mouseState = Mouse.GetState();
             k = Keyboard.GetState();
             pointer.PointerPosition = new Rectangle(mouseState.X - 10, mouseState.Y - 10, pointer.PointerPosition.Width, pointer.PointerPosition.Height);
-            switch (gameState)
+            switch (currentGameState)
             {
-                case gameRunning:
+                case gameStateEnum.gameRunning:
                     {
                         if (player.PlayerPosition.Y + 60 > 720) gameover = true;
                         
@@ -257,28 +245,28 @@ namespace VirusJump
                         k_temp1 = Keyboard.GetState();
                         if (k_temp1.IsKeyDown(Keys.Escape) && !k_temp.IsKeyDown(Keys.Escape))//to go to pause menue bye esc clicking
                         {
-                            gameState = pause;
+                            currentGameState = gameStateEnum.pause;
                             break;
                         }
                         k_temp = k_temp1;
                         if (k.IsKeyDown(Keys.Left))//to move left and right
                         {
-                            dir = cond.Left;
+                            playerOrientation = playerOrientEnum.Left;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X - 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
                         }
                         else if (k.IsKeyDown(Keys.Right))
                         {
-                            dir = cond.Right;
+                            playerOrientation = playerOrientEnum.Right;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X + 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
                         }
                         
 
                         mouseState = Mouse.GetState();//check mouse state for shoot and pause menu 
-                        if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed) && gameState == 1)
+                        if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed) && currentGameState == gameStateEnum.gameRunning)
                         {
                             if (mouseState.X > 420 && mouseState.X < 470 && mouseState.Y > 5 && mouseState.Y < 40)
                             {
-                                gameState = pause;
+                                currentGameState = gameStateEnum.pause;
                                 MediaPlayer.Pause();
                             }
                             //to shoot tir
@@ -300,60 +288,60 @@ namespace VirusJump
                                 }
                             }
                             if (mouseState.Y < 280)
-                                dir = cond.Tir;
+                                playerOrientation = playerOrientEnum.Tir;
                         }
                         if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < -20 || bullet.BulletPosition.X > 500 || bullet.BulletPosition.Y < -20)
                             tirCheck = false;
-                        if (tirCheck && gameState == 1)
+                        if (tirCheck && currentGameState == gameStateEnum.gameRunning)
                             bullet.Move();
 
                         //to end and gameovering game
                         if (player.PlayerPosition.Y > 720)
-                            gameState = gameOver;
+                            currentGameState = gameStateEnum.gameOver;
                     }
                     break;
 
-                case pause:
+                case gameStateEnum.pause:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (mouseState.X > 131 && mouseState.X < 251)
                             if (mouseState.Y > 372 && mouseState.Y < 428)
                             {
-                                gameState = gameRunning;
+                                currentGameState = gameStateEnum.gameRunning;
                                 MediaPlayer.Resume();
                             }
                         if (mouseState.X > 215 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 510)
                             {
-                                gameState = introMenu;
-                                dir = cond.Right;
+                                currentGameState = gameStateEnum.introMenu;
+                                playerOrientation = playerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 66 && mouseState.X < 186)
                             if (mouseState.Y > 282 && mouseState.Y < 338)
                             {
-                                gameState = option;
-                                dir = cond.Right;
+                                currentGameState = gameStateEnum.option;
+                                playerOrientation = playerOrientEnum.Right;
                             }
                     }
                     k_temp = Keyboard.GetState();
                     if (k_temp.IsKeyDown(Keys.Escape) && !k_temp1.IsKeyDown(Keys.Escape))
-                        gameState = gameRunning;
+                        currentGameState = gameStateEnum.gameRunning;
                     k_temp1 = k_temp;
                     background.GameStateCheck = false;
                     break;
-                case option:
+                case gameStateEnum.option:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (mouseState.X > 297 && mouseState.X < 415)
                             if (mouseState.Y > 530 && mouseState.Y < 584)
                                 if (background.GameStateCheck == true)
                                 {
-                                    gameState = introMenu;
+                                    currentGameState = gameStateEnum.introMenu;
                                     Thread.Sleep(100);
                                 }
                                 else
-                                    gameState = pause;
+                                    currentGameState = gameStateEnum.pause;
 
                         if (mouseState.X > 100 && mouseState.X < 160)
                             if (mouseState.Y > 330 && mouseState.Y < 375)
@@ -363,7 +351,7 @@ namespace VirusJump
                                 background.SoundCheck = true;
                     }
                     break;
-                case introMenu:
+                case gameStateEnum.introMenu:
                     mouseState = Mouse.GetState();
                     if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
                     {
@@ -373,24 +361,24 @@ namespace VirusJump
                             if (mouseState.Y > 283 && mouseState.Y < 337)
                             {
                                 mouseState = m_temp;
-                                gameState = gameRunning;
+                                currentGameState = gameStateEnum.gameRunning;
                                 MediaPlayer.Resume();
-                                PlayAgain(player, score, background, ref gameState);
+                                PlayAgain(player, score, background, ref currentGameState);
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
-                            if (mouseState.Y > 528 && mouseState.Y < 582 && gameState == introMenu)
+                            if (mouseState.Y > 528 && mouseState.Y < 582 && currentGameState == gameStateEnum.introMenu)
                                 this.Exit();
                         if (mouseState.X > 217 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 508)
                             {
-                                gameState = option;
+                                currentGameState = gameStateEnum.option;
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 130 && mouseState.X < 248)
                             if (mouseState.Y > 373 && mouseState.Y < 427)
                             {
-                                gameState = hScore;
+                                currentGameState = gameStateEnum.hScore;
                                 Thread.Sleep(100);
                             }
                     }
@@ -398,30 +386,30 @@ namespace VirusJump
                     if (playerMenu.PlayerPosition.Y > 550)
                         playerMenu.PlayerSpeed = new Vector2(playerMenu.PlayerSpeed.X, -13);
                     break;
-                case hScore:
+                case gameStateEnum.hScore:
                     mouseState = Mouse.GetState();
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (mouseState.X > 296 && mouseState.X < 415)
                             if (mouseState.Y > 529 && mouseState.Y < 584)
                             {
-                                gameState = introMenu;
+                                currentGameState = gameStateEnum.introMenu;
                                 Thread.Sleep(100);
                             }
                     }
                     break;
-                case gameOver:
+                case gameStateEnum.gameOver:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (mouseState.X > 110 && mouseState.X < 272)
                             if (mouseState.Y > 467 && mouseState.Y < 535)
-                                PlayAgain(player, score, background, ref gameState);
+                                PlayAgain(player, score, background, ref currentGameState);
                         if (mouseState.X > 240 && mouseState.X < 416)
                             if (mouseState.Y > 522 && mouseState.Y < 612)
                             {
-                                gameState = introMenu;
+                                currentGameState = gameStateEnum.introMenu;
                                 MediaPlayer.Pause();
-                                dir = cond.Right;
+                                playerOrientation = playerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }
                         mouseState = m_temp1;
@@ -431,14 +419,15 @@ namespace VirusJump
             base.Update(gameTime);
         }
 
+        //draw -- 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            background.Draw(spriteBatch, gameState, score);
+            background.Draw(spriteBatch, currentGameState, score);
 
-            if (gameState == gameRunning)
+            if (currentGameState == gameStateEnum.gameRunning)
             {
                 for (int i = 0; i < boardsList.BoardList.Length; i++)
                 {
@@ -452,15 +441,15 @@ namespace VirusJump
                     boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
                 }
 
-                player.Draw(spriteBatch, ref dir, gameState);
+                player.Draw(spriteBatch, ref playerOrientation, currentGameState);
             }
-            if (gameState == introMenu) 
+            if (currentGameState == gameStateEnum.introMenu) 
             {
-                playerMenu.Draw(spriteBatch, ref dir, 1);
+                playerMenu.Draw(spriteBatch, ref playerOrientation, gameStateEnum.gameRunning);
             }
-            bullet.Draw(spriteBatch, gameState);
-            background.Notifdraw(spriteBatch, gameState);
-            score.Draw(spriteBatch, gameState);
+            bullet.Draw(spriteBatch, currentGameState);
+            background.Notifdraw(spriteBatch, currentGameState);
+            score.Draw(spriteBatch, currentGameState);
             pointer.Draw(spriteBatch);
 
             spriteBatch.End();

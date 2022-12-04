@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
 {
@@ -21,9 +22,9 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _spFont = content.Load<SpriteFont>("Doodle_jumpContent/SpriteFont1"); ;
         }
 
-        public void Draw(SpriteBatch sp, int game)
+        public void Draw(SpriteBatch sp, gameStateEnum gameState)
         {
-            if (game != 0 && game != 3 && game != 5)
+            if (gameState != gameStateEnum.introMenu && gameState != gameStateEnum.option && gameState != gameStateEnum.hScore)
                 sp.DrawString(_spFont, _s.ToString(), _position, Color.White);
         }
 
