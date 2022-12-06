@@ -13,6 +13,7 @@ using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
 using System.Diagnostics;
 using static VirusJump.Game1;
+using System.Runtime.CompilerServices;
 
 namespace VirusJump
 {
@@ -22,9 +23,9 @@ namespace VirusJump
         SpriteBatch spriteBatch;
 
         //playagain in reposition gre v renderer
-        public void PlayAgain(Player player, Scoring score, Background background, ref gameStateEnum gameState)
+        public void PlayAgain(Player player, Scoring score, Background background)
         {
-            currentGameState = gameState;//menjaj 
+            currentGameState = gameStateEnum.gameRunning;//menjaj 
             collisionCheck = true;
             score.Check = true;
             gameover = false;
@@ -33,70 +34,105 @@ namespace VirusJump
             bullet.Initialize();
             background.Initialize();
             playerOrientation = playerOrientEnum.Right;
-            score.SNevem = 0;
+            score.Score = 0;
             meRnd = true;
             mecolosion = false;
+
+            //delete boards
+            nivo = new List<bool> { false, false };
+            brisi = false;
         }
 
         public void rePosition()
         {
-            int minY = 500;
+            int minY = 999;
             Random rnd = new Random();
+            
             for (int i = 0; i < boardsList.BoardList.Length; i++)
             {
-                if (boardsList.BoardList[i].BoardPosition.Y > 800)
+                if (boardsList.BoardList[i].Visible)
                 {
-                    for (int j = 0; j < boardsList.BoardList.Length; j++)
-                        if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
-                    for (int j = 0; j < 4; j++)
+                    if (boardsList.BoardList[i].BoardPosition.Y > 734)
                     {
-                        if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                        if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                        if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        for (int j = 0; j < boardsList.BoardList.Length; j++)
+                            if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
+                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
+                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        }
+                        boardsList.BoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
                     }
-                    boardsList.BoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 90, minY - 40), boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
+                }
+
+                if (i < 4)
+                {
+                    if (boardsList.MovingBoardList[i].BoardPosition.Y > 734)
+                    {
+                        for (int j = 0; j < boardsList.BoardList.Length; j++)
+                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
+                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
+                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        }
+                        boardsList.MovingBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
+                    }
+                    if (boardsList.FakeBoardList[i].BoardPosition.Y > 734)
+                    {
+                        for (int j = 0; j < boardsList.BoardList.Length; j++)
+                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
+                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
+                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        }
+                        boardsList.FakeBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
+                    }
+                    if (boardsList.GoneBoardList[i].BoardPosition.Y > 734)
+                    {
+                        for (int j = 0; j < boardsList.BoardList.Length; j++)
+                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
+                        for (int j = 0; j < 4; j++)
+                        {
+                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
+                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
+                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        }
+                        boardsList.GoneBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
+                    }
                 }
             }
 
-            for (int i = 0; i < 4; i++)
+            //delete boards
+            if (score.Score > 500 && !nivo[0])
             {
-                if (boardsList.MovingBoardList[i].BoardPosition.Y > 740)
+                nivo[0] = true;
+                brisi = true;
+            }else if(score.Score > 1000 && !nivo[1])
+            {
+                nivo[1] = true;
+                brisi = true;
+            }
+            if (brisi)
+            {
+                brisi = false; ;
+                int outBoard = 0;
+                for (int j = 0; j < boardsList.BoardList.Length; j++)
                 {
-                    for (int j = 0; j < boardsList.BoardList.Length; j++)
-                        if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
-                    for (int j = 0; j < 4; j++)
+                    if (boardsList.BoardList[j].BoardPosition.Y < 0 && boardsList.BoardList[j].Visible)
                     {
-                        if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                        if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                        if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
+                        boardsList.BoardList[j].Visible = false;
+                        outBoard++;
                     }
-                    boardsList.MovingBoardList[i].BoardPosition = new Rectangle(boardsList.MovingBoardList[i].BoardPosition.X, rnd.Next(minY - 80, minY - 20), boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
-                }
-                if (boardsList.FakeBoardList[i].BoardPosition.Y > 740)
-                {
-                    for (int j = 0; j < boardsList.BoardList.Length; j++)
-                        if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                        if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                        if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                    }
-                    boardsList.FakeBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 80, minY - 20), boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
-                }
-                if (boardsList.GoneBoardList[i].BoardPosition.Y > 740)
-                {
-                    for (int j = 0; j < boardsList.BoardList.Length; j++)
-                        if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
-                    for (int j = 0; j < 4; j++)
-                    {
-                        if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                        if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                        if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                    }
-                    boardsList.GoneBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 80, minY - 20), boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
+                    if (outBoard == 3)
+                        break;
                 }
             }
+
         }
 
         //tipkovnica in miska
@@ -123,6 +159,9 @@ namespace VirusJump
         public Background background;
         public Pointer pointer;
         public Bullet bullet;
+
+        public List<bool> nivo = new List<bool> { true, true };
+        public bool brisi = false;
         
         public bool tirCheck;
         public bool fCheck;
@@ -190,7 +229,8 @@ namespace VirusJump
                         if (player.PlayerPosition.Y + 60 > 720) gameover = true;
                         
                         player.Move();
-                        if (player.PlayerPosition.X + 10 < 0)//to prevent from exiting from sides of screen
+                        //to prevent from exiting from sides of screen
+                        if (player.PlayerPosition.X + 10 < 0)
                             player.PlayerPosition = new Rectangle(450, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
                         if (player.PlayerPosition.X > 451)
                             player.PlayerPosition = new Rectangle(-10, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
@@ -198,7 +238,8 @@ namespace VirusJump
                         for (int i = 0; i < 4; i++)
                             boardsList.MovingBoardList[i].Move();
 
-                        if (player.PlayerPosition.Y < 300) //to move boards_list and background
+                        //to move boards_list and background with player
+                        if (player.PlayerPosition.Y < 300) 
                         {
                             int speed = (int)player.PlayerSpeed.Y;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X, player.PlayerPosition.Y - (int)player.PlayerSpeed.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
@@ -217,7 +258,7 @@ namespace VirusJump
                                 background.BPosize = new Rectangle(background.BPosize.X, background.BPosize.Y - (speed / 2), background.BPosize.Width, background.BPosize.Height);
                             background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
                             background.SPosise2 = new Rectangle(background.SPosise2.X, background.SPosise2.Y - (speed / 2), background.SPosise2.Width, background.SPosise2.Height);
-                            score.SNevem -= speed / 2;
+                            score.Score -= speed / 2;
                         }
                         background.SideCheck();
 
@@ -242,14 +283,16 @@ namespace VirusJump
                                 boardsList.GoneBoardList[i].BoardPosition = new Rectangle(-100, boardsList.GoneBoardList[i].BoardPosition.Y, boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
                             }
                         }
+                        //to go to pause menue bye esc clicking
                         k_temp1 = Keyboard.GetState();
-                        if (k_temp1.IsKeyDown(Keys.Escape) && !k_temp.IsKeyDown(Keys.Escape))//to go to pause menue bye esc clicking
+                        if (k_temp1.IsKeyDown(Keys.Escape) && !k_temp.IsKeyDown(Keys.Escape))
                         {
                             currentGameState = gameStateEnum.pause;
                             break;
                         }
+                        //to move left and right
                         k_temp = k_temp1;
-                        if (k.IsKeyDown(Keys.Left))//to move left and right
+                        if (k.IsKeyDown(Keys.Left))
                         {
                             playerOrientation = playerOrientEnum.Left;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X - 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
@@ -259,9 +302,9 @@ namespace VirusJump
                             playerOrientation = playerOrientEnum.Right;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X + 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
                         }
-                        
 
-                        mouseState = Mouse.GetState();//check mouse state for shoot and pause menu 
+                        //check mouse state for shoot and pause menu 
+                        mouseState = Mouse.GetState();
                         if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed) && currentGameState == gameStateEnum.gameRunning)
                         {
                             if (mouseState.X > 420 && mouseState.X < 470 && mouseState.Y > 5 && mouseState.Y < 40)
@@ -356,14 +399,13 @@ namespace VirusJump
                     if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
                     {
                         background.GameStateCheck = true;
-                        Debug.WriteLine(mouseState.ToString());
                         if (mouseState.X > 67 && mouseState.X < 185)
                             if (mouseState.Y > 283 && mouseState.Y < 337)
                             {
                                 mouseState = m_temp;
                                 currentGameState = gameStateEnum.gameRunning;
                                 MediaPlayer.Resume();
-                                PlayAgain(player, score, background, ref currentGameState);
+                                PlayAgain(player, score, background);
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
@@ -403,7 +445,7 @@ namespace VirusJump
                     {
                         if (mouseState.X > 110 && mouseState.X < 272)
                             if (mouseState.Y > 467 && mouseState.Y < 535)
-                                PlayAgain(player, score, background, ref currentGameState);
+                                PlayAgain(player, score, background);
                         if (mouseState.X > 240 && mouseState.X < 416)
                             if (mouseState.Y > 522 && mouseState.Y < 612)
                             {
@@ -419,7 +461,6 @@ namespace VirusJump
             base.Update(gameTime);
         }
 
-        //draw -- 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -431,7 +472,10 @@ namespace VirusJump
             {
                 for (int i = 0; i < boardsList.BoardList.Length; i++)
                 {
-                    boardsList.BoardList[i].DrawSprite(spriteBatch);
+                    if(boardsList.BoardList[i].Visible)
+                    {
+                        boardsList.BoardList[i].DrawSprite(spriteBatch);
+                    }
                 }
 
                 for (int i = 0; i < 4; i++)
@@ -441,11 +485,11 @@ namespace VirusJump
                     boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
                 }
 
-                player.Draw(spriteBatch, ref playerOrientation, currentGameState);
+                player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
             if (currentGameState == gameStateEnum.introMenu) 
             {
-                playerMenu.Draw(spriteBatch, ref playerOrientation, gameStateEnum.gameRunning);
+                playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.gameRunning);
             }
             bullet.Draw(spriteBatch, currentGameState);
             background.Notifdraw(spriteBatch, currentGameState);

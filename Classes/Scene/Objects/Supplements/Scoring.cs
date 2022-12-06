@@ -7,7 +7,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Scoring
     {
-        private int _s;
+        private int _score;
         private string _bestS;
         private Vector2 _position;
         private SpriteFont _spFont;
@@ -15,7 +15,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Scoring(ContentManager content) 
         {
-            _s = 0;
+            _score = 0;
             _bestS = "";
             _position = new Vector2(15f, 4f);
             _check = true;
@@ -25,7 +25,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         public void Draw(SpriteBatch sp, gameStateEnum gameState)
         {
             if (gameState != gameStateEnum.introMenu && gameState != gameStateEnum.option && gameState != gameStateEnum.hScore)
-                sp.DrawString(_spFont, _s.ToString(), _position, Color.White);
+                sp.DrawString(_spFont, _score.ToString(), _position, Color.White);
         }
 
         public bool Check
@@ -40,10 +40,10 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             set { _spFont = value; }
         }
 
-        public int SNevem
+        public int Score
         {
-            get { return _s; }
-            set { _s = value; }
+            get { return _score; }
+            set { _score = value; }
         }
 
         public string BestS

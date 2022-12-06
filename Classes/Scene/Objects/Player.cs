@@ -47,7 +47,7 @@ namespace VirusJump.Classes.Scene.Objects
             _position.Y += (int)_speed.Y;
         }
 
-        public void Draw(SpriteBatch s, ref playerOrientEnum name, gameStateEnum game)
+        public void Draw(SpriteBatch s, playerOrientEnum name, gameStateEnum game)
         {
             if (game == gameStateEnum.gameRunning)
                 switch (name)

@@ -98,7 +98,7 @@ namespace VirusJump.Classes.Scene.Objects
             if (gameState == gameStateEnum.gameOver)
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
-                s.DrawString(score.SFont, score.SNevem.ToString(), new Vector2(308f, 245f), Color.Black);
+                s.DrawString(score.SFont, score.Score.ToString(), new Vector2(308f, 245f), Color.Black);
                 s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
             }
             if (gameState == gameStateEnum.hScore)
