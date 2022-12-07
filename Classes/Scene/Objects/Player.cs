@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.VisualBasic.Devices;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using System.Diagnostics;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
@@ -57,7 +60,7 @@ namespace VirusJump.Classes.Scene.Objects
                     case playerOrientEnum.Tir:
                         //s.Draw(_shootTexture, _position, Color.White);
                         //s.Draw(_noseTexture, _position, Color.White);
-                        s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
+                        s.Draw(_playerTexture, _position, null, Color.White, 0f, new Vector2(0, 0), SpriteEffects.None, 0f);
                         name = playerOrientEnum.Left;
                         break;
                 }

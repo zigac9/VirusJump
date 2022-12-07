@@ -11,9 +11,14 @@ using System.Threading;
 using System.Reflection.Metadata;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
+using VirusJump.Classes.Scene.Objects.Jumpers;
+
 using System.Diagnostics;
 using static VirusJump.Game1;
 using System.Runtime.CompilerServices;
+using MonoGame.Extended.Sprites;
+using MonoGame.Extended.Serialization;
+using MonoGame.Extended.Content;
 
 namespace VirusJump
 {
@@ -21,6 +26,9 @@ namespace VirusJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+
+        private AnimatedSprite sprite;
+        private SpriteSheet spriteSheet;
 
         //playagain in reposition gre v renderer
         public void PlayAgain(Player player, Scoring score, Background background)
@@ -37,9 +45,10 @@ namespace VirusJump
             score.Score = 0;
             meRnd = true;
             mecolosion = false;
+            trampo.Initialize();
 
             //delete boards
-            nivo = new List<bool> { false, false };
+            nivo = new List<bool> { false, false, false,false,false };
             brisi = false;
         }
 
@@ -117,9 +126,25 @@ namespace VirusJump
                 nivo[1] = true;
                 brisi = true;
             }
+            else if(score.Score > 2000 && !nivo[2])
+            {
+                nivo[2] = true;
+                brisi = true;
+            }
+            else if (score.Score > 3000 && !nivo[3])
+            {
+                nivo[3] = true;
+                brisi = true;
+            }
+            else if (score.Score > 4000 && !nivo[4])
+            {
+                nivo[4] = true;
+                brisi = true;
+            }
+
             if (brisi)
             {
-                brisi = false; ;
+                brisi = false;
                 int outBoard = 0;
                 for (int j = 0; j < boardsList.BoardList.Length; j++)
                 {
@@ -128,7 +153,7 @@ namespace VirusJump
                         boardsList.BoardList[j].Visible = false;
                         outBoard++;
                     }
-                    if (outBoard == 3)
+                    if (outBoard == 2)
                         break;
                 }
             }
@@ -160,7 +185,9 @@ namespace VirusJump
         public Pointer pointer;
         public Bullet bullet;
 
-        public List<bool> nivo = new List<bool> { true, true };
+        public Trampo trampo;
+
+        public List<bool> nivo = new List<bool> { false, false,false,false,false };
         public bool brisi = false;
         
         public bool tirCheck;
@@ -212,6 +239,11 @@ namespace VirusJump
             pointer = new Pointer(this.Content);
             bullet = new Bullet(this.Content);
             
+            trampo = new Trampo(this.Content);
+
+
+            spriteSheet = Content.Load<SpriteSheet>("jumper.sf", new JsonContentLoader());
+            sprite = new AnimatedSprite(spriteSheet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -237,6 +269,35 @@ namespace VirusJump
 
                         for (int i = 0; i < 4; i++)
                             boardsList.MovingBoardList[i].Move();
+
+
+                        //to move and replace tampeolines
+                        if (score.Score % 130 > 100 && trampo.TrampoPosition.Y > 720)
+                        {
+
+                            do
+                            {
+                                Random rnd = new Random();
+                                trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+                            } while (!(boardsList.BoardList[trampo.TRand].BoardPosition.Y < 0));
+                        }
+                        if (trampo.TRand != -1)
+                        {
+                            trampo.TrampoPosition = new Rectangle(boardsList.BoardList[trampo.TRand].BoardPosition.X + 10, boardsList.BoardList[trampo.TRand].BoardPosition.Y - 15, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
+                        }
+                        tCheck = trampo.Collision(player, collisionCheck);
+                        if (tCheck)
+                        {
+                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -23);
+                            tCheck = false;
+                        }
+                        if (trampo.TrampoPosition.Y > 720)
+                        {
+                            trampo.TRand = -1;
+                            trampo.TrampoPosition = new Rectangle(-100, 730, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
+                            tCheck = false;
+                        }
+
 
                         //to move boards_list and background with player
                         if (player.PlayerPosition.Y < 300) 
@@ -458,6 +519,9 @@ namespace VirusJump
                     }
                     break;
             }
+
+            sprite.Play("animation0");
+            sprite.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -484,7 +548,7 @@ namespace VirusJump
                     boardsList.FakeBoardList[i].DrawSprite(spriteBatch);
                     boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
                 }
-
+                trampo.Draw(spriteBatch);
                 player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
             if (currentGameState == gameStateEnum.introMenu) 
@@ -495,6 +559,7 @@ namespace VirusJump
             background.Notifdraw(spriteBatch, currentGameState);
             score.Draw(spriteBatch, currentGameState);
             pointer.Draw(spriteBatch);
+            //sprite.Draw(spriteBatch, new Vector2(100,100), 0f, new Vector2(0.3f,0.2f));
 
             spriteBatch.End();
             base.Draw(gameTime);
