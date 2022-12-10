@@ -46,6 +46,7 @@ namespace VirusJump
             meRnd = true;
             mecolosion = false;
             trampo.Initialize();
+            currentFrame = 1;
 
             //delete boards
             nivo = new List<bool> { false, false, false,false,false };
@@ -200,6 +201,9 @@ namespace VirusJump
         public bool meRnd;
         public bool mecolosion;
 
+        public int currentFrame = 1;
+
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -331,7 +335,7 @@ namespace VirusJump
 
                         //to check boards_list coliision
                         for (int i = 0; i < boardsList.BoardList.Length; i++)
-                            if (boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                            if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
                             }
@@ -341,11 +345,11 @@ namespace VirusJump
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
                             }
-                            if (boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                            if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 boardsList.FakeBoardList[i].Visible = false;
                             }
-                            if (boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                            if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
                                 boardsList.GoneBoardList[i].Visible = false;
