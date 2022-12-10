@@ -19,6 +19,7 @@ using System.Runtime.CompilerServices;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
+using SharpDX.Direct3D9;
 
 namespace VirusJump
 {
@@ -26,9 +27,8 @@ namespace VirusJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        //private AnimatedSprite sprite;
 
-        private AnimatedSprite sprite;
-        private SpriteSheet spriteSheet;
 
         //playagain in reposition gre v renderer
         public void PlayAgain(Player player, Scoring score, Background background)
@@ -100,6 +100,7 @@ namespace VirusJump
                             if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
                         }
                         boardsList.FakeBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
+                        boardsList.FakeBoardList[i].Visible = true;
                     }
                     if (boardsList.GoneBoardList[i].BoardPosition.Y > 734)
                     {
@@ -112,6 +113,7 @@ namespace VirusJump
                             if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
                         }
                         boardsList.GoneBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
+                        boardsList.GoneBoardList[i].Visible = true;
                     }
                 }
             }
@@ -240,10 +242,8 @@ namespace VirusJump
             bullet = new Bullet(this.Content);
             
             trampo = new Trampo(this.Content);
+            //sprite = new AnimatedSprite(boardsList.JumpingBoardList[0].SpriteSheet);
 
-
-            spriteSheet = Content.Load<SpriteSheet>("jumper.sf", new JsonContentLoader());
-            sprite = new AnimatedSprite(spriteSheet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -274,7 +274,6 @@ namespace VirusJump
                         //to move and replace tampeolines
                         if (score.Score % 130 > 100 && trampo.TrampoPosition.Y > 720)
                         {
-
                             do
                             {
                                 Random rnd = new Random();
@@ -284,6 +283,7 @@ namespace VirusJump
                         if (trampo.TRand != -1)
                         {
                             trampo.TrampoPosition = new Rectangle(boardsList.BoardList[trampo.TRand].BoardPosition.X + 10, boardsList.BoardList[trampo.TRand].BoardPosition.Y - 15, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
+                            trampo.Visible = true;
                         }
                         tCheck = trampo.Collision(player, collisionCheck);
                         if (tCheck)
@@ -294,7 +294,7 @@ namespace VirusJump
                         if (trampo.TrampoPosition.Y > 720)
                         {
                             trampo.TRand = -1;
-                            trampo.TrampoPosition = new Rectangle(-100, 730, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
+                            trampo.Visible = false;
                             tCheck = false;
                         }
 
@@ -308,11 +308,15 @@ namespace VirusJump
                             for (int i = 0; i < boardsList.BoardList.Length; i++)
                                 boardsList.BoardList[i].BoardPosition = new Rectangle(boardsList.BoardList[i].BoardPosition.X, boardsList.BoardList[i].BoardPosition.Y - speed, boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
   
-                            for (int i = 0; i < 4; i++)
+                            for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
                             {
                                 boardsList.MovingBoardList[i].BoardPosition = new Rectangle(boardsList.MovingBoardList[i].BoardPosition.X, boardsList.MovingBoardList[i].BoardPosition.Y - speed, boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
                                 boardsList.FakeBoardList[i].BoardPosition = new Rectangle(boardsList.FakeBoardList[i].BoardPosition.X, boardsList.FakeBoardList[i].BoardPosition.Y - speed, boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
                                 boardsList.GoneBoardList[i].BoardPosition = new Rectangle(boardsList.GoneBoardList[i].BoardPosition.X, boardsList.GoneBoardList[i].BoardPosition.Y - speed, boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
+                            }
+                            for (int i = 0; i < boardsList.JumpingBoardList.Length; i++)
+                            {
+                                boardsList.JumpingBoardList[i].JumpingBoardPosition = new Rectangle(boardsList.JumpingBoardList[i].JumpingBoardPosition.X, boardsList.JumpingBoardList[i].JumpingBoardPosition.Y - speed, boardsList.JumpingBoardList[i].JumpingBoardPosition.Width, boardsList.JumpingBoardList[i].JumpingBoardPosition.Height);
                             }
 
                             if (background.BPosize.Y < 0)
@@ -325,25 +329,39 @@ namespace VirusJump
 
                         rePosition();//to re position boards_list and movable enemys
 
-                        for (int i = 0; i < boardsList.BoardList.Length; i++)//to check boards_list coliision
+                        //to check boards_list coliision
+                        for (int i = 0; i < boardsList.BoardList.Length; i++)
                             if (boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
                             }
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
                         {
                             if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
                             }
                             if (boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                                boardsList.FakeBoardList[i].BoardPosition = new Rectangle(-100, boardsList.FakeBoardList[i].BoardPosition.Y, boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
+                            {
+                                boardsList.FakeBoardList[i].Visible = false;
+                            }
                             if (boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
                                 player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
-                                boardsList.GoneBoardList[i].BoardPosition = new Rectangle(-100, boardsList.GoneBoardList[i].BoardPosition.Y, boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
+                                boardsList.GoneBoardList[i].Visible = false;
                             }
                         }
+                        //for (int i = 0; i< boardsList.JumpingBoardList.Length; i++)
+                        //{
+                        //    if (boardsList.JumpingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                        //    {
+                        //        Debug.WriteLine(boardsList.JumpingBoardList[i].JumpingBoardPosition.ToString());
+                        //        Debug.WriteLine(player.PlayerPosition.ToString());
+                        //        sprite.Play("animation0");
+                        //        player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -15);
+                        //    }
+                        //}
+
                         //to go to pause menue bye esc clicking
                         k_temp1 = Keyboard.GetState();
                         if (k_temp1.IsKeyDown(Keys.Escape) && !k_temp.IsKeyDown(Keys.Escape))
@@ -520,8 +538,7 @@ namespace VirusJump
                     break;
             }
 
-            sprite.Play("animation0");
-            sprite.Update(gameTime);
+            //sprite.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -545,10 +562,24 @@ namespace VirusJump
                 for (int i = 0; i < 4; i++)
                 {
                     boardsList.MovingBoardList[i].DrawSprite(spriteBatch);
-                    boardsList.FakeBoardList[i].DrawSprite(spriteBatch);
-                    boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
+                    if (boardsList.FakeBoardList[i].Visible)
+                    {
+                        boardsList.FakeBoardList[i].DrawSprite(spriteBatch);
+                    }
+                    if (boardsList.GoneBoardList[i].Visible)
+                    {
+                        boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
+                    }
                 }
-                trampo.Draw(spriteBatch);
+
+                //for (int i = 0; i < boardsList.JumpingBoardList.Length; i++)
+                //{
+                //    boardsList.JumpingBoardList[i].DrawSprite(sprite, spriteBatch);
+                //}
+                if (trampo.Visible)
+                {
+                    trampo.Draw(spriteBatch);
+                }
                 player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
             if (currentGameState == gameStateEnum.introMenu) 
@@ -559,7 +590,6 @@ namespace VirusJump
             background.Notifdraw(spriteBatch, currentGameState);
             score.Draw(spriteBatch, currentGameState);
             pointer.Draw(spriteBatch);
-            //sprite.Draw(spriteBatch, new Vector2(100,100), 0f, new Vector2(0.3f,0.2f));
 
             spriteBatch.End();
             base.Draw(gameTime);

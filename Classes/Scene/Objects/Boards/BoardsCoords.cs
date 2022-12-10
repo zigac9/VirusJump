@@ -65,7 +65,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             _fakeBoardsCoordsArr.Add(new Rectangle(20, -35, 80, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(250, 525, 60, 14));
 
-            _jumpingBoardsCoordsArr.Add(new Rectangle(300, 525, 80, 20));
+            _jumpingBoardsCoordsArr.Add(new Rectangle(300, -140, 85, 25));
         }
 
         public List<Rectangle> BoardsCoordsArr

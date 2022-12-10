@@ -88,13 +88,12 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpCo
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\soundOff.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\soundOn.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\syringe.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\jumper.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Autofac.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\MonoGame.Extended.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\MonoGame.Extended.Animations.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\MonoGame.Extended.Graphics.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\MonoGame.Extended.Tiled.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Newtonsoft.Json.dll
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Classes\Content\jumper.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\jumper.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\spring_in.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\spritesheet.sf

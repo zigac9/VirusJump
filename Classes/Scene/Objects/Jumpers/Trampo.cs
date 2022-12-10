@@ -18,10 +18,12 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private Texture2D _trampoTexture;
         private Rectangle _position;
         private int _tRand;
+        private bool _visible;
 
         public Trampo(ContentManager content)
         {
             _trampoTexture = content.Load<Texture2D>("Doodle_jumpContent/toshak");
+            _visible = true;
             Initialize();
         }
 
@@ -60,6 +62,12 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         {
             get { return _tRand; }
             set { _tRand = value; }
+        }
+
+        public bool Visible
+        {
+            get { return _visible; }
+            set { _visible = value; }
         }
     }
 }

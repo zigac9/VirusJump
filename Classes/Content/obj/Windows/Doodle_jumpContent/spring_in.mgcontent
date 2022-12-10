@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/jumper.png</SourceFile>
-  <SourceTime>2022-12-07T17:38:24.7702955+01:00</SourceTime>
-  <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/jumper.xnb</DestFile>
-  <DestTime>2022-12-10T13:08:16.9381889+01:00</DestTime>
+  <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/spring_in.png</SourceFile>
+  <SourceTime>2022-11-21T19:42:22.2976173+01:00</SourceTime>
+  <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Doodle_jumpContent/spring_in.xnb</DestFile>
+  <DestTime>2022-12-10T13:08:16.8110323+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
