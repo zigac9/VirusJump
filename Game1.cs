@@ -207,6 +207,9 @@ namespace VirusJump
         public bool mecolosion;
         public int currentFrame = 1;
 
+
+        public Vector2 distance;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -444,6 +447,11 @@ namespace VirusJump
                         //to end and gameovering game
                         if (player.PlayerPosition.Y > 720)
                             currentGameState = gameStateEnum.gameOver;
+
+                        //MouseState mouseControl = Mouse.GetState();
+                        //distance.X = mouseControl.X - player.PlayerPosition.X;
+                        //distance.Y = mouseControl.Y - player.PlayerPosition.Y;
+                        //player.Degree = -(float)Math.Atan2(distance.X, distance.Y);
                     }
                     break;
 
@@ -489,12 +497,12 @@ namespace VirusJump
                                 else
                                     currentGameState = gameStateEnum.pause;
 
-                        if (mouseState.X > 100 && mouseState.X < 160)
-                            if (mouseState.Y > 330 && mouseState.Y < 375)
-                                background.SoundCheck = false;
-                        if (mouseState.X > 160 && mouseState.X < 236)
-                            if (mouseState.Y > 330 && mouseState.Y < 375)
+                        if (mouseState.X > 210 && mouseState.X < 278)
+                            if (mouseState.Y > 405 && mouseState.Y < 462)
                                 background.SoundCheck = true;
+                        if (mouseState.X > 99 && mouseState.X < 176)
+                            if (mouseState.Y > 407 && mouseState.Y < 461)
+                                background.SoundCheck = false;
                     }
                     break;
                 case gameStateEnum.introMenu:

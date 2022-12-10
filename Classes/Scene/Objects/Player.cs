@@ -66,6 +66,8 @@ namespace VirusJump.Classes.Scene.Objects
                 }
         }
 
+                            //case playerOrientEnum.Left: s.Draw(_playerTexture, _position, null, Color.White, _degree, new Vector2(30,60), SpriteEffects.FlipHorizontally, 0f); break;
+
         public Rectangle PlayerPosition
         {
             get { return _position; }

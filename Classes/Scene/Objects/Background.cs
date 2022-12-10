@@ -55,8 +55,8 @@ namespace VirusJump.Classes.Scene.Objects
             _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
-            _sOnposize = new Rectangle(100, 330, 136, 45);
-            _sOffposize = new Rectangle(100, 330, 136, 45);
+            _sOnposize = new Rectangle(85, 400, 200, 60);
+            _sOffposize = new Rectangle(85, 400, 200, 60);
             _notifposize = new Rectangle(0, 0, 480, 60);
             _pauseposize = new Rectangle(0, 0, 480, 720);
             _gameOverposize = new Rectangle(0, 0, 480, 720);
