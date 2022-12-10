@@ -111,10 +111,9 @@ namespace VirusJump.Classes.Scene.Objects
                 s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
             }
         }
-        public void Notifdraw(SpriteBatch s, gameStateEnum gameState)
+        public void ScoreDraw(SpriteBatch s, gameStateEnum gameState)
         {
-            if (gameState != gameStateEnum.introMenu && gameState != gameStateEnum.option && gameState != gameStateEnum.hScore)
-                s.Draw(_notif, _notifposize, Color.White);
+            s.Draw(_notif, _notifposize, Color.White);
         }
 
         public void SideCheck()

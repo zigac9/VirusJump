@@ -546,11 +546,14 @@ namespace VirusJump
                 case gameStateEnum.gameOver:
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (mouseState.X > 110 && mouseState.X < 272)
-                            if (mouseState.Y > 467 && mouseState.Y < 535)
+                        if (mouseState.X > 88 && mouseState.X < 271)
+                            if (mouseState.Y > 438 && mouseState.Y < 500)
+                            {
                                 PlayAgain(player, score, background);
-                        if (mouseState.X > 240 && mouseState.X < 416)
-                            if (mouseState.Y > 522 && mouseState.Y < 612)
+                                Thread.Sleep(100);
+                            }
+                        if (mouseState.X > 284 && mouseState.X < 404)
+                            if (mouseState.Y > 504 && mouseState.Y < 559)
                             {
                                 currentGameState = gameStateEnum.introMenu;
                                 MediaPlayer.Pause();
@@ -575,6 +578,8 @@ namespace VirusJump
 
             if (currentGameState == gameStateEnum.gameRunning)
             {
+                background.ScoreDraw(spriteBatch, currentGameState);
+                score.Draw(spriteBatch, currentGameState);
                 for (int i = 0; i < boardsList.BoardList.Length; i++)
                 {
                     if(boardsList.BoardList[i].Visible)
@@ -611,8 +616,6 @@ namespace VirusJump
                 playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.gameRunning);
             }
             bullet.Draw(spriteBatch, currentGameState);
-            background.Notifdraw(spriteBatch, currentGameState);
-            score.Draw(spriteBatch, currentGameState);
             pointer.Draw(spriteBatch);
 
             spriteBatch.End();
