@@ -98,17 +98,17 @@ namespace VirusJump.Classes.Scene.Objects
             if (gameState == gameStateEnum.gameOver)
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
-                s.DrawString(score.SFont, score.Score.ToString(), new Vector2(308f, 245f), Color.Black);
-                s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
+                s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
+                //s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
             }
             if (gameState == gameStateEnum.hScore)
             {
                 s.Draw(_hScore, _hScoreposize, Color.White);
-                s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(215f, 245f), Color.Black);
-                s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(215f, 290f), Color.Black);
-                s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(215f, 335f), Color.Black);
-                s.DrawString(score.SFont, _hScore4.ToString(), new Vector2(215f, 380f), Color.Black);
-                s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
+                s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(150f, 295f), Color.Black);
+                s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(150f, 345f), Color.Black);
+                s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(150f, 400f), Color.Black);
+                s.DrawString(score.SFont, _hScore4.ToString(), new Vector2(150f, 450f), Color.Black);
+                s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(150f, 500f), Color.Black);
             }
         }
         public void ScoreDraw(SpriteBatch s, gameStateEnum gameState)

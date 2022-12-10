@@ -24,8 +24,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public void Draw(SpriteBatch sp, gameStateEnum gameState)
         {
-            if (gameState != gameStateEnum.introMenu && gameState != gameStateEnum.option && gameState != gameStateEnum.hScore)
-                sp.DrawString(_spFont, _score.ToString(), _position, Color.White);
+            sp.DrawString(_spFont, _score.ToString(), _position, Color.White);
         }
 
         public bool Check
