@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/Doodle_jumpContent/injection.png</SourceFile>
-  <SourceTime>2022-12-10T19:04:24.6298479+01:00</SourceTime>
+  <SourceTime>2022-12-10T19:36:29.9628938+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Doodle_jumpContent/injection.xnb</DestFile>
-  <DestTime>2022-12-10T19:05:21.1815732+01:00</DestTime>
+  <DestTime>2022-12-10T20:07:22.4431756+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

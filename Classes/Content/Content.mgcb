@@ -475,6 +475,21 @@
 /processorParam:Quality=Best
 /build:Doodle_jumpContent/shoot.mp3
 
+#begin Doodle_jumpContent/shoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/shoot.png
+
+#begin Doodle_jumpContent/shoot.sf
+/copy:Doodle_jumpContent/shoot.sf
+
 #begin Doodle_jumpContent/sides.png
 /importer:TextureImporter
 /processor:TextureProcessor
