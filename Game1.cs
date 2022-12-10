@@ -124,25 +124,30 @@ namespace VirusJump
             {
                 nivo[0] = true;
                 brisi = true;
+                trampo.Frame = 20;
             }else if(score.Score > 1000 && !nivo[1])
             {
                 nivo[1] = true;
                 brisi = true;
+                trampo.Frame = 40;
             }
             else if(score.Score > 2000 && !nivo[2])
             {
                 nivo[2] = true;
                 brisi = true;
+                trampo.Frame = 80;
             }
             else if (score.Score > 3000 && !nivo[3])
             {
                 nivo[3] = true;
                 brisi = true;
+                trampo.Frame = 120;
             }
             else if (score.Score > 4000 && !nivo[4])
             {
                 nivo[4] = true;
                 brisi = true;
+                trampo.Frame = 160;
             }
 
             if (brisi)
@@ -200,9 +205,7 @@ namespace VirusJump
         public bool gameover;
         public bool meRnd;
         public bool mecolosion;
-
         public int currentFrame = 1;
-
 
         public Game1()
         {
@@ -276,23 +279,40 @@ namespace VirusJump
 
 
                         //to move and replace tampeolines
-                        if (score.Score % 130 > 100 && trampo.TrampoPosition.Y > 720)
+                        if (score.Score % 130 > 100 && !trampo.Visible)
                         {
-                            do
+                            if (currentFrame >= trampo.Frame)
                             {
-                                Random rnd = new Random();
-                                trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
-                            } while (!(boardsList.BoardList[trampo.TRand].BoardPosition.Y < 0));
+                                currentFrame = 1;
+                                trampo.Visible = true;
+                                do
+                                {
+                                    do
+                                    {
+                                        Random rnd = new Random();
+                                        trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+                                    } while (boardsList.BoardList[trampo.TRand].Visible == false);
+                                } while ((boardsList.BoardList[trampo.TRand].BoardPosition.Y > 0));
+                            }
+                            else
+                            {
+                                currentFrame++;
+                            }
                         }
                         if (trampo.TRand != -1)
                         {
                             trampo.TrampoPosition = new Rectangle(boardsList.BoardList[trampo.TRand].BoardPosition.X + 10, boardsList.BoardList[trampo.TRand].BoardPosition.Y - 15, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
                             trampo.Visible = true;
                         }
-                        tCheck = trampo.Collision(player, collisionCheck);
+                        if (trampo.Visible)
+                        {
+                            tCheck = trampo.Collision(player, collisionCheck);
+                        }
                         if (tCheck)
                         {
                             player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -23);
+                            trampo.TRand = -1;
+                            trampo.Visible = false;
                             tCheck = false;
                         }
                         if (trampo.TrampoPosition.Y > 720)
