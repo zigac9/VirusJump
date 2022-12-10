@@ -240,11 +240,7 @@ namespace VirusJump
             player = new Player(this.Content);
             playerMenu = new Player(this.Content);
 
-            player.PlayerPosition = new Rectangle(230, 660, 60, 60);
-            player.PlayerSpeed = new Vector2(0, -13);
             playerMenu.PlayerPosition = new Rectangle(60, 520, 80, 80);
-            playerMenu.PlayerSpeed = new Vector2(0, -13);
-            player.Degree = 0;
 
             background = new Background(this.Content);
             score = new Scoring(this.Content);
@@ -273,9 +269,15 @@ namespace VirusJump
                         player.Move();
                         //to prevent from exiting from sides of screen
                         if (player.PlayerPosition.X + 10 < 0)
+                        {
                             player.PlayerPosition = new Rectangle(450, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
+                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
+                        }
                         if (player.PlayerPosition.X > 451)
+                        {
                             player.PlayerPosition = new Rectangle(-10, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
+                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
+                        }
 
                         for (int i = 0; i < 4; i++)
                             boardsList.MovingBoardList[i].Move();
@@ -331,7 +333,8 @@ namespace VirusJump
                         {
                             int speed = (int)player.PlayerSpeed.Y;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X, player.PlayerPosition.Y - (int)player.PlayerSpeed.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            
+                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
+
                             for (int i = 0; i < boardsList.BoardList.Length; i++)
                                 boardsList.BoardList[i].BoardPosition = new Rectangle(boardsList.BoardList[i].BoardPosition.X, boardsList.BoardList[i].BoardPosition.Y - speed, boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
   
@@ -402,11 +405,13 @@ namespace VirusJump
                         {
                             playerOrientation = playerOrientEnum.Left;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X - 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
+                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
                         }
                         else if (k.IsKeyDown(Keys.Right))
                         {
                             playerOrientation = playerOrientEnum.Right;
                             player.PlayerPosition = new Rectangle(player.PlayerPosition.X + 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
+                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
                         }
 
                         //check mouse state for shoot and pause menu 
@@ -436,22 +441,18 @@ namespace VirusJump
                                     tirCheck = true;
                                 }
                             }
-                            if (mouseState.Y < 280)
-                                playerOrientation = playerOrientEnum.Tir;
                         }
                         if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < -20 || bullet.BulletPosition.X > 500 || bullet.BulletPosition.Y < -20)
                             tirCheck = false;
                         if (tirCheck && currentGameState == gameStateEnum.gameRunning)
                             bullet.Move();
 
+                        MouseState mouseControl = Mouse.GetState();
+                        player.ShootDegree = -(float)Math.Atan2(mouseControl.X - player.PlayerPosition.X, mouseControl.Y - player.PlayerPosition.Y);
+
                         //to end and gameovering game
                         if (player.PlayerPosition.Y > 720)
                             currentGameState = gameStateEnum.gameOver;
-
-                        //MouseState mouseControl = Mouse.GetState();
-                        //distance.X = mouseControl.X - player.PlayerPosition.X;
-                        //distance.Y = mouseControl.Y - player.PlayerPosition.Y;
-                        //player.Degree = -(float)Math.Atan2(distance.X, distance.Y);
                     }
                     break;
 
@@ -621,7 +622,7 @@ namespace VirusJump
             }
             if (currentGameState == gameStateEnum.introMenu) 
             {
-                playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.gameRunning);
+                playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.introMenu);
             }
             bullet.Draw(spriteBatch, currentGameState);
             pointer.Draw(spriteBatch);
