@@ -42,8 +42,8 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public bool Collision(Player s, bool collisionCheck)
         {
-            if ((s.PlayerPosition.X + 10 > _position.X && s.PlayerPosition.X + 10 < _position.X + 60) || (s.PlayerPosition.X + 50 > _position.X && s.PlayerPosition.X + 50 < _position.X + 60))
-                if (_position.Y + 12 - s.PlayerPosition.Y - 60 < 5 && _position.Y + 12 - s.PlayerPosition.Y - 60 > -15 && s.PlayerPosition.Y > 0)
+            if ((s.PlayerPosition.X + 10 > _position.X && s.PlayerPosition.X + 10 < _position.X + _position.Width) || (s.PlayerPosition.X + 50 > _position.X && s.PlayerPosition.X + 50 < _position.X + _position.Width))
+                if (_position.Y + 12 - s.PlayerPosition.Y - _position.Width < 5 && _position.Y + 12 - s.PlayerPosition.Y - _position.Width > -15 && s.PlayerPosition.Y > 0)
                 {
                     if (collisionCheck == true)
                         return true;
