@@ -9,12 +9,14 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
         private Texture2D _texture;
         private Rectangle _position;
         private bool _visible;
+        private bool _drawVisible;
 
         public Board(ContentManager content, Rectangle position)
         {
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p1");
             _position = position;
             _visible = true;
+            _drawVisible = true;
         }
 
         public void DrawSprite(SpriteBatch s)
@@ -44,6 +46,12 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
         {
             get { return _visible; }
             set { _visible = value; }
+        }
+
+        public bool DrawVisible
+        {
+            get { return _drawVisible; }
+            set { _drawVisible = value; }
         }
     }
 }

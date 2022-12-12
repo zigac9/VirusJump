@@ -38,9 +38,9 @@ namespace VirusJump.Classes.Scene.Objects
         public void Initialize()
         {
             _degree = 0;
-            _speed = new Vector2(0, -13);
-            _shootPosition = new Rectangle(_position.X + _position.Width/2, _position.Y + _position.Height/2 + 15, 12, 55);
+            _speed = new Vector2(0, -13); 
             _position = new Rectangle(230, 560, 60, 60);
+            _shootPosition = new Rectangle(_position.X + _position.Width/2, _position.Y + _position.Height/2 + 15, 12, 55);
         }
 
         public void Move()

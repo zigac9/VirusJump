@@ -9,12 +9,14 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
         private Texture2D _texture;
         private Rectangle _position;
         private int _speed;
+        private bool _drawVisible;
 
         public MovingBoard(ContentManager content, Rectangle position, int speed)
         {
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p2");
             _position = position;
             _speed = speed;
+            _drawVisible = true;
         }
 
         public void DrawSprite(SpriteBatch s)
@@ -48,6 +50,12 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
         {
             get { return _speed; }
             set { _speed = value; }
+        }
+
+        public bool DrawVisible
+        {
+            get { return _drawVisible; }
+            set { _drawVisible = value; }
         }
     }
 }

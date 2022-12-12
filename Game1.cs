@@ -5,21 +5,13 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 using System.Threading;
-using System.Reflection.Metadata;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
-
-using System.Diagnostics;
-using static VirusJump.Game1;
-using System.Runtime.CompilerServices;
 using MonoGame.Extended.Sprites;
-using MonoGame.Extended.Serialization;
-using MonoGame.Extended.Content;
-using SharpDX.Direct3D9;
+
 
 namespace VirusJump
 {
@@ -62,6 +54,14 @@ namespace VirusJump
             {
                 if (boardsList.BoardList[i].Visible)
                 {
+                    if (boardsList.BoardList[i].BoardPosition.Y < -28)
+                    {
+                        boardsList.BoardList[i].DrawVisible = false;
+                    }
+                    else if (boardsList.BoardList[i].BoardPosition.Y > -28)
+                    {
+                        boardsList.BoardList[i].DrawVisible = true;
+                    }
                     if (boardsList.BoardList[i].BoardPosition.Y > 734)
                     {
                         for (int j = 0; j < boardsList.BoardList.Length; j++)
@@ -78,6 +78,24 @@ namespace VirusJump
 
                 if (i < 4)
                 {
+                    if (boardsList.FakeBoardList[i].BoardPosition.Y < -28)
+                    {
+                        boardsList.FakeBoardList[i].DrawVisible = false;
+                    }
+                    else if (boardsList.FakeBoardList[i].BoardPosition.Y > -28)
+                    {
+                        boardsList.FakeBoardList[i].DrawVisible = true;
+                    }
+
+                    if (boardsList.GoneBoardList[i].BoardPosition.Y < -28)
+                    {
+                        boardsList.GoneBoardList[i].DrawVisible = false;
+                    }
+                    else if (boardsList.GoneBoardList[i].BoardPosition.Y > -28)
+                    {
+                        boardsList.GoneBoardList[i].DrawVisible = true;
+                    }
+
                     if (boardsList.MovingBoardList[i].BoardPosition.Y > 734)
                     {
                         for (int j = 0; j < boardsList.BoardList.Length; j++)
@@ -337,17 +355,15 @@ namespace VirusJump
                             player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
 
                             for (int i = 0; i < boardsList.BoardList.Length; i++)
+                            {
                                 boardsList.BoardList[i].BoardPosition = new Rectangle(boardsList.BoardList[i].BoardPosition.X, boardsList.BoardList[i].BoardPosition.Y - speed, boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
-  
+                            }
+
                             for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
                             {
                                 boardsList.MovingBoardList[i].BoardPosition = new Rectangle(boardsList.MovingBoardList[i].BoardPosition.X, boardsList.MovingBoardList[i].BoardPosition.Y - speed, boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
                                 boardsList.FakeBoardList[i].BoardPosition = new Rectangle(boardsList.FakeBoardList[i].BoardPosition.X, boardsList.FakeBoardList[i].BoardPosition.Y - speed, boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
                                 boardsList.GoneBoardList[i].BoardPosition = new Rectangle(boardsList.GoneBoardList[i].BoardPosition.X, boardsList.GoneBoardList[i].BoardPosition.Y - speed, boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
-                            }
-                            for (int i = 0; i < boardsList.JumpingBoardList.Length; i++)
-                            {
-                                boardsList.JumpingBoardList[i].JumpingBoardPosition = new Rectangle(boardsList.JumpingBoardList[i].JumpingBoardPosition.X, boardsList.JumpingBoardList[i].JumpingBoardPosition.Y - speed, boardsList.JumpingBoardList[i].JumpingBoardPosition.Width, boardsList.JumpingBoardList[i].JumpingBoardPosition.Height);
                             }
 
                             if (background.BPosize.Y < 0)
@@ -428,7 +444,7 @@ namespace VirusJump
                             //to shoot tir
                             else
                             {
-                                if (!tirCheck && mouseState.Y < 280)
+                                if (!tirCheck)
                                 {
                                     player.Degree = (float)Math.Atan((-(mouseState.Y - player.PlayerPosition.Y - 27)) / (mouseState.X - player.PlayerPosition.X - 30));
                                     bullet.BulletPosition = new Rectangle(player.PlayerPosition.X + 30,player.PlayerPosition.Y + 27, bullet.BulletPosition.Width, bullet.BulletPosition.Height);
@@ -616,7 +632,7 @@ namespace VirusJump
                 score.Draw(spriteBatch, currentGameState);
                 for (int i = 0; i < boardsList.BoardList.Length; i++)
                 {
-                    if(boardsList.BoardList[i].Visible)
+                    if(boardsList.BoardList[i].Visible && boardsList.BoardList[i].DrawVisible)
                     {
                         boardsList.BoardList[i].DrawSprite(spriteBatch);
                     }
@@ -625,11 +641,11 @@ namespace VirusJump
                 for (int i = 0; i < 4; i++)
                 {
                     boardsList.MovingBoardList[i].DrawSprite(spriteBatch);
-                    if (boardsList.FakeBoardList[i].Visible)
+                    if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].DrawVisible)
                     {
                         boardsList.FakeBoardList[i].DrawSprite(spriteBatch);
                     }
-                    if (boardsList.GoneBoardList[i].Visible)
+                    if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].DrawVisible)
                     {
                         boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
                     }

@@ -19,7 +19,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
         private FakeBoard[] _fakeBoards;
         private GoneBoard[] _goneBoards;
         private MovingBoard[] _movingBoards;
-        private JumpingBoard[] _jumpingBoards;
 
         public BoardsList(ContentManager content)
         {
@@ -34,7 +33,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             _fakeBoards = new FakeBoard[_boardsCoords.FakeBoardsCoordsArr.Count];
             _goneBoards = new GoneBoard[_boardsCoords.GoneBoardsCoordsArr.Count];
             _movingBoards = new MovingBoard[_boardsCoords.MovingBoardsCoordsArr.Count];
-            _jumpingBoards = new JumpingBoard[_boardsCoords.JumpingBoardsCoordsArr.Count];
             FillArrays();
         }
 
@@ -51,10 +49,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             for (int i = 0; i < _goneBoards.Length; i++)
             {
                 _goneBoards[i] = new GoneBoard(_content, _boardsCoords.GoneBoardsCoordsArr[i]);
-            }
-            for (int i = 0; i < _jumpingBoards.Length; i++)
-            {
-                _jumpingBoards[i] = new JumpingBoard(_content, _boardsCoords.JumpingBoardsCoordsArr[i]);
             }
             for (int i = 0; i < _movingBoards.Length; i++)
             {
@@ -87,12 +81,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
         {
             get { return _movingBoards; }
             set { _movingBoards = value; }
-        }
-
-        public JumpingBoard[] JumpingBoardList
-        {
-            get { return _jumpingBoards; }
-            set { _jumpingBoards = value; }
         }
     }
 }
