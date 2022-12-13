@@ -289,6 +289,18 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/Hscore.png
 
+#begin Doodle_jumpContent/injection.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/injection.png
+
 #begin Doodle_jumpContent/jet.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -324,6 +336,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/mainMenu1.png
+
+#begin Doodle_jumpContent/manjetpack.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/manjetpack.png
 
 #begin Doodle_jumpContent/notif.png
 /importer:TextureImporter
@@ -463,6 +487,21 @@
 /processorParam:Quality=Best
 /build:Doodle_jumpContent/shoot.mp3
 
+#begin Doodle_jumpContent/shoot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Doodle_jumpContent/shoot.png
+
+#begin Doodle_jumpContent/shoot.sf
+/copy:Doodle_jumpContent/shoot.sf
+
 #begin Doodle_jumpContent/sides.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -499,7 +538,7 @@
 /processorParam:TextureFormat=Color
 /build:Doodle_jumpContent/sOn.png
 
-#begin Doodle_jumpContent/soundOff.png
+#begin Doodle_jumpContent/spring_in.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -509,19 +548,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/soundOff.png
-
-#begin Doodle_jumpContent/soundOn.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/soundOn.png
+/build:Doodle_jumpContent/spring_in.png
 
 #begin Doodle_jumpContent/SpriteFont1.spritefont
 /importer:FontDescriptionImporter

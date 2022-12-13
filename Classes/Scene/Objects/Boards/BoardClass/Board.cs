@@ -8,11 +8,15 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
     {
         private Texture2D _texture;
         private Rectangle _position;
+        private bool _visible;
+        private bool _drawVisible;
 
         public Board(ContentManager content, Rectangle position)
         {
             _texture = content.Load<Texture2D>("Doodle_jumpContent/p1");
             _position = position;
+            _visible = true;
+            _drawVisible = true;
         }
 
         public void DrawSprite(SpriteBatch s)
@@ -22,18 +26,32 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 
         public bool Collision(Player player)
         {
-            if (player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60 || player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60)
-
-                if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.PlayerSpeed.Y > 0)
-                    return true;
+            if (_visible)
+            {
+                if (player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + _position.Width || player.PlayerPosition.X + player.PlayerPosition.Width - 15 > _position.X && player.PlayerPosition.X + player.PlayerPosition.Width - 15 < _position.X + _position.Width)
+                    if (_position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height > -20 && player.PlayerSpeed.Y > 0)
+                        return true;
+                    else return false;
                 else return false;
-            else return false;
+            }
+            return false;
         }
 
         public Rectangle BoardPosition
         {
             get { return _position; }
             set { _position = value; }
+        }
+        public bool Visible
+        {
+            get { return _visible; }
+            set { _visible = value; }
+        }
+
+        public bool DrawVisible
+        {
+            get { return _drawVisible; }
+            set { _drawVisible = value; }
         }
     }
 }
