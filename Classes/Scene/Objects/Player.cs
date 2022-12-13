@@ -12,6 +12,9 @@ namespace VirusJump.Classes.Scene.Objects
     {
         private Texture2D _playerTexture;
         private Texture2D _shootTexture;
+        private Texture2D _jetpack;
+        private Texture2D _active;
+
         private Rectangle _shootPosition;
 
         private Texture2D _noseTexture;
@@ -20,6 +23,8 @@ namespace VirusJump.Classes.Scene.Objects
         private int _accelarator;
         private int _ch;
         private float _degree;
+
+        private bool _jet;
 
         private float _shootDegree;
 
@@ -32,12 +37,14 @@ namespace VirusJump.Classes.Scene.Objects
             _noseTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleKH");
             _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
             _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/injection");
+            _jetpack = content.Load<Texture2D>("Doodle_jumpContent/manjetpack");
             Initialize();
         }
 
         public void Initialize()
         {
             _degree = 0;
+            _jet = false;
             _speed = new Vector2(0, -13); 
             _position = new Rectangle(230, 560, 60, 60);
             _shootPosition = new Rectangle(_position.X + _position.Width/2, _position.Y + _position.Height/2 + 15, 12, 55);
@@ -61,10 +68,12 @@ namespace VirusJump.Classes.Scene.Objects
         {
             if (game == gameStateEnum.gameRunning)
             {
+                if (_jet) _active = _jetpack;
+                else _active = _playerTexture;
                 switch (name)
                 {
-                    case playerOrientEnum.Left: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f); break;
-                    case playerOrientEnum.Right: s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f); break;
+                    case playerOrientEnum.Left: s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f); break;
+                    case playerOrientEnum.Right: s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f); break;
                 }
                 s.Draw(_shootTexture, _shootPosition, null, Color.White, _shootDegree, new Vector2(50, 0), SpriteEffects.None, 0f);
             }
@@ -104,6 +113,11 @@ namespace VirusJump.Classes.Scene.Objects
             set { _shootDegree = value; }
         }
 
+        public bool IsJetpack
+        {
+            get { return _jet; }
+            set { _jet = value; }
+        }
 
     }
 }

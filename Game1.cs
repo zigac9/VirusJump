@@ -205,7 +205,7 @@ namespace VirusJump
         public enum gameStateEnum { introMenu = 0, gameRunning, pause, option, gameOver, hScore};
         public gameStateEnum gameState;
 
-        public enum playerOrientEnum { Left = 1, Right, Tir, HeliL, HeliR, JetL, jetR, BargL, BargR } //kako bo obrnjena slika
+        public enum playerOrientEnum { Left = 1, Right, Tir, HeliL, HeliR, Jet, BargL, BargR } //kako bo obrnjena slika
         public playerOrientEnum playerOrientation;
 
         public Scoring score;
