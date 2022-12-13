@@ -51,14 +51,14 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             _goneBoardsCoordsArr.Add(new Rectangle(100, 263, 60, 14));
             _goneBoardsCoordsArr.Add(new Rectangle(30, 330, 80, 14));
             _goneBoardsCoordsArr.Add(new Rectangle(410, -50, 60, 14));
-            _goneBoardsCoordsArr.Add(new Rectangle(74, 660, 60, 14));
+            _goneBoardsCoordsArr.Add(new Rectangle(74, 660, 80, 14));
 
             _movingBoardsCoordsArr.Add(new Rectangle(100, 335, 60, 14));
             _movingBoardsCoordsArr.Add(new Rectangle(250, 15, 80, 14));
             _movingBoardsCoordsArr.Add(new Rectangle(0, -20, 60, 14));
             _movingBoardsCoordsArr.Add(new Rectangle(400, 630, 60, 14));
 
-            _fakeBoardsCoordsArr.Add(new Rectangle(420, 435, 60, 14));
+            _fakeBoardsCoordsArr.Add(new Rectangle(420, 435, 80, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(50, 120, 60, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(20, -35, 80, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(250, 525, 60, 14));
@@ -87,5 +87,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             get { return _movingBoardsCoordsArr; }
             set { _movingBoardsCoordsArr = value; }
         }
+
     }
 }

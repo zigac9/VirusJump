@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
+using static VirusJump.Game1;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace VirusJump.Classes.Scene.Objects
 {
@@ -51,32 +53,41 @@ namespace VirusJump.Classes.Scene.Objects
             _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
             _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
             _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
-            _bPosize = new Rectangle(0, -6480, 480, 7200);
-            _kPosize = new Rectangle(0, 0, 480, 720);
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
-            _sOnposize = new Rectangle(100, 330, 136, 45);
-            _sOffposize = new Rectangle(100, 330, 136, 45);
+            _sOnposize = new Rectangle(85, 400, 200, 60);
+            _sOffposize = new Rectangle(85, 400, 200, 60);
             _notifposize = new Rectangle(0, 0, 480, 60);
             _pauseposize = new Rectangle(0, 0, 480, 720);
             _gameOverposize = new Rectangle(0, 0, 480, 720);
             _hScoreposize = new Rectangle(0, 0, 480, 720);
+            Initialize();
+
+        }
+
+        public void Initialize()
+        {
+            _bPosize = new Rectangle(0, -6480, 480, 7200);
+            _kPosize = new Rectangle(0, 0, 480, 720);
+            _sPosise1 = new Rectangle(0, -2880, 480, 3600);
+            _sPosise2 = new Rectangle(0, -6480, 480, 3600);
+            _bPosize = new Rectangle(_bPosize.X, -7200 + 720, _bPosize.Width, _bPosize.Height);
             _soundCheck = true;
             _gameStateCheck = true;
         }
 
 
-        public void Draw(SpriteBatch s, int game, Scoring score)
+        public void Draw(SpriteBatch s, gameStateEnum gameState, Scoring score)
         {
             s.Draw(_back, _bPosize, Color.White);
             s.Draw(_kooh, _kPosize, Color.White);
             s.Draw(_sides, _sPosise1, Color.White);
             s.Draw(_sides, _sPosise2, Color.White);
-            if (game == 0)
+            if (gameState == gameStateEnum.introMenu)
                 s.Draw(_introMenu, _introMenuposize, Color.White);
-            if (game == 2)
+            if (gameState == gameStateEnum.pause)
                 s.Draw(_pause, _pauseposize, Color.White);
-            if (game == 3)
+            if (gameState == gameStateEnum.option)
             {
                 s.Draw(_option, _optionposize, Color.White);
                 if (_soundCheck == true)
@@ -84,26 +95,25 @@ namespace VirusJump.Classes.Scene.Objects
                 else
                     s.Draw(_sOff, _sOffposize, Color.White);
             }
-            if (game == 4)
+            if (gameState == gameStateEnum.gameOver)
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
-                s.DrawString(score.SFont, score.SNevem.ToString(), new Vector2(308f, 245f), Color.Black);
-                s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
+                s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
+                //s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
             }
-            if (game == 5)
+            if (gameState == gameStateEnum.hScore)
             {
                 s.Draw(_hScore, _hScoreposize, Color.White);
-                s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(215f, 245f), Color.Black);
-                s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(215f, 290f), Color.Black);
-                s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(215f, 335f), Color.Black);
-                s.DrawString(score.SFont, _hScore4.ToString(), new Vector2(215f, 380f), Color.Black);
-                s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(215f, 420f), Color.Black);
+                s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(150f, 295f), Color.Black);
+                s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(150f, 345f), Color.Black);
+                s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(150f, 400f), Color.Black);
+                s.DrawString(score.SFont, _hScore4.ToString(), new Vector2(150f, 450f), Color.Black);
+                s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(150f, 500f), Color.Black);
             }
         }
-        public void Notifdraw(SpriteBatch s, int game)
+        public void ScoreDraw(SpriteBatch s, gameStateEnum gameState)
         {
-            if (game != 0 && game != 3 && game != 5)
-                s.Draw(_notif, _notifposize, Color.White);
+            s.Draw(_notif, _notifposize, Color.White);
         }
 
         public void SideCheck()

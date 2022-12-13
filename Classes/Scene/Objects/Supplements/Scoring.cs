@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Scoring
     {
-        private int _s;
+        private int _score;
         private string _bestS;
         private Vector2 _position;
         private SpriteFont _spFont;
@@ -14,17 +15,16 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Scoring(ContentManager content) 
         {
-            _s = 0;
+            _score = 0;
             _bestS = "";
             _position = new Vector2(15f, 4f);
             _check = true;
             _spFont = content.Load<SpriteFont>("Doodle_jumpContent/SpriteFont1"); ;
         }
 
-        public void Draw(SpriteBatch sp, int game)
+        public void Draw(SpriteBatch sp, gameStateEnum gameState)
         {
-            if (game != 0 && game != 3 && game != 5)
-                sp.DrawString(_spFont, _s.ToString(), _position, Color.White);
+            sp.DrawString(_spFont, _score.ToString(), _position, Color.White);
         }
 
         public bool Check
@@ -39,10 +39,10 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             set { _spFont = value; }
         }
 
-        public int SNevem
+        public int Score
         {
-            get { return _s; }
-            set { _s = value; }
+            get { return _score; }
+            set { _score = value; }
         }
 
         public string BestS
