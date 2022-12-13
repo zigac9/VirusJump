@@ -51,13 +51,11 @@ namespace VirusJump
         public static Spring spring;
         public static Jetpack jetpack;
 
-        public static List<bool> nivo = new List<bool> { false, false,false,false,false };
+        public static List<bool> nivo;
         public static bool brisi = false;
         
         public static bool collisionCheck;
         public static bool gameover;
-
-        public Vector2 distance;
 
         public Game1()
         {
@@ -78,6 +76,7 @@ namespace VirusJump
 
         protected override void LoadContent()
         {
+            nivo = new List<bool> { false, false, false, false, false };
             spriteBatch = new SpriteBatch(GraphicsDevice);
             boardsList = new BoardsList(this.Content);
 
