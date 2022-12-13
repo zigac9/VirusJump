@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System;
 using System.Threading;
 using VirusJump.Classes.Scene.Objects.Supplements;
+using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using MonoGame.Extended.Sprites;
@@ -19,184 +20,7 @@ namespace VirusJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private AnimatedSprite animateSprite;
-
-        //playagain in reposition gre v renderer
-        public void PlayAgain(Player player, Scoring score, Background background)
-        {
-            currentGameState = gameStateEnum.gameRunning;//menjaj 
-            collisionCheck = true;
-            score.Check = true;
-            gameover = false;
-            player.Initialize(); 
-            boardsList.Initialize();
-            bullet.Initialize();
-            background.Initialize();
-            playerOrientation = playerOrientEnum.Right;
-            score.Score = 0;
-            meRnd = true;
-            mecolosion = false;
-            trampo.Initialize();
-            spring.Initialize();
-            currentFrame = 1;
-            jetpack.Initialize();
-
-            //delete boards
-            nivo = new List<bool> { false, false, false,false,false };
-            brisi = false;
-        }
-
-        public void rePosition()
-        {
-            int minY = 999;
-            Random rnd = new Random();
-            
-            for (int i = 0; i < boardsList.BoardList.Length; i++)
-            {
-                if (boardsList.BoardList[i].Visible)
-                {
-                    if (boardsList.BoardList[i].BoardPosition.Y < -28)
-                    {
-                        boardsList.BoardList[i].DrawVisible = false;
-                    }
-                    else if (boardsList.BoardList[i].BoardPosition.Y > -28)
-                    {
-                        boardsList.BoardList[i].DrawVisible = true;
-                    }
-                    if (boardsList.BoardList[i].BoardPosition.Y > 734)
-                    {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].BoardPosition.Y < minY) minY = boardsList.BoardList[j].BoardPosition.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                        }
-                        boardsList.BoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
-                    }
-                }
-
-                if (i < 4)
-                {
-                    if (boardsList.FakeBoardList[i].BoardPosition.Y < -28)
-                    {
-                        boardsList.FakeBoardList[i].DrawVisible = false;
-                    }
-                    else if (boardsList.FakeBoardList[i].BoardPosition.Y > -28)
-                    {
-                        boardsList.FakeBoardList[i].DrawVisible = true;
-                    }
-
-                    if (boardsList.GoneBoardList[i].BoardPosition.Y < -28)
-                    {
-                        boardsList.GoneBoardList[i].DrawVisible = false;
-                    }
-                    else if (boardsList.GoneBoardList[i].BoardPosition.Y > -28)
-                    {
-                        boardsList.GoneBoardList[i].DrawVisible = true;
-                    }
-
-                    if (boardsList.MovingBoardList[i].BoardPosition.Y > 734)
-                    {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                        }
-                        boardsList.MovingBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
-                    }
-                    if (boardsList.FakeBoardList[i].BoardPosition.Y > 734)
-                    {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                        }
-                        boardsList.FakeBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
-                        boardsList.FakeBoardList[i].Visible = true;
-                    }
-                    if (boardsList.GoneBoardList[i].BoardPosition.Y > 734)
-                    {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].BoardPosition.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].BoardPosition.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].BoardPosition.Y < minY) minY = boardsList.MovingBoardList[j].BoardPosition.Y;
-                            if (boardsList.FakeBoardList[j].BoardPosition.Y < minY) minY = boardsList.FakeBoardList[j].BoardPosition.Y;
-                            if (boardsList.GoneBoardList[j].BoardPosition.Y < minY) minY = boardsList.GoneBoardList[j].BoardPosition.Y;
-                        }
-                        boardsList.GoneBoardList[i].BoardPosition = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
-                        boardsList.GoneBoardList[i].Visible = true;
-                    }
-                }
-            }
-
-            //delete boards
-            if (score.Score > 500 && !nivo[0])
-            {
-                nivo[0] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 700;
-                trampo.ScoreMoveStep = 1700;
-                jetpack.ScoreMoveStep = 3000;
-            }
-            else if(score.Score > 1000 && !nivo[1])
-            {
-                nivo[1] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 1000;
-                trampo.ScoreMoveStep = 2000;
-                jetpack.ScoreMoveStep = 5000;
-            }
-            else if(score.Score > 2000 && !nivo[2])
-            {
-                nivo[2] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 2000;
-                trampo.ScoreMoveStep = 3000;
-                jetpack.ScoreMoveStep = 6000;
-            }
-            else if (score.Score > 3000 && !nivo[3])
-            {
-                nivo[3] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 3000;
-                trampo.ScoreMoveStep = 4000;
-                jetpack.ScoreMoveStep = 8000;
-            }
-            else if (score.Score > 4000 && !nivo[4])
-            {
-                nivo[4] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 4000;
-                trampo.ScoreMoveStep = 6000;
-                jetpack.ScoreMoveStep = 12000;
-            }
-
-            if (brisi)
-            {
-                brisi = false;
-                int outBoard = 0;
-                for (int j = 0; j < boardsList.BoardList.Length; j++)
-                {
-                    if (boardsList.BoardList[j].BoardPosition.Y < -20 && boardsList.BoardList[j].Visible && j != trampo.TRand && j != spring.SRand && j != jetpack.JRand)
-                    {
-                        boardsList.BoardList[j].Visible = false;
-                        outBoard++;
-                    }
-                    if (outBoard == 2)
-                        break;
-                }
-            }
-
-        }
+        public static AnimatedSprite animateSprite;
 
         //tipkovnica in miska
         public KeyboardState k;
@@ -206,37 +30,32 @@ namespace VirusJump
         public MouseState m_temp;
         public MouseState m_temp1;
 
-        public gameStateEnum currentGameState;
+        public static gameStateEnum currentGameState;
 
         public enum gameStateEnum { introMenu = 0, gameRunning, pause, option, gameOver, hScore};
         public gameStateEnum gameState;
 
         public enum playerOrientEnum { Left = 1, Right, Tir, HeliL, HeliR, Jet, BargL, BargR } //kako bo obrnjena slika
-        public playerOrientEnum playerOrientation;
+        public static playerOrientEnum playerOrientation;
 
-        public Scoring score;
-        public Player player;
-        public Player playerMenu;
-        public BoardsList boardsList;
-        public Texture2D back1;
-        public Background background;
-        public Pointer pointer;
-        public Bullet bullet;
+        public static Scoring score;
+        public static Player player;
+        public static Player playerMenu;
+        public static BoardsList boardsList;
+        public static Texture2D back1;
+        public static Background background;
+        public static Pointer pointer;
+        public static Bullet bullet;
 
-        public Trampo trampo;
-        public Spring spring;
-        public Jetpack jetpack;
+        public static Trampo trampo;
+        public static Spring spring;
+        public static Jetpack jetpack;
 
-        public List<bool> nivo = new List<bool> { false, false,false,false,false };
-        public bool brisi = false;
+        public static List<bool> nivo = new List<bool> { false, false,false,false,false };
+        public static bool brisi = false;
         
-        public bool tirCheck;
-        public bool collisionCheck;
-        public bool gameover;
-        public bool meRnd;
-        public bool mecolosion;
-        public int currentFrame = 1;
-
+        public static bool collisionCheck;
+        public static bool gameover;
 
         public Vector2 distance;
 
@@ -250,13 +69,10 @@ namespace VirusJump
         }
 
         protected override void Initialize()
-        {    
+        {
             playerOrientation = playerOrientEnum.Right;
-            tirCheck = false;
             collisionCheck = true;
-            mecolosion = false;
             gameover = false;
-            meRnd = true;
             base.Initialize();
         }
 
@@ -448,7 +264,7 @@ namespace VirusJump
                         }
                         background.SideCheck();
 
-                        rePosition();//to re position boards_list and movable enemys
+                        GameRenderer.rePosition();//to re position boards_list and movable enemys
 
                         //to check boards_list coliision
                         collisionCheck = true;
@@ -509,7 +325,7 @@ namespace VirusJump
                             //to shoot tir
                             else
                             {
-                                if (!tirCheck)
+                                if (!bullet.BullCheck)
                                 {
                                     player.Degree = (float)Math.Atan((-(mouseState.Y - player.PlayerPosition.Y - 27)) / (mouseState.X - player.PlayerPosition.X - 30));
                                     bullet.BulletPosition = new Rectangle(player.PlayerPosition.X + 30,player.PlayerPosition.Y + 27, bullet.BulletPosition.Width, bullet.BulletPosition.Height);
@@ -522,13 +338,13 @@ namespace VirusJump
                                     {
                                         bullet.BulletSpeed = new Vector2(25 * (float)Math.Cos(player.Degree), -25 * (float)Math.Sin(player.Degree));
                                     }
-                                    tirCheck = true;
+                                    bullet.BullCheck = true;
                                 }
                             }
                         }
                         if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < -20 || bullet.BulletPosition.X > 500 || bullet.BulletPosition.Y < -20)
-                            tirCheck = false;
-                        if (tirCheck && currentGameState == gameStateEnum.gameRunning)
+                            bullet.BullCheck = false;
+                        if (bullet.BullCheck && currentGameState == gameStateEnum.gameRunning)
                             bullet.Move();
 
                         MouseState mouseControl = Mouse.GetState();
@@ -615,7 +431,7 @@ namespace VirusJump
                                 mouseState = m_temp;
                                 currentGameState = gameStateEnum.gameRunning;
                                 MediaPlayer.Resume();
-                                PlayAgain(player, score, background);
+                                GameRenderer.PlayAgain(player, score, background);
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
@@ -663,7 +479,7 @@ namespace VirusJump
                             if (mouseState.Y > 438 && mouseState.Y < 500)
                             {
                                 animateSprite.Play("shoot");
-                                PlayAgain(player, score, background);
+                                GameRenderer.PlayAgain(player, score, background);
                                 Thread.Sleep(100);
                             }
                         if (mouseState.X > 284 && mouseState.X < 404)

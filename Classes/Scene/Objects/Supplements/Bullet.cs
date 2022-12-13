@@ -17,11 +17,13 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private Rectangle _position;
         private Vector2 _speed;
         private float _accelertion;
+        private bool _bullcheck;
 
         public Bullet(ContentManager content) 
         {
             _texture = content.Load<Texture2D>("Doodle_jumpContent/tir");
             _accelertion = 0.5f;
+            _bullcheck = false;
             _speed = new Vector2(0, 0);
             Initialize();
         }
@@ -60,6 +62,12 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         {
             get { return _accelertion; }
             set { _accelertion = value; }
+        }
+
+        public bool BullCheck
+        {
+            get { return _bullcheck; }
+            set { _bullcheck = value; }
         }
 
     }
