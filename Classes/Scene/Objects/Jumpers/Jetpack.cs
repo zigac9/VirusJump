@@ -25,9 +25,9 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         public void Initialize()
         {
             _visible = false;
-            _scoreToMove = 200;
-            _scoreMoveStep = 500;
-            _position = new Rectangle(-100, 730, 20, 30);
+            _scoreToMove = 500;
+            _scoreMoveStep = 2000;
+            _position = new Rectangle(-100, 730, 30, 40);
             _jRand = -1;
             _jCheck = false;
         }
@@ -53,7 +53,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             else return false;
         }
 
-        public Rectangle SpringPosition
+        public Rectangle JetPosition
         {
             get { return _position; }
             set { _position = value; }
