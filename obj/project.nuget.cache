@@ -1,6 +1,10 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "0Q6zj8bxCcVmm8q/cOeWHWuz5n6KAySEcm55eL4jARF5OaKabfpkCf6a2pQojDsowcVuvhkxxFuFDINQlI+w9w==",
+=======
+  "dgSpecHash": "3LN/FHSQiIvHWPVSgnZ7U8UT519oIhW0vg9zjMv0gRqi5i/+1X20CcBT0rMpJ+ksoX+OCNEZI0+mapebKHUz1g==",
+>>>>>>> Stashed changes
   "success": true,
   "projectFilePath": "D:\\FRI_Ljubljana\\GitHub\\VirusJump\\VirusJump.csproj",
   "expectedPackageFiles": [
