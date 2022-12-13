@@ -13,7 +13,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
         private List<Rectangle> _fakeBoardsCoordsArr;
         private List<Rectangle> _goneBoardsCoordsArr;
         private List<Rectangle> _movingBoardsCoordsArr;
-        private List<Rectangle> _jumpingBoardsCoordsArr;
 
         public BoardsCoords() 
         {
@@ -21,7 +20,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             _goneBoardsCoordsArr = new List<Rectangle>();
             _fakeBoardsCoordsArr = new List<Rectangle>();
             _movingBoardsCoordsArr = new List<Rectangle>();
-            _jumpingBoardsCoordsArr = new List<Rectangle>();
             Initialize();
         }
 
@@ -64,8 +62,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             _fakeBoardsCoordsArr.Add(new Rectangle(50, 120, 60, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(20, -35, 80, 14));
             _fakeBoardsCoordsArr.Add(new Rectangle(250, 525, 60, 14));
-
-            _jumpingBoardsCoordsArr.Add(new Rectangle(300, -140, 85, 25));
         }
 
         public List<Rectangle> BoardsCoordsArr
@@ -92,10 +88,5 @@ namespace VirusJump.Classes.Scene.Objects.Boards
             set { _movingBoardsCoordsArr = value; }
         }
 
-        public List<Rectangle> JumpingBoardsCoordsArr
-        {
-            get { return _jumpingBoardsCoordsArr; }
-            set { _jumpingBoardsCoordsArr = value; }
-        }
     }
 }

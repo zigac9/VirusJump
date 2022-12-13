@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
@@ -19,7 +20,9 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private Rectangle _position;
         private int _tRand;
         private bool _visible;
-        private int _frame;
+        private bool _tCheck;
+        private int _scoreToMove;
+        private int _scoreMoveStep;
 
         public Trampo(ContentManager content)
         {
@@ -29,9 +32,11 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public void Initialize()
         {
+            _scoreToMove = 1000;
+            _scoreMoveStep = 700;
             _tRand = -1;
-            _frame = 10;
             _visible = false;
+            _tCheck = false;
             _position = new Rectangle(-100, 730, 40, 18);
         }
 
@@ -40,10 +45,11 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             spriteBatch.Draw(_trampoTexture, _position, Color.White);
         }
 
-        public bool Collision(Player s, bool collisionCheck)
+        public bool Collision(Player player, bool collisionCheck)
         {
-            if ((s.PlayerPosition.X + 10 > _position.X && s.PlayerPosition.X + 10 < _position.X + _position.Width) || (s.PlayerPosition.X + 50 > _position.X && s.PlayerPosition.X + 50 < _position.X + _position.Width))
-                if (_position.Y + 12 - s.PlayerPosition.Y - _position.Width < 5 && _position.Y + 12 - s.PlayerPosition.Y - _position.Width > -15 && s.PlayerPosition.Y > 0)
+            if ((player.PlayerPosition.X + 10 > _position.X && player.PlayerPosition.X + 10 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + player.PlayerPosition.Width - 10 > _position.X && player.PlayerPosition.X + player.PlayerPosition.Width - 10 < _position.X + player.PlayerPosition.Width))
+            {
+                if (_position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height > -15 && player.PlayerSpeed.Y > 0)
                 {
                     if (collisionCheck == true)
                         return true;
@@ -51,6 +57,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
                         return false;
                 }
                 else return false;
+            }
             else return false;
         }
 
@@ -71,11 +78,21 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             get { return _visible; }
             set { _visible = value; }
         }
-
-        public int Frame
+        public bool TCheck
         {
-            get { return _frame; }
-            set { _frame = value; }
+            get { return _tCheck; }
+            set { _tCheck = value; }
+        }
+        public int ScoreToMove
+        {
+            get { return _scoreToMove; }
+            set { _scoreToMove = value; }
+        }
+
+        public int ScoreMoveStep
+        {
+            get { return _scoreMoveStep; }
+            set { _scoreMoveStep = value; }
         }
     }
 }

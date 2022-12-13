@@ -11,7 +11,7 @@ using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using MonoGame.Extended.Sprites;
-
+using System.Diagnostics;
 
 namespace VirusJump
 {
@@ -20,7 +20,6 @@ namespace VirusJump
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         private AnimatedSprite animateSprite;
-
 
         //playagain in reposition gre v renderer
         public void PlayAgain(Player player, Scoring score, Background background)
@@ -38,6 +37,7 @@ namespace VirusJump
             meRnd = true;
             mecolosion = false;
             trampo.Initialize();
+            spring.Initialize();
             currentFrame = 1;
 
             //delete boards
@@ -142,30 +142,36 @@ namespace VirusJump
             {
                 nivo[0] = true;
                 brisi = true;
-                trampo.Frame = 20;
-            }else if(score.Score > 1000 && !nivo[1])
+                spring.ScoreMoveStep = 700;
+                trampo.ScoreMoveStep = 1700;
+            }
+            else if(score.Score > 1000 && !nivo[1])
             {
                 nivo[1] = true;
                 brisi = true;
-                trampo.Frame = 40;
+                spring.ScoreMoveStep = 1000;
+                trampo.ScoreMoveStep = 2000;
             }
             else if(score.Score > 2000 && !nivo[2])
             {
                 nivo[2] = true;
                 brisi = true;
-                trampo.Frame = 80;
+                spring.ScoreMoveStep = 2000;
+                trampo.ScoreMoveStep = 3000;
             }
             else if (score.Score > 3000 && !nivo[3])
             {
                 nivo[3] = true;
                 brisi = true;
-                trampo.Frame = 120;
+                spring.ScoreMoveStep = 3000;
+                trampo.ScoreMoveStep = 4000;
             }
             else if (score.Score > 4000 && !nivo[4])
             {
                 nivo[4] = true;
                 brisi = true;
-                trampo.Frame = 160;
+                spring.ScoreMoveStep = 4000;
+                trampo.ScoreMoveStep = 6000;
             }
 
             if (brisi)
@@ -174,7 +180,7 @@ namespace VirusJump
                 int outBoard = 0;
                 for (int j = 0; j < boardsList.BoardList.Length; j++)
                 {
-                    if (boardsList.BoardList[j].BoardPosition.Y < 0 && boardsList.BoardList[j].Visible)
+                    if (boardsList.BoardList[j].BoardPosition.Y < -20 && boardsList.BoardList[j].Visible && j != trampo.TRand && j != spring.SRand)
                     {
                         boardsList.BoardList[j].Visible = false;
                         outBoard++;
@@ -212,14 +218,13 @@ namespace VirusJump
         public Bullet bullet;
 
         public Trampo trampo;
+        public Spring spring;
 
         public List<bool> nivo = new List<bool> { false, false,false,false,false };
         public bool brisi = false;
         
         public bool tirCheck;
-        public bool fCheck;
         public bool collisionCheck;
-        public bool tCheck;
         public bool gameover;
         public bool meRnd;
         public bool mecolosion;
@@ -241,8 +246,6 @@ namespace VirusJump
         {    
             playerOrientation = playerOrientEnum.Right;
             tirCheck = false;
-            fCheck = false;
-            tCheck = false;
             collisionCheck = true;
             mecolosion = false;
             gameover = false;
@@ -266,9 +269,8 @@ namespace VirusJump
             bullet = new Bullet(this.Content);
             
             trampo = new Trampo(this.Content);
+            spring = new Spring(this.Content);
             animateSprite = new AnimatedSprite(pointer.GetSpriteSheet);
-            //sprite = new AnimatedSprite(boardsList.JumpingBoardList[0].SpriteSheet);
-
         }
 
         protected override void Update(GameTime gameTime)
@@ -301,27 +303,16 @@ namespace VirusJump
                         for (int i = 0; i < 4; i++)
                             boardsList.MovingBoardList[i].Move();
 
-
                         //to move and replace tampeolines
-                        if (score.Score % 130 > 100 && !trampo.Visible)
+                        if (score.Score > trampo.ScoreToMove && !trampo.Visible)
                         {
-                            if (currentFrame >= trampo.Frame)
+                            trampo.ScoreToMove += trampo.ScoreMoveStep;
+                            do
                             {
-                                currentFrame = 1;
-                                trampo.Visible = true;
-                                do
-                                {
-                                    do
-                                    {
-                                        Random rnd = new Random();
-                                        trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
-                                    } while (boardsList.BoardList[trampo.TRand].Visible == false);
-                                } while ((boardsList.BoardList[trampo.TRand].BoardPosition.Y > 0));
-                            }
-                            else
-                            {
-                                currentFrame++;
-                            }
+                                Random rnd = new Random();
+                                trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+                            } while (boardsList.BoardList[trampo.TRand].BoardPosition.Y > 0 || boardsList.BoardList[trampo.TRand].Visible == false || spring.SRand == trampo.TRand);
+                            trampo.Visible = true;
                         }
                         if (trampo.TRand != -1)
                         {
@@ -329,23 +320,58 @@ namespace VirusJump
                             trampo.Visible = true;
                         }
                         if (trampo.Visible)
-                        {
-                            tCheck = trampo.Collision(player, collisionCheck);
+                        {  
+                            trampo.TCheck = trampo.Collision(player, collisionCheck);
                         }
-                        if (tCheck)
+                        if (trampo.TCheck)
                         {
-                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -23);
+                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -32);
                             trampo.TRand = -1;
                             trampo.Visible = false;
-                            tCheck = false;
+                            trampo.TCheck = false;
                         }
-                        if (trampo.TrampoPosition.Y > 720)
+                        if (trampo.TrampoPosition.Y > 690)
                         {
                             trampo.TRand = -1;
                             trampo.Visible = false;
-                            tCheck = false;
+                            trampo.TCheck = false;
                         }
 
+
+                        if (score.Score > spring.ScoreToMove && !spring.Visible)
+                        {
+                            spring.ScoreToMove += spring.ScoreMoveStep;
+                            do
+                            {
+                                Random rnd = new Random();
+                                spring.SRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+                            } while (boardsList.BoardList[spring.SRand].BoardPosition.Y > 0 || boardsList.BoardList[spring.SRand].Visible == false || spring.SRand == trampo.TRand);
+                            spring.Visible = true;
+                            spring.InOut = true;
+                        }
+                        if (spring.SRand != -1 && spring.Visible)
+                        {
+                            spring.SpringPosition = new Rectangle(boardsList.BoardList[spring.SRand].BoardPosition.X + 10, boardsList.BoardList[spring.SRand].BoardPosition.Y - 30, spring.SpringPosition.Width, spring.SpringPosition.Height);
+                            spring.Visible = true;
+                        }
+                        if (spring.Visible)
+                        {
+                            spring.SCheck = spring.Collision(player, collisionCheck);
+                        }
+                        if (spring.SCheck)
+                        {
+                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -23);
+                            spring.SRand = -1;
+                            spring.SCheck = false;
+                            spring.InOut = false;
+                        }
+                        if (spring.SpringPosition.Y > 690)
+                        {
+                            spring.SRand = -1;
+                            spring.Visible = false;
+                            spring.SCheck = false;
+                            spring.InOut = true;
+                        }
 
                         //to move boards_list and background with player
                         if (player.PlayerPosition.Y < 300) 
@@ -398,16 +424,6 @@ namespace VirusJump
                                 boardsList.GoneBoardList[i].Visible = false;
                             }
                         }
-                        //for (int i = 0; i< boardsList.JumpingBoardList.Length; i++)
-                        //{
-                        //    if (boardsList.JumpingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                        //    {
-                        //        Debug.WriteLine(boardsList.JumpingBoardList[i].JumpingBoardPosition.ToString());
-                        //        Debug.WriteLine(player.PlayerPosition.ToString());
-                        //        sprite.Play("animation0");
-                        //        player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -15);
-                        //    }
-                        //}
 
                         //to go to pause menue bye esc clicking
                         k_temp1 = Keyboard.GetState();
@@ -651,14 +667,15 @@ namespace VirusJump
                     }
                 }
 
-                //for (int i = 0; i < boardsList.JumpingBoardList.Length; i++)
-                //{
-                //    boardsList.JumpingBoardList[i].DrawSprite(sprite, spriteBatch);
-                //}
                 if (trampo.Visible)
                 {
                     trampo.Draw(spriteBatch);
                 }
+                if (spring.Visible)
+                {
+                    spring.Draw(spriteBatch);
+                }
+                
                 player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
             if (currentGameState == gameStateEnum.introMenu) 
