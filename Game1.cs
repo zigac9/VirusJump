@@ -13,6 +13,7 @@ using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using MonoGame.Extended.Sprites;
 using System.Diagnostics;
+using VirusJump.Classes.Scene.Objects.Enemies;
 
 namespace VirusJump
 {
@@ -163,7 +164,7 @@ namespace VirusJump
                             trampo.TCheck = false;
                         }
 
-
+                        //spring
                         if (score.Score > spring.ScoreToMove && !spring.Visible)
                         {
                             spring.ScoreToMove += spring.ScoreMoveStep;
@@ -201,6 +202,7 @@ namespace VirusJump
                             spring.InOut = true;
                         }
 
+                        //jetpack
                         if (score.Score > jetpack.ScoreToMove && !jetpack.Visible)
                         {
                             jetpack.ScoreToMove += jetpack.ScoreMoveStep;
@@ -235,6 +237,41 @@ namespace VirusJump
                             jetpack.Visible = false;
                             jetpack.JCheck = false;
                         }
+
+                        //static enemy
+                        //if (score.s % 430 > 400 && StaticEnemy.posize.Y > 780)//to move and replace StaticEnemies
+                        //{
+                        //    do
+                        //    {
+                        //        Random rnd = new Random();
+                        //        eRnd = rnd.Next(1, 22);
+                        //    } while (!(rects[eRnd].posize.Y < 0));
+                        //}
+                        //if (eRnd != -1)
+                        //{
+                        //    StaticEnemy.posize.Y = rects[eRnd].posize.Y - 53;
+                        //    StaticEnemy.posize.X = rects[eRnd].posize.X;
+                        //}
+                        //if (StaticEnemy.Collision(Doodle, collisionCheck) == 0 && !gameover)
+                        //{
+                        //    Doodle.speed.Y = -15;
+                        //    eRnd = -1;
+                        //}
+
+                        //else if (StaticEnemy.Collision(Doodle, collisionCheck) == 1)
+                        //{
+                        //    Doodle.speed.Y = 0;
+                        //    collisionCheck = false;
+                        //}
+                        //if (StaticEnemy.posize.Y < 780 && eRnd == -1)
+                        //    StaticEnemy.posize.Y += 11;
+                        //else;
+                        //if (StaticEnemy.posize.Y > 795 || StaticEnemy.tirCollision(Tir))
+                        //{
+                        //    eRnd = -1;
+                        //    StaticEnemy.posize.X = -200;
+                        //    StaticEnemy.posize.Y = 800;
+                        //}
 
                         //to move boards_list and background with player
                         if (player.PlayerPosition.Y < 300) 
