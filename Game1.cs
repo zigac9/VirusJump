@@ -356,7 +356,6 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.pause;
-                                MediaPlayer.Pause();
                             }
                             //to shoot tir
                             else
@@ -400,7 +399,6 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.gameRunning;
-                                MediaPlayer.Resume();
                             }
                         if (mouseState.X > 215 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 510)
@@ -466,7 +464,6 @@ namespace VirusJump
                                 animateSprite.Play("shoot");
                                 mouseState = m_temp;
                                 currentGameState = gameStateEnum.gameRunning;
-                                MediaPlayer.Resume();
                                 GameRenderer.PlayAgain(player, score, background);
                                 Thread.Sleep(100);
                             }
@@ -523,7 +520,6 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
-                                MediaPlayer.Pause();
                                 playerOrientation = playerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }

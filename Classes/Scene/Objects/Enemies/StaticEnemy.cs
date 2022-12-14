@@ -42,11 +42,11 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public int Collision(Player player, bool collisionCheck)
         {
-            if (_position.Y - player.PlayerPosition.Y - 45 < 5 && _position.Y - player.PlayerPosition.Y - 45 > -15 && player.Speed.Y > 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60)))
+            if (_position.Y - player.PlayerPosition.Y - 45 < 5 && _position.Y - player.PlayerPosition.Y - 45 > -15 && player.Speed.Y > 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Width)))
             {
                 return (0);// our enemy is dead!
             }
-            else if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60)))
+            else if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Height) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Height)))
             {
                 collisionCheck = false;
                 return (1);// you are dead!
