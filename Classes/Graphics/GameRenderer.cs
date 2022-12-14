@@ -33,6 +33,7 @@ namespace VirusJump.Classes.Graphics
             trampo.Initialize();
             spring.Initialize();
             jetpack.Initialize();
+            staticEnemy.Initialize();   
 
             //delete boards
             nivo = new List<bool> { false, false, false, false, false };

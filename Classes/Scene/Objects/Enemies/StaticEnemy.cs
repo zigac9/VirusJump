@@ -20,9 +20,11 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
     public class StaticEnemy
     {
 
-        public Texture2D _staticEnemy;
-        public Rectangle _position;
-        public bool _visible;
+        private Texture2D _staticEnemy;
+        private Rectangle _position;
+        private bool _visible;
+        private int _stRand;
+
         public StaticEnemy(ContentManager content) 
         {
             _staticEnemy = content.Load<Texture2D>("Doodle_jumpContent/e3");
@@ -31,6 +33,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public void Initialize()
         {
+            _stRand = -1;
             _position = new Rectangle(-200, 800, 60, 55);
             _visible = false;
         }
@@ -74,6 +77,12 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         {
             get { return _visible; }
             set { _visible = value; }
+        }
+
+        public int StRand
+        {
+            get { return _stRand; }
+            set { _stRand = value; }
         }
     }
 }

@@ -54,9 +54,14 @@ namespace VirusJump
 
         public static List<bool> nivo;
         public static bool brisi = false;
+
+        public static StaticEnemy staticEnemy;
         
         public static bool collisionCheck;
         public static bool gameover;
+
+        public static bool thingsCollisionCheck;
+
 
         public Game1()
         {
@@ -71,6 +76,7 @@ namespace VirusJump
         {
             playerOrientation = playerOrientEnum.Right;
             collisionCheck = true;
+            thingsCollisionCheck = true;
             gameover = false;
             base.Initialize();
         }
@@ -95,6 +101,8 @@ namespace VirusJump
             spring = new Spring(this.Content);
             jetpack = new Jetpack(this.Content);
 
+            staticEnemy = new StaticEnemy(this.Content);
+
             animateSprite = new AnimatedSprite(pointer.GetSpriteSheet);
         }
 
@@ -113,6 +121,7 @@ namespace VirusJump
                         if (player.PlayerPosition.Y + 60 > 720) gameover = true;
                         
                         player.Move();
+                        Debug.WriteLine(player.Speed);
                         //to prevent from exiting from sides of screen
                         if (player.PlayerPosition.X + 10 < 0)
                         {
@@ -138,7 +147,6 @@ namespace VirusJump
                                 trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
                             } while (boardsList.BoardList[trampo.TRand].Position.Y > 0 || boardsList.BoardList[trampo.TRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
                             trampo.Visible = true;
-                            collisionCheck = false;
                         }
                         if (trampo.TRand != -1)
                         {
@@ -154,7 +162,6 @@ namespace VirusJump
                             player.Speed = new Vector2(player.Speed.X, -32);
                             trampo.TRand = -1;
                             trampo.Visible = false;
-                            collisionCheck = false;
                             trampo.TCheck = false;
                         }
                         if (trampo.TrampoPosition.Y > 690)
@@ -175,7 +182,6 @@ namespace VirusJump
                             } while (boardsList.BoardList[spring.SRand].Position.Y > 0 || boardsList.BoardList[spring.SRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
                             spring.Visible = true;
                             spring.InOut = true;
-                            collisionCheck = true;
                         }
                         if (spring.SRand != -1 && spring.Visible)
                         {
@@ -191,7 +197,6 @@ namespace VirusJump
                             player.Speed = new Vector2(player.Speed.X, -23);
                             spring.SRand = -1;
                             spring.SCheck = false;
-                            collisionCheck = false;
                             spring.InOut = false;
                         }
                         if (spring.SpringPosition.Y > 690)
@@ -212,7 +217,6 @@ namespace VirusJump
                                 jetpack.JRand = rnd.Next(0, boardsList.BoardList.Length - 1);
                             } while (boardsList.BoardList[jetpack.JRand].Position.Y > 0 || boardsList.BoardList[jetpack.JRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
                             jetpack.Visible = true;
-                            collisionCheck = true;
                         }
                         if (jetpack.JRand != -1 && jetpack.Visible)
                         {
@@ -226,7 +230,6 @@ namespace VirusJump
                         if (jetpack.JCheck)
                         {
                             player.Speed = new Vector2(player.Speed.X, -60);
-                            collisionCheck = false;
                             jetpack.JRand = -1;
                             jetpack.Visible = false;
                             jetpack.JCheck = false;
@@ -238,40 +241,41 @@ namespace VirusJump
                             jetpack.JCheck = false;
                         }
 
-                        //static enemy
-                        //if (score.s % 430 > 400 && StaticEnemy.posize.Y > 780)//to move and replace StaticEnemies
-                        //{
-                        //    do
-                        //    {
-                        //        Random rnd = new Random();
-                        //        eRnd = rnd.Next(1, 22);
-                        //    } while (!(rects[eRnd].posize.Y < 0));
-                        //}
-                        //if (eRnd != -1)
-                        //{
-                        //    StaticEnemy.posize.Y = rects[eRnd].posize.Y - 53;
-                        //    StaticEnemy.posize.X = rects[eRnd].posize.X;
-                        //}
-                        //if (StaticEnemy.Collision(Doodle, collisionCheck) == 0 && !gameover)
-                        //{
-                        //    Doodle.speed.Y = -15;
-                        //    eRnd = -1;
-                        //}
+                        //!!!!!!!!!!!!!!!if player speed je enak tok ku je od fanar in useh teh bedarij je collision check false cene true
 
-                        //else if (StaticEnemy.Collision(Doodle, collisionCheck) == 1)
-                        //{
-                        //    Doodle.speed.Y = 0;
-                        //    collisionCheck = false;
-                        //}
-                        //if (StaticEnemy.posize.Y < 780 && eRnd == -1)
-                        //    StaticEnemy.posize.Y += 11;
-                        //else;
-                        //if (StaticEnemy.posize.Y > 795 || StaticEnemy.tirCollision(Tir))
-                        //{
-                        //    eRnd = -1;
-                        //    StaticEnemy.posize.X = -200;
-                        //    StaticEnemy.posize.Y = 800;
-                        //}
+
+                        //static enemy
+                        if (score.Score % 430 > 400 && staticEnemy.Position.Y > 780)//to move and replace StaticEnemies
+                        {
+                            do
+                            {
+                                Random rnd = new Random();
+                                staticEnemy.StRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+                            } while (boardsList.BoardList[staticEnemy.StRand].Position.Y > 0 || boardsList.BoardList[staticEnemy.StRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
+                        }
+                        if (staticEnemy.StRand != -1)
+                        {
+                            staticEnemy.Position = new Rectangle(boardsList.BoardList[staticEnemy.StRand].Position.X, boardsList.BoardList[staticEnemy.StRand].Position.Y - 53, staticEnemy.Position.Width, staticEnemy.Position.Height);
+                        }
+                        if (staticEnemy.Collision(player, collisionCheck) == 0 && !gameover)
+                        {
+                            player.Speed = new Vector2(player.Speed.X, -15);
+                            staticEnemy.StRand = -1;
+                        }
+
+                        else if (staticEnemy.Collision(player, collisionCheck) == 1)
+                        {
+                            player.Speed = new Vector2(player.Speed.X, 0);
+                            collisionCheck = false;
+                        }
+                        if (staticEnemy.Position.Y < 780 && staticEnemy.StRand == -1)
+                            staticEnemy.Position = new Rectangle(staticEnemy.Position.X,staticEnemy.Position.Y + 11, staticEnemy.Position.Width, staticEnemy.Position.Height);
+
+                        if (staticEnemy.Position.Y > 795 || staticEnemy.BulletCollision(bullet))
+                        {
+                            staticEnemy.StRand = -1;
+                            staticEnemy.Position = new Rectangle(-200, 800, 60, 55);
+                        }
 
                         //to move boards_list and background with player
                         if (player.PlayerPosition.Y < 300) 
@@ -303,7 +307,6 @@ namespace VirusJump
                         GameRenderer.rePosition();//to re position boards_list and movable enemys
 
                         //to check boards_list coliision
-                        collisionCheck = true;
                         for (int i = 0; i < boardsList.BoardList.Length; i++)
                             if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
                             {
@@ -406,7 +409,7 @@ namespace VirusJump
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
                                 playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                         if (mouseState.X > 66 && mouseState.X < 186)
                             if (mouseState.Y > 282 && mouseState.Y < 338)
@@ -431,13 +434,13 @@ namespace VirusJump
                                 {
                                     animateSprite.Play("shoot");
                                     currentGameState = gameStateEnum.introMenu;
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(150);
                                 }
                                 else
                                 {
                                     animateSprite.Play("shoot");
                                     currentGameState = gameStateEnum.pause;
-                                    Thread.Sleep(100);
+                                    Thread.Sleep(150);
                                 }
                         if (mouseState.X > 210 && mouseState.X < 278)
                             if (mouseState.Y > 405 && mouseState.Y < 462)
@@ -465,7 +468,7 @@ namespace VirusJump
                                 mouseState = m_temp;
                                 currentGameState = gameStateEnum.gameRunning;
                                 GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
                             if (mouseState.Y > 528 && mouseState.Y < 582 && currentGameState == gameStateEnum.introMenu)
@@ -478,14 +481,14 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.option;
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                         if (mouseState.X > 130 && mouseState.X < 248)
                             if (mouseState.Y > 373 && mouseState.Y < 427)
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.hScore;
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                     }
                     playerMenu.Move();
@@ -501,7 +504,7 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                     }
                     break;
@@ -513,7 +516,7 @@ namespace VirusJump
                             {
                                 animateSprite.Play("shoot");
                                 GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                         if (mouseState.X > 284 && mouseState.X < 404)
                             if (mouseState.Y > 504 && mouseState.Y < 559)
@@ -521,7 +524,7 @@ namespace VirusJump
                                 animateSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
                                 playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(100);
+                                Thread.Sleep(150);
                             }
                         mouseState = m_temp1;
                     }
@@ -578,6 +581,7 @@ namespace VirusJump
                 {
                     jetpack.Draw(spriteBatch);
                 }
+                staticEnemy.Draw(spriteBatch);
 
                 player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
