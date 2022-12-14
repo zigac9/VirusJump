@@ -29,7 +29,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
             if (_visible)
             {
                 if (player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + _position.Width || player.PlayerPosition.X + player.PlayerPosition.Width - 15 > _position.X && player.PlayerPosition.X + player.PlayerPosition.Width - 15 < _position.X + _position.Width)
-                    if (_position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height > -20 && player.PlayerSpeed.Y > 0)
+                    if (_position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height > -20 && player.Speed.Y > 0)
                         return true;
                     else return false;
                 else return false;
@@ -37,7 +37,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
             return false;
         }
 
-        public Rectangle BoardPosition
+        public Rectangle Position
         {
             get { return _position; }
             set { _position = value; }

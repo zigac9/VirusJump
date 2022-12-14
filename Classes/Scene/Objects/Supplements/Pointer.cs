@@ -21,9 +21,6 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         {
             _position = new Vector2(0, 0);
             _scale = new Vector2(0.5f, 0.5f);
-            //_texture = content.Load<Texture2D>("Doodle_jumpContent/pointer");
-            //        sprite.Play("animation0");
-
             _spriteSheet = content.Load<SpriteSheet>("Doodle_jumpContent/shoot.sf", new JsonContentLoader());
         }
 
@@ -32,7 +29,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             s.Draw(sp, _position, 0f, _scale);
         }
 
-        public Vector2 PointerPosition
+        public Vector2 Position
         {
             get { return _position; }
             set { _position = value; }

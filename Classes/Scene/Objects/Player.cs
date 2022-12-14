@@ -95,7 +95,7 @@ namespace VirusJump.Classes.Scene.Objects
             set { _shootPosition = value; }
         }
 
-        public Vector2 PlayerSpeed
+        public Vector2 Speed
         {
             get { return _speed; }
             set { _speed = value; }

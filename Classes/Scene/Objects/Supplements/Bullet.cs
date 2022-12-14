@@ -46,25 +46,25 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _position.X += (int)_speed.X;
         }
 
-        public Rectangle BulletPosition
+        public Rectangle Position
         {
             get { return _position; }
             set { _position = value; }
         }
 
-        public Vector2 BulletSpeed
+        public Vector2 Speed
         {
             get { return _speed; }
             set { _speed = value; }
         }
 
-        public float BulletAcceleration
+        public float Acceleration
         {
             get { return _accelertion; }
             set { _accelertion = value; }
         }
 
-        public bool BullCheck
+        public bool IsCheck
         {
             get { return _bullcheck; }
             set { _bullcheck = value; }
