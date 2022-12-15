@@ -14,7 +14,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private bool _sCheck;
         private int _scoreToMove;
         private int _scoreMoveStep;
-        private bool _inOut;
         private int _sRand;
 
 
@@ -32,7 +31,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             _scoreMoveStep = 500;
             _position = new Rectangle(-100, 730, 20, 30);
             _sRand = -1;
-            _inOut = true;
             _sCheck = false;
         }
 
@@ -45,7 +43,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             else
             {
                 s.Draw(_fanarOut, _position, Color.White);
-                _visible = false;
             }
         }
 
@@ -81,12 +78,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         {
             get { return _sCheck; }
             set { _sCheck = value; }
-        }
-
-        public bool InOut
-        {
-            get { return _inOut; }
-            set { _inOut = value; }
         }
 
         public int SRand

@@ -118,8 +118,8 @@ namespace VirusJump
             {
                 case gameStateEnum.gameRunning:
                     {
-                        if (player.PlayerPosition.Y + 60 > 720) gameover = true;
-                        
+                        if (player.PlayerPosition.Y + player.PlayerPosition.Height > 720) gameover = true;
+
                         player.Move();
                         Debug.WriteLine(player.Speed);
                         //to prevent from exiting from sides of screen
@@ -157,7 +157,7 @@ namespace VirusJump
                         {  
                             trampo.TCheck = trampo.Collision(player, collisionCheck);
                         }
-                        if (trampo.TCheck)
+                        if (trampo.TCheck && thingsCollisionCheck)
                         {
                             player.Speed = new Vector2(player.Speed.X, -32);
                             trampo.TRand = -1;
@@ -181,30 +181,28 @@ namespace VirusJump
                                 spring.SRand = rnd.Next(0, boardsList.BoardList.Length - 1);
                             } while (boardsList.BoardList[spring.SRand].Position.Y > 0 || boardsList.BoardList[spring.SRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
                             spring.Visible = true;
-                            spring.InOut = true;
                         }
                         if (spring.SRand != -1 && spring.Visible)
                         {
+                            Debug.WriteLine(spring.SpringPosition.ToString());
                             spring.SpringPosition = new Rectangle(boardsList.BoardList[spring.SRand].Position.X + 10, boardsList.BoardList[spring.SRand].Position.Y - 30, spring.SpringPosition.Width, spring.SpringPosition.Height);
-                            spring.Visible = true;
                         }
                         if (spring.Visible)
                         {
                             spring.SCheck = spring.Collision(player, collisionCheck);
                         }
-                        if (spring.SCheck)
+                        if (spring.SCheck && thingsCollisionCheck)
                         {
                             player.Speed = new Vector2(player.Speed.X, -23);
                             spring.SRand = -1;
                             spring.SCheck = false;
-                            spring.InOut = false;
+                            spring.Visible = false;
                         }
                         if (spring.SpringPosition.Y > 690)
                         {
                             spring.SRand = -1;
                             spring.Visible = false;
                             spring.SCheck = false;
-                            spring.InOut = true;
                         }
 
                         //jetpack
@@ -221,18 +219,18 @@ namespace VirusJump
                         if (jetpack.JRand != -1 && jetpack.Visible)
                         {
                             jetpack.JetPosition = new Rectangle(boardsList.BoardList[jetpack.JRand].Position.X + 10, boardsList.BoardList[jetpack.JRand].Position.Y - jetpack.JetPosition.Height, jetpack.JetPosition.Width, jetpack.JetPosition.Height);
-                            jetpack.Visible = true;
                         }
                         if (jetpack.Visible)
                         {
                             jetpack.JCheck = jetpack.Collision(player, collisionCheck);
                         }
-                        if (jetpack.JCheck)
+                        if (jetpack.JCheck && thingsCollisionCheck )
                         {
                             player.Speed = new Vector2(player.Speed.X, -60);
                             jetpack.JRand = -1;
                             jetpack.Visible = false;
                             jetpack.JCheck = false;
+                            player.IsJetpack = true;
                         }
                         if (jetpack.JetPosition.Y > 690)
                         {
@@ -257,16 +255,16 @@ namespace VirusJump
                         {
                             staticEnemy.Position = new Rectangle(boardsList.BoardList[staticEnemy.StRand].Position.X, boardsList.BoardList[staticEnemy.StRand].Position.Y - 53, staticEnemy.Position.Width, staticEnemy.Position.Height);
                         }
-                        if (staticEnemy.Collision(player, collisionCheck) == 0 && !gameover)
+                        if (staticEnemy.Collision(player, collisionCheck) == 0 && !gameover && thingsCollisionCheck)
                         {
                             player.Speed = new Vector2(player.Speed.X, -15);
                             staticEnemy.StRand = -1;
                         }
 
-                        else if (staticEnemy.Collision(player, collisionCheck) == 1)
+                        else if (staticEnemy.Collision(player, collisionCheck) == 1 && thingsCollisionCheck)
                         {
                             player.Speed = new Vector2(player.Speed.X, 0);
-                            collisionCheck = false;
+                            collisionCheck = false; 
                         }
                         if (staticEnemy.Position.Y < 780 && staticEnemy.StRand == -1)
                             staticEnemy.Position = new Rectangle(staticEnemy.Position.X,staticEnemy.Position.Y + 11, staticEnemy.Position.Width, staticEnemy.Position.Height);
@@ -307,25 +305,28 @@ namespace VirusJump
                         GameRenderer.rePosition();//to re position boards_list and movable enemys
 
                         //to check boards_list coliision
-                        for (int i = 0; i < boardsList.BoardList.Length; i++)
-                            if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                player.Speed = new Vector2(player.Speed.X, -13);
-                            }
-                        for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
+                        if (thingsCollisionCheck)
                         {
-                            if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                            for (int i = 0; i < boardsList.BoardList.Length; i++)
+                                if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                {
+                                    player.Speed = new Vector2(player.Speed.X, -13);
+                                }
+                            for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
                             {
-                                player.Speed = new Vector2(player.Speed.X, -13);
-                            }
-                            if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                boardsList.FakeBoardList[i].Visible = false;
-                            }
-                            if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                player.Speed = new Vector2(player.Speed.X, -13);
-                                boardsList.GoneBoardList[i].Visible = false;
+                                if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                {
+                                    player.Speed = new Vector2(player.Speed.X, -13);
+                                }
+                                if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                {
+                                    boardsList.FakeBoardList[i].Visible = false;
+                                }
+                                if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                {
+                                    player.Speed = new Vector2(player.Speed.X, -13);
+                                    boardsList.GoneBoardList[i].Visible = false;
+                                }
                             }
                         }
 
@@ -387,6 +388,13 @@ namespace VirusJump
 
                         MouseState mouseControl = Mouse.GetState();
                         player.ShootDegree = -(float)Math.Atan2(mouseControl.X - player.PlayerPosition.X, mouseControl.Y - player.PlayerPosition.Y);
+
+                        if (player.Speed.Y > 0)
+                        {
+                            thingsCollisionCheck = true;
+                            player.IsJetpack = false;
+                        } 
+                        else thingsCollisionCheck = false;
 
                         //to end and gameovering game
                         if (player.PlayerPosition.Y > 720)
@@ -575,8 +583,6 @@ namespace VirusJump
                 {
                     spring.Draw(spriteBatch);
                 }
-                if (jetpack.JCheck) player.IsJetpack = true;
-                else player.IsJetpack = false;
                 if (jetpack.Visible)
                 {
                     jetpack.Draw(spriteBatch);

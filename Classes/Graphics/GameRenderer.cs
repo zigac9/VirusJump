@@ -23,6 +23,7 @@ namespace VirusJump.Classes.Graphics
             currentGameState = gameStateEnum.gameRunning;//menjaj 
             collisionCheck = true;
             score.Check = true;
+            thingsCollisionCheck = true;
             gameover = false;
             player.Initialize();
             boardsList.Initialize();
@@ -179,7 +180,7 @@ namespace VirusJump.Classes.Graphics
                 int outBoard = 0;
                 for (int j = 0; j < boardsList.BoardList.Length; j++)
                 {
-                    if (boardsList.BoardList[j].Position.Y < -20 && boardsList.BoardList[j].Visible && j != trampo.TRand && j != spring.SRand && j != jetpack.JRand)
+                    if (boardsList.BoardList[j].Position.Y < -20 && boardsList.BoardList[j].Visible && j != trampo.TRand && j != spring.SRand && j != jetpack.JRand && j != staticEnemy.StRand)
                     {
                         boardsList.BoardList[j].Visible = false;
                         outBoard++;

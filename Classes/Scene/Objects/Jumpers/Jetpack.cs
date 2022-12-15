@@ -25,7 +25,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         public void Initialize()
         {
             _visible = false;
-            _scoreToMove = 500;
+            _scoreToMove = 1000;
             _scoreMoveStep = 2000;
             _position = new Rectangle(-100, 730, 30, 40);
             _jRand = -1;

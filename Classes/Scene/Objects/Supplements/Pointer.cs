@@ -12,7 +12,6 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     public class Pointer
     {
         private Vector2 _position;
-        private Texture2D _texture;
         private SpriteSheet _spriteSheet;
         private Vector2 _scale;
 
