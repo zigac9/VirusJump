@@ -19,7 +19,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _bestS = "";
             _position = new Vector2(15f, 4f);
             _check = true;
-            _spFont = content.Load<SpriteFont>("Doodle_jumpContent/SpriteFont1"); ;
+            _spFont = content.Load<SpriteFont>("assets/SpriteFont1"); ;
         }
 
         public void Draw(SpriteBatch sp, gameStateEnum gameState)

@@ -26,7 +26,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public Trampo(ContentManager content)
         {
-            _trampoTexture = content.Load<Texture2D>("Doodle_jumpContent/toshak");
+            _trampoTexture = content.Load<Texture2D>("assets/toshak");
             Initialize();
         }
 

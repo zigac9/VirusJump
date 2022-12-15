@@ -42,17 +42,17 @@ namespace VirusJump.Classes.Scene.Objects
 
         public Background(ContentManager content)
         {
-            _back = content.Load<Texture2D>("Doodle_jumpContent/gradient");
-            _kooh = content.Load<Texture2D>("Doodle_jumpContent/kooh");
-            _introMenu = content.Load<Texture2D>("Doodle_jumpContent/mainMenu1");
-            _option = content.Load<Texture2D>("Doodle_jumpContent/option");
-            _sOn = content.Load<Texture2D>("Doodle_jumpContent/sOn");
-            _sOff = content.Load<Texture2D>("Doodle_jumpContent/sOff");
-            _notif = content.Load<Texture2D>("Doodle_jumpContent/notif");
-            _pause = content.Load<Texture2D>("Doodle_jumpContent/pause");
-            _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
-            _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
-            _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
+            _back = content.Load<Texture2D>("assets/gradient");
+            _kooh = content.Load<Texture2D>("assets/kooh");
+            _introMenu = content.Load<Texture2D>("assets/mainMenu1");
+            _option = content.Load<Texture2D>("assets/option");
+            _sOn = content.Load<Texture2D>("assets/sOn");
+            _sOff = content.Load<Texture2D>("assets/sOff");
+            _notif = content.Load<Texture2D>("assets/notif");
+            _pause = content.Load<Texture2D>("assets/pause");
+            _sides = content.Load<Texture2D>("assets/sides");
+            _gameOvre = content.Load<Texture2D>("assets/gameOver");
+            _hScore = content.Load<Texture2D>("assets/highscore");
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
             _sOnposize = new Rectangle(85, 400, 200, 60);

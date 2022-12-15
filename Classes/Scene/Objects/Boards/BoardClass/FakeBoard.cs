@@ -13,7 +13,7 @@ namespace VirusJump.Classes.Scene.Objects
 
         public FakeBoard(ContentManager content, Rectangle position)
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p3");
+            _texture = content.Load<Texture2D>("assets/p3");
             _position = position;
             _visible = true;
             _drawVisible = true;

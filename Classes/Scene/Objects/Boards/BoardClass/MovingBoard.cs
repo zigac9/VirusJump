@@ -13,7 +13,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 
         public MovingBoard(ContentManager content, Rectangle position, int speed)
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p2");
+            _texture = content.Load<Texture2D>("assets/p2");
             _position = position;
             _speed = speed;
             _drawVisible = true;

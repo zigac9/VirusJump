@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Doodle_jumpContent/DoodleKH.png
+#begin assets/DoodleR1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,9 +23,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleKH.png
+/build:assets/DoodleR1.png
 
-#begin Doodle_jumpContent/DoodleL1.png
+#begin assets/e1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -35,9 +35,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleL1.png
+/build:assets/e1.png
 
-#begin Doodle_jumpContent/DoodleLh.png
+#begin assets/e2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,9 +47,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleLh.png
+/build:assets/e2.png
 
-#begin Doodle_jumpContent/DoodleLj.png
+#begin assets/e3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -59,9 +59,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleLj.png
+/build:assets/e3.png
 
-#begin Doodle_jumpContent/DoodleR1.png
+#begin assets/e4L.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -71,9 +71,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleR1.png
+/build:assets/e4L.png
 
-#begin Doodle_jumpContent/DoodleRh.png
+#begin assets/e4R.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleRh.png
+/build:assets/e4R.png
 
-#begin Doodle_jumpContent/DoodleRj.png
+#begin assets/e5.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,9 +95,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleRj.png
+/build:assets/e5.png
 
-#begin Doodle_jumpContent/DoodleShoot.png
+#begin assets/e6.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -107,9 +107,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleShoot.png
+/build:assets/e6.png
 
-#begin Doodle_jumpContent/DoodleT.png
+#begin assets/fanar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -119,9 +119,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/DoodleT.png
+/build:assets/fanar.png
 
-#begin Doodle_jumpContent/doubleRect.png
+#begin assets/fire.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -131,9 +131,12 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/doubleRect.png
+/build:assets/fire.png
 
-#begin Doodle_jumpContent/e1.png
+#begin assets/fire.sf
+/copy:assets/fire.sf
+
+#begin assets/gameOver.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -143,9 +146,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e1.png
+/build:assets/gameOver.png
 
-#begin Doodle_jumpContent/e2.png
+#begin assets/gradient.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -155,9 +158,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e2.png
+/build:assets/gradient.png
 
-#begin Doodle_jumpContent/e3.png
+#begin assets/highscore.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -167,9 +170,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e3.png
+/build:assets/highscore.png
 
-#begin Doodle_jumpContent/e4L.png
+#begin assets/Hscore.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -179,9 +182,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e4L.png
+/build:assets/Hscore.png
 
-#begin Doodle_jumpContent/e4R.png
+#begin assets/injection.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -191,9 +194,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e4R.png
+/build:assets/injection.png
 
-#begin Doodle_jumpContent/e5.png
+#begin assets/jet.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -203,9 +206,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e5.png
+/build:assets/jet.png
 
-#begin Doodle_jumpContent/e6.png
+#begin assets/kooh.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -215,9 +218,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/e6.png
+/build:assets/kooh.png
 
-#begin Doodle_jumpContent/fanar.png
+#begin assets/mainMenu1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -227,9 +230,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/fanar.png
+/build:assets/mainMenu1.png
 
-#begin Doodle_jumpContent/gameOver.png
+#begin assets/manjetpack.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -239,9 +242,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/gameOver.png
+/build:assets/manjetpack.png
 
-#begin Doodle_jumpContent/gradient.png
+#begin assets/notif.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -251,9 +254,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/gradient.png
+/build:assets/notif.png
 
-#begin Doodle_jumpContent/heli.png
+#begin assets/oFanar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -263,9 +266,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/heli.png
+/build:assets/oFanar.png
 
-#begin Doodle_jumpContent/highscore.png
+#begin assets/option.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -275,9 +278,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/highscore.png
+/build:assets/option.png
 
-#begin Doodle_jumpContent/Hscore.png
+#begin assets/p1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -287,9 +290,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/Hscore.png
+/build:assets/p1.png
 
-#begin Doodle_jumpContent/injection.png
+#begin assets/p2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -299,9 +302,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/injection.png
+/build:assets/p2.png
 
-#begin Doodle_jumpContent/jet.png
+#begin assets/p3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -311,9 +314,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/jet.png
+/build:assets/p3.png
 
-#begin Doodle_jumpContent/kooh.png
+#begin assets/p4.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -323,123 +326,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/kooh.png
+/build:assets/p4.png
 
-#begin Doodle_jumpContent/mainMenu1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/mainMenu1.png
-
-#begin Doodle_jumpContent/manjetpack.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/manjetpack.png
-
-#begin Doodle_jumpContent/notif.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/notif.png
-
-#begin Doodle_jumpContent/oFanar.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/oFanar.png
-
-#begin Doodle_jumpContent/option.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/option.png
-
-#begin Doodle_jumpContent/p1.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/p1.png
-
-#begin Doodle_jumpContent/p2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/p2.png
-
-#begin Doodle_jumpContent/p3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/p3.png
-
-#begin Doodle_jumpContent/p4.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/p4.png
-
-#begin Doodle_jumpContent/patmat.mp3
+#begin assets/patmat.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Doodle_jumpContent/patmat.mp3
+/build:assets/patmat.mp3
 
-#begin Doodle_jumpContent/pause.png
+#begin assets/pause.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -449,15 +344,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/pause.png
+/build:assets/pause.png
 
-#begin Doodle_jumpContent/Pink.mp3
+#begin assets/Pink.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Doodle_jumpContent/Pink.mp3
+/build:assets/Pink.mp3
 
-#begin Doodle_jumpContent/pointer.png
+#begin assets/pointer.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -467,27 +362,15 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/pointer.png
+/build:assets/pointer.png
 
-#begin Doodle_jumpContent/puase.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/puase.png
-
-#begin Doodle_jumpContent/shoot.mp3
+#begin assets/shoot.mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Doodle_jumpContent/shoot.mp3
+/build:assets/shoot.mp3
 
-#begin Doodle_jumpContent/shoot.png
+#begin assets/shoot.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -497,12 +380,12 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/shoot.png
+/build:assets/shoot.png
 
-#begin Doodle_jumpContent/shoot.sf
-/copy:Doodle_jumpContent/shoot.sf
+#begin assets/shoot.sf
+/copy:assets/shoot.sf
 
-#begin Doodle_jumpContent/sides.png
+#begin assets/sides.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -512,9 +395,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/sides.png
+/build:assets/sides.png
 
-#begin Doodle_jumpContent/sOff.png
+#begin assets/sOff.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -524,9 +407,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/sOff.png
+/build:assets/sOff.png
 
-#begin Doodle_jumpContent/sOn.png
+#begin assets/sOn.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -536,28 +419,16 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/sOn.png
+/build:assets/sOn.png
 
-#begin Doodle_jumpContent/spring_in.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/spring_in.png
-
-#begin Doodle_jumpContent/SpriteFont1.spritefont
+#begin assets/SpriteFont1.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:Doodle_jumpContent/SpriteFont1.spritefont
+/build:assets/SpriteFont1.spritefont
 
-#begin Doodle_jumpContent/test.png
+#begin assets/test.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -567,9 +438,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/test.png
+/build:assets/test.png
 
-#begin Doodle_jumpContent/tir.png
+#begin assets/tir.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -579,9 +450,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/tir.png
+/build:assets/tir.png
 
-#begin Doodle_jumpContent/toshak.png
+#begin assets/toshak.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -591,5 +462,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Doodle_jumpContent/toshak.png
+/build:assets/toshak.png
 

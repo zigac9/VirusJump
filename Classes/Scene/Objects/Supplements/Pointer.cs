@@ -20,7 +20,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         {
             _position = new Vector2(0, 0);
             _scale = new Vector2(0.5f, 0.5f);
-            _spriteSheet = content.Load<SpriteSheet>("Doodle_jumpContent/shoot.sf", new JsonContentLoader());
+            _spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
         }
 
         public void Draw(AnimatedSprite s, SpriteBatch sp)

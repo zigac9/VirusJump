@@ -18,7 +18,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public Jetpack(ContentManager content)
         {
-            _jetpack = content.Load<Texture2D>("Doodle_jumpContent/jet");
+            _jetpack = content.Load<Texture2D>("assets/jet");
             Initialize();
         }
 

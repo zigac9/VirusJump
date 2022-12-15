@@ -21,7 +21,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Bullet(ContentManager content) 
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/tir");
+            _texture = content.Load<Texture2D>("assets/tir");
             _accelertion = 0.5f;
             _bullcheck = false;
             _speed = new Vector2(0, 0);

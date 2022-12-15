@@ -13,7 +13,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 
         public GoneBoard(ContentManager content, Rectangle position)
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p4");
+            _texture = content.Load<Texture2D>("assets/p4");
             _position = position;
             _visible = true;
             _drawVisible = true;

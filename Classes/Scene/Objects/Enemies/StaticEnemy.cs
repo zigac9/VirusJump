@@ -27,7 +27,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public StaticEnemy(ContentManager content) 
         {
-            _staticEnemy = content.Load<Texture2D>("Doodle_jumpContent/e3");
+            _staticEnemy = content.Load<Texture2D>("assets/e3");
             Initialize();
         }
 

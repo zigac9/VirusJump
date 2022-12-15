@@ -33,11 +33,9 @@ namespace VirusJump.Classes.Scene.Objects
         {
             _accelarator = 1;
             _ch = 0;
-            _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleT");
-            _noseTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleKH");
-            _playerTexture = content.Load<Texture2D>("Doodle_jumpContent/DoodleR1");
-            _shootTexture = content.Load<Texture2D>("Doodle_jumpContent/injection");
-            _jetpack = content.Load<Texture2D>("Doodle_jumpContent/manjetpack");
+            _playerTexture = content.Load<Texture2D>("assets/DoodleR1");
+            _shootTexture = content.Load<Texture2D>("assets/injection");
+            _jetpack = content.Load<Texture2D>("assets/manjetpack");
             Initialize();
         }
 

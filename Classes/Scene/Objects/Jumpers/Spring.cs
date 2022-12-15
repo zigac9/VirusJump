@@ -19,8 +19,8 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public Spring(ContentManager content)
         {
-            _fanarIn = content.Load<Texture2D>("Doodle_jumpContent/fanar");
-            _fanarOut = content.Load<Texture2D>("Doodle_jumpContent/oFanar");
+            _fanarIn = content.Load<Texture2D>("assets/fanar");
+            _fanarOut = content.Load<Texture2D>("assets/oFanar");
             Initialize();
         }
 
@@ -36,14 +36,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public void Draw(SpriteBatch s)
         {
-            if (_inOut)
-            {
-                s.Draw(_fanarIn, _position, Color.White);
-            }
-            else
-            {
-                s.Draw(_fanarOut, _position, Color.White);
-            }
+            s.Draw(_fanarIn, _position, Color.White);
         }
 
         public bool Collision(Player player, bool collisionCheck)
