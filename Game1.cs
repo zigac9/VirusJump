@@ -21,7 +21,6 @@ namespace VirusJump
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        public static AnimatedSprite animateSprite;
 
         //tipkovnica in miska
         public KeyboardState k;
@@ -102,8 +101,6 @@ namespace VirusJump
             jetpack = new Jetpack(this.Content);
 
             staticEnemy = new StaticEnemy(this.Content);
-
-            animateSprite = new AnimatedSprite(pointer.GetSpriteSheet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -358,7 +355,7 @@ namespace VirusJump
                         {
                             if (mouseState.X > 420 && mouseState.X < 470 && mouseState.Y > 5 && mouseState.Y < 40)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.pause;
                             }
                             //to shoot tir
@@ -368,7 +365,7 @@ namespace VirusJump
                                 {
                                     player.Degree = (float)Math.Atan((-(mouseState.Y - player.PlayerPosition.Y - 27)) / (mouseState.X - player.PlayerPosition.X - 30));
                                     bullet.Position = new Rectangle(player.PlayerPosition.X + 30,player.PlayerPosition.Y + 27, bullet.Position.Width, bullet.Position.Height);
-                                    animateSprite.Play("shoot");
+                                    pointer.GetAnimatedSprite.Play("shoot");
                                     if (mouseState.X < player.PlayerPosition.X + 30)
                                     {
                                         bullet.Speed = new Vector2(-25 * (float)Math.Cos(player.Degree), +25 * (float)Math.Sin(player.Degree));
@@ -408,21 +405,21 @@ namespace VirusJump
                         if (mouseState.X > 131 && mouseState.X < 251)
                             if (mouseState.Y > 372 && mouseState.Y < 428)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.gameRunning;
                             }
                         if (mouseState.X > 215 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 510)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
                                 playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                         if (mouseState.X > 66 && mouseState.X < 186)
                             if (mouseState.Y > 282 && mouseState.Y < 338)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.option;
                                 playerOrientation = playerOrientEnum.Right;
                             }
@@ -440,26 +437,26 @@ namespace VirusJump
                             if (mouseState.Y > 530 && mouseState.Y < 584)
                                 if (background.GameStateCheck == true)
                                 {
-                                    animateSprite.Play("shoot");
+                                    pointer.GetAnimatedSprite.Play("shoot");
                                     currentGameState = gameStateEnum.introMenu;
-                                    Thread.Sleep(150);
+                                    Thread.Sleep(100);
                                 }
                                 else
                                 {
-                                    animateSprite.Play("shoot");
+                                    pointer.GetAnimatedSprite.Play("shoot");
                                     currentGameState = gameStateEnum.pause;
-                                    Thread.Sleep(150);
+                                    Thread.Sleep(100);
                                 }
                         if (mouseState.X > 210 && mouseState.X < 278)
                             if (mouseState.Y > 405 && mouseState.Y < 462)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 background.SoundCheck = true;
                             }
                         if (mouseState.X > 99 && mouseState.X < 176)
                             if (mouseState.Y > 407 && mouseState.Y < 461)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 background.SoundCheck = false;
                             }
                     }
@@ -472,31 +469,31 @@ namespace VirusJump
                         if (mouseState.X > 67 && mouseState.X < 185)
                             if (mouseState.Y > 283 && mouseState.Y < 337)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 mouseState = m_temp;
                                 currentGameState = gameStateEnum.gameRunning;
                                 GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                         if (mouseState.X > 292 && mouseState.X < 410)
                             if (mouseState.Y > 528 && mouseState.Y < 582 && currentGameState == gameStateEnum.introMenu)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 this.Exit();
                             }
                         if (mouseState.X > 217 && mouseState.X < 335)
                             if (mouseState.Y > 454 && mouseState.Y < 508)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.option;
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                         if (mouseState.X > 130 && mouseState.X < 248)
                             if (mouseState.Y > 373 && mouseState.Y < 427)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.hScore;
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                     }
                     playerMenu.Move();
@@ -510,9 +507,9 @@ namespace VirusJump
                         if (mouseState.X > 296 && mouseState.X < 415)
                             if (mouseState.Y > 529 && mouseState.Y < 584)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                     }
                     break;
@@ -522,24 +519,24 @@ namespace VirusJump
                         if (mouseState.X > 88 && mouseState.X < 271)
                             if (mouseState.Y > 438 && mouseState.Y < 500)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                         if (mouseState.X > 284 && mouseState.X < 404)
                             if (mouseState.Y > 504 && mouseState.Y < 559)
                             {
-                                animateSprite.Play("shoot");
+                                pointer.GetAnimatedSprite.Play("shoot");
                                 currentGameState = gameStateEnum.introMenu;
                                 playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(150);
+                                Thread.Sleep(100);
                             }
                         mouseState = m_temp1;
                     }
                     break;
             }
 
-            animateSprite.Update(gameTime);
+            pointer.GetAnimatedSprite.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -596,7 +593,7 @@ namespace VirusJump
                 playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.introMenu);
             }
             bullet.Draw(spriteBatch, currentGameState);
-            pointer.Draw(animateSprite, spriteBatch);
+            pointer.Draw(spriteBatch);
 
             spriteBatch.End();
             base.Draw(gameTime);

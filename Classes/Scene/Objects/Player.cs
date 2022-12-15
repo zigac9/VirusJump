@@ -14,10 +14,10 @@ namespace VirusJump.Classes.Scene.Objects
         private Texture2D _shootTexture;
         private Texture2D _jetpack;
         private Texture2D _active;
+        private Texture2D _fireTexture;
 
         private Rectangle _shootPosition;
 
-        private Texture2D _noseTexture;
         private Rectangle _position;
         private Vector2 _speed;
         private int _accelarator;

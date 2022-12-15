@@ -5,6 +5,7 @@ using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
 using SharpDX.Direct2D1.Effects;
+using System.Reflection;
 
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
@@ -14,6 +15,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private Vector2 _position;
         private SpriteSheet _spriteSheet;
         private Vector2 _scale;
+        private AnimatedSprite _animatedSprite;
 
 
         public Pointer(ContentManager content) 
@@ -21,11 +23,12 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _position = new Vector2(0, 0);
             _scale = new Vector2(0.5f, 0.5f);
             _spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
+            _animatedSprite = new AnimatedSprite(_spriteSheet);
         }
 
-        public void Draw(AnimatedSprite s, SpriteBatch sp)
+        public void Draw(SpriteBatch sp)
         {
-            s.Draw(sp, _position, 0f, _scale);
+            _animatedSprite.Draw(sp, _position, 0f, _scale);
         }
 
         public Vector2 Position
@@ -34,9 +37,9 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             set { _position = value; }
         }
 
-        public SpriteSheet GetSpriteSheet
+        public AnimatedSprite GetAnimatedSprite
         {
-            get { return _spriteSheet; }
+            get { return _animatedSprite; }
         }
     }
 }
