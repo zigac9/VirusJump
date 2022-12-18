@@ -20,14 +20,20 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
     public class StaticEnemy
     {
 
-        private Texture2D _staticEnemy;
+        private Texture2D _staticEnemy1;
+        private Texture2D _staticEnemy2;
+        private List<Texture2D> _enemylist;
         private Rectangle _position;
         private bool _visible;
         private int _stRand;
+        private int _textureint;
 
         public StaticEnemy(ContentManager content) 
         {
-            _staticEnemy = content.Load<Texture2D>("assets/e3");
+            _textureint = 0;
+            _staticEnemy1 = content.Load<Texture2D>("assets/ena");
+            _staticEnemy2 = content.Load<Texture2D>("assets/sedem");
+            _enemylist = new List<Texture2D> { _staticEnemy1, _staticEnemy2 };
             Initialize();
         }
 
@@ -40,7 +46,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public void Draw(SpriteBatch s)
         {
-            s.Draw(_staticEnemy, _position, Color.White);
+            s.Draw(_enemylist[_textureint], _position, Color.White);
         }
 
         public int Collision(Player player, bool collisionCheck)
@@ -83,6 +89,12 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         {
             get { return _stRand; }
             set { _stRand = value; }
+        }
+
+        public int TextureRand
+        {
+            get { return _textureint; }
+            set { _textureint = value; }
         }
     }
 }

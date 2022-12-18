@@ -21,6 +21,9 @@ namespace VirusJump.Classes.Scene.Objects
         private Texture2D _jetpackR;
 
         private Texture2D _active;
+
+        private Texture2D _dead;
+
         private SpriteSheet _spriteSheet;
         private AnimatedSprite _animatedSprite;
 
@@ -47,6 +50,9 @@ namespace VirusJump.Classes.Scene.Objects
             _shootTexture = content.Load<Texture2D>("assets/injection");
             _jetpackR = content.Load<Texture2D>("assets/manjetpack");
             _jetpackL = content.Load<Texture2D>("assets/manjetpackL");
+
+            _dead = content.Load<Texture2D>("assets/dead");
+
 
             _spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
             _animatedSprite = new AnimatedSprite(_spriteSheet);
@@ -78,7 +84,7 @@ namespace VirusJump.Classes.Scene.Objects
             _firePosition.Y = _position.Y + _position.Height;
         }
 
-        public void Draw(SpriteBatch s, playerOrientEnum name, gameStateEnum game)
+        public void Draw(SpriteBatch s, playerOrientEnum name, gameStateEnum game, bool collisionCheck)
         {
             if (game == gameStateEnum.gameRunning)
             {
@@ -90,6 +96,9 @@ namespace VirusJump.Classes.Scene.Objects
                             _active = _jetpackL;
                             _firePosition = new Vector2(_firePosition.X + _position.Width - 10, _firePosition.Y);
                             _animatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
+                        }else if(!collisionCheck)
+                        {
+                            _active = _dead;
                         }
                         else _active = _playerTexture;
                         s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
@@ -100,6 +109,10 @@ namespace VirusJump.Classes.Scene.Objects
                             _active = _jetpackR;
                             _firePosition = new Vector2(_firePosition.X + 10, _firePosition.Y);
                             _animatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
+                        }
+                        else if (!collisionCheck)
+                        {
+                            _active = _dead;
                         }
                         else _active = _playerTexture;
                         s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);

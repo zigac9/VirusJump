@@ -20,7 +20,10 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
     public class MovingEnemy
     {
 
-        private Texture2D _movingEnemy;
+        private Texture2D _movingEnemy1;
+        private Texture2D _movingEnemy2;
+        private Texture2D _movingEnemy3;
+
         private Rectangle _position;
         private bool _visible;
         private bool _mvRand;
@@ -34,22 +37,30 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         private float _degree;
 
+        private int _textureint;
+        private List<Texture2D> _enemylist;
+
+
         public MovingEnemy(ContentManager content)
         {
-            _movingEnemy = content.Load<Texture2D>("assets/e3");
+            _textureint = 0;
+            _movingEnemy1 = content.Load<Texture2D>("assets/tri");
+            _movingEnemy2 = content.Load<Texture2D>("assets/stiri");
+            _movingEnemy3 = content.Load<Texture2D>("assets/pet");
+            _enemylist = new List<Texture2D> {_movingEnemy1,_movingEnemy2,_movingEnemy3 };
             Initialize();
         }
 
         public void Initialize()
         {
             _degree = 0;
-            _startView = 2000;
+            _startView = 100;
             _endView = 3000;
             _viewEnemy = 1000;
             _stepView = 4000;
             _meCollision = false;
             _mvRand = false;
-            _position = new Rectangle(20, 800, 60, 60);
+            _position = new Rectangle(20, 800, 80, 60);
             _speed = new Vector2(3, 0);
             _visible = false;
         }
@@ -57,9 +68,9 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         public void Draw(SpriteBatch s)
         {
             if (_speed.X > 0)
-                s.Draw(_movingEnemy, _position, null, Color.White, 0f, Vector2.Zero,SpriteEffects.None, 0);
+                s.Draw(_enemylist[_textureint], _position, null, Color.White, 0f, Vector2.Zero,SpriteEffects.None, 0);
             else
-                s.Draw(_movingEnemy, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
+                s.Draw(_enemylist[_textureint], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
         }
 
         public void Move()
@@ -129,6 +140,11 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         {
             get { return _degree; }
             set { _degree = value; }
+        }
+        public int TextureRand
+        {
+            get { return _textureint; }
+            set { _textureint = value; }
         }
     }
 }

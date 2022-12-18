@@ -139,6 +139,7 @@ namespace VirusJump.Classes.Graphics
             //move movable enemy
             if (score.Score > movingEnemy.Start && !movingEnemy.Visible)
             {
+                movingEnemy.TextureRand = rnd.Next(0, 3);               
                 movingEnemy.Position = new Rectangle(movingEnemy.Position.X, 50, movingEnemy.Position.Width, movingEnemy.Position.Height);
                 movingEnemy.Start += movingEnemy.Step;
                 movingEnemy.Visible = true;

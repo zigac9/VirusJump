@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpackL.png</SourceFile>
-  <SourceTime>2022-12-15T09:54:27.900613+01:00</SourceTime>
+  <SourceTime>2022-12-18T11:04:38.3108088+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/manjetpackL.xnb</DestFile>
-  <DestTime>2022-12-15T16:18:12.1617801+01:00</DestTime>
+  <DestTime>2022-12-18T11:05:33.8788089+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
