@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootPlayer.mp3</SourceFile>
+  <SourceTime>2022-12-18T14:47:08.125751+01:00</SourceTime>
+  <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/shootPlayer.xnb</DestFile>
+  <DestTime>2022-12-18T14:53:10.1892478+01:00</DestTime>
+  <Importer>Mp3Importer</Importer>
+  <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2022-07-26T13:44:56+02:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput>
+    <string>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/shootPlayer.wma</string>
+  </BuildOutput>
+</PipelineBuildEvent>

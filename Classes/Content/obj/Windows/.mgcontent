@@ -4,16 +4,10 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/background.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/DoodleR1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dva.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e1.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e2.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e3.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e4L.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e4R.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e5.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/e6.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/ena.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fanar.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fire.png</File>
@@ -41,8 +35,9 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/pointer.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sedem.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sest.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shoot.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shoot.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootEnemy.mp3</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootPlayer.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sides.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sOff.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sOn.png</File>
@@ -55,11 +50,6 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

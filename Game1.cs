@@ -14,7 +14,6 @@ using VirusJump.Classes.Scene.Objects.Jumpers;
 using MonoGame.Extended.Sprites;
 using System.Diagnostics;
 using VirusJump.Classes.Scene.Objects.Enemies;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace VirusJump
 {
@@ -64,6 +63,8 @@ namespace VirusJump
         public static bool collisionCheck;
         public static bool gameover;
 
+        public static Sound sound;
+
         public static bool thingsCollisionCheck;
 
 
@@ -108,6 +109,8 @@ namespace VirusJump
 
             staticEnemy = new StaticEnemy(this.Content);
             movingEnemy = new MovingEnemy(this.Content);
+
+            sound = new Sound(this.Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -123,6 +126,25 @@ namespace VirusJump
                 case gameStateEnum.gameRunning:
                     {
                         if (player.PlayerPosition.Y + player.PlayerPosition.Height > 720) gameover = true;
+
+                        //for playiing background sound
+                        //if (sound.PlayCheck && background.SoundCheck)
+                        //{
+                        //    MediaPlayer.Play(sound.Background);
+                        //    MediaPlayer.IsRepeating = true;
+                        //    sound.PlayCheck = false;
+                        //}
+                        //if (!background.SoundCheck)
+                        //{
+                        //    MediaPlayer.Stop();
+                        //    sound.PlayCheck = true;
+                        //}
+                        //else if (sound.PlayCheck)
+                        //{
+                        //    MediaPlayer.Play(sound.Background);
+                        //    MediaPlayer.IsRepeating = true;
+                        //    sound.PlayCheck = false;
+                        //}
 
                         player.Move();
                         //to prevent from exiting from sides of screen
@@ -283,11 +305,8 @@ namespace VirusJump
                             collisionCheck = false;
                         }
 
-                        //!!!!!!!!!!!!!!!if player speed je enak tok ku je od fanar in useh teh bedarij je collision check false cene true
-
-
                         //static enemy
-                        if (score.Score % 430 > 400 && staticEnemy.Position.Y > 780)//to move and replace StaticEnemies
+                        if (score.Score % 430 > 400 && staticEnemy.Position.Y > 780)
                         {
                             Random rnd = new Random();
                             do
@@ -351,7 +370,7 @@ namespace VirusJump
                         }
                         background.SideCheck();
 
-                        GameRenderer.rePosition();//to re position boards_list and movable enemys
+                        GameRenderer.rePosition();
 
                         //to check boards_list coliision
                         if (thingsCollisionCheck)
