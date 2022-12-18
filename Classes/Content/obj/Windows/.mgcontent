@@ -9,6 +9,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/DoodleR1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dva.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/ena.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/enemyShot.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fanar.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fire.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/gameOver.png</File>
@@ -17,6 +18,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/Hscore.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/injection.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jet.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jump.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/kooh.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/mainMenu1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpack.png</File>
@@ -36,7 +38,6 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sedem.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sest.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shoot.png</File>
-    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootEnemy.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootPlayer.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sides.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sOff.png</File>
@@ -50,6 +51,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

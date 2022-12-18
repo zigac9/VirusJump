@@ -20,8 +20,8 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Sound(ContentManager content) 
         {
-            _back = content.Load<Song>("assets/Pink");
-            _rect = content.Load<Song>("assets/shoot");
+            //_back = content.Load<Song>("assets/Pink");
+            //_rect = content.Load<Song>("assets/shoot");
             Initialize();
         }
 

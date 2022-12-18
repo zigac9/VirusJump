@@ -67,6 +67,12 @@
 /processorParam:TextureFormat=Color
 /build:assets/ena.png
 
+#begin assets/enemyShot.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:assets/enemyShot.mp3
+
 #begin assets/fanar.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -165,6 +171,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:assets/jet.png
+
+#begin assets/jump.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:assets/jump.mp3
 
 #begin assets/kooh.png
 /importer:TextureImporter
@@ -304,12 +316,6 @@
 /processorParam:Quality=Best
 /build:assets/patmat.mp3
 
-#begin assets/patmat.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:assets/patmat.mp3
-
 #begin assets/pause.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -333,12 +339,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:assets/pet.png
-
-#begin assets/Pink.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:assets/Pink.mp3
 
 #begin assets/Pink.mp3
 /importer:Mp3Importer
@@ -382,12 +382,6 @@
 /processorParam:TextureFormat=Color
 /build:assets/sest.png
 
-#begin assets/shoot.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:assets/shoot.mp3
-
 #begin assets/shoot.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -402,12 +396,6 @@
 
 #begin assets/shoot.sf
 /copy:assets/shoot.sf
-
-#begin assets/shootEnemy.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:assets/shootEnemy.mp3
 
 #begin assets/shootPlayer.mp3
 /importer:Mp3Importer
