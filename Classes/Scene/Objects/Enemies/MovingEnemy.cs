@@ -23,8 +23,16 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         private Texture2D _movingEnemy;
         private Rectangle _position;
         private bool _visible;
-        private int _stRand;
+        private bool _mvRand;
         private Vector2 _speed;
+        private bool _meCollision;
+
+        private int _startView;
+        private int _endView;
+        private int _viewEnemy;
+        private int _stepView;
+
+        private float _degree;
 
         public MovingEnemy(ContentManager content)
         {
@@ -34,8 +42,14 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public void Initialize()
         {
-            _stRand = -1;
-            _position = new Rectangle(20, 750, 60, 65);
+            _degree = 0;
+            _startView = 2000;
+            _endView = 3000;
+            _viewEnemy = 1000;
+            _stepView = 4000;
+            _meCollision = false;
+            _mvRand = false;
+            _position = new Rectangle(20, 800, 60, 60);
             _speed = new Vector2(3, 0);
             _visible = false;
         }
@@ -48,31 +62,13 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
                 s.Draw(_movingEnemy, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
         }
 
-        public void move()
+        public void Move()
         {
             _position.X += (int)_speed.X;
             if (_position.X > 410)
                 _speed.X *= -1;
             if (_position.X < 10)
                 _speed.X *= -1;
-        }
-
-        public int Collision(Player player, bool collisionCheck)
-        {
-            if (_position.Y - player.PlayerPosition.Y - 45 < 5 && _position.Y - player.PlayerPosition.Y - 45 > -15 && player.Speed.Y > 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Width)))
-            {
-                return (0);// our enemy is dead!
-            }
-            else if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Height) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Height)))
-            {
-                collisionCheck = false;
-                return (1);// you are dead!
-            }
-            else
-            {
-                collisionCheck = true;
-                return (2);
-            }
         }
 
         public bool BulletCollision(Bullet bullet)
@@ -87,22 +83,52 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
             set { _position = value; }
         }
 
-        public Vector2 Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
-
         public bool Visible
         {
             get { return _visible; }
             set { _visible = value; }
         }
 
-        public int StRand
+        public bool MvRand
         {
-            get { return _stRand; }
-            set { _stRand = value; }
+            get { return _mvRand; }
+            set { _mvRand = value; }
+        }
+
+        public bool MvCollision
+        {
+            get { return _meCollision; }
+            set { _meCollision = value; }
+        }
+
+        public int Start
+        {
+            get { return _startView; }
+            set { _startView = value; }
+        }
+
+        public int End
+        {
+            get { return _endView; }
+            set { _endView = value; }
+        }
+
+        public int View
+        {
+            get { return _viewEnemy; }
+            set { _viewEnemy = value; }
+        }
+
+        public int Step
+        {
+            get { return _stepView; }
+            set { _stepView = value; }
+        }
+
+        public float Degree
+        {
+            get { return _degree; }
+            set { _degree = value; }
         }
     }
 }

@@ -12,23 +12,20 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Pointer
     {
-        private Vector2 _position;
         private SpriteSheet _spriteSheet;
-        private Vector2 _scale;
         private AnimatedSprite _animatedSprite;
-
+        private Vector2 _position;
 
         public Pointer(ContentManager content) 
         {
             _position = new Vector2(0, 0);
-            _scale = new Vector2(0.5f, 0.5f);
             _spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
             _animatedSprite = new AnimatedSprite(_spriteSheet);
         }
 
         public void Draw(SpriteBatch sp)
         {
-            _animatedSprite.Draw(sp, _position, 0f, _scale);
+            _animatedSprite.Draw(sp, _position, 0f, new Vector2(0.5f, 0.5f));
         }
 
         public Vector2 Position

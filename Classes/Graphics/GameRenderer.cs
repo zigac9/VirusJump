@@ -12,6 +12,7 @@ using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Scene.Objects;
+using System.Diagnostics;
 
 namespace VirusJump.Classes.Graphics
 {
@@ -28,12 +29,14 @@ namespace VirusJump.Classes.Graphics
             player.Initialize();
             boardsList.Initialize();
             bullet.Initialize();
+            bulletEnemy.Initialize();
             background.Initialize();
             playerOrientation = playerOrientEnum.Right;
             score.Score = 0;
             trampo.Initialize();
             spring.Initialize();
             jetpack.Initialize();
+            movingEnemy.Initialize();
             staticEnemy.Initialize();   
 
             //delete boards
@@ -132,6 +135,20 @@ namespace VirusJump.Classes.Graphics
                     }
                 }
             }
+
+            //move movable enemy
+            if (score.Score > movingEnemy.Start && !movingEnemy.Visible)
+            {
+                movingEnemy.Position = new Rectangle(movingEnemy.Position.X, 50, movingEnemy.Position.Width, movingEnemy.Position.Height);
+                movingEnemy.Start += movingEnemy.Step;
+                movingEnemy.Visible = true;
+            }
+            else if(score.Score > movingEnemy.End)
+            {
+                movingEnemy.Visible = false;
+                movingEnemy.End = movingEnemy.Start + movingEnemy.View;
+            }
+
 
             //delete boards
             if (score.Score > 500 && !nivo[0])

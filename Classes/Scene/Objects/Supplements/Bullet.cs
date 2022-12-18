@@ -23,13 +23,13 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         {
             _texture = content.Load<Texture2D>("assets/tir");
             _accelertion = 0.5f;
-            _bullcheck = false;
             _speed = new Vector2(0, 0);
             Initialize();
         }
 
         public void Initialize()
         {
+            _bullcheck = false;
             _position = new Rectangle(-50, -50, 20, 20);
         }
 

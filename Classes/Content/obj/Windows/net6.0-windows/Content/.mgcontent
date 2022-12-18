@@ -23,6 +23,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/kooh.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/mainMenu1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpack.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpackL.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/notif.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/oFanar.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/option.png</File>
@@ -45,6 +46,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/toshak.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
