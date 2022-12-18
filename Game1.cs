@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
 using System;
@@ -11,8 +9,6 @@ using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
-using MonoGame.Extended.Sprites;
-using System.Diagnostics;
 using VirusJump.Classes.Scene.Objects.Enemies;
 
 namespace VirusJump
@@ -375,22 +371,22 @@ namespace VirusJump
                         //to check boards_list coliision
                         if (thingsCollisionCheck)
                         {
-                            for (int i = 0; i < boardsList.BoardList.Length; i++)
-                                if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                            for (var i = 0; i < boardsList.BoardList.Length; i++)
+                                if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck)
                                 {
                                     player.Speed = new Vector2(player.Speed.X, -13);
                                 }
-                            for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
+                            for (var i = 0; i < boardsList.MovingBoardList.Length; i++)
                             {
-                                if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck)
                                 {
                                     player.Speed = new Vector2(player.Speed.X, -13);
                                 }
-                                if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck)
                                 {
                                     boardsList.FakeBoardList[i].Visible = false;
                                 }
-                                if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
+                                if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck)
                                 {
                                     player.Speed = new Vector2(player.Speed.X, -13);
                                     boardsList.GoneBoardList[i].Visible = false;
@@ -508,7 +504,7 @@ namespace VirusJump
                     {
                         if (mouseState.X > 297 && mouseState.X < 415)
                             if (mouseState.Y > 530 && mouseState.Y < 584)
-                                if (background.GameStateCheck == true)
+                                if (background.GameStateCheck)
                                 {
                                     pointer.GetAnimatedSprite.Play("shoot");
                                     currentGameState = gameStateEnum.introMenu;
