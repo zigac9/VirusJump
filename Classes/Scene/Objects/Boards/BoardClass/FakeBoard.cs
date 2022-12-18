@@ -7,7 +7,9 @@ namespace VirusJump.Classes.Scene.Objects
     public class FakeBoard
     {
         private Texture2D _texture;
+
         private Rectangle _position;
+
         private bool _visible;
         private bool _drawVisible;
 
@@ -27,7 +29,6 @@ namespace VirusJump.Classes.Scene.Objects
         public bool Collision(Player player)
         {
             if ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60))
-
                 if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.Speed.Y > 0)
                     return true;
                 else return false;

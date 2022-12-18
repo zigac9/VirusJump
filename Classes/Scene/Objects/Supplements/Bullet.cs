@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using VirusJump.Classes.Scene.Objects.Enemies;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
@@ -16,12 +10,14 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     {
         private Texture2D _texture;
         private Texture2D _texture2;
+        private List<Texture2D> _shootList;
+
         private Rectangle _position;
         private Vector2 _speed;
+
         private float _accelertion;
         private bool _bullcheck;
         private int _textureRnd;
-        private List<Texture2D> _shootList;
 
         public Bullet(ContentManager content, int rnd) 
         {
@@ -63,12 +59,6 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         {
             get { return _speed; }
             set { _speed = value; }
-        }
-
-        public float Acceleration
-        {
-            get { return _accelertion; }
-            set { _accelertion = value; }
         }
 
         public bool IsCheck

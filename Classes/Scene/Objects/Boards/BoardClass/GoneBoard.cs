@@ -7,7 +7,9 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
     public class GoneBoard
     {
         private Texture2D _texture;
+
         private Rectangle _position;
+
         private bool _visible;
         private bool _drawVisible;
 

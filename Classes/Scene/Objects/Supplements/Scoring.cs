@@ -7,10 +7,11 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Scoring
     {
-        private int _score;
-        private string _bestS;
-        private Vector2 _position;
         private SpriteFont _spFont;
+        private Vector2 _position;
+        
+        private string _bestS;
+        private int _score;
         private bool _check;
 
         public Scoring(ContentManager content) 

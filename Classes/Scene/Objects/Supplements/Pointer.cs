@@ -4,9 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
-using SharpDX.Direct2D1.Effects;
-using System.Reflection;
-
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
 {
@@ -14,6 +11,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     {
         private SpriteSheet _spriteSheet;
         private AnimatedSprite _animatedSprite;
+
         private Vector2 _position;
 
         public Pointer(ContentManager content) 

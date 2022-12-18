@@ -1,13 +1,9 @@
-﻿using Microsoft.VisualBasic.Devices;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
-using SharpDX.Direct2D1.Effects;
-using System.Diagnostics;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using static VirusJump.Game1;
 
@@ -19,41 +15,31 @@ namespace VirusJump.Classes.Scene.Objects
         private Texture2D _shootTexture;
         private Texture2D _jetpackL;
         private Texture2D _jetpackR;
-
         private Texture2D _active;
-
         private Texture2D _dead;
 
         private SpriteSheet _spriteSheet;
         private AnimatedSprite _animatedSprite;
 
         private Vector2 _firePosition;
-
         private Rectangle _shootPosition;
-
         private Rectangle _position;
         private Vector2 _speed;
+
         private int _accelarator;
         private int _ch;
         private float _degree;
+        private float _shootDegree;
 
         private bool _jet;
 
-        private float _shootDegree;
-
-
         public Player(ContentManager content)
         {
-            _accelarator = 1;
-            _ch = 0;
             _playerTexture = content.Load<Texture2D>("assets/DoodleR1");
             _shootTexture = content.Load<Texture2D>("assets/injection");
             _jetpackR = content.Load<Texture2D>("assets/manjetpack");
             _jetpackL = content.Load<Texture2D>("assets/manjetpackL");
-
             _dead = content.Load<Texture2D>("assets/dead");
-
-
             _spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
             _animatedSprite = new AnimatedSprite(_spriteSheet);
             Initialize();
@@ -61,6 +47,8 @@ namespace VirusJump.Classes.Scene.Objects
 
         public void Initialize()
         {
+            _accelarator = 1;
+            _ch = 0;
             _degree = 0;
             _jet = false;
             _speed = new Vector2(0, -13); 

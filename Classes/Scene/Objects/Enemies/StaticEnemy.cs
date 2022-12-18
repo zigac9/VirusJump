@@ -1,30 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects.Supplements;
-using VirusJump.Classes.Graphics;
-using VirusJump.Classes.Scene.Objects.Boards;
-using VirusJump.Classes.Scene.Objects.Jumpers;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Content;
 
 namespace VirusJump.Classes.Scene.Objects.Enemies
 {
     public class StaticEnemy
     {
-
         private Texture2D _staticEnemy1;
         private Texture2D _staticEnemy2;
         private List<Texture2D> _enemylist;
+
         private Rectangle _position;
-        private bool _visible;
+
         private int _stRand;
         private int _textureint;
 
@@ -41,7 +30,6 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         {
             _stRand = -1;
             _position = new Rectangle(-200, 800, 60, 55);
-            _visible = false;
         }
 
         public void Draw(SpriteBatch s)
@@ -51,14 +39,16 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public int Collision(Player player, bool collisionCheck)
         {
+            //enemy dead
             if (_position.Y - player.PlayerPosition.Y - 45 < 5 && _position.Y - player.PlayerPosition.Y - 45 > -15 && player.Speed.Y > 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Width)))
             {
-                return (0);// our enemy is dead!
+                return (0);
             }
+            //player dead
             else if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Height) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Height)))
             {
                 collisionCheck = false;
-                return (1);// you are dead!
+                return (1);
             }
             else
             {
@@ -77,12 +67,6 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         {
             get { return _position; }
             set { _position = value; }
-        }
-
-        public bool Visible
-        {
-            get { return _visible; }
-            set { _visible = value; }
         }
 
         public int StRand

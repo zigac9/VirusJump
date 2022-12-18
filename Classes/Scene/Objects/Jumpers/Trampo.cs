@@ -1,28 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Trampo
     {
         private Texture2D _trampoTexture;
+
         private Rectangle _position;
-        private int _tRand;
+
         private bool _visible;
         private bool _tCheck;
+
         private int _scoreToMove;
         private int _scoreMoveStep;
+        private int _tRand;
 
         public Trampo(ContentManager content)
         {

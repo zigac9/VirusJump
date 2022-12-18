@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
@@ -9,13 +8,15 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
     {
         private Texture2D _fanarIn;
         private Texture2D _fanarOut;
+
         private Rectangle _position;
+
         private bool _visible;
         private bool _sCheck;
+
         private int _scoreToMove;
         private int _scoreMoveStep;
         private int _sRand;
-
 
         public Spring(ContentManager content)
         {

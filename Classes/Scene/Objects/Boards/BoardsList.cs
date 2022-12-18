@@ -1,11 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using SharpDX.Direct3D9;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 
 namespace VirusJump.Classes.Scene.Objects.Boards

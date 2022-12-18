@@ -1,20 +1,21 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Jetpack
     {
         private Texture2D _jetpack;
+
         private Rectangle _position;
+
         private bool _visible;
         private bool _jCheck;
+
         private int _scoreToMove;
         private int _scoreMoveStep;
         private int _jRand;
-
 
         public Jetpack(ContentManager content)
         {

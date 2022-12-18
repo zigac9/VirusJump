@@ -1,45 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects.Supplements;
-using VirusJump.Classes.Graphics;
-using VirusJump.Classes.Scene.Objects.Boards;
-using VirusJump.Classes.Scene.Objects.Jumpers;
-using System.Reflection.Metadata;
 using Microsoft.Xna.Framework.Content;
 
 namespace VirusJump.Classes.Scene.Objects.Enemies
 {
     public class MovingEnemy
     {
-
         private Texture2D _movingEnemy1;
         private Texture2D _movingEnemy2;
         private Texture2D _movingEnemy3;
+        private List<Texture2D> _enemylist;
 
         private Rectangle _position;
+        private Vector2 _speed;
+
         private bool _visible;
         private bool _mvRand;
-        private Vector2 _speed;
         private bool _meCollision;
 
         private int _startView;
         private int _endView;
         private int _viewEnemy;
         private int _stepView;
-
-        private float _degree;
-
         private int _textureint;
-        private List<Texture2D> _enemylist;
-
+        private float _degree;
 
         public MovingEnemy(ContentManager content)
         {
