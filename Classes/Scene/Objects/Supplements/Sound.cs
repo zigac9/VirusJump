@@ -33,18 +33,12 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public bool PlayCheck
         {
-            get { return _playCheck; }
-            set { _playCheck = value; }
+            get => _playCheck;
+            set => _playCheck = value;
         }
 
-        public Song Background
-        {
-            get { return _back; }
-        }
+        public Song Background => _back;
 
-        public Song Board
-        {
-            get { return _rect; }
-        }
+        public Song Board => _rect;
     }
 }

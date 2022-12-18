@@ -6,7 +6,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Trampo
     {
-        private Texture2D _trampoTexture;
+        private readonly Texture2D _trampoTexture;
 
         private Rectangle _position;
 
@@ -44,48 +44,47 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             {
                 if (_position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height > -15 && player.Speed.Y > 0)
                 {
-                    if (collisionCheck == true)
+                    if (collisionCheck)
                         return true;
-                    else
-                        return false;
+                    return false;
                 }
-                else return false;
+                return false;
             }
-            else return false;
+            return false;
         }
 
         public Rectangle TrampoPosition
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public int TRand
         {
-            get { return _tRand; }
-            set { _tRand = value; }
+            get => _tRand;
+            set => _tRand = value;
         }
 
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
-        public bool TCheck
+        public bool Check
         {
-            get { return _tCheck; }
-            set { _tCheck = value; }
+            get => _tCheck;
+            set => _tCheck = value;
         }
         public int ScoreToMove
         {
-            get { return _scoreToMove; }
-            set { _scoreToMove = value; }
+            get => _scoreToMove;
+            set => _scoreToMove = value;
         }
 
         public int ScoreMoveStep
         {
-            get { return _scoreMoveStep; }
-            set { _scoreMoveStep = value; }
+            get => _scoreMoveStep;
+            set => _scoreMoveStep = value;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class MovingBoard
     {
-        private Texture2D _texture;
+        private readonly Texture2D _texture;
 
         private Rectangle _position;
 
@@ -41,8 +41,8 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
     }
 }

@@ -49,13 +49,6 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\jumper.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\spritesheet.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\Doodle_jumpContent\shoot.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\DoodleR1.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e1.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e2.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e3.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e4L.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e4R.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e5.xnb
-D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\e6.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\fanar.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\fire.sf
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\fire.xnb
@@ -101,3 +94,11 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\stiri.
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\tri.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\dead.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\virus.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\background.wma
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\background.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\enemyShot.wma
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\enemyShot.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\jump.wma
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\jump.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\shootPlayer.wma
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\shootPlayer.xnb

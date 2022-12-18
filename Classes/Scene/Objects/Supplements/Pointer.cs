@@ -9,16 +9,15 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Pointer
     {
-        private SpriteSheet _spriteSheet;
-        private AnimatedSprite _animatedSprite;
+        private readonly AnimatedSprite _animatedSprite;
 
         private Vector2 _position;
 
         public Pointer(ContentManager content) 
         {
             _position = new Vector2(0, 0);
-            _spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
-            _animatedSprite = new AnimatedSprite(_spriteSheet);
+            var spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
+            _animatedSprite = new AnimatedSprite(spriteSheet);
         }
 
         public void Draw(SpriteBatch sp)
@@ -28,13 +27,10 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Vector2 Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
-        public AnimatedSprite GetAnimatedSprite
-        {
-            get { return _animatedSprite; }
-        }
+        public AnimatedSprite GetAnimatedSprite => _animatedSprite;
     }
 }

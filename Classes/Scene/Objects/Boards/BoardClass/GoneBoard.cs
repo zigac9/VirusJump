@@ -6,7 +6,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class GoneBoard
     {
-        private Texture2D _texture;
+        private readonly Texture2D _texture;
 
         private Rectangle _position;
 
@@ -38,20 +38,20 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
 
         public bool DrawVisible
         {
-            get { return _drawVisible; }
-            set { _drawVisible = value; }
+            get => _drawVisible;
+            set => _drawVisible = value;
         }
     }
 }

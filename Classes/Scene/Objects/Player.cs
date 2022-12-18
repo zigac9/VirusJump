@@ -11,15 +11,14 @@ namespace VirusJump.Classes.Scene.Objects
 {
     public class Player
     {
-        private Texture2D _playerTexture;
-        private Texture2D _shootTexture;
-        private Texture2D _jetpackL;
-        private Texture2D _jetpackR;
+        private readonly Texture2D _playerTexture;
+        private readonly Texture2D _shootTexture;
+        private readonly Texture2D _jetpackL;
+        private readonly Texture2D _jetpackR;
         private Texture2D _active;
-        private Texture2D _dead;
+        private readonly Texture2D _dead;
 
-        private SpriteSheet _spriteSheet;
-        private AnimatedSprite _animatedSprite;
+        private readonly AnimatedSprite _animatedSprite;
 
         private Vector2 _firePosition;
         private Rectangle _shootPosition;
@@ -40,8 +39,8 @@ namespace VirusJump.Classes.Scene.Objects
             _jetpackR = content.Load<Texture2D>("assets/manjetpack");
             _jetpackL = content.Load<Texture2D>("assets/manjetpackL");
             _dead = content.Load<Texture2D>("assets/dead");
-            _spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
-            _animatedSprite = new AnimatedSprite(_spriteSheet);
+            var spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
+            _animatedSprite = new AnimatedSprite(spriteSheet);
             Initialize();
         }
 
@@ -72,13 +71,13 @@ namespace VirusJump.Classes.Scene.Objects
             _firePosition.Y = _position.Y + _position.Height;
         }
 
-        public void Draw(SpriteBatch s, playerOrientEnum name, gameStateEnum game, bool collisionCheck)
+        public void Draw(SpriteBatch s, PlayerOrientEnum name, GameStateEnum game, bool collisionCheck)
         {
-            if (game == gameStateEnum.gameRunning)
+            if (game == GameStateEnum.GameRunning)
             {
                 switch (name)
                 {
-                    case playerOrientEnum.Left:
+                    case PlayerOrientEnum.Left:
                         if (_jet)
                         {
                             _active = _jetpackL;
@@ -91,7 +90,7 @@ namespace VirusJump.Classes.Scene.Objects
                         else _active = _playerTexture;
                         s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
                         break;
-                    case playerOrientEnum.Right:
+                    case PlayerOrientEnum.Right:
                         if (_jet)
                         {
                             _active = _jetpackR;
@@ -108,7 +107,7 @@ namespace VirusJump.Classes.Scene.Objects
                 }
                 s.Draw(_shootTexture, _shootPosition, null, Color.White, _shootDegree, new Vector2(50, 0), SpriteEffects.None, 1f);
             }
-            else if(game == gameStateEnum.introMenu)
+            else if(game == GameStateEnum.IntroMenu)
             {
                 s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             }
@@ -122,49 +121,46 @@ namespace VirusJump.Classes.Scene.Objects
 
         public Rectangle PlayerPosition
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public Rectangle ShootPosition
         {
-            get { return _shootPosition; }
-            set { _shootPosition = value; }
+            get => _shootPosition;
+            set => _shootPosition = value;
         }
 
         public Vector2 Speed
         {
-            get { return _speed; }
-            set { _speed = value; }
+            get => _speed;
+            set => _speed = value;
         }
 
         public float Degree
         {
-            get { return _degree; }
-            set { _degree = value; }
+            get => _degree;
+            set => _degree = value;
         }
 
         public float ShootDegree
         {
-            get { return _shootDegree; }
-            set { _shootDegree = value; }
+            get => _shootDegree;
+            set => _shootDegree = value;
         }
 
         public Vector2 FirePosition
         {
-            get { return _firePosition; }
-            set { _firePosition = value; }
+            get => _firePosition;
+            set => _firePosition = value;
         }
 
         public bool IsJetpack
         {
-            get { return _jet; }
-            set { _jet = value; }
+            get => _jet;
+            set => _jet = value;
         }
 
-        public AnimatedSprite GetAnimatedSprite
-        {
-            get { return _animatedSprite; }
-        }
+        public AnimatedSprite GetAnimatedSprite => _animatedSprite;
     }
 }

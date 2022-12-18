@@ -8,10 +8,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 {
     public class MovingEnemy
     {
-        private Texture2D _movingEnemy1;
-        private Texture2D _movingEnemy2;
-        private Texture2D _movingEnemy3;
-        private List<Texture2D> _enemylist;
+        private readonly List<Texture2D> _enemylist;
 
         private Rectangle _position;
         private Vector2 _speed;
@@ -30,17 +27,17 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         public MovingEnemy(ContentManager content)
         {
             _textureint = 0;
-            _movingEnemy1 = content.Load<Texture2D>("assets/tri");
-            _movingEnemy2 = content.Load<Texture2D>("assets/stiri");
-            _movingEnemy3 = content.Load<Texture2D>("assets/pet");
-            _enemylist = new List<Texture2D> {_movingEnemy1,_movingEnemy2,_movingEnemy3 };
+            var movingEnemy1 = content.Load<Texture2D>("assets/tri");
+            var movingEnemy2 = content.Load<Texture2D>("assets/stiri");
+            var movingEnemy3 = content.Load<Texture2D>("assets/pet");
+            _enemylist = new List<Texture2D> {movingEnemy1,movingEnemy2,movingEnemy3 };
             Initialize();
         }
 
         public void Initialize()
         {
             _degree = 0;
-            _startView = 100;
+            _startView = 2000;
             _endView = 3000;
             _viewEnemy = 1000;
             _stepView = 4000;
@@ -76,61 +73,61 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
 
         public bool MvRand
         {
-            get { return _mvRand; }
-            set { _mvRand = value; }
+            get => _mvRand;
+            set => _mvRand = value;
         }
 
         public bool MvCollision
         {
-            get { return _meCollision; }
-            set { _meCollision = value; }
+            get => _meCollision;
+            set => _meCollision = value;
         }
 
         public int Start
         {
-            get { return _startView; }
-            set { _startView = value; }
+            get => _startView;
+            set => _startView = value;
         }
 
         public int End
         {
-            get { return _endView; }
-            set { _endView = value; }
+            get => _endView;
+            set => _endView = value;
         }
 
         public int View
         {
-            get { return _viewEnemy; }
-            set { _viewEnemy = value; }
+            get => _viewEnemy;
+            set => _viewEnemy = value;
         }
 
         public int Step
         {
-            get { return _stepView; }
-            set { _stepView = value; }
+            get => _stepView;
+            set => _stepView = value;
         }
 
         public float Degree
         {
-            get { return _degree; }
-            set { _degree = value; }
+            get => _degree;
+            set => _degree = value;
         }
         public int TextureRand
         {
-            get { return _textureint; }
-            set { _textureint = value; }
+            get => _textureint;
+            set => _textureint = value;
         }
     }
 }

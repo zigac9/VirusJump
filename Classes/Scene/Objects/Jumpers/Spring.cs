@@ -6,8 +6,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Spring
     {
-        private Texture2D _fanarIn;
-        private Texture2D _fanarOut;
+        private readonly Texture2D _fanarIn;
 
         private Rectangle _position;
 
@@ -21,7 +20,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         public Spring(ContentManager content)
         {
             _fanarIn = content.Load<Texture2D>("assets/fanar");
-            _fanarOut = content.Load<Texture2D>("assets/oFanar");
+            content.Load<Texture2D>("assets/oFanar");
             Initialize();
         }
 
@@ -46,50 +45,47 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
             {
                 if (_position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height > -15 && player.Speed.Y > 0)
                 {
-                    if (collisionCheck == true)
-                        return true;
-                    else
-                        return false;
+                    return collisionCheck;
                 }
-                else return false;
+                return false;
             }
-            else return false;
+            return false;
         }
 
         public Rectangle SpringPosition
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
 
         public bool SCheck
         {
-            get { return _sCheck; }
-            set { _sCheck = value; }
+            get => _sCheck;
+            set => _sCheck = value;
         }
 
         public int SRand
         {
-            get { return _sRand; }
-            set { _sRand = value; }
+            get => _sRand;
+            set => _sRand = value;
         }
 
         public int ScoreToMove
         {
-            get { return _scoreToMove; }
-            set { _scoreToMove = value; }
+            get => _scoreToMove;
+            set => _scoreToMove = value;
         }
 
         public int ScoreMoveStep
         {
-            get { return _scoreMoveStep; }
-            set { _scoreMoveStep = value; }
+            get => _scoreMoveStep;
+            set => _scoreMoveStep = value;
         }
     }
 }

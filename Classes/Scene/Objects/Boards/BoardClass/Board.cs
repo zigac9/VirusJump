@@ -6,7 +6,7 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class Board
     {
-        private Texture2D _texture;
+        private readonly Texture2D _texture;
 
         private Rectangle _position;
 
@@ -34,26 +34,26 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
                     if (_position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y - player.PlayerPosition.Y - player.PlayerPosition.Height > -20 && player.Speed.Y > 0)
                         return true;
                     else return false;
-                else return false;
+                return false;
             }
             return false;
         }
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
 
         public bool DrawVisible
         {
-            get { return _drawVisible; }
-            set { _drawVisible = value; }
+            get => _drawVisible;
+            set => _drawVisible = value;
         }
     }
 }

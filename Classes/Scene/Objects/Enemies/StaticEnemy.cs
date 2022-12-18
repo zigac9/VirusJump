@@ -8,9 +8,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 {
     public class StaticEnemy
     {
-        private Texture2D _staticEnemy1;
-        private Texture2D _staticEnemy2;
-        private List<Texture2D> _enemylist;
+        private readonly List<Texture2D> _enemylist;
 
         private Rectangle _position;
 
@@ -20,9 +18,9 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         public StaticEnemy(ContentManager content) 
         {
             _textureint = 0;
-            _staticEnemy1 = content.Load<Texture2D>("assets/ena");
-            _staticEnemy2 = content.Load<Texture2D>("assets/sedem");
-            _enemylist = new List<Texture2D> { _staticEnemy1, _staticEnemy2 };
+            var staticEnemy1 = content.Load<Texture2D>("assets/ena");
+            var staticEnemy2 = content.Load<Texture2D>("assets/sedem");
+            _enemylist = new List<Texture2D> { staticEnemy1, staticEnemy2 };
             Initialize();
         }
 
@@ -37,7 +35,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
             s.Draw(_enemylist[_textureint], _position, Color.White);
         }
 
-        public int Collision(Player player, bool collisionCheck)
+        public int Collision(Player player, ref bool collisionCheck)
         {
             //enemy dead
             if (_position.Y - player.PlayerPosition.Y - 45 < 5 && _position.Y - player.PlayerPosition.Y - 45 > -15 && player.Speed.Y > 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Width)))
@@ -65,20 +63,20 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public int StRand
         {
-            get { return _stRand; }
-            set { _stRand = value; }
+            get => _stRand;
+            set => _stRand = value;
         }
 
         public int TextureRand
         {
-            get { return _textureint; }
-            set { _textureint = value; }
+            get => _textureint;
+            set => _textureint = value;
         }
     }
 }

@@ -8,23 +8,21 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 {
     public class Bullet
     {
-        private Texture2D _texture;
-        private Texture2D _texture2;
-        private List<Texture2D> _shootList;
+        private readonly List<Texture2D> _shootList;
 
         private Rectangle _position;
         private Vector2 _speed;
 
-        private float _accelertion;
+        private readonly float _accelertion;
         private bool _bullcheck;
-        private int _textureRnd;
+        private readonly int _textureRnd;
 
         public Bullet(ContentManager content, int rnd) 
         {
             _textureRnd = rnd;
-            _texture = content.Load<Texture2D>("assets/tir");
-            _texture2 = content.Load<Texture2D>("assets/virus");
-            _shootList = new List<Texture2D> { _texture, _texture2 };            
+            var texture = content.Load<Texture2D>("assets/tir");
+            var texture2 = content.Load<Texture2D>("assets/virus");
+            _shootList = new List<Texture2D> { texture, texture2 };            
             _accelertion = 0.5f;
             _speed = new Vector2(0, 0);
             Initialize();
@@ -36,9 +34,9 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _position = new Rectangle(-50, -50, 20, 20);
         }
 
-        public void Draw(SpriteBatch s, gameStateEnum gameState)
+        public void Draw(SpriteBatch s, GameStateEnum gameState)
         {
-            if (gameState == gameStateEnum.gameRunning)
+            if (gameState == GameStateEnum.GameRunning)
                 s.Draw(_shootList[_textureRnd], _position, Color.White);
         }
 
@@ -51,21 +49,20 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public Vector2 Speed
         {
-            get { return _speed; }
-            set { _speed = value; }
+            get => _speed;
+            set => _speed = value;
         }
 
         public bool IsCheck
         {
-            get { return _bullcheck; }
-            set { _bullcheck = value; }
+            get => _bullcheck;
+            set => _bullcheck = value;
         }
-
     }
 }

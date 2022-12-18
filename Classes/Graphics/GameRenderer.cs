@@ -1,196 +1,198 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using VirusJump.Classes.Scene.Objects.Supplements;
-using VirusJump.Classes.Scene.Objects;
 
 namespace VirusJump.Classes.Graphics
 {
-    public class GameRenderer : Game1
+    public abstract class GameRenderer : Game1
     {
         //playagain in reposition gre v renderer
-        public static void PlayAgain(Player player, Scoring score, Background background)
+        public static void PlayAgain()
         {
-            currentGameState = gameStateEnum.gameRunning;//menjaj 
-            collisionCheck = true;
-            score.Check = true;
-            thingsCollisionCheck = true;
-            gameover = false;
-            player.Initialize();
-            boardsList.Initialize();
-            bullet.Initialize();
-            bulletEnemy.Initialize();
-            background.Initialize();
-            playerOrientation = playerOrientEnum.Right;
-            score.Score = 0;
-            trampo.Initialize();
-            spring.Initialize();
-            jetpack.Initialize();
-            movingEnemy.Initialize();
-            staticEnemy.Initialize();   
+            CurrentGameState = GameStateEnum.GameRunning;//menjaj 
+            CollisionCheck = true;
+            Score.Check = true;
+            ThingsCollisionCheck = true;
+            Gameover = false;
+            Player.Initialize();
+            BoardsList.Initialize();
+            Bullet.Initialize();
+            BulletEnemy.Initialize();
+            Background.Initialize();
+            PlayerOrientation = PlayerOrientEnum.Right;
+            Score.Score = 0;
+            Trampo.Initialize();
+            Spring.Initialize();
+            Jetpack.Initialize();
+            MovingEnemy.Initialize();
+            StaticEnemy.Initialize();   
 
             //delete boards
-            nivo = new List<bool> { false, false, false, false, false };
-            brisi = false;
+            Nivo = new List<bool> { false, false, false, false, false };
+            Brisi = false;
         }
 
-        public static void rePosition()
+        public static void RePosition()
         {
-            int minY = 999;
-            Random rnd = new Random();
+            var minY = 999;
+            var rnd = new Random();
 
-            for (int i = 0; i < boardsList.BoardList.Length; i++)
+            for (var i = 0; i < BoardsList.BoardList.Length; i++)
             {
-                if (boardsList.BoardList[i].Visible)
+                if (BoardsList.BoardList[i].Visible)
                 {
-                    if (boardsList.BoardList[i].Position.Y < -28)
+                    if (BoardsList.BoardList[i].Position.Y < -28)
                     {
-                        boardsList.BoardList[i].DrawVisible = false;
+                        BoardsList.BoardList[i].DrawVisible = false;
                     }
-                    else if (boardsList.BoardList[i].Position.Y > -28)
+                    else if (BoardsList.BoardList[i].Position.Y > -28)
                     {
-                        boardsList.BoardList[i].DrawVisible = true;
+                        BoardsList.BoardList[i].DrawVisible = true;
                     }
-                    if (boardsList.BoardList[i].Position.Y > 734)
+                    if (BoardsList.BoardList[i].Position.Y > 734)
                     {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].Position.Y < minY) minY = boardsList.BoardList[j].Position.Y;
-                        for (int j = 0; j < 4; j++)
+                        foreach (var board in BoardsList.BoardList)
+                            if (board.Position.Y < minY) minY = board.Position.Y;
+                        
+                        for (var j = 0; j < 4; j++)
                         {
-                            if (boardsList.MovingBoardList[j].Position.Y < minY) minY = boardsList.MovingBoardList[j].Position.Y;
-                            if (boardsList.FakeBoardList[j].Position.Y < minY) minY = boardsList.FakeBoardList[j].Position.Y;
-                            if (boardsList.GoneBoardList[j].Position.Y < minY) minY = boardsList.GoneBoardList[j].Position.Y;
+                            if (BoardsList.MovingBoardList[j].Position.Y < minY) minY = BoardsList.MovingBoardList[j].Position.Y;
+                            if (BoardsList.FakeBoardList[j].Position.Y < minY) minY = BoardsList.FakeBoardList[j].Position.Y;
+                            if (BoardsList.GoneBoardList[j].Position.Y < minY) minY = BoardsList.GoneBoardList[j].Position.Y;
                         }
-                        boardsList.BoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.BoardList[i].Position.Width, boardsList.BoardList[i].Position.Height);
+                        BoardsList.BoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), BoardsList.BoardList[i].Position.Width, BoardsList.BoardList[i].Position.Height);
                     }
                 }
 
                 if (i < 4)
                 {
-                    if (boardsList.FakeBoardList[i].Position.Y < -28)
+                    if (BoardsList.FakeBoardList[i].Position.Y < -28)
                     {
-                        boardsList.FakeBoardList[i].DrawVisible = false;
+                        BoardsList.FakeBoardList[i].DrawVisible = false;
                     }
-                    else if (boardsList.FakeBoardList[i].Position.Y > -28)
+                    else if (BoardsList.FakeBoardList[i].Position.Y > -28)
                     {
-                        boardsList.FakeBoardList[i].DrawVisible = true;
-                    }
-
-                    if (boardsList.GoneBoardList[i].Position.Y < -28)
-                    {
-                        boardsList.GoneBoardList[i].DrawVisible = false;
-                    }
-                    else if (boardsList.GoneBoardList[i].Position.Y > -28)
-                    {
-                        boardsList.GoneBoardList[i].DrawVisible = true;
+                        BoardsList.FakeBoardList[i].DrawVisible = true;
                     }
 
-                    if (boardsList.MovingBoardList[i].Position.Y > 734)
+                    if (BoardsList.GoneBoardList[i].Position.Y < -28)
                     {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].Position.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].Position.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].Position.Y < minY) minY = boardsList.MovingBoardList[j].Position.Y;
-                            if (boardsList.FakeBoardList[j].Position.Y < minY) minY = boardsList.FakeBoardList[j].Position.Y;
-                            if (boardsList.GoneBoardList[j].Position.Y < minY) minY = boardsList.GoneBoardList[j].Position.Y;
-                        }
-                        boardsList.MovingBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.MovingBoardList[i].Position.Width, boardsList.MovingBoardList[i].Position.Height);
+                        BoardsList.GoneBoardList[i].DrawVisible = false;
                     }
-                    if (boardsList.FakeBoardList[i].Position.Y > 734)
+                    else if (BoardsList.GoneBoardList[i].Position.Y > -28)
                     {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].Position.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].Position.Y;
-                        for (int j = 0; j < 4; j++)
-                        {
-                            if (boardsList.MovingBoardList[j].Position.Y < minY) minY = boardsList.MovingBoardList[j].Position.Y;
-                            if (boardsList.FakeBoardList[j].Position.Y < minY) minY = boardsList.FakeBoardList[j].Position.Y;
-                            if (boardsList.GoneBoardList[j].Position.Y < minY) minY = boardsList.GoneBoardList[j].Position.Y;
-                        }
-                        boardsList.FakeBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.FakeBoardList[i].Position.Width, boardsList.FakeBoardList[i].Position.Height);
-                        boardsList.FakeBoardList[i].Visible = true;
+                        BoardsList.GoneBoardList[i].DrawVisible = true;
                     }
-                    if (boardsList.GoneBoardList[i].Position.Y > 734)
+
+                    if (BoardsList.MovingBoardList[i].Position.Y > 734)
                     {
-                        for (int j = 0; j < boardsList.BoardList.Length; j++)
-                            if (boardsList.BoardList[j].Position.Y < minY && boardsList.BoardList[i].Visible) minY = boardsList.BoardList[j].Position.Y;
+                        foreach (var board in BoardsList.BoardList)
+                            if (board.Position.Y < minY && BoardsList.BoardList[i].Visible) minY = board.Position.Y;
+
+                        for (var j = 0; j < 4; j++)
+                        {
+                            if (BoardsList.MovingBoardList[j].Position.Y < minY) minY = BoardsList.MovingBoardList[j].Position.Y;
+                            if (BoardsList.FakeBoardList[j].Position.Y < minY) minY = BoardsList.FakeBoardList[j].Position.Y;
+                            if (BoardsList.GoneBoardList[j].Position.Y < minY) minY = BoardsList.GoneBoardList[j].Position.Y;
+                        }
+                        BoardsList.MovingBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), BoardsList.MovingBoardList[i].Position.Width, BoardsList.MovingBoardList[i].Position.Height);
+                    }
+                    if (BoardsList.FakeBoardList[i].Position.Y > 734)
+                    {
+                        foreach (var t in BoardsList.BoardList)
+                            if (t.Position.Y < minY && BoardsList.BoardList[i].Visible) minY = t.Position.Y;
+
+                        for (var j = 0; j < 4; j++)
+                        {
+                            if (BoardsList.MovingBoardList[j].Position.Y < minY) minY = BoardsList.MovingBoardList[j].Position.Y;
+                            if (BoardsList.FakeBoardList[j].Position.Y < minY) minY = BoardsList.FakeBoardList[j].Position.Y;
+                            if (BoardsList.GoneBoardList[j].Position.Y < minY) minY = BoardsList.GoneBoardList[j].Position.Y;
+                        }
+                        BoardsList.FakeBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), BoardsList.FakeBoardList[i].Position.Width, BoardsList.FakeBoardList[i].Position.Height);
+                        BoardsList.FakeBoardList[i].Visible = true;
+                    }
+                    if (BoardsList.GoneBoardList[i].Position.Y > 734)
+                    {
+                        foreach (var t in BoardsList.BoardList)
+                            if (t.Position.Y < minY && BoardsList.BoardList[i].Visible) minY = t.Position.Y;
+
                         for (int j = 0; j < 4; j++)
                         {
-                            if (boardsList.MovingBoardList[j].Position.Y < minY) minY = boardsList.MovingBoardList[j].Position.Y;
-                            if (boardsList.FakeBoardList[j].Position.Y < minY) minY = boardsList.FakeBoardList[j].Position.Y;
-                            if (boardsList.GoneBoardList[j].Position.Y < minY) minY = boardsList.GoneBoardList[j].Position.Y;
+                            if (BoardsList.MovingBoardList[j].Position.Y < minY) minY = BoardsList.MovingBoardList[j].Position.Y;
+                            if (BoardsList.FakeBoardList[j].Position.Y < minY) minY = BoardsList.FakeBoardList[j].Position.Y;
+                            if (BoardsList.GoneBoardList[j].Position.Y < minY) minY = BoardsList.GoneBoardList[j].Position.Y;
                         }
-                        boardsList.GoneBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), boardsList.GoneBoardList[i].Position.Width, boardsList.GoneBoardList[i].Position.Height);
-                        boardsList.GoneBoardList[i].Visible = true;
+                        BoardsList.GoneBoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28), BoardsList.GoneBoardList[i].Position.Width, BoardsList.GoneBoardList[i].Position.Height);
+                        BoardsList.GoneBoardList[i].Visible = true;
                     }
                 }
             }
 
             //move movable enemy
-            if (score.Score > movingEnemy.Start && !movingEnemy.Visible)
+            if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
             {
-                movingEnemy.TextureRand = rnd.Next(0, 3);               
-                movingEnemy.Position = new Rectangle(movingEnemy.Position.X, 50, movingEnemy.Position.Width, movingEnemy.Position.Height);
-                movingEnemy.Start += movingEnemy.Step;
-                movingEnemy.Visible = true;
+                MovingEnemy.TextureRand = rnd.Next(0, 3);
+                MovingEnemy.Position = new Rectangle(MovingEnemy.Position.X, 50, MovingEnemy.Position.Width, MovingEnemy.Position.Height);
+                MovingEnemy.Start += MovingEnemy.Step;
+                MovingEnemy.Visible = true;
             }
-            else if(score.Score > movingEnemy.End)
+            else if(Score.Score > MovingEnemy.End)
             {
-                movingEnemy.Visible = false;
-                movingEnemy.End = movingEnemy.Start + movingEnemy.View;
+                MovingEnemy.Visible = false;
+                MovingEnemy.End = MovingEnemy.Start + MovingEnemy.View;
             }
 
 
             //delete boards
-            if (score.Score > 500 && !nivo[0])
+            if (Score.Score > 500 && !Nivo[0])
             {
-                nivo[0] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 700;
-                trampo.ScoreMoveStep = 1700;
-                jetpack.ScoreMoveStep = 3000;
+                Nivo[0] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 700;
+                Trampo.ScoreMoveStep = 1700;
+                Jetpack.ScoreMoveStep = 3000;
             }
-            else if (score.Score > 1000 && !nivo[1])
+            else if (Score.Score > 1000 && !Nivo[1])
             {
-                nivo[1] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 1000;
-                trampo.ScoreMoveStep = 2000;
-                jetpack.ScoreMoveStep = 5000;
+                Nivo[1] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 1000;
+                Trampo.ScoreMoveStep = 2000;
+                Jetpack.ScoreMoveStep = 5000;
             }
-            else if (score.Score > 2000 && !nivo[2])
+            else if (Score.Score > 2000 && !Nivo[2])
             {
-                nivo[2] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 2000;
-                trampo.ScoreMoveStep = 3000;
-                jetpack.ScoreMoveStep = 6000;
+                Nivo[2] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 2000;
+                Trampo.ScoreMoveStep = 3000;
+                Jetpack.ScoreMoveStep = 6000;
             }
-            else if (score.Score > 3000 && !nivo[3])
+            else if (Score.Score > 3000 && !Nivo[3])
             {
-                nivo[3] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 3000;
-                trampo.ScoreMoveStep = 4000;
-                jetpack.ScoreMoveStep = 8000;
+                Nivo[3] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 3000;
+                Trampo.ScoreMoveStep = 4000;
+                Jetpack.ScoreMoveStep = 8000;
             }
-            else if (score.Score > 4000 && !nivo[4])
+            else if (Score.Score > 4000 && !Nivo[4])
             {
-                nivo[4] = true;
-                brisi = true;
-                spring.ScoreMoveStep = 4000;
-                trampo.ScoreMoveStep = 6000;
-                jetpack.ScoreMoveStep = 12000;
+                Nivo[4] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 4000;
+                Trampo.ScoreMoveStep = 6000;
+                Jetpack.ScoreMoveStep = 12000;
             }
-            if (brisi)
+            if (Brisi)
             {
-                brisi = false;
+                Brisi = false;
                 int outBoard = 0;
-                for (int j = 0; j < boardsList.BoardList.Length; j++)
+                for (int j = 0; j < BoardsList.BoardList.Length; j++)
                 {
-                    if (boardsList.BoardList[j].Position.Y < -20 && boardsList.BoardList[j].Visible && j != trampo.TRand && j != spring.SRand && j != jetpack.JRand && j != staticEnemy.StRand)
+                    if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible && j != Trampo.TRand && j != Spring.SRand && j != Jetpack.JRand && j != StaticEnemy.StRand)
                     {
-                        boardsList.BoardList[j].Visible = false;
+                        BoardsList.BoardList[j].Visible = false;
                         outBoard++;
                     }
                     if (outBoard == 2)
