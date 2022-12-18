@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using VirusJump.Classes.Scene.Objects.Enemies;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
@@ -14,14 +15,20 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     public class Bullet
     {
         private Texture2D _texture;
+        private Texture2D _texture2;
         private Rectangle _position;
         private Vector2 _speed;
         private float _accelertion;
         private bool _bullcheck;
+        private int _textureRnd;
+        private List<Texture2D> _shootList;
 
-        public Bullet(ContentManager content) 
+        public Bullet(ContentManager content, int rnd) 
         {
+            _textureRnd = rnd;
             _texture = content.Load<Texture2D>("assets/tir");
+            _texture2 = content.Load<Texture2D>("assets/virus");
+            _shootList = new List<Texture2D> { _texture, _texture2 };            
             _accelertion = 0.5f;
             _speed = new Vector2(0, 0);
             Initialize();
@@ -36,7 +43,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         public void Draw(SpriteBatch s, gameStateEnum gameState)
         {
             if (gameState == gameStateEnum.gameRunning)
-                s.Draw(_texture, _position, Color.White);
+                s.Draw(_shootList[_textureRnd], _position, Color.White);
         }
 
         public void Move()

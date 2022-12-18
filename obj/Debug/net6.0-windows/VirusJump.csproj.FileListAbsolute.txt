@@ -100,3 +100,4 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\sest.x
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\stiri.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\tri.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\dead.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\virus.xnb

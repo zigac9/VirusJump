@@ -52,8 +52,10 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/tir.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/toshak.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/tri.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

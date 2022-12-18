@@ -99,12 +99,12 @@ namespace VirusJump
             background = new Background(this.Content);
             score = new Scoring(this.Content);
             pointer = new Pointer(this.Content);
-            bullet = new Bullet(this.Content);
+            bullet = new Bullet(this.Content, 0);
             
             trampo = new Trampo(this.Content);
             spring = new Spring(this.Content);
             jetpack = new Jetpack(this.Content);
-            bulletEnemy = new Bullet(this.Content);
+            bulletEnemy = new Bullet(this.Content, 1);
 
             staticEnemy = new StaticEnemy(this.Content);
             movingEnemy = new MovingEnemy(this.Content);
