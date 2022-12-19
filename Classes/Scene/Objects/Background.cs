@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using VirusJump.Classes.Scene.Objects.Supplements;
+using VirusJump.Classes.Scene.Objects.Scoring;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects
@@ -76,7 +76,7 @@ namespace VirusJump.Classes.Scene.Objects
         }
 
 
-        public void Draw(SpriteBatch s, GameStateEnum gameState, Scoring score)
+        public void Draw(SpriteBatch s, GameStateEnum gameState, ScorClass score)
         {
             s.Draw(_back, _bPosize, Color.White);
             s.Draw(_kooh, _kPosize, Color.White);

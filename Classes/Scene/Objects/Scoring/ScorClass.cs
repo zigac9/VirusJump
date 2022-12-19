@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using static VirusJump.Game1;
 
-namespace VirusJump.Classes.Scene.Objects.Supplements
+namespace VirusJump.Classes.Scene.Objects.Scoring
 {
-    public class Scoring
+    public class ScorClass
     {
         private SpriteFont _spFont;
         private readonly Vector2 _position;
@@ -14,7 +14,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private int _score;
         private bool _check;
 
-        public Scoring(ContentManager content) 
+        public ScorClass(ContentManager content) 
         {
             _score = 0;
             _bestS = "";

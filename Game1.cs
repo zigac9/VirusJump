@@ -12,6 +12,7 @@ using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using VirusJump.Classes.Scene.Objects.Enemies;
+using VirusJump.Classes.Scene.Objects.Scoring;
 
 namespace VirusJump
 {
@@ -35,7 +36,7 @@ namespace VirusJump
         public enum PlayerOrientEnum { Left = 1, Right } //kako bo obrnjena slika
         public static PlayerOrientEnum PlayerOrientation;
 
-        public static Scoring Score;
+        public static ScorClass Score;
         public static Player Player;
         public static Player PlayerMenu;
         public static BoardsList BoardsList;
@@ -55,7 +56,7 @@ namespace VirusJump
         public static StaticEnemy StaticEnemy;
         public static MovingEnemy MovingEnemy;
 
-
+        public static ScoreManager ScoreManager;
         public static bool CollisionCheck;
         public static bool Gameover;
 
@@ -95,7 +96,7 @@ namespace VirusJump
             };
 
             Background = new Background(Content);
-            Score = new Scoring(Content);
+            Score = new ScorClass(Content);
             Pointer = new Pointer(Content);
             Bullet = new Bullet(Content, 0);
             
@@ -108,6 +109,8 @@ namespace VirusJump
             MovingEnemy = new MovingEnemy(Content);
 
             Sound = new Sound(Content);
+            
+            ScoreManager = ScoreManager.Load();
         }
 
         protected override void Update(GameTime gameTime)
@@ -582,6 +585,7 @@ namespace VirusJump
                     PlayerMenu.Move();
                     if (PlayerMenu.PlayerPosition.Y > 550)
                         PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
+
                     break;
                 case GameStateEnum.HScore:
                     _mouseState = Mouse.GetState();
@@ -601,7 +605,15 @@ namespace VirusJump
                     {
                         MediaPlayer.Play(Sound.End);
                         Sound.PlayCheck = true;
+                        ScoreManager.Add(new Score()
+                            {
+                                PlayerName = "Bob",
+                                Value = Score.Score, 
+                            }
+                        );
+                        ScoreManager.Save(ScoreManager);
                     }
+                    
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
                         
