@@ -31,6 +31,12 @@
 /processorParam:TextureFormat=Color
 /build:assets/dead.png
 
+#begin assets/deadSound.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:assets/deadSound.mp3
+
 #begin assets/DoodleR1.png
 /importer:TextureImporter
 /processor:TextureProcessor

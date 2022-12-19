@@ -43,7 +43,7 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
             _stepView = 4000;
             _meCollision = false;
             _mvRand = false;
-            _position = new Rectangle(20, 800, 80, 60);
+            _position = new Rectangle(20, -200, 80, 60);
             _speed = new Vector2(3, 0);
             _visible = false;
         }

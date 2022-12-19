@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/background.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/deadSound.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/DoodleR1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dva.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/ena.png</File>
@@ -51,6 +52,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

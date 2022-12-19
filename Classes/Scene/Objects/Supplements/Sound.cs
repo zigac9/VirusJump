@@ -17,6 +17,10 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private Song _background;
         private Song _end;
         private SoundEffect _board;
+        private SoundEffect _dead;
+        private SoundEffect _playerShoot;
+        private SoundEffect _enemyShoot;
+
         private bool _check;
         private bool _playCheck;
 
@@ -25,6 +29,9 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             _background = content.Load<Song>("assets/background");
             _end = content.Load<Song>("assets/patmat");
             _board = content.Load<SoundEffect>("assets/jump");
+            _playerShoot = content.Load<SoundEffect>("assets/shootPlayer");
+            _enemyShoot = content.Load<SoundEffect>("assets/enemyShot");
+            _dead = content.Load<SoundEffect>("assets/deadSound");
             Initialize();
         }
 
@@ -45,5 +52,11 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         public Song End => _end;
 
         public SoundEffect Board => _board;
+
+        public SoundEffect PlayerShoot => _playerShoot;
+
+        public SoundEffect EnemyShoot => _enemyShoot;
+
+        public SoundEffect Dead => _dead;
     }
 }

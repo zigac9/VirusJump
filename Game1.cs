@@ -266,7 +266,7 @@ namespace VirusJump
                             MovingEnemy.Visible = false;
                         }
 
-                        if (Math.Abs(MovingEnemy.Position.X - Player.PlayerPosition.X) < 10)
+                        if (Math.Abs(MovingEnemy.Position.X - Player.PlayerPosition.X) < 10 && MovingEnemy.Position.Y > 0)
                         {
                             if (!BulletEnemy.IsCheck)
                             {
@@ -281,6 +281,7 @@ namespace VirusJump
                                     BulletEnemy.Speed = new Vector2(1 * (float)Math.Cos(MovingEnemy.Degree), -1 * (float)Math.Sin(MovingEnemy.Degree));
                                 }
                                 BulletEnemy.IsCheck = true;
+                                Sound.EnemyShoot.Play();
                             }
                         }
                         
@@ -292,6 +293,8 @@ namespace VirusJump
                         if (BulletEnemy.IsCheck && Player.BulletCollision(BulletEnemy))
                         {
                             Player.Speed = new Vector2(Player.Speed.X, 0);
+                            MediaPlayer.Stop();
+                            Sound.Dead.Play();
                             BulletEnemy.IsCheck = false;
                             CollisionCheck = false;
                         }
@@ -318,6 +321,8 @@ namespace VirusJump
                         else if (StaticEnemy.Collision(Player, ref CollisionCheck) == 1 && !Gameover && ThingsCollisionCheck)
                         {
                             Player.Speed = new Vector2(Player.Speed.X, 0);
+                            MediaPlayer.Stop();
+                            Sound.Dead.Play();
                             CollisionCheck = false;
                         }
                         if (StaticEnemy.Position.Y < 780 && StaticEnemy.StRand == -1)
@@ -445,6 +450,7 @@ namespace VirusJump
                                         Bullet.Speed = new Vector2(25 * (float)Math.Cos(Player.Degree), -25 * (float)Math.Sin(Player.Degree));
                                     }
                                     Bullet.IsCheck = true;
+                                    Sound.PlayerShoot.Play();
                                 }
                             }
                         }
@@ -466,7 +472,10 @@ namespace VirusJump
 
                         //to end and gameovering game
                         if (Player.PlayerPosition.Y > 720)
+                        {
                             CurrentGameState = GameStateEnum.GameOver;
+                            if (CollisionCheck)Sound.Dead.Play();
+                        }
                     }
                     break;
                 case GameStateEnum.Pause:

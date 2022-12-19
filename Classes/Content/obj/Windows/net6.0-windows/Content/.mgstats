@@ -1,6 +1,7 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/background.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/background.xnb","SongProcessor","SongContent",5130867,128,1.5023744
-"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/dead.xnb","TextureProcessor","Texture2DContent",22785,97429,0.1998061
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/dead.xnb","TextureProcessor","Texture2DContent",22785,97429,0.1851553
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/deadSound.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/deadSound.xnb","SoundEffectProcessor","SoundEffectContent",25920,124521,0.2585205
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/DoodleR1.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/DoodleR1.xnb","TextureProcessor","Texture2DContent",29748,97429,0.225773
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dva.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/dva.xnb","TextureProcessor","Texture2DContent",36236,124405,0.1469058
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/ena.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/ena.xnb","TextureProcessor","Texture2DContent",10511,30961,0.0028426

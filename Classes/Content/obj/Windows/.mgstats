@@ -1,10 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/background.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/background.xnb","SongProcessor","SongContent",5130867,128,2.9036584
-"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/dead.xnb","TextureProcessor","Texture2DContent",22785,97429,0.209977
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dead.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/dead.xnb","TextureProcessor","Texture2DContent",22785,97429,0.3348045
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/deadSound.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/deadSound.xnb","SoundEffectProcessor","SoundEffectContent",25920,124521,0.4221027
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/DoodleR1.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/DoodleR1.xnb","TextureProcessor","Texture2DContent",29748,97429,0.2916709
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/dva.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/dva.xnb","TextureProcessor","Texture2DContent",36236,124405,0.1409028
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/ena.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/ena.xnb","TextureProcessor","Texture2DContent",10511,30961,0.0215767
-"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/enemyShot.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/enemyShot.xnb","SongProcessor","SongContent",30240,127,0.4785122
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/enemyShot.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/enemyShot.xnb","SoundEffectProcessor","SoundEffectContent",30240,145257,0.2058786
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fanar.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/fanar.xnb","TextureProcessor","Texture2DContent",3866,7293,0.0036769
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fire.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/fire.xnb","TextureProcessor","Texture2DContent",7450,20885,0.3191732
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fire.sf","D:\FRI_Ljubljana\GitHub\VirusJump\Classes\Content\bin\Windows\assets/fire.sf","CopyItem","File",253,253,0.0024216
@@ -14,7 +15,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/Hscore.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/Hscore.xnb","TextureProcessor","Texture2DContent",315735,2457685,0.1203579
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/injection.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/injection.xnb","TextureProcessor","Texture2DContent",4893,77461,0.0095865
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jet.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/jet.xnb","TextureProcessor","Texture2DContent",2348,12733,0.0032309
-"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jump.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/jump.xnb","SongProcessor","SongContent",6686,122,0.2787072
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jump.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/jump.xnb","SoundEffectProcessor","SoundEffectContent",6686,32455,0.220641
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/kooh.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/kooh.xnb","TextureProcessor","Texture2DContent",50471,1382485,0.062995
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/mainMenu1.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/mainMenu1.xnb","TextureProcessor","Texture2DContent",231906,1382485,0.0804847
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpack.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/manjetpack.xnb","TextureProcessor","Texture2DContent",30726,97429,0.0064604
@@ -35,7 +36,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sest.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/sest.xnb","TextureProcessor","Texture2DContent",25088,98425,0.0085682
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shoot.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/shoot.xnb","TextureProcessor","Texture2DContent",2849,98389,0.0518066
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shoot.sf","D:\FRI_Ljubljana\GitHub\VirusJump\Classes\Content\bin\Windows\assets/shoot.sf","CopyItem","File",245,245,0.001724
-"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootPlayer.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/shootPlayer.xnb","SongProcessor","SongContent",79329,129,0.3281967
+"D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/shootPlayer.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/shootPlayer.xnb","SoundEffectProcessor","SoundEffectContent",79329,331881,0.2853415
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sides.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/sides.xnb","TextureProcessor","Texture2DContent",148279,3932245,0.2080028
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sOff.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/sOff.xnb","TextureProcessor","Texture2DContent",6938,62021,0.0126163
 "D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/sOn.png","D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/sOn.xnb","TextureProcessor","Texture2DContent",7024,63225,0.0047982
