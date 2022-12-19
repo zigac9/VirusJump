@@ -29,9 +29,18 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
 
         public void Add(Score score)
         {
-            Scores.Add(score);
-
-            Scores = Scores.OrderByDescending(c => c.Value).ToList(); // Orders the list so that the higher scores are first
+            var exists = Scores.Any(item => item.PlayerName == "Bob");
+            if (exists)
+            {
+                var index = Scores.FindIndex(a => a.PlayerName == "Bob");
+                if (Scores[index].Value < score.Value)
+                    Scores[index].Value = score.Value;
+            }
+            else
+            {
+                Scores.Add(score);
+            }
+            Scores = Scores.Where(x => x.PlayerName == "Bob").OrderByDescending(c => c.Value).ToList();
 
             UpdateHighscores();
         }
