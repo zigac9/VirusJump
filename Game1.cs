@@ -588,13 +588,20 @@ namespace VirusJump
                     }
                     break;
                 case GameStateEnum.GameOver:
+                    if (!Sound.PlayCheck)
+                    {
+                        MediaPlayer.Play(Sound.End);
+                        Sound.PlayCheck = true;
+                    }
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
+                        
                         if (_mouseState.X is > 88 and < 271)
                             if (_mouseState.Y is > 438 and < 500)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 GameRenderer.PlayAgain();
+                                MediaPlayer.Stop();
                                 Thread.Sleep(100);
                             }
                         if (_mouseState.X is > 284 and < 404)
@@ -602,7 +609,7 @@ namespace VirusJump
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 CurrentGameState = GameStateEnum.IntroMenu;
-                                MediaPlayer.Pause();
+                                MediaPlayer.Stop();
                                 PlayerOrientation = PlayerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }

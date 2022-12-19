@@ -69,7 +69,7 @@
 
 #begin assets/enemyShot.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:assets/enemyShot.mp3
 
@@ -174,7 +174,7 @@
 
 #begin assets/jump.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:assets/jump.mp3
 
@@ -399,7 +399,7 @@
 
 #begin assets/shootPlayer.mp3
 /importer:Mp3Importer
-/processor:SongProcessor
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:assets/shootPlayer.mp3
 

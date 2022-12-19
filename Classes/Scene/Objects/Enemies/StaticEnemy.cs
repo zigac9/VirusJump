@@ -42,23 +42,22 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
             {
                 return (0);
             }
+            
             //player dead
-            else if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Height) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Height)))
+            if (_position.Y - player.PlayerPosition.Y < 5 && _position.Y - player.PlayerPosition.Y > -35 && player.Speed.Y < 0 && ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + player.PlayerPosition.Height) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + player.PlayerPosition.Height)))
             {
-                collisionCheck = false;
+                // collisionCheck = false;
                 return (1);
             }
-            else
-            {
-                collisionCheck = true;
-                return (2);
-            }
+
+            // collisionCheck = true;
+            return (2);
         }
 
         public bool BulletCollision(Bullet bullet)
         {
             if (bullet.Position.X > _position.X && bullet.Position.X + bullet.Position.Width < _position.X + _position.Width && bullet.Position.Y > _position.Y && bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height) return true;
-            else return false;
+            return false;
         }
 
         public Rectangle Position
