@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
 using System.Threading;
+using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards;
@@ -84,28 +86,28 @@ namespace VirusJump
         {
             Nivo = new List<bool> { false, false, false, false, false };
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            BoardsList = new BoardsList(this.Content);
+            BoardsList = new BoardsList(Content);
 
-            Player = new Player(this.Content);
-            PlayerMenu = new Player(this.Content)
+            Player = new Player(Content);
+            PlayerMenu = new Player(Content)
             {
                 PlayerPosition = new Rectangle(60, 520, 80, 80)
             };
 
-            Background = new Background(this.Content);
-            Score = new Scoring(this.Content);
-            Pointer = new Pointer(this.Content);
-            Bullet = new Bullet(this.Content, 0);
+            Background = new Background(Content);
+            Score = new Scoring(Content);
+            Pointer = new Pointer(Content);
+            Bullet = new Bullet(Content, 0);
             
-            Trampo = new Trampo(this.Content);
-            Spring = new Spring(this.Content);
-            Jetpack = new Jetpack(this.Content);
-            BulletEnemy = new Bullet(this.Content, 1);
+            Trampo = new Trampo(Content);
+            Spring = new Spring(Content);
+            Jetpack = new Jetpack(Content);
+            BulletEnemy = new Bullet(Content, 1);
 
-            StaticEnemy = new StaticEnemy(this.Content);
-            MovingEnemy = new MovingEnemy(this.Content);
+            StaticEnemy = new StaticEnemy(Content);
+            MovingEnemy = new MovingEnemy(Content);
 
-            Sound = new Sound(this.Content);
+            Sound = new Sound(Content);
         }
 
         protected override void Update(GameTime gameTime)
@@ -116,31 +118,28 @@ namespace VirusJump
             _mouseState = Mouse.GetState();
             _k = Keyboard.GetState();
             Pointer.Position = new Vector2(_mouseState.X - 10, _mouseState.Y - 10);
+            
+            if (Sound.PlayCheck && Background.SoundCheck)
+            {
+                MediaPlayer.Play(Sound.Background);
+                MediaPlayer.IsRepeating = true;
+                Sound.PlayCheck = false;
+            }
+            if (!Background.SoundCheck)
+            {
+                MediaPlayer.Stop();
+                Sound.PlayCheck = true;
+            }
+            
             switch (CurrentGameState)
             {
                 case GameStateEnum.GameRunning:
                     {
                         if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) Gameover = true;
 
-                        //for playiing background sound
-                        //if (sound.PlayCheck && background.SoundCheck)
-                        //{
-                        //    MediaPlayer.Play(sound.Background);
-                        //    MediaPlayer.IsRepeating = true;
-                        //    sound.PlayCheck = false;
-                        //}
-                        //if (!background.SoundCheck)
-                        //{
-                        //    MediaPlayer.Stop();
-                        //    sound.PlayCheck = true;
-                        //}
-                        //else if (sound.PlayCheck)
-                        //{
-                        //    MediaPlayer.Play(sound.Background);
-                        //    MediaPlayer.IsRepeating = true;
-                        //    sound.PlayCheck = false;
-                        //}
-
+                        
+                        
+                        
                         Player.Move();
                         //to prevent from exiting from sides of screen
                         if (Player.PlayerPosition.X + 10 < 0)
@@ -620,7 +619,6 @@ namespace VirusJump
             if (CurrentGameState == GameStateEnum.GameRunning)
             {
                 Background.ScoreDraw(_spriteBatch, CurrentGameState);
-                Score.Draw(_spriteBatch, CurrentGameState);
                 foreach (var board in BoardsList.BoardList)
                 {
                     if(board.Visible && board.DrawVisible)
@@ -659,8 +657,8 @@ namespace VirusJump
                 {
                     MovingEnemy.Draw(_spriteBatch);
                 }
-
                 Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
+                Score.Draw(_spriteBatch, CurrentGameState);
             }
             if (CurrentGameState == GameStateEnum.IntroMenu) 
             {
@@ -675,7 +673,6 @@ namespace VirusJump
                 BulletEnemy.Draw(_spriteBatch, CurrentGameState);
             }
             Pointer.Draw(_spriteBatch);
-
             _spriteBatch.End();
             base.Draw(gameTime);
         }
