@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using MonoGame.Extended.Content;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements
 {
@@ -14,12 +15,14 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     {
 
         private Song _background;
+        private SoundEffect _board;
         private bool _check;
         private bool _playCheck;
 
         public Sound(ContentManager content) 
         {
             _background = content.Load<Song>("assets/background");
+            _board = content.Load<SoundEffect>("assets/jump");
             Initialize();
         }
 
@@ -36,5 +39,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         }
         
         public Song Background => _background;
+
+        public SoundEffect Board => _board;
     }
 }

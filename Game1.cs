@@ -371,6 +371,7 @@ namespace VirusJump
                                 if (board.Visible && board.Collision(Player) && !Gameover && CollisionCheck)
                                 {
                                     Player.Speed = new Vector2(Player.Speed.X, -13);
+                                    Sound.Board.Play();
                                 }
                             }
                             for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
@@ -378,6 +379,7 @@ namespace VirusJump
                                 if (BoardsList.MovingBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
                                 {
                                     Player.Speed = new Vector2(Player.Speed.X, -13);
+                                    Sound.Board.Play();
                                 }
                                 if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
                                 {
@@ -386,6 +388,7 @@ namespace VirusJump
                                 if (BoardsList.GoneBoardList[i].Visible && BoardsList.GoneBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
                                 {
                                     Player.Speed = new Vector2(Player.Speed.X, -13);
+                                    Sound.Board.Play();
                                     BoardsList.GoneBoardList[i].Visible = false;
                                 }
                             }
