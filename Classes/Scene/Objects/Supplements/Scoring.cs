@@ -25,7 +25,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
 
         public void Draw(SpriteBatch sp, GameStateEnum gameState)
         {
-            sp.DrawString(_spFont, _score.ToString(), _position, Color.White);
+            sp.DrawString(_spFont, _score.ToString(), _position, Color.White,0f, new Vector2(0,0),new Vector2(1,1), SpriteEffects.None, 1f);
         }
 
         public bool Check
