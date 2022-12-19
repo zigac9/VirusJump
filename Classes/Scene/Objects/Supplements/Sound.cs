@@ -14,14 +14,12 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
     {
 
         private Song _background;
-        private Song _jump;
         private bool _check;
         private bool _playCheck;
 
         public Sound(ContentManager content) 
         {
             _background = content.Load<Song>("assets/background");
-            _jump = content.Load<Song>("assets/jump");
             Initialize();
         }
 
@@ -36,9 +34,7 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
             get => _playCheck;
             set => _playCheck = value;
         }
-
+        
         public Song Background => _background;
-
-        public Song Jump => _jump;
     }
 }
