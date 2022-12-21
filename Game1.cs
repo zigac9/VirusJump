@@ -102,7 +102,7 @@ public class Game1 : Game
             PlayerPosition = new Rectangle(60, 520, 80, 80)
         };
 
-        Background = new Background(Content);
+        Background = new Background(Content, _textures);
         Score = new ScorClass(Content);
         Pointer = new Pointer(Content);
         Bullet = new Bullet(Content, 0);

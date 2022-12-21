@@ -8,17 +8,6 @@ namespace VirusJump.Classes.Scene.Objects
 {
     public class Background
     {
-        private Texture2D _back;
-        private Texture2D _kooh;
-        private Texture2D _sides;
-        private Texture2D _introMenu;
-        private Texture2D _option;
-        private Texture2D _notif;
-        private Texture2D _pause;
-        private Texture2D _sOn;
-        private Texture2D _sOff;
-        private Texture2D _gameOvre;
-        private Texture2D _hScore;
         private Rectangle _bPosize;
         private Rectangle _kPosize;
         private Rectangle _sPosise1;
@@ -39,20 +28,11 @@ namespace VirusJump.Classes.Scene.Objects
         private int _bestS;
         private bool _soundCheck;
         private bool _gameStateCheck;
-
-        public Background(ContentManager content)
+        private Textures _textures;
+        
+        public Background(ContentManager content, Textures textures)
         {
-            _back = content.Load<Texture2D>("assets/gradient");
-            _kooh = content.Load<Texture2D>("assets/kooh");
-            _introMenu = content.Load<Texture2D>("assets/mainMenu1");
-            _option = content.Load<Texture2D>("assets/option");
-            _sOn = content.Load<Texture2D>("assets/sOn");
-            _sOff = content.Load<Texture2D>("assets/sOff");
-            _notif = content.Load<Texture2D>("assets/notif");
-            _pause = content.Load<Texture2D>("assets/pause");
-            _sides = content.Load<Texture2D>("assets/sides");
-            _gameOvre = content.Load<Texture2D>("assets/gameOver");
-            _hScore = content.Load<Texture2D>("assets/highscore");
+            _textures = textures;
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
             _sOnposize = new Rectangle(85, 400, 200, 60);
@@ -76,34 +56,33 @@ namespace VirusJump.Classes.Scene.Objects
             _gameStateCheck = true;
         }
 
-
         public void Draw(SpriteBatch s, GameStateEnum gameState, ScorClass score)
         {
-            s.Draw(_back, _bPosize, Color.White);
-            s.Draw(_kooh, _kPosize, Color.White);
-            s.Draw(_sides, _sPosise1, Color.White);
-            s.Draw(_sides, _sPosise2, Color.White);
+            s.Draw(_textures.Textures1["assets/gradient"], _bPosize, Color.White);
+            s.Draw(_textures.Textures1["assets/kooh"], _kPosize, Color.White);
+            s.Draw(_textures.Textures1["assets/sides"], _sPosise1, Color.White);
+            s.Draw(_textures.Textures1["assets/sides"], _sPosise2, Color.White);
             if (gameState == GameStateEnum.IntroMenu)
-                s.Draw(_introMenu, _introMenuposize, Color.White);
+                s.Draw(_textures.Textures1["assets/mainMenu1"], _introMenuposize, Color.White);
             if (gameState == GameStateEnum.Pause)
-                s.Draw(_pause, _pauseposize, Color.White);
+                s.Draw(_textures.Textures1["assets/pause"], _pauseposize, Color.White);
             if (gameState == GameStateEnum.Option)
             {
-                s.Draw(_option, _optionposize, Color.White);
+                s.Draw(_textures.Textures1["assets/option"], _optionposize, Color.White);
                 if (_soundCheck)
-                    s.Draw(_sOn, _sOnposize, Color.White);
+                    s.Draw(_textures.Textures1["assets/sOn"], _sOnposize, Color.White);
                 else
-                    s.Draw(_sOff, _sOffposize, Color.White);
+                    s.Draw(_textures.Textures1["assets/sOff"], _sOffposize, Color.White);
             }
             if (gameState == GameStateEnum.GameOver)
             {
-                s.Draw(_gameOvre, _gameOverposize, Color.White);
+                s.Draw(_textures.Textures1["assets/gameOver"], _gameOverposize, Color.White);
                 s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
                 s.DrawString(score.SFont, _bestS.ToString(), new Vector2(325f, 290f), Color.Black);
             }
             if (gameState == GameStateEnum.HScore)
             {
-                s.Draw(_hScore, _hScoreposize, Color.White);
+                s.Draw(_textures.Textures1["assets/highscore"], _hScoreposize, Color.White);
                 s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(150f, 295f), Color.Black);
                 s.DrawString(score.SFont, _hScore2.ToString(), new Vector2(150f, 345f), Color.Black);
                 s.DrawString(score.SFont, _hScore3.ToString(), new Vector2(150f, 400f), Color.Black);
@@ -113,7 +92,7 @@ namespace VirusJump.Classes.Scene.Objects
         }
         public void ScoreDraw(SpriteBatch s, GameStateEnum gameState)
         {
-            s.Draw(_notif, _notifposize, Color.White);
+            s.Draw(_textures.Textures1["assets/notif"], _notifposize, Color.White);
         }
 
         public void SideCheck()
@@ -122,12 +101,6 @@ namespace VirusJump.Classes.Scene.Objects
                 _sPosise1.Y = _sPosise2.Y - 3600;
             if (_sPosise2.Y > 720)
                 _sPosise2.Y = _sPosise1.Y - 3600;
-        }
-
-        public Rectangle KPosize
-        {
-            get => _kPosize;
-            set => _kPosize = value;
         }
 
         public Rectangle BPosize
