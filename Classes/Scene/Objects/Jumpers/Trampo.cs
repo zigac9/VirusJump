@@ -1,32 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Trampo
     {
-        private Texture2D _trampoTexture;
+        private readonly Texture2D _trampoTexture;
+
         private Rectangle _position;
-        private int _tRand;
+
         private bool _visible;
         private bool _tCheck;
+
         private int _scoreToMove;
         private int _scoreMoveStep;
+        private int _tRand;
 
         public Trampo(ContentManager content)
         {
-            _trampoTexture = content.Load<Texture2D>("Doodle_jumpContent/toshak");
+            _trampoTexture = content.Load<Texture2D>("assets/toshak");
             Initialize();
         }
 
@@ -49,50 +42,49 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         {
             if ((player.PlayerPosition.X + 10 > _position.X && player.PlayerPosition.X + 10 < _position.X + player.PlayerPosition.Width) || (player.PlayerPosition.X + player.PlayerPosition.Width - 10 > _position.X && player.PlayerPosition.X + player.PlayerPosition.Width - 10 < _position.X + player.PlayerPosition.Width))
             {
-                if (_position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height > -15 && player.PlayerSpeed.Y > 0)
+                if (_position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height < 5 && _position.Y + _position.Height - player.PlayerPosition.Y - player.PlayerPosition.Height > -15 && player.Speed.Y > 0)
                 {
-                    if (collisionCheck == true)
+                    if (collisionCheck)
                         return true;
-                    else
-                        return false;
+                    return false;
                 }
-                else return false;
+                return false;
             }
-            else return false;
+            return false;
         }
 
         public Rectangle TrampoPosition
         {
-            get { return _position; }
-            set { _position = value; }
+            get => _position;
+            set => _position = value;
         }
 
         public int TRand
         {
-            get { return _tRand; }
-            set { _tRand = value; }
+            get => _tRand;
+            set => _tRand = value;
         }
 
         public bool Visible
         {
-            get { return _visible; }
-            set { _visible = value; }
+            get => _visible;
+            set => _visible = value;
         }
-        public bool TCheck
+        public bool Check
         {
-            get { return _tCheck; }
-            set { _tCheck = value; }
+            get => _tCheck;
+            set => _tCheck = value;
         }
         public int ScoreToMove
         {
-            get { return _scoreToMove; }
-            set { _scoreToMove = value; }
+            get => _scoreToMove;
+            set => _scoreToMove = value;
         }
 
         public int ScoreMoveStep
         {
-            get { return _scoreMoveStep; }
-            set { _scoreMoveStep = value; }
+            get => _scoreMoveStep;
+            set => _scoreMoveStep = value;
         }
     }
 }

@@ -1,562 +1,744 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects;
 using System.Collections.Generic;
 using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
+using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
-using MonoGame.Extended.Sprites;
-using System.Diagnostics;
+using VirusJump.Classes.Scene.Objects.Enemies;
+using VirusJump.Classes.Scene.Objects.Scoring;
+using VirusJump.Classes.Scene;
 
-namespace VirusJump
+namespace VirusJump;
+
+public class Game1 : Game
 {
-    public class Game1 : Game
-    {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
-        public static AnimatedSprite animateSprite;
+    private SpriteBatch _spriteBatch;
 
-        //tipkovnica in miska
-        public KeyboardState k;
-        public KeyboardState k_temp;
-        public KeyboardState k_temp1;
-        public MouseState mouseState;
-        public MouseState m_temp;
-        public MouseState m_temp1;
+    //tipkovnica in miska
+    private KeyboardState _k;
+    private KeyboardState _kTemp;
+    private KeyboardState _kTemp1;
+    private MouseState _mouseState;
+    private MouseState _mTemp;
+    private MouseState _mTemp1;
 
-        public static gameStateEnum currentGameState;
+    public static GameStateEnum CurrentGameState;
 
-        public enum gameStateEnum { introMenu = 0, gameRunning, pause, option, gameOver, hScore};
-        public gameStateEnum gameState;
+    public enum GameStateEnum { IntroMenu = 0, GameRunning, Pause, Option, GameOver, HScore};
+    public GameStateEnum GameState;
 
-        public enum playerOrientEnum { Left = 1, Right, Tir, HeliL, HeliR, Jet, BargL, BargR } //kako bo obrnjena slika
-        public static playerOrientEnum playerOrientation;
+    public enum PlayerOrientEnum { Left = 1, Right } //kako bo obrnjena slika
+    public static PlayerOrientEnum PlayerOrientation;
 
-        public static Scoring score;
-        public static Player player;
-        public static Player playerMenu;
-        public static BoardsList boardsList;
-        public static Texture2D back1;
-        public static Background background;
-        public static Pointer pointer;
-        public static Bullet bullet;
+    public static ScorClass Score;
+    public static Player Player;
+    public static Player PlayerMenu;
+    public static BoardsList BoardsList;
+    public static Background Background;
+    public static Pointer Pointer;
+    public static Bullet Bullet;
+    public static Bullet BulletEnemy;
 
-        public static Trampo trampo;
-        public static Spring spring;
-        public static Jetpack jetpack;
 
-        public static List<bool> nivo;
-        public static bool brisi = false;
+    public static Trampo Trampo;
+    public static Spring Spring;
+    public static Jetpack Jetpack;
+
+    public static List<bool> Nivo;
+    public static bool Brisi = false;
+
+    public static StaticEnemy StaticEnemy;
+    public static MovingEnemy MovingEnemy;
+
+    public static ScoreManager ScoreManager;
+    public static bool CollisionCheck;
+    public static bool Gameover;
+
+    public static Sound Sound;
+
+    public static bool ThingsCollisionCheck;
+
+    private string _playerName;
+
+    private Textures _textures;
         
-        public static bool collisionCheck;
-        public static bool gameover;
 
-        public Game1()
+    public Game1()
+    {
+        var graphics = new GraphicsDeviceManager(this);
+        graphics.IsFullScreen = false;
+        graphics.PreferredBackBufferHeight = 720;
+        graphics.PreferredBackBufferWidth = 480;
+        Content.RootDirectory = "Content";
+    }
+
+    protected override void Initialize()
+    {
+        PlayerOrientation = PlayerOrientEnum.Right;
+        CollisionCheck = true;
+        ThingsCollisionCheck = true;
+        Gameover = false;
+        base.Initialize();
+    }
+
+    protected override void LoadContent()
+    {
+        _textures = new Textures(Content);
+        Nivo = new List<bool> { false, false, false, false, false };
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        BoardsList = new BoardsList(Content);
+
+        Player = new Player(Content, _textures);
+        PlayerMenu = new Player(Content, _textures)
         {
-            graphics = new GraphicsDeviceManager(this);
-            graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 480;
-            Content.RootDirectory = "Content";
-        }
+            PlayerPosition = new Rectangle(60, 520, 80, 80)
+        };
 
-        protected override void Initialize()
-        {
-            playerOrientation = playerOrientEnum.Right;
-            collisionCheck = true;
-            gameover = false;
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            nivo = new List<bool> { false, false, false, false, false };
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-            boardsList = new BoardsList(this.Content);
-
-            player = new Player(this.Content);
-            playerMenu = new Player(this.Content);
-
-            playerMenu.PlayerPosition = new Rectangle(60, 520, 80, 80);
-
-            background = new Background(this.Content);
-            score = new Scoring(this.Content);
-            pointer = new Pointer(this.Content);
-            bullet = new Bullet(this.Content);
+        Background = new Background(Content);
+        Score = new ScorClass(Content);
+        Pointer = new Pointer(Content);
+        Bullet = new Bullet(Content, 0);
             
-            trampo = new Trampo(this.Content);
-            spring = new Spring(this.Content);
-            jetpack = new Jetpack(this.Content);
+        Trampo = new Trampo(Content);
+        Spring = new Spring(Content);
+        Jetpack = new Jetpack(Content);
+        BulletEnemy = new Bullet(Content, 1);
 
-            animateSprite = new AnimatedSprite(pointer.GetSpriteSheet);
-        }
+        StaticEnemy = new StaticEnemy(Content);
+        MovingEnemy = new MovingEnemy(Content);
 
-        protected override void Update(GameTime gameTime)
+        Sound = new Sound(Content);
+            
+        ScoreManager = ScoreManager.Load();
+
+        _playerName = RandomString(10);
+    }
+
+    protected override void Update(GameTime gameTime)
+    {
+        if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            Exit();
+
+        _mouseState = Mouse.GetState();
+        _k = Keyboard.GetState();
+        Pointer.Position = new Vector2(_mouseState.X - 10, _mouseState.Y - 10);
+
+        switch (CurrentGameState)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
-
-            mouseState = Mouse.GetState();
-            k = Keyboard.GetState();
-            pointer.PointerPosition = new Vector2(mouseState.X - 10, mouseState.Y - 10);
-            switch (currentGameState)
+            case GameStateEnum.GameRunning:
             {
-                case gameStateEnum.gameRunning:
-                    {
-                        if (player.PlayerPosition.Y + 60 > 720) gameover = true;
+                if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) Gameover = true;
+
+                if (Sound.PlayCheck && Background.SoundCheck)
+                {
+                    MediaPlayer.Play(Sound.Background);
+                    MediaPlayer.IsRepeating = true;
+                    Sound.PlayCheck = false;
+                }
+                if (!Background.SoundCheck)
+                {
+                    MediaPlayer.Stop();
+                    Sound.PlayCheck = true;
+                }
                         
-                        player.Move();
-                        //to prevent from exiting from sides of screen
-                        if (player.PlayerPosition.X + 10 < 0)
-                        {
-                            player.PlayerPosition = new Rectangle(450, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
-                        }
-                        if (player.PlayerPosition.X > 451)
-                        {
-                            player.PlayerPosition = new Rectangle(-10, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
-                        }
+                Player.Move();
+                //to prevent from exiting from sides of screen
+                if (Player.PlayerPosition.X + 10 < 0)
+                {
+                    Player.PlayerPosition = new Rectangle(450, Player.PlayerPosition.Y, Player.PlayerPosition.Width, Player.PlayerPosition.Height);
+                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2, Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width, Player.ShootPosition.Height);
+                    Player.FirePosition = new Vector2(Player.PlayerPosition.X, Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+                }
+                if (Player.PlayerPosition.X > 451)
+                {
+                    Player.PlayerPosition = new Rectangle(-10, Player.PlayerPosition.Y, Player.PlayerPosition.Width, Player.PlayerPosition.Height);
+                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2, Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width, Player.ShootPosition.Height);
+                    Player.FirePosition = new Vector2(Player.PlayerPosition.X, Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+                }
 
-                        for (int i = 0; i < 4; i++)
-                            boardsList.MovingBoardList[i].Move();
+                for (var i = 0; i < 4; i++)
+                    BoardsList.MovingBoardList[i].Move();
 
-                        //to move and replace tampeolines
-                        if (score.Score > trampo.ScoreToMove && !trampo.Visible)
+                //to move and replace tampeolines
+                if (Score.Score > Trampo.ScoreToMove && !Trampo.Visible)
+                {
+                    Trampo.ScoreToMove += Trampo.ScoreMoveStep;
+                    do
+                    {
+                        var rnd = new Random();
+                        Trampo.TRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
+                    } while (BoardsList.BoardList[Trampo.TRand].Position.Y > 0 || BoardsList.BoardList[Trampo.TRand].Visible == false || (Spring.SRand == Trampo.TRand && (Spring.SRand != -1 && Trampo.TRand != -1)) || (Spring.SRand == Jetpack.JRand && (Spring.SRand != -1 && Jetpack.JRand != -1)) || Trampo.TRand == Jetpack.JRand && (Trampo.TRand != -1 && Jetpack.JRand != -1));
+                    Trampo.Visible = true;
+                }
+                if (Trampo.TRand != -1)
+                {
+                    Trampo.TrampoPosition = new Rectangle(BoardsList.BoardList[Trampo.TRand].Position.X + 10, BoardsList.BoardList[Trampo.TRand].Position.Y - 15, Trampo.TrampoPosition.Width, Trampo.TrampoPosition.Height);
+                    Trampo.Visible = true;
+                }
+                if (Trampo.Visible)
+                {
+                    Trampo.Check = Trampo.Collision(Player, CollisionCheck);
+                }
+                if (Trampo.Check && ThingsCollisionCheck)
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, -32);
+                    Trampo.TRand = -1;
+                    Trampo.Visible = false;
+                    Trampo.Check = false;
+                }
+                if (Trampo.TrampoPosition.Y > 690)
+                {
+                    Trampo.TRand = -1;
+                    Trampo.Visible = false;
+                    Trampo.Check = false;
+                }
+
+                //spring
+                if (Score.Score > Spring.ScoreToMove && !Spring.Visible)
+                {
+                    Spring.ScoreToMove += Spring.ScoreMoveStep;
+                    do
+                    {
+                        var rnd = new Random();
+                        Spring.SRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
+                    } while (BoardsList.BoardList[Spring.SRand].Position.Y > 0 || BoardsList.BoardList[Spring.SRand].Visible == false || (Spring.SRand == Trampo.TRand && (Spring.SRand != -1 && Trampo.TRand != -1)) || (Spring.SRand == Jetpack.JRand && (Spring.SRand != -1 && Jetpack.JRand != -1)) || Trampo.TRand == Jetpack.JRand && (Trampo.TRand != -1 && Jetpack.JRand != -1));
+                    Spring.Visible = true;
+                }
+                if (Spring.SRand != -1 && Spring.Visible)
+                {
+                    Spring.SpringPosition = new Rectangle(BoardsList.BoardList[Spring.SRand].Position.X + 10, BoardsList.BoardList[Spring.SRand].Position.Y - 30, Spring.SpringPosition.Width, Spring.SpringPosition.Height);
+                }
+                if (Spring.Visible)
+                {
+                    Spring.SCheck = Spring.Collision(Player, CollisionCheck);
+                }
+                if (Spring.SCheck && ThingsCollisionCheck)
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, -23);
+                    Spring.SRand = -1;
+                    Spring.SCheck = false;
+                    Spring.Visible = false;
+                }
+                if (Spring.SpringPosition.Y > 690)
+                {
+                    Spring.SRand = -1;
+                    Spring.Visible = false;
+                    Spring.SCheck = false;
+                }
+
+                //jetpack
+                if (Score.Score > Jetpack.ScoreToMove && !Jetpack.Visible)
+                {
+                    Jetpack.ScoreToMove += Jetpack.ScoreMoveStep;
+                    do
+                    {
+                        var rnd = new Random();
+                        Jetpack.JRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
+                    } while (BoardsList.BoardList[Jetpack.JRand].Position.Y > 0 || BoardsList.BoardList[Jetpack.JRand].Visible == false || (Spring.SRand == Trampo.TRand && (Spring.SRand != -1 && Trampo.TRand != -1)) || (Spring.SRand == Jetpack.JRand && (Spring.SRand != -1 && Jetpack.JRand != -1)) || Trampo.TRand == Jetpack.JRand && (Trampo.TRand != -1 && Jetpack.JRand != -1));
+                    Jetpack.Visible = true;
+                }
+                if (Jetpack.JRand != -1 && Jetpack.Visible)
+                {
+                    Jetpack.JetPosition = new Rectangle(BoardsList.BoardList[Jetpack.JRand].Position.X + 10, BoardsList.BoardList[Jetpack.JRand].Position.Y - Jetpack.JetPosition.Height, Jetpack.JetPosition.Width, Jetpack.JetPosition.Height);
+                }
+                if (Jetpack.Visible)
+                {
+                    Jetpack.JCheck = Jetpack.Collision(Player, CollisionCheck);
+                }
+                if (Jetpack.JCheck && ThingsCollisionCheck)
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, -60);
+                    Jetpack.JRand = -1;
+                    Jetpack.Visible = false;
+                    Jetpack.JCheck = false;
+                    Player.IsJetpack = true;
+                    Player.GetAnimatedSprite.Play("fire");
+                }
+                if (Jetpack.JetPosition.Y > 690)
+                {
+                    Jetpack.JRand = -1;
+                    Jetpack.Visible = false;
+                    Jetpack.JCheck = false;
+                }
+
+                //movingEnemy
+                MovingEnemy.Move();
+                if (MovingEnemy.BulletCollision(Bullet))
+                {
+                    MovingEnemy.MvRand = true;
+                    MovingEnemy.MvCollision = false;
+                    MovingEnemy.Visible = false;
+                }
+
+                if (Math.Abs(MovingEnemy.Position.X - Player.PlayerPosition.X) < 10 && MovingEnemy.Position.Y > 0)
+                {
+                    if (!BulletEnemy.IsCheck)
+                    {
+                        MovingEnemy.Degree = (float)Math.Atan((-(Player.PlayerPosition.Y - 30 - MovingEnemy.Position.Y)) / (Player.PlayerPosition.X - 30 - MovingEnemy.Position.X));
+                        BulletEnemy.Position = new Rectangle(MovingEnemy.Position.X + 30, MovingEnemy.Position.Y + 30, BulletEnemy.Position.Width, BulletEnemy.Position.Height);
+                        if (Player.PlayerPosition.X < MovingEnemy.Position.X + 30)
                         {
-                            trampo.ScoreToMove += trampo.ScoreMoveStep;
-                            do
+                            BulletEnemy.Speed = new Vector2(-1 * (float)Math.Cos(MovingEnemy.Degree), +1 * (float)Math.Sin(MovingEnemy.Degree));
+                        }
+                        else
+                        {
+                            BulletEnemy.Speed = new Vector2(1 * (float)Math.Cos(MovingEnemy.Degree), -1 * (float)Math.Sin(MovingEnemy.Degree));
+                        }
+                        BulletEnemy.IsCheck = true;
+                        Sound.EnemyShoot.Play();
+                    }
+                }
+                        
+                if (BulletEnemy.Position.Y > 740 || BulletEnemy.Position.X is < -20 or > 500 || BulletEnemy.Position.Y < -20)
+                    BulletEnemy.IsCheck = false;
+                if (BulletEnemy.IsCheck && CurrentGameState == GameStateEnum.GameRunning)
+                    BulletEnemy.Move();
+
+                if (BulletEnemy.IsCheck && Player.BulletCollision(BulletEnemy))
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, 0);
+                    MediaPlayer.Stop();
+                    Sound.Dead.Play();
+                    BulletEnemy.IsCheck = false;
+                    CollisionCheck = false;
+                }
+
+                //static enemy
+                if (Score.Score % 430 > 400 && StaticEnemy.Position.Y > 780)
+                {
+                    var rnd = new Random();
+                    do
+                    {
+                        StaticEnemy.StRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
+                    } while (BoardsList.BoardList[StaticEnemy.StRand].Position.Y > 0 || BoardsList.BoardList[StaticEnemy.StRand].Visible == false || (Spring.SRand == Trampo.TRand && (Spring.SRand != -1 && Trampo.TRand != -1)) || (Spring.SRand == Jetpack.JRand && (Spring.SRand != -1 && Jetpack.JRand != -1)) || Trampo.TRand == Jetpack.JRand && (Trampo.TRand != -1 && Jetpack.JRand != -1));
+                    StaticEnemy.TextureRand = rnd.Next(0, 2);
+                }
+                if (StaticEnemy.StRand != -1)
+                {
+                    StaticEnemy.Position = new Rectangle(BoardsList.BoardList[StaticEnemy.StRand].Position.X, BoardsList.BoardList[StaticEnemy.StRand].Position.Y - 53, StaticEnemy.Position.Width, StaticEnemy.Position.Height);
+                }
+                if (StaticEnemy.Collision(Player, ref CollisionCheck) == 0 && !Gameover && ThingsCollisionCheck)
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, -15);
+                    StaticEnemy.StRand = -1;
+                }
+                else if (StaticEnemy.Collision(Player, ref CollisionCheck) == 1 && !Gameover && ThingsCollisionCheck)
+                {
+                    Player.Speed = new Vector2(Player.Speed.X, 0);
+                    MediaPlayer.Stop();
+                    Sound.Dead.Play();
+                    CollisionCheck = false;
+                }
+                if (StaticEnemy.Position.Y < 780 && StaticEnemy.StRand == -1)
+                    StaticEnemy.Position = new Rectangle(StaticEnemy.Position.X, StaticEnemy.Position.Y + 11, StaticEnemy.Position.Width, StaticEnemy.Position.Height);
+
+                if (StaticEnemy.Position.Y > 795 || StaticEnemy.BulletCollision(Bullet))
+                {
+                    if (StaticEnemy.BulletCollision(Bullet))
+                    {
+                        Bullet.IsCheck = false;
+                    }
+                    StaticEnemy.StRand = -1;
+                    StaticEnemy.Position = new Rectangle(-200, 800, 60, 55);
+                }
+
+                //to move boards_list and background with player
+                if (Player.PlayerPosition.Y < 300)
+                {
+                    var speed = (int)Player.Speed.Y;
+                    Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X, Player.PlayerPosition.Y - (int)Player.Speed.Y, Player.PlayerPosition.Width, Player.PlayerPosition.Height);
+                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2, Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width, Player.ShootPosition.Height);
+                    Player.FirePosition = new Vector2(Player.PlayerPosition.X, Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+
+                    foreach (var board in BoardsList.BoardList)
+                    {
+                        board.Position = new Rectangle(board.Position.X, board.Position.Y - speed, board.Position.Width, board.Position.Height);
+                    }
+
+                    for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
+                    {
+                        BoardsList.MovingBoardList[i].Position = new Rectangle(BoardsList.MovingBoardList[i].Position.X, BoardsList.MovingBoardList[i].Position.Y - speed, BoardsList.MovingBoardList[i].Position.Width, BoardsList.MovingBoardList[i].Position.Height);
+                        BoardsList.FakeBoardList[i].Position = new Rectangle(BoardsList.FakeBoardList[i].Position.X, BoardsList.FakeBoardList[i].Position.Y - speed, BoardsList.FakeBoardList[i].Position.Width, BoardsList.FakeBoardList[i].Position.Height);
+                        BoardsList.GoneBoardList[i].Position = new Rectangle(BoardsList.GoneBoardList[i].Position.X, BoardsList.GoneBoardList[i].Position.Y - speed, BoardsList.GoneBoardList[i].Position.Width, BoardsList.GoneBoardList[i].Position.Height);
+                    }
+
+                    if (Background.BPosize.Y < 0)
+                        Background.BPosize = new Rectangle(Background.BPosize.X, Background.BPosize.Y - (speed / 2), Background.BPosize.Width, Background.BPosize.Height);
+                    Background.SPosise1 = new Rectangle(Background.SPosise1.X, Background.SPosise1.Y - (speed / 2), Background.SPosise1.Width, Background.SPosise1.Height);
+                    Background.SPosise2 = new Rectangle(Background.SPosise2.X, Background.SPosise2.Y - (speed / 2), Background.SPosise2.Width, Background.SPosise2.Height);
+                    Score.Score -= speed / 2;
+                }
+                Background.SideCheck();
+
+                GameRenderer.RePosition();
+
+                //to check boards_list coliision
+                if (ThingsCollisionCheck)
+                {
+                    foreach (var board in BoardsList.BoardList)
+                    {
+                        if (board.Visible && board.Collision(Player) && !Gameover && CollisionCheck)
+                        {
+                            Player.Speed = new Vector2(Player.Speed.X, -13);
+                            Sound.Board.Play();
+                        }
+                    }
+                    for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
+                    {
+                        if (BoardsList.MovingBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
+                        {
+                            Player.Speed = new Vector2(Player.Speed.X, -13);
+                            Sound.Board.Play();
+                        }
+                        if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
+                        {
+                            BoardsList.FakeBoardList[i].Visible = false;
+                        }
+                        if (BoardsList.GoneBoardList[i].Visible && BoardsList.GoneBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
+                        {
+                            Player.Speed = new Vector2(Player.Speed.X, -13);
+                            Sound.Board.Play();
+                            BoardsList.GoneBoardList[i].Visible = false;
+                        }
+                    }
+                }
+
+                //to go to pause menue bye esc clicking
+                _kTemp1 = Keyboard.GetState();
+                if (_kTemp1.IsKeyDown(Keys.Escape) && !_kTemp.IsKeyDown(Keys.Escape))
+                {
+                    CurrentGameState = GameStateEnum.Pause;
+                    break;
+                }
+                //to move left and right
+                _kTemp = _kTemp1;
+                if (_k.IsKeyDown(Keys.Left))
+                {
+                    PlayerOrientation = PlayerOrientEnum.Left;
+                    Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X - 7, Player.PlayerPosition.Y, Player.PlayerPosition.Width, Player.PlayerPosition.Height);
+                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2, Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width, Player.ShootPosition.Height);
+                    Player.FirePosition = new Vector2(Player.PlayerPosition.X, Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+                }
+                else if (_k.IsKeyDown(Keys.Right))
+                {
+                    PlayerOrientation = PlayerOrientEnum.Right;
+                    Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X + 7, Player.PlayerPosition.Y, Player.PlayerPosition.Width, Player.PlayerPosition.Height);
+                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2, Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width, Player.ShootPosition.Height);
+                    Player.FirePosition = new Vector2(Player.PlayerPosition.X, Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+                }
+
+                //check mouse state for shoot and pause menu 
+                _mouseState = Mouse.GetState();
+                if (_mouseState.LeftButton == ButtonState.Pressed && _mTemp.LeftButton != ButtonState.Pressed && CurrentGameState == GameStateEnum.GameRunning)
+                {
+                    if (_mouseState.X is > 420 and < 470 && _mouseState.Y is > 5 and < 40)
+                    {
+                        Pointer.GetAnimatedSprite.Play("shoot");
+                        CurrentGameState = GameStateEnum.Pause;
+                        MediaPlayer.Pause();
+                    }
+                    //to shoot tir
+                    else
+                    {
+                        if (!Bullet.IsCheck)
+                        {
+                            Player.Degree = (float)Math.Atan((-(_mouseState.Y - Player.PlayerPosition.Y - 27)) / (_mouseState.X - Player.PlayerPosition.X - 30));
+                            Bullet.Position = new Rectangle(Player.PlayerPosition.X + 30, Player.PlayerPosition.Y + 27, Bullet.Position.Width, Bullet.Position.Height);
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            if (_mouseState.X < Player.PlayerPosition.X + 30)
                             {
-                                Random rnd = new Random();
-                                trampo.TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
-                            } while (boardsList.BoardList[trampo.TRand].BoardPosition.Y > 0 || boardsList.BoardList[trampo.TRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
-                            trampo.Visible = true;
-                            collisionCheck = false;
-                        }
-                        if (trampo.TRand != -1)
-                        {
-                            trampo.TrampoPosition = new Rectangle(boardsList.BoardList[trampo.TRand].BoardPosition.X + 10, boardsList.BoardList[trampo.TRand].BoardPosition.Y - 15, trampo.TrampoPosition.Width, trampo.TrampoPosition.Height);
-                            trampo.Visible = true;
-                        }
-                        if (trampo.Visible)
-                        {  
-                            trampo.TCheck = trampo.Collision(player, collisionCheck);
-                        }
-                        if (trampo.TCheck)
-                        {
-                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -32);
-                            trampo.TRand = -1;
-                            trampo.Visible = false;
-                            collisionCheck = false;
-                            trampo.TCheck = false;
-                        }
-                        if (trampo.TrampoPosition.Y > 690)
-                        {
-                            trampo.TRand = -1;
-                            trampo.Visible = false;
-                            trampo.TCheck = false;
-                        }
-
-
-                        if (score.Score > spring.ScoreToMove && !spring.Visible)
-                        {
-                            spring.ScoreToMove += spring.ScoreMoveStep;
-                            do
-                            {
-                                Random rnd = new Random();
-                                spring.SRand = rnd.Next(0, boardsList.BoardList.Length - 1);
-                            } while (boardsList.BoardList[spring.SRand].BoardPosition.Y > 0 || boardsList.BoardList[spring.SRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
-                            spring.Visible = true;
-                            spring.InOut = true;
-                            collisionCheck = true;
-                        }
-                        if (spring.SRand != -1 && spring.Visible)
-                        {
-                            spring.SpringPosition = new Rectangle(boardsList.BoardList[spring.SRand].BoardPosition.X + 10, boardsList.BoardList[spring.SRand].BoardPosition.Y - 30, spring.SpringPosition.Width, spring.SpringPosition.Height);
-                            spring.Visible = true;
-                        }
-                        if (spring.Visible)
-                        {
-                            spring.SCheck = spring.Collision(player, collisionCheck);
-                        }
-                        if (spring.SCheck)
-                        {
-                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -23);
-                            spring.SRand = -1;
-                            spring.SCheck = false;
-                            collisionCheck = false;
-                            spring.InOut = false;
-                        }
-                        if (spring.SpringPosition.Y > 690)
-                        {
-                            spring.SRand = -1;
-                            spring.Visible = false;
-                            spring.SCheck = false;
-                            spring.InOut = true;
-                        }
-
-                        if (score.Score > jetpack.ScoreToMove && !jetpack.Visible)
-                        {
-                            jetpack.ScoreToMove += jetpack.ScoreMoveStep;
-                            do
-                            {
-                                Random rnd = new Random();
-                                jetpack.JRand = rnd.Next(0, boardsList.BoardList.Length - 1);
-                            } while (boardsList.BoardList[jetpack.JRand].BoardPosition.Y > 0 || boardsList.BoardList[jetpack.JRand].Visible == false || (spring.SRand == trampo.TRand && (spring.SRand != -1 && trampo.TRand != -1)) || (spring.SRand == jetpack.JRand && (spring.SRand != -1 && jetpack.JRand != -1)) || trampo.TRand == jetpack.JRand && (trampo.TRand != -1 && jetpack.JRand != -1));
-                            jetpack.Visible = true;
-                            collisionCheck = true;
-                        }
-                        if (jetpack.JRand != -1 && jetpack.Visible)
-                        {
-                            jetpack.JetPosition = new Rectangle(boardsList.BoardList[jetpack.JRand].BoardPosition.X + 10, boardsList.BoardList[jetpack.JRand].BoardPosition.Y - jetpack.JetPosition.Height, jetpack.JetPosition.Width, jetpack.JetPosition.Height);
-                            jetpack.Visible = true;
-                        }
-                        if (jetpack.Visible)
-                        {
-                            jetpack.JCheck = jetpack.Collision(player, collisionCheck);
-                        }
-                        if (jetpack.JCheck)
-                        {
-                            player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -60);
-                            collisionCheck = false;
-                            jetpack.JRand = -1;
-                            jetpack.Visible = false;
-                            jetpack.JCheck = false;
-                        }
-                        if (jetpack.JetPosition.Y > 690)
-                        {
-                            jetpack.JRand = -1;
-                            jetpack.Visible = false;
-                            jetpack.JCheck = false;
-                        }
-
-                        //to move boards_list and background with player
-                        if (player.PlayerPosition.Y < 300) 
-                        {
-                            int speed = (int)player.PlayerSpeed.Y;
-                            player.PlayerPosition = new Rectangle(player.PlayerPosition.X, player.PlayerPosition.Y - (int)player.PlayerSpeed.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
-
-                            for (int i = 0; i < boardsList.BoardList.Length; i++)
-                            {
-                                boardsList.BoardList[i].BoardPosition = new Rectangle(boardsList.BoardList[i].BoardPosition.X, boardsList.BoardList[i].BoardPosition.Y - speed, boardsList.BoardList[i].BoardPosition.Width, boardsList.BoardList[i].BoardPosition.Height);
+                                Bullet.Speed = new Vector2(-25 * (float)Math.Cos(Player.Degree), +25 * (float)Math.Sin(Player.Degree));
                             }
-
-                            for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
-                            {
-                                boardsList.MovingBoardList[i].BoardPosition = new Rectangle(boardsList.MovingBoardList[i].BoardPosition.X, boardsList.MovingBoardList[i].BoardPosition.Y - speed, boardsList.MovingBoardList[i].BoardPosition.Width, boardsList.MovingBoardList[i].BoardPosition.Height);
-                                boardsList.FakeBoardList[i].BoardPosition = new Rectangle(boardsList.FakeBoardList[i].BoardPosition.X, boardsList.FakeBoardList[i].BoardPosition.Y - speed, boardsList.FakeBoardList[i].BoardPosition.Width, boardsList.FakeBoardList[i].BoardPosition.Height);
-                                boardsList.GoneBoardList[i].BoardPosition = new Rectangle(boardsList.GoneBoardList[i].BoardPosition.X, boardsList.GoneBoardList[i].BoardPosition.Y - speed, boardsList.GoneBoardList[i].BoardPosition.Width, boardsList.GoneBoardList[i].BoardPosition.Height);
-                            }
-
-                            if (background.BPosize.Y < 0)
-                                background.BPosize = new Rectangle(background.BPosize.X, background.BPosize.Y - (speed / 2), background.BPosize.Width, background.BPosize.Height);
-                            background.SPosise1 = new Rectangle(background.SPosise1.X, background.SPosise1.Y - (speed / 2), background.SPosise1.Width, background.SPosise1.Height);
-                            background.SPosise2 = new Rectangle(background.SPosise2.X, background.SPosise2.Y - (speed / 2), background.SPosise2.Width, background.SPosise2.Height);
-                            score.Score -= speed / 2;
-                        }
-                        background.SideCheck();
-
-                        GameRenderer.rePosition();//to re position boards_list and movable enemys
-
-                        //to check boards_list coliision
-                        collisionCheck = true;
-                        for (int i = 0; i < boardsList.BoardList.Length; i++)
-                            if (boardsList.BoardList[i].Visible && boardsList.BoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
-                            }
-                        for (int i = 0; i < boardsList.MovingBoardList.Length; i++)
-                        {
-                            if (boardsList.MovingBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
-                            }
-                            if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                boardsList.FakeBoardList[i].Visible = false;
-                            }
-                            if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].Collision(player) && !gameover && collisionCheck == true)
-                            {
-                                player.PlayerSpeed = new Vector2(player.PlayerSpeed.X, -13);
-                                boardsList.GoneBoardList[i].Visible = false;
-                            }
-                        }
-
-                        //to go to pause menue bye esc clicking
-                        k_temp1 = Keyboard.GetState();
-                        if (k_temp1.IsKeyDown(Keys.Escape) && !k_temp.IsKeyDown(Keys.Escape))
-                        {
-                            currentGameState = gameStateEnum.pause;
-                            break;
-                        }
-                        //to move left and right
-                        k_temp = k_temp1;
-                        if (k.IsKeyDown(Keys.Left))
-                        {
-                            playerOrientation = playerOrientEnum.Left;
-                            player.PlayerPosition = new Rectangle(player.PlayerPosition.X - 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
-                        }
-                        else if (k.IsKeyDown(Keys.Right))
-                        {
-                            playerOrientation = playerOrientEnum.Right;
-                            player.PlayerPosition = new Rectangle(player.PlayerPosition.X + 7, player.PlayerPosition.Y, player.PlayerPosition.Width, player.PlayerPosition.Height);
-                            player.ShootPosition = new Rectangle(player.PlayerPosition.X + player.PlayerPosition.Width / 2, player.PlayerPosition.Y + player.PlayerPosition.Height / 2 + 15, player.ShootPosition.Width, player.ShootPosition.Height);
-                        }
-
-                        //check mouse state for shoot and pause menu 
-                        mouseState = Mouse.GetState();
-                        if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp.LeftButton == ButtonState.Pressed) && currentGameState == gameStateEnum.gameRunning)
-                        {
-                            if (mouseState.X > 420 && mouseState.X < 470 && mouseState.Y > 5 && mouseState.Y < 40)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.pause;
-                                MediaPlayer.Pause();
-                            }
-                            //to shoot tir
                             else
                             {
-                                if (!bullet.BullCheck)
-                                {
-                                    player.Degree = (float)Math.Atan((-(mouseState.Y - player.PlayerPosition.Y - 27)) / (mouseState.X - player.PlayerPosition.X - 30));
-                                    bullet.BulletPosition = new Rectangle(player.PlayerPosition.X + 30,player.PlayerPosition.Y + 27, bullet.BulletPosition.Width, bullet.BulletPosition.Height);
-                                    animateSprite.Play("shoot");
-                                    if (mouseState.X < player.PlayerPosition.X + 30)
-                                    {
-                                        bullet.BulletSpeed = new Vector2(-25 * (float)Math.Cos(player.Degree), +25 * (float)Math.Sin(player.Degree));
-                                    }
-                                    else
-                                    {
-                                        bullet.BulletSpeed = new Vector2(25 * (float)Math.Cos(player.Degree), -25 * (float)Math.Sin(player.Degree));
-                                    }
-                                    bullet.BullCheck = true;
-                                }
+                                Bullet.Speed = new Vector2(25 * (float)Math.Cos(Player.Degree), -25 * (float)Math.Sin(Player.Degree));
                             }
+                            Bullet.IsCheck = true;
+                            Sound.PlayerShoot.Play();
                         }
-                        if (bullet.BulletPosition.Y > 740 || bullet.BulletPosition.X < -20 || bullet.BulletPosition.X > 500 || bullet.BulletPosition.Y < -20)
-                            bullet.BullCheck = false;
-                        if (bullet.BullCheck && currentGameState == gameStateEnum.gameRunning)
-                            bullet.Move();
+                    }
+                }
+                if (Bullet.Position.Y > 740 || Bullet.Position.X is < -20 or > 500 || Bullet.Position.Y < -20)
+                    Bullet.IsCheck = false;
+                if (Bullet.IsCheck && CurrentGameState == GameStateEnum.GameRunning)
+                    Bullet.Move();
 
-                        MouseState mouseControl = Mouse.GetState();
-                        player.ShootDegree = -(float)Math.Atan2(mouseControl.X - player.PlayerPosition.X, mouseControl.Y - player.PlayerPosition.Y);
+                var mouseControl = Mouse.GetState();
+                Player.ShootDegree = -(float)Math.Atan2(mouseControl.X - Player.PlayerPosition.X, mouseControl.Y - Player.PlayerPosition.Y);
 
-                        //to end and gameovering game
-                        if (player.PlayerPosition.Y > 720)
-                            currentGameState = gameStateEnum.gameOver;
-                    }
-                    break;
+                //popravi collision ko je jetpack
+                if (Player.Speed.Y > -12)
+                {
+                    ThingsCollisionCheck = true;
+                    Player.IsJetpack = false;
+                }
+                else ThingsCollisionCheck = false;
 
-                case gameStateEnum.pause:
-                    if (mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (mouseState.X > 131 && mouseState.X < 251)
-                            if (mouseState.Y > 372 && mouseState.Y < 428)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.gameRunning;
-                                MediaPlayer.Resume();
-                            }
-                        if (mouseState.X > 215 && mouseState.X < 335)
-                            if (mouseState.Y > 454 && mouseState.Y < 510)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.introMenu;
-                                playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(100);
-                            }
-                        if (mouseState.X > 66 && mouseState.X < 186)
-                            if (mouseState.Y > 282 && mouseState.Y < 338)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.option;
-                                playerOrientation = playerOrientEnum.Right;
-                            }
-                    }
-                    k_temp = Keyboard.GetState();
-                    if (k_temp.IsKeyDown(Keys.Escape) && !k_temp1.IsKeyDown(Keys.Escape))
-                        currentGameState = gameStateEnum.gameRunning;
-                    k_temp1 = k_temp;
-                    background.GameStateCheck = false;
-                    break;
-                case gameStateEnum.option:
-                    if (mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (mouseState.X > 297 && mouseState.X < 415)
-                            if (mouseState.Y > 530 && mouseState.Y < 584)
-                                if (background.GameStateCheck == true)
-                                {
-                                    animateSprite.Play("shoot");
-                                    currentGameState = gameStateEnum.introMenu;
-                                    Thread.Sleep(100);
-                                }
-                                else
-                                {
-                                    animateSprite.Play("shoot");
-                                    currentGameState = gameStateEnum.pause;
-                                    Thread.Sleep(100);
-                                }
-                        if (mouseState.X > 210 && mouseState.X < 278)
-                            if (mouseState.Y > 405 && mouseState.Y < 462)
-                            {
-                                animateSprite.Play("shoot");
-                                background.SoundCheck = true;
-                            }
-                        if (mouseState.X > 99 && mouseState.X < 176)
-                            if (mouseState.Y > 407 && mouseState.Y < 461)
-                            {
-                                animateSprite.Play("shoot");
-                                background.SoundCheck = false;
-                            }
-                    }
-                    break;
-                case gameStateEnum.introMenu:
-                    mouseState = Mouse.GetState();
-                    if (mouseState.LeftButton == ButtonState.Pressed && !(m_temp1.LeftButton == ButtonState.Pressed))
-                    {
-                        background.GameStateCheck = true;
-                        if (mouseState.X > 67 && mouseState.X < 185)
-                            if (mouseState.Y > 283 && mouseState.Y < 337)
-                            {
-                                animateSprite.Play("shoot");
-                                mouseState = m_temp;
-                                currentGameState = gameStateEnum.gameRunning;
-                                MediaPlayer.Resume();
-                                GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(100);
-                            }
-                        if (mouseState.X > 292 && mouseState.X < 410)
-                            if (mouseState.Y > 528 && mouseState.Y < 582 && currentGameState == gameStateEnum.introMenu)
-                            {
-                                animateSprite.Play("shoot");
-                                this.Exit();
-                            }
-                        if (mouseState.X > 217 && mouseState.X < 335)
-                            if (mouseState.Y > 454 && mouseState.Y < 508)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.option;
-                                Thread.Sleep(100);
-                            }
-                        if (mouseState.X > 130 && mouseState.X < 248)
-                            if (mouseState.Y > 373 && mouseState.Y < 427)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.hScore;
-                                Thread.Sleep(100);
-                            }
-                    }
-                    playerMenu.Move();
-                    if (playerMenu.PlayerPosition.Y > 550)
-                        playerMenu.PlayerSpeed = new Vector2(playerMenu.PlayerSpeed.X, -13);
-                    break;
-                case gameStateEnum.hScore:
-                    mouseState = Mouse.GetState();
-                    if (mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (mouseState.X > 296 && mouseState.X < 415)
-                            if (mouseState.Y > 529 && mouseState.Y < 584)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.introMenu;
-                                Thread.Sleep(100);
-                            }
-                    }
-                    break;
-                case gameStateEnum.gameOver:
-                    if (mouseState.LeftButton == ButtonState.Pressed)
-                    {
-                        if (mouseState.X > 88 && mouseState.X < 271)
-                            if (mouseState.Y > 438 && mouseState.Y < 500)
-                            {
-                                animateSprite.Play("shoot");
-                                GameRenderer.PlayAgain(player, score, background);
-                                Thread.Sleep(100);
-                            }
-                        if (mouseState.X > 284 && mouseState.X < 404)
-                            if (mouseState.Y > 504 && mouseState.Y < 559)
-                            {
-                                animateSprite.Play("shoot");
-                                currentGameState = gameStateEnum.introMenu;
-                                MediaPlayer.Pause();
-                                playerOrientation = playerOrientEnum.Right;
-                                Thread.Sleep(100);
-                            }
-                        mouseState = m_temp1;
-                    }
-                    break;
+                //to end and gameovering game
+                if (Player.PlayerPosition.Y > 720)
+                {
+                    CurrentGameState = GameStateEnum.GameOver;
+                    if (CollisionCheck)Sound.Dead.Play();
+                }
             }
+                break;
+            case GameStateEnum.Pause:
+                if (_mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (_mouseState.X is > 131 and < 251)
+                        if (_mouseState.Y is > 372 and < 428)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.GameRunning;
+                            MediaPlayer.Resume();
+                            Thread.Sleep(100);
+                        }
+                    if (_mouseState.X is > 215 and < 335)
+                        if (_mouseState.Y is > 454 and < 510)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.IntroMenu;
+                            PlayerOrientation = PlayerOrientEnum.Right;
+                            Thread.Sleep(100);
+                        }
+                    if (_mouseState.X is > 66 and < 186)
+                        if (_mouseState.Y is > 282 and < 338)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.Option;
+                            PlayerOrientation = PlayerOrientEnum.Right;
+                            Thread.Sleep(100);
+                        }
+                }
+                _kTemp = Keyboard.GetState();
+                if (_kTemp.IsKeyDown(Keys.Escape) && !_kTemp1.IsKeyDown(Keys.Escape))
+                    CurrentGameState = GameStateEnum.GameRunning;
+                _kTemp1 = _kTemp;
+                Background.GameStateCheck = false;
+                break;
+            case GameStateEnum.Option:
+                if (_mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (_mouseState.X is > 297 and < 415)
+                        if (_mouseState.Y is > 530 and < 584)
+                            if (Background.GameStateCheck)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                CurrentGameState = GameStateEnum.IntroMenu;
+                                Thread.Sleep(100);
+                            }
+                            else
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                CurrentGameState = GameStateEnum.Pause;
+                                Thread.Sleep(100);
+                            }
+                    if (_mouseState.X is > 210 and < 278)
+                        if (_mouseState.Y is > 405 and < 462)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            Background.SoundCheck = true;
+                        }
+                    if (_mouseState.X is > 99 and < 176)
+                        if (_mouseState.Y is > 407 and < 461)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            Background.SoundCheck = false;
+                        }
+                }
+                break;
+            case GameStateEnum.IntroMenu:
+                _mouseState = Mouse.GetState();
+                if (_mouseState.LeftButton == ButtonState.Pressed && _mTemp1.LeftButton != ButtonState.Pressed)
+                {
+                    Background.GameStateCheck = true;
+                    if (_mouseState.X is > 67 and < 185)
+                        if (_mouseState.Y is > 283 and < 337)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            _mouseState = _mTemp;
+                            CurrentGameState = GameStateEnum.GameRunning;
+                            MediaPlayer.Resume();
+                            GameRenderer.PlayAgain();
+                            Thread.Sleep(100);
+                        }
+                    if (_mouseState.X is > 292 and < 410)
+                        if (_mouseState.Y is > 528 and < 582 && CurrentGameState == GameStateEnum.IntroMenu)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            this.Exit();
+                        }
+                    if (_mouseState.X is > 217 and < 335)
+                        if (_mouseState.Y is > 454 and < 508)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.Option;
+                            Thread.Sleep(100);
+                        }
+                    if (_mouseState.X is > 130 and < 248)
+                        if (_mouseState.Y is > 373 and < 427)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.HScore;
+                            Thread.Sleep(100);
+                        }
+                }
+                PlayerMenu.Move();
+                if (PlayerMenu.PlayerPosition.Y > 550)
+                    PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
 
-            animateSprite.Update(gameTime);
-            base.Update(gameTime);
+                Background.HScore1 = ScoreManager.Highscores[0];
+                Background.HScore2 = ScoreManager.Highscores[1];
+                Background.HScore3 = ScoreManager.Highscores[2];
+                Background.HScore4 = ScoreManager.Highscores[3];
+                Background.HScore5 = ScoreManager.Highscores[4];
+
+                    break;
+            case GameStateEnum.HScore:
+                _mouseState = Mouse.GetState();
+                if (_mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    if (_mouseState.X is > 296 and < 415)
+                        if (_mouseState.Y is > 529 and < 584)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.IntroMenu;
+                            Thread.Sleep(100);
+                        }
+                }
+                break;
+            case GameStateEnum.GameOver:
+                if (!Sound.PlayCheck)
+                {
+                    MediaPlayer.Play(Sound.End);
+                    MediaPlayer.IsRepeating = true;
+                    Sound.PlayCheck = true;
+                    ScoreManager.Add(new Score()
+                        {
+                            PlayerName = _playerName,
+                            Value = Score.Score, 
+                        }
+                    , _playerName);
+                    ScoreManager.Save(ScoreManager);
+                    
+                }
+                Background.Bests = ScoreManager.BestOfYou(_playerName);
+                Background.HScore1 = ScoreManager.Highscores[0];
+                Background.HScore2 = ScoreManager.Highscores[1];
+                Background.HScore3 = ScoreManager.Highscores[2];
+                Background.HScore4 = ScoreManager.Highscores[3];
+                Background.HScore5 = ScoreManager.Highscores[4];
+                    
+                if (_mouseState.LeftButton == ButtonState.Pressed)
+                {
+                        
+                    if (_mouseState.X is > 88 and < 271)
+                        if (_mouseState.Y is > 438 and < 500)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            GameRenderer.PlayAgain();
+                            MediaPlayer.Stop();
+                            Thread.Sleep(100);
+                        }
+                    if (_mouseState.X is > 284 and < 404)
+                        if (_mouseState.Y is > 504 and < 559)
+                        {
+                            Pointer.GetAnimatedSprite.Play("shoot");
+                            CurrentGameState = GameStateEnum.IntroMenu;
+                            MediaPlayer.Stop();
+                            PlayerOrientation = PlayerOrientEnum.Right;
+                            Thread.Sleep(100);
+                        }
+                    _mouseState = _mTemp1;
+                }
+                break;
         }
 
-        protected override void Draw(GameTime gameTime)
+        Pointer.GetAnimatedSprite.Update(gameTime);
+        base.Update(gameTime);
+    }
+        
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.CornflowerBlue);
+
+        _spriteBatch.Begin();
+        Background.Draw(_spriteBatch, CurrentGameState, Score);
+
+        if (CurrentGameState == GameStateEnum.GameRunning)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin();
-            background.Draw(spriteBatch, currentGameState, score);
-
-            if (currentGameState == gameStateEnum.gameRunning)
+            Background.ScoreDraw(_spriteBatch, CurrentGameState);
+            foreach (var board in BoardsList.BoardList)
             {
-                background.ScoreDraw(spriteBatch, currentGameState);
-                score.Draw(spriteBatch, currentGameState);
-                for (int i = 0; i < boardsList.BoardList.Length; i++)
+                if(board.Visible && board.DrawVisible)
                 {
-                    if(boardsList.BoardList[i].Visible && boardsList.BoardList[i].DrawVisible)
-                    {
-                        boardsList.BoardList[i].DrawSprite(spriteBatch);
-                    }
+                    board.DrawSprite(_spriteBatch);
                 }
-
-                for (int i = 0; i < 4; i++)
-                {
-                    boardsList.MovingBoardList[i].DrawSprite(spriteBatch);
-                    if (boardsList.FakeBoardList[i].Visible && boardsList.FakeBoardList[i].DrawVisible)
-                    {
-                        boardsList.FakeBoardList[i].DrawSprite(spriteBatch);
-                    }
-                    if (boardsList.GoneBoardList[i].Visible && boardsList.GoneBoardList[i].DrawVisible)
-                    {
-                        boardsList.GoneBoardList[i].DrawSprite(spriteBatch);
-                    }
-                }
-
-                if (trampo.Visible)
-                {
-                    trampo.Draw(spriteBatch);
-                }
-                if (spring.Visible)
-                {
-                    spring.Draw(spriteBatch);
-                }
-                if (jetpack.JCheck) player.IsJetpack = true;
-                else player.IsJetpack = false;
-                if (jetpack.Visible)
-                {
-                    jetpack.Draw(spriteBatch);
-                }
-
-                player.Draw(spriteBatch, playerOrientation, currentGameState);
             }
-            if (currentGameState == gameStateEnum.introMenu) 
+
+            for (var i = 0; i < 4; i++)
             {
-                playerMenu.Draw(spriteBatch, playerOrientation, gameStateEnum.introMenu);
+                BoardsList.MovingBoardList[i].DrawSprite(_spriteBatch);
+                if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].DrawVisible)
+                {
+                    BoardsList.FakeBoardList[i].DrawSprite(_spriteBatch);
+                }
+                if (BoardsList.GoneBoardList[i].Visible && BoardsList.GoneBoardList[i].DrawVisible)
+                {
+                    BoardsList.GoneBoardList[i].DrawSprite(_spriteBatch);
+                }
             }
-            bullet.Draw(spriteBatch, currentGameState);
-            pointer.Draw(animateSprite, spriteBatch);
 
-            spriteBatch.End();
-            base.Draw(gameTime);
+            if (Trampo.Visible)
+            {
+                Trampo.Draw(_spriteBatch);
+            }
+            if (Spring.Visible)
+            {
+                Spring.Draw(_spriteBatch);
+            }
+            if (Jetpack.Visible)
+            {
+                Jetpack.Draw(_spriteBatch);
+            }
+            StaticEnemy.Draw(_spriteBatch);
+            if(MovingEnemy.Visible)
+            {
+                MovingEnemy.Draw(_spriteBatch);
+            }
+            Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
+            Score.Draw(_spriteBatch, CurrentGameState);
         }
+        if (CurrentGameState == GameStateEnum.IntroMenu) 
+        {
+            PlayerMenu.Draw(_spriteBatch, PlayerOrientation, GameStateEnum.IntroMenu, CollisionCheck);
+        }
+        if(Bullet.IsCheck)
+        {
+            Bullet.Draw(_spriteBatch, CurrentGameState);
+        }
+        if (BulletEnemy.IsCheck)
+        {
+            BulletEnemy.Draw(_spriteBatch, CurrentGameState);
+        }
+        Pointer.Draw(_spriteBatch);
+        _spriteBatch.End();
+        base.Draw(gameTime);
+    }
+    
+    private string RandomString(int length)
+    {
+        Random random = new Random();
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        return new string(Enumerable.Repeat(chars, length)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
     }
 }

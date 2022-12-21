@@ -6,17 +6,17 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class MovingBoard
     {
-        private Texture2D _texture;
+        private readonly Texture2D _texture;
+
         private Rectangle _position;
+
         private int _speed;
-        private bool _drawVisible;
 
         public MovingBoard(ContentManager content, Rectangle position, int speed)
         {
-            _texture = content.Load<Texture2D>("Doodle_jumpContent/p2");
+            _texture = content.Load<Texture2D>("assets/p2");
             _position = position;
             _speed = speed;
-            _drawVisible = true;
         }
 
         public void DrawSprite(SpriteBatch s)
@@ -33,29 +33,16 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
         public bool Collision(Player player)
         {
             if (player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60 || player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60)
-
-                if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.PlayerSpeed.Y > 0)
+                if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.Speed.Y > 0)
                     return true;
                 else return false;
             else return false;
         }
 
-        public Rectangle BoardPosition
+        public Rectangle Position
         {
-            get { return _position; }
-            set { _position = value; }
-        }
-
-        public int Speed
-        {
-            get { return _speed; }
-            set { _speed = value; }
-        }
-
-        public bool DrawVisible
-        {
-            get { return _drawVisible; }
-            set { _drawVisible = value; }
+            get => _position;
+            set => _position = value;
         }
     }
 }

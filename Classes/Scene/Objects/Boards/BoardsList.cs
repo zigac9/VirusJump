@@ -1,19 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Content;
-using SharpDX.Direct3D9;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 
 namespace VirusJump.Classes.Scene.Objects.Boards
 {
     public class BoardsList
     {
-        private ContentManager _content;
-        private BoardsCoords _boardsCoords;
+        private readonly ContentManager _content;
+        private readonly BoardsCoords _boardsCoords;
 
         private Board[] _boards;
         private FakeBoard[] _fakeBoards;
@@ -38,22 +31,22 @@ namespace VirusJump.Classes.Scene.Objects.Boards
 
         private void FillArrays()
         {
-            for (int i = 0; i<_boards.Length; i++)
+            for (var i = 0; i<_boards.Length; i++)
             {
                 _boards[i] = new Board(_content, _boardsCoords.BoardsCoordsArr[i]);
             }
-            for (int i = 0; i < _fakeBoards.Length; i++)
+            for (var i = 0; i < _fakeBoards.Length; i++)
             {
                 _fakeBoards[i] = new FakeBoard(_content, _boardsCoords.FakeBoardsCoordsArr[i]);
             }
-            for (int i = 0; i < _goneBoards.Length; i++)
+            for (var i = 0; i < _goneBoards.Length; i++)
             {
                 _goneBoards[i] = new GoneBoard(_content, _boardsCoords.GoneBoardsCoordsArr[i]);
             }
-            for (int i = 0; i < _movingBoards.Length; i++)
+            for (var i = 0; i < _movingBoards.Length; i++)
             {
                 var rand = new System.Random();
-                int num = rand.Next(-4,4);
+                var num = rand.Next(-4,4);
                 if (num == 0) num = 1;
                 _movingBoards[i] = new MovingBoard(_content, _boardsCoords.MovingBoardsCoordsArr[i], num);
             }
@@ -61,26 +54,26 @@ namespace VirusJump.Classes.Scene.Objects.Boards
 
         public Board[] BoardList
         {
-            get { return _boards; }
-            set { _boards = value; }
+            get => _boards;
+            set => _boards = value;
         }
 
         public FakeBoard[] FakeBoardList
         {
-            get { return _fakeBoards; }
-            set { _fakeBoards = value; }
+            get => _fakeBoards;
+            set => _fakeBoards = value;
         }
 
         public GoneBoard[] GoneBoardList
         {
-            get { return _goneBoards; }
-            set { _goneBoards = value; }
+            get => _goneBoards;
+            set => _goneBoards = value;
         }
 
         public MovingBoard[] MovingBoardList
         {
-            get { return _movingBoards; }
-            set { _movingBoards = value; }
+            get => _movingBoards;
+            set => _movingBoards = value;
         }
     }
 }

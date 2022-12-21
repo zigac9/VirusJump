@@ -1,9 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using VirusJump.Classes.Scene.Objects.Supplements;
+using VirusJump.Classes.Scene.Objects.Scoring;
 using static VirusJump.Game1;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrayNotify;
 
 namespace VirusJump.Classes.Scene.Objects
 {
@@ -37,22 +36,23 @@ namespace VirusJump.Classes.Scene.Objects
         private int _hScore3;
         private int _hScore4;
         private int _hScore5;
+        private int _bestS;
         private bool _soundCheck;
         private bool _gameStateCheck;
 
         public Background(ContentManager content)
         {
-            _back = content.Load<Texture2D>("Doodle_jumpContent/gradient");
-            _kooh = content.Load<Texture2D>("Doodle_jumpContent/kooh");
-            _introMenu = content.Load<Texture2D>("Doodle_jumpContent/mainMenu1");
-            _option = content.Load<Texture2D>("Doodle_jumpContent/option");
-            _sOn = content.Load<Texture2D>("Doodle_jumpContent/sOn");
-            _sOff = content.Load<Texture2D>("Doodle_jumpContent/sOff");
-            _notif = content.Load<Texture2D>("Doodle_jumpContent/notif");
-            _pause = content.Load<Texture2D>("Doodle_jumpContent/pause");
-            _sides = content.Load<Texture2D>("Doodle_jumpContent/sides");
-            _gameOvre = content.Load<Texture2D>("Doodle_jumpContent/gameOver");
-            _hScore = content.Load<Texture2D>("Doodle_jumpContent/highscore");
+            _back = content.Load<Texture2D>("assets/gradient");
+            _kooh = content.Load<Texture2D>("assets/kooh");
+            _introMenu = content.Load<Texture2D>("assets/mainMenu1");
+            _option = content.Load<Texture2D>("assets/option");
+            _sOn = content.Load<Texture2D>("assets/sOn");
+            _sOff = content.Load<Texture2D>("assets/sOff");
+            _notif = content.Load<Texture2D>("assets/notif");
+            _pause = content.Load<Texture2D>("assets/pause");
+            _sides = content.Load<Texture2D>("assets/sides");
+            _gameOvre = content.Load<Texture2D>("assets/gameOver");
+            _hScore = content.Load<Texture2D>("assets/highscore");
             _introMenuposize = new Rectangle(0, 0, 480, 720);
             _optionposize = new Rectangle(0, 0, 480, 720);
             _sOnposize = new Rectangle(85, 400, 200, 60);
@@ -77,31 +77,31 @@ namespace VirusJump.Classes.Scene.Objects
         }
 
 
-        public void Draw(SpriteBatch s, gameStateEnum gameState, Scoring score)
+        public void Draw(SpriteBatch s, GameStateEnum gameState, ScorClass score)
         {
             s.Draw(_back, _bPosize, Color.White);
             s.Draw(_kooh, _kPosize, Color.White);
             s.Draw(_sides, _sPosise1, Color.White);
             s.Draw(_sides, _sPosise2, Color.White);
-            if (gameState == gameStateEnum.introMenu)
+            if (gameState == GameStateEnum.IntroMenu)
                 s.Draw(_introMenu, _introMenuposize, Color.White);
-            if (gameState == gameStateEnum.pause)
+            if (gameState == GameStateEnum.Pause)
                 s.Draw(_pause, _pauseposize, Color.White);
-            if (gameState == gameStateEnum.option)
+            if (gameState == GameStateEnum.Option)
             {
                 s.Draw(_option, _optionposize, Color.White);
-                if (_soundCheck == true)
+                if (_soundCheck)
                     s.Draw(_sOn, _sOnposize, Color.White);
                 else
                     s.Draw(_sOff, _sOffposize, Color.White);
             }
-            if (gameState == gameStateEnum.gameOver)
+            if (gameState == GameStateEnum.GameOver)
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
                 s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
-                //s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
+                s.DrawString(score.SFont, _bestS.ToString(), new Vector2(325f, 290f), Color.Black);
             }
-            if (gameState == gameStateEnum.hScore)
+            if (gameState == GameStateEnum.HScore)
             {
                 s.Draw(_hScore, _hScoreposize, Color.White);
                 s.DrawString(score.SFont, _hScore1.ToString(), new Vector2(150f, 295f), Color.Black);
@@ -111,7 +111,7 @@ namespace VirusJump.Classes.Scene.Objects
                 s.DrawString(score.SFont, _hScore5.ToString(), new Vector2(150f, 500f), Color.Black);
             }
         }
-        public void ScoreDraw(SpriteBatch s, gameStateEnum gameState)
+        public void ScoreDraw(SpriteBatch s, GameStateEnum gameState)
         {
             s.Draw(_notif, _notifposize, Color.White);
         }
@@ -126,36 +126,71 @@ namespace VirusJump.Classes.Scene.Objects
 
         public Rectangle KPosize
         {
-            get { return _kPosize; }
-            set { _kPosize = value; }
+            get => _kPosize;
+            set => _kPosize = value;
         }
 
         public Rectangle BPosize
         {
-            get { return _bPosize; }
-            set { _bPosize = value; }
+            get => _bPosize;
+            set => _bPosize = value;
         }
         public Rectangle SPosise1
         {
-            get { return _sPosise1; }
-            set { _sPosise1 = value; }
+            get => _sPosise1;
+            set => _sPosise1 = value;
         }
         public Rectangle SPosise2
         {
-            get { return _sPosise2; }
-            set { _sPosise2 = value; }
+            get => _sPosise2;
+            set => _sPosise2 = value;
         }
 
         public bool SoundCheck
         {
-            get { return _soundCheck; }
-            set { _soundCheck = value; }
+            get => _soundCheck;
+            set => _soundCheck = value;
         }
 
         public bool GameStateCheck
         {
-            get { return _gameStateCheck; }
-            set { _gameStateCheck = value; }
+            get => _gameStateCheck;
+            set => _gameStateCheck = value;
+        }
+        
+        public int HScore1
+        {
+            get => _hScore1;
+            set => _hScore1 = value;
+        }
+
+        public int HScore2
+        {
+            get => _hScore2;
+            set => _hScore2 = value;
+        }
+
+        public int HScore3
+        {
+            get => _hScore3;
+            set => _hScore3 = value;
+        }
+
+        public int HScore4
+        {
+            get => _hScore4;
+            set => _hScore4 = value;
+        }
+
+        public int HScore5
+        {
+            get => _hScore5;
+            set => _hScore5 = value;
+        }
+        public int Bests
+        {
+            get => _bestS;
+            set => _bestS = value;
         }
     }
 }

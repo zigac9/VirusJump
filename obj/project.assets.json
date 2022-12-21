@@ -2693,6 +2693,19 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
+      },
+      "TextBox/1.3.12": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Windows.Forms.HintTextBox.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/net45/Windows.Forms.HintTextBox.dll": {
+            "related": ".pdb"
+          }
+        }
       }
     }
   },
@@ -7888,6 +7901,20 @@
         "system.xml.xpath.xdocument.4.0.1.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "TextBox/1.3.12": {
+      "sha512": "U3QrhVqPY6APBgHzaaSPfsP0+xQiaMDaCNtiqdRotlANOGgHlKE9po27gzPyH2jZnOSNug4+uF2S5cHZVKzEOA==",
+      "type": "package",
+      "path": "textbox/1.3.12",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Windows.Forms.HintTextBox.dll",
+        "lib/net45/Windows.Forms.HintTextBox.pdb",
+        "readme.txt",
+        "textbox.1.3.12.nupkg.sha512",
+        "textbox.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -7896,7 +7923,8 @@
       "MonoGame.Extended >= 3.8.0",
       "MonoGame.Extended.Animations >= 3.7.0",
       "MonoGame.Extended.Content.Pipeline >= 3.8.0",
-      "MonoGame.Framework.WindowsDX >= 3.8.1.303"
+      "MonoGame.Framework.WindowsDX >= 3.8.1.303",
+      "TextBox >= 1.3.12"
     ]
   },
   "packageFolders": {
@@ -7963,6 +7991,10 @@
           "MonoGame.Framework.WindowsDX": {
             "target": "Package",
             "version": "[3.8.1.303, )"
+          },
+          "TextBox": {
+            "target": "Package",
+            "version": "[1.3.12, )"
           }
         },
         "imports": [
@@ -7987,5 +8019,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'TextBox 1.3.12' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "TextBox",
+      "targetGraphs": [
+        "net6.0-windows7.0"
+      ]
+    }
+  ]
 }
