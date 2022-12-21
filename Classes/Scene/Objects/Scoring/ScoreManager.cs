@@ -40,7 +40,7 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
             {
                 Scores.Add(score);
             }
-            Scores = Scores.Where(x => x.PlayerName == "Bob").OrderByDescending(c => c.Value).ToList();
+            Scores = Scores.OrderByDescending(c => c.Value).ToList();
 
             UpdateHighscores();
         }

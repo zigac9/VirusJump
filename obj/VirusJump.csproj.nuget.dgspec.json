@@ -64,6 +64,10 @@
             "MonoGame.Framework.WindowsDX": {
               "target": "Package",
               "version": "[3.8.1.303, )"
+            },
+            "TextBox": {
+              "target": "Package",
+              "version": "[1.3.12, )"
             }
           },
           "imports": [
