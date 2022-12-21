@@ -39,6 +39,18 @@ public class Textures
         //bullet
         Task.Run(() => LoadTexture("assets/tir"));
         Task.Run(() => LoadTexture("assets/virus"));
+        
+        //trampo
+        Task.Run(() => LoadTexture("assets/toshak"));
+        
+        //Spring
+        Task.Run(() => LoadTexture("assets/fanar"));
+        Task.Run(() => LoadTexture("assets/oFanar"));
+
+        //jetpack
+        Task.Run(() => LoadTexture("assets/jet"));
+
+
     }
     
     private void LoadTexture(string textureName)

@@ -6,8 +6,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Trampo
     {
-        private readonly Texture2D _trampoTexture;
-
         private Rectangle _position;
 
         private bool _visible;
@@ -16,10 +14,11 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private int _scoreToMove;
         private int _scoreMoveStep;
         private int _tRand;
+        private Textures _textures;
 
-        public Trampo(ContentManager content)
+        public Trampo(Textures textures)
         {
-            _trampoTexture = content.Load<Texture2D>("assets/toshak");
+            _textures = textures;
             Initialize();
         }
 
@@ -35,7 +34,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(_trampoTexture, _position, Color.White);
+            spriteBatch.Draw( _textures.Textures1["assets/toshak"], _position, Color.White);
         }
 
         public bool Collision(Player player, bool collisionCheck)

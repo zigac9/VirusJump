@@ -6,8 +6,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Spring
     {
-        private readonly Texture2D _fanarIn;
-
         private Rectangle _position;
 
         private bool _visible;
@@ -16,11 +14,11 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private int _scoreToMove;
         private int _scoreMoveStep;
         private int _sRand;
+        private Textures _textures;
 
-        public Spring(ContentManager content)
+        public Spring(Textures textures)
         {
-            _fanarIn = content.Load<Texture2D>("assets/fanar");
-            content.Load<Texture2D>("assets/oFanar");
+            _textures = textures;
             Initialize();
         }
 
@@ -36,7 +34,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public void Draw(SpriteBatch s)
         {
-            s.Draw(_fanarIn, _position, Color.White);
+            s.Draw(_textures.Textures1["assets/fanar"], _position, Color.White);
         }
 
         public bool Collision(Player player, bool collisionCheck)

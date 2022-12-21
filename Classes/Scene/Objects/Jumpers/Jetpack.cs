@@ -6,8 +6,6 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 {
     public class Jetpack
     {
-        private readonly Texture2D _jetpack;
-
         private Rectangle _position;
 
         private bool _visible;
@@ -16,10 +14,11 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
         private int _scoreToMove;
         private int _scoreMoveStep;
         private int _jRand;
+        private Textures _textures;
 
-        public Jetpack(ContentManager content)
+        public Jetpack(Textures textures)
         {
-            _jetpack = content.Load<Texture2D>("assets/jet");
+            _textures = textures;
             Initialize();
         }
 
@@ -35,7 +34,7 @@ namespace VirusJump.Classes.Scene.Objects.Jumpers
 
         public void Draw(SpriteBatch s)
         {
-            s.Draw(_jetpack, _position, Color.White);
+            s.Draw(_textures.Textures1["assets/jet"], _position, Color.White);
         }
 
         public bool Collision(Player player, bool collisionCheck)

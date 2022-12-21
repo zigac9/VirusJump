@@ -107,9 +107,9 @@ public class Game1 : Game
         Pointer = new Pointer(Content);
         Bullet = new Bullet(0, _textures);
             
-        Trampo = new Trampo(Content);
-        Spring = new Spring(Content);
-        Jetpack = new Jetpack(Content);
+        Trampo = new Trampo(_textures);
+        Spring = new Spring(_textures);
+        Jetpack = new Jetpack(_textures);
         BulletEnemy = new Bullet(1, _textures);
 
         StaticEnemy = new StaticEnemy(Content);
