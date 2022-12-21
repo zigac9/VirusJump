@@ -14,6 +14,7 @@ using VirusJump.Classes.Scene.Objects.Boards;
 using VirusJump.Classes.Scene.Objects.Jumpers;
 using VirusJump.Classes.Scene.Objects.Enemies;
 using VirusJump.Classes.Scene.Objects.Scoring;
+using VirusJump.Classes.Scene;
 
 namespace VirusJump;
 
@@ -66,6 +67,8 @@ public class Game1 : Game
     public static bool ThingsCollisionCheck;
 
     private string _playerName;
+
+    private Textures _textures;
         
 
     public Game1()
@@ -88,12 +91,13 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
+        _textures = new Textures(Content);
         Nivo = new List<bool> { false, false, false, false, false };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         BoardsList = new BoardsList(Content);
 
-        Player = new Player(Content);
-        PlayerMenu = new Player(Content)
+        Player = new Player(Content, _textures);
+        PlayerMenu = new Player(Content, _textures)
         {
             PlayerPosition = new Rectangle(60, 520, 80, 80)
         };

@@ -11,12 +11,12 @@ namespace VirusJump.Classes.Scene.Objects
 {
     public class Player
     {
-        private readonly Texture2D _playerTexture;
-        private readonly Texture2D _shootTexture;
-        private readonly Texture2D _jetpackL;
-        private readonly Texture2D _jetpackR;
+        // private readonly Texture2D _playerTexture;
+        // private readonly Texture2D _shootTexture;
+        // private readonly Texture2D _jetpackL;
+        // private readonly Texture2D _jetpackR;
         private Texture2D _active;
-        private readonly Texture2D _dead;
+        // private readonly Texture2D _dead;
 
         private readonly AnimatedSprite _animatedSprite;
 
@@ -31,14 +31,12 @@ namespace VirusJump.Classes.Scene.Objects
         private float _shootDegree;
 
         private bool _jet;
+        
+        private Textures _textures;
 
-        public Player(ContentManager content)
+        public Player(ContentManager content, Textures textures)
         {
-            _playerTexture = content.Load<Texture2D>("assets/DoodleR1");
-            _shootTexture = content.Load<Texture2D>("assets/injection");
-            _jetpackR = content.Load<Texture2D>("assets/manjetpack");
-            _jetpackL = content.Load<Texture2D>("assets/manjetpackL");
-            _dead = content.Load<Texture2D>("assets/dead");
+            _textures = textures;
             var spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
             _animatedSprite = new AnimatedSprite(spriteSheet);
             Initialize();
@@ -80,36 +78,36 @@ namespace VirusJump.Classes.Scene.Objects
                     case PlayerOrientEnum.Left:
                         if (_jet)
                         {
-                            _active = _jetpackL;
+                            _active = _textures.Textures1["assets/manjetpackL"];
                             _firePosition = new Vector2(_firePosition.X + _position.Width - 10, _firePosition.Y);
                             _animatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
                         }else if(!collisionCheck)
                         {
-                            _active = _dead;
+                            _active = _textures.Textures1["assets/dead"];
                         }
-                        else _active = _playerTexture;
+                        else _active = _textures.Textures1["assets/DoodleR1"];
                         s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
                         break;
                     case PlayerOrientEnum.Right:
                         if (_jet)
                         {
-                            _active = _jetpackR;
+                            _active = _textures.Textures1["assets/manjetpack"];
                             _firePosition = new Vector2(_firePosition.X + 10, _firePosition.Y);
                             _animatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
                         }
                         else if (!collisionCheck)
                         {
-                            _active = _dead;
+                            _active = _textures.Textures1["assets/dead"];
                         }
-                        else _active = _playerTexture;
+                        else _active = _textures.Textures1["assets/DoodleR1"];
                         s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
                         break;
                 }
-                s.Draw(_shootTexture, _shootPosition, null, Color.White, _shootDegree, new Vector2(50, 0), SpriteEffects.None, 1f);
+                s.Draw(_textures.Textures1["assets/injection"], _shootPosition, null, Color.White, _shootDegree, new Vector2(50, 0), SpriteEffects.None, 1f);
             }
             else if(game == GameStateEnum.IntroMenu)
             {
-                s.Draw(_playerTexture, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
+                s.Draw(_textures.Textures1["assets/DoodleR1"], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0f);
             }
         }
 
