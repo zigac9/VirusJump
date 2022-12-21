@@ -14,13 +14,11 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
 
         private int _stRand;
         private int _textureint;
-
-        public StaticEnemy(ContentManager content) 
+        
+        public StaticEnemy(Textures textures)
         {
             _textureint = 0;
-            var staticEnemy1 = content.Load<Texture2D>("assets/ena");
-            var staticEnemy2 = content.Load<Texture2D>("assets/sedem");
-            _enemylist = new List<Texture2D> { staticEnemy1, staticEnemy2 };
+            _enemylist = new List<Texture2D> { textures.Textures1["assets/ena"], textures.Textures1["assets/sedem"] };
             Initialize();
         }
 

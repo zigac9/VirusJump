@@ -16,12 +16,11 @@ namespace VirusJump.Classes.Scene.Objects.Supplements
         private readonly float _accelertion;
         private bool _bullcheck;
         private readonly int _textureRnd;
-        private Textures _textures;
+        
         public Bullet(int rnd, Textures textures)
         {
-            _textures = textures;
             _textureRnd = rnd;
-            _shootList = new List<Texture2D> { _textures.Textures1["assets/tir"], _textures.Textures1["assets/virus"] };            
+            _shootList = new List<Texture2D> { textures.Textures1["assets/tir"], textures.Textures1["assets/virus"] };            
             _accelertion = 0.5f;
             _speed = new Vector2(0, 0);
             Initialize();

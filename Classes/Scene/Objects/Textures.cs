@@ -49,6 +49,15 @@ public class Textures
 
         //jetpack
         Task.Run(() => LoadTexture("assets/jet"));
+        
+        //staticEnemy
+        Task.Run(() => LoadTexture("assets/ena"));
+        Task.Run(() => LoadTexture("assets/sedem"));
+
+        //movingEnemy
+        Task.Run(() => LoadTexture("assets/tri"));
+        Task.Run(() => LoadTexture("assets/stiri"));
+        Task.Run(() => LoadTexture("assets/pet"));
 
 
     }

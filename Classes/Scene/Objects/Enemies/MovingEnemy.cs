@@ -24,13 +24,10 @@ namespace VirusJump.Classes.Scene.Objects.Enemies
         private int _textureint;
         private float _degree;
 
-        public MovingEnemy(ContentManager content)
+        public MovingEnemy(Textures textures)
         {
             _textureint = 0;
-            var movingEnemy1 = content.Load<Texture2D>("assets/tri");
-            var movingEnemy2 = content.Load<Texture2D>("assets/stiri");
-            var movingEnemy3 = content.Load<Texture2D>("assets/pet");
-            _enemylist = new List<Texture2D> {movingEnemy1,movingEnemy2,movingEnemy3 };
+            _enemylist = new List<Texture2D> {textures.Textures1["assets/tri"],textures.Textures1["assets/stiri"],textures.Textures1["assets/pet"] };
             Initialize();
         }
 

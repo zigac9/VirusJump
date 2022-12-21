@@ -112,8 +112,8 @@ public class Game1 : Game
         Jetpack = new Jetpack(_textures);
         BulletEnemy = new Bullet(1, _textures);
 
-        StaticEnemy = new StaticEnemy(Content);
-        MovingEnemy = new MovingEnemy(Content);
+        StaticEnemy = new StaticEnemy(_textures);
+        MovingEnemy = new MovingEnemy(_textures);
 
         Sound = new Sound(Content);
             
@@ -675,7 +675,6 @@ public class Game1 : Game
 
         if (CurrentGameState == GameStateEnum.GameRunning)
         {
-            Background.ScoreDraw(_spriteBatch, CurrentGameState);
             foreach (var board in BoardsList.BoardList)
             {
                 if(board.Visible && board.DrawVisible)
@@ -714,6 +713,7 @@ public class Game1 : Game
             {
                 MovingEnemy.Draw(_spriteBatch);
             }
+            Background.ScoreDraw(_spriteBatch, CurrentGameState);
             Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
             Score.Draw(_spriteBatch, CurrentGameState);
         }
