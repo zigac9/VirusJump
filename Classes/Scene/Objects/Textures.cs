@@ -35,6 +35,10 @@ public class Textures
         Task.Run(() => LoadTexture("assets/sides"));
         Task.Run(() => LoadTexture("assets/gameOver"));
         Task.Run(() => LoadTexture("assets/highscore"));
+        
+        //bullet
+        Task.Run(() => LoadTexture("assets/tir"));
+        Task.Run(() => LoadTexture("assets/virus"));
     }
     
     private void LoadTexture(string textureName)

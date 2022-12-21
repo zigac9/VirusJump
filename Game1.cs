@@ -102,15 +102,15 @@ public class Game1 : Game
             PlayerPosition = new Rectangle(60, 520, 80, 80)
         };
 
-        Background = new Background(Content, _textures);
+        Background = new Background(_textures);
         Score = new ScorClass(Content);
         Pointer = new Pointer(Content);
-        Bullet = new Bullet(Content, 0);
+        Bullet = new Bullet(0, _textures);
             
         Trampo = new Trampo(Content);
         Spring = new Spring(Content);
         Jetpack = new Jetpack(Content);
-        BulletEnemy = new Bullet(Content, 1);
+        BulletEnemy = new Bullet(1, _textures);
 
         StaticEnemy = new StaticEnemy(Content);
         MovingEnemy = new MovingEnemy(Content);

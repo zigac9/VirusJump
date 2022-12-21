@@ -30,7 +30,7 @@ namespace VirusJump.Classes.Scene.Objects
         private bool _gameStateCheck;
         private Textures _textures;
         
-        public Background(ContentManager content, Textures textures)
+        public Background(Textures textures)
         {
             _textures = textures;
             _introMenuposize = new Rectangle(0, 0, 480, 720);
