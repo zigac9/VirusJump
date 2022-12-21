@@ -10,7 +10,7 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
     {
         private static readonly string _fileName = "scores.xml";
 
-        public List<Score> Highscores { get; private set; }
+        public List<int> Highscores { get; private set; }
 
         public List<Score> Scores { get; private set; }
 
@@ -23,16 +23,17 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
         public ScoreManager(List<Score> scores)
         {
             Scores = scores;
+            Highscores = new List<int>(5){0,0,0,0,0};
 
             UpdateHighscores();
         }
 
-        public void Add(Score score)
+        public void Add(Score score, string playername)
         {
-            var exists = Scores.Any(item => item.PlayerName == "Bob");
+            var exists = Scores.Any(item => item.PlayerName == playername);
             if (exists)
             {
-                var index = Scores.FindIndex(a => a.PlayerName == "Bob");
+                var index = Scores.FindIndex(a => a.PlayerName == playername);
                 if (Scores[index].Value < score.Value)
                     Scores[index].Value = score.Value;
             }
@@ -43,6 +44,13 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
             Scores = Scores.OrderByDescending(c => c.Value).ToList();
 
             UpdateHighscores();
+        }
+
+        public int BestOfYou(string playername)
+        {
+            var bestofyou = new List<Score>(); 
+            bestofyou = Scores.Where(name => name.PlayerName == playername).OrderByDescending(c => c.Value).ToList();
+            return bestofyou[0].Value;
         }
 
         public static ScoreManager Load()
@@ -65,7 +73,28 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
 
         public void UpdateHighscores()
         {
-            Highscores = Scores.Take(5).ToList(); // Takes the first 5 elements
+            if (Scores.Count > 0)
+                Highscores[0] = Scores[0].Value;
+            else
+                Highscores[0] = 0;
+            if (Scores.Count > 1)
+                Highscores[1] = Scores[1].Value;
+            else
+                Highscores[1] = 0;
+            if (Scores.Count > 2)
+                Highscores[2] = Scores[2].Value;
+            else
+                Highscores[2] = 0;
+            if (Scores.Count > 3)
+                Highscores[3] = Scores[3].Value;
+            else
+                Highscores[3] = 0;
+            if (Scores.Count > 4)
+                Highscores[4] = Scores[4].Value;
+            else
+                Highscores[4] = 0;
+            
+            // Highscores = Scores.Take(5).ToList(); // Takes the first 5 elements
         }
 
         public static void Save(ScoreManager scoreManager)

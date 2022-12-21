@@ -591,7 +591,13 @@ public class Game1 : Game
                 if (PlayerMenu.PlayerPosition.Y > 550)
                     PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
 
-                break;
+                Background.HScore1 = ScoreManager.Highscores[0];
+                Background.HScore2 = ScoreManager.Highscores[1];
+                Background.HScore3 = ScoreManager.Highscores[2];
+                Background.HScore4 = ScoreManager.Highscores[3];
+                Background.HScore5 = ScoreManager.Highscores[4];
+
+                    break;
             case GameStateEnum.HScore:
                 _mouseState = Mouse.GetState();
                 if (_mouseState.LeftButton == ButtonState.Pressed)
@@ -609,15 +615,23 @@ public class Game1 : Game
                 if (!Sound.PlayCheck)
                 {
                     MediaPlayer.Play(Sound.End);
+                    MediaPlayer.IsRepeating = true;
                     Sound.PlayCheck = true;
                     ScoreManager.Add(new Score()
                         {
                             PlayerName = _playerName,
                             Value = Score.Score, 
                         }
-                    );
+                    , _playerName);
                     ScoreManager.Save(ScoreManager);
+                    
                 }
+                Background.Bests = ScoreManager.BestOfYou(_playerName);
+                Background.HScore1 = ScoreManager.Highscores[0];
+                Background.HScore2 = ScoreManager.Highscores[1];
+                Background.HScore3 = ScoreManager.Highscores[2];
+                Background.HScore4 = ScoreManager.Highscores[3];
+                Background.HScore5 = ScoreManager.Highscores[4];
                     
                 if (_mouseState.LeftButton == ButtonState.Pressed)
                 {

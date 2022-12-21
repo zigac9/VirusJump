@@ -10,14 +10,12 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
         private SpriteFont _spFont;
         private readonly Vector2 _position;
         
-        private string _bestS;
         private int _score;
         private bool _check;
 
         public ScorClass(ContentManager content) 
         {
             _score = 0;
-            _bestS = "";
             _position = new Vector2(15f, 4f);
             _check = true;
             _spFont = content.Load<SpriteFont>("assets/SpriteFont1");
@@ -44,12 +42,6 @@ namespace VirusJump.Classes.Scene.Objects.Scoring
         {
             get => _score;
             set => _score = value;
-        }
-
-        public string BestS
-        {
-            get => _bestS;
-            set => _bestS = value;
         }
     }
 }

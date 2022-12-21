@@ -36,6 +36,7 @@ namespace VirusJump.Classes.Scene.Objects
         private int _hScore3;
         private int _hScore4;
         private int _hScore5;
+        private int _bestS;
         private bool _soundCheck;
         private bool _gameStateCheck;
 
@@ -89,7 +90,7 @@ namespace VirusJump.Classes.Scene.Objects
             if (gameState == GameStateEnum.Option)
             {
                 s.Draw(_option, _optionposize, Color.White);
-                if (_soundCheck == true)
+                if (_soundCheck)
                     s.Draw(_sOn, _sOnposize, Color.White);
                 else
                     s.Draw(_sOff, _sOffposize, Color.White);
@@ -98,7 +99,7 @@ namespace VirusJump.Classes.Scene.Objects
             {
                 s.Draw(_gameOvre, _gameOverposize, Color.White);
                 s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
-                //s.DrawString(score.SFont, score.BestS, new Vector2(295f, 297f), Color.Black);
+                s.DrawString(score.SFont, _bestS.ToString(), new Vector2(325f, 290f), Color.Black);
             }
             if (gameState == GameStateEnum.HScore)
             {
@@ -155,6 +156,41 @@ namespace VirusJump.Classes.Scene.Objects
         {
             get => _gameStateCheck;
             set => _gameStateCheck = value;
+        }
+        
+        public int HScore1
+        {
+            get => _hScore1;
+            set => _hScore1 = value;
+        }
+
+        public int HScore2
+        {
+            get => _hScore2;
+            set => _hScore2 = value;
+        }
+
+        public int HScore3
+        {
+            get => _hScore3;
+            set => _hScore3 = value;
+        }
+
+        public int HScore4
+        {
+            get => _hScore4;
+            set => _hScore4 = value;
+        }
+
+        public int HScore5
+        {
+            get => _hScore5;
+            set => _hScore5 = value;
+        }
+        public int Bests
+        {
+            get => _bestS;
+            set => _bestS = value;
         }
     }
 }
