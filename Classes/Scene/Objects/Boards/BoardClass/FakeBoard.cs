@@ -6,16 +6,15 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class FakeBoard
     {
-        private readonly Texture2D _texture;
-
         private Rectangle _position;
 
         private bool _visible;
         private bool _drawVisible;
+        private Texture2D _texture;
 
-        public FakeBoard(ContentManager content, Rectangle position)
+        public FakeBoard(Texture2D texture, Rectangle position)
         {
-            _texture = content.Load<Texture2D>("assets/p3");
+            _texture = texture;
             _position = position;
             _visible = true;
             _drawVisible = true;

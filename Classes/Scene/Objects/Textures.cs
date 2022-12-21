@@ -58,8 +58,18 @@ public class Textures
         Task.Run(() => LoadTexture("assets/tri"));
         Task.Run(() => LoadTexture("assets/stiri"));
         Task.Run(() => LoadTexture("assets/pet"));
+        
+        //board
+        Task.Run(() => LoadTexture("assets/p1"));
 
+        //fakeboard
+        Task.Run(() => LoadTexture("assets/p3"));
 
+        //goneboard
+        Task.Run(() => LoadTexture("assets/p4"));
+
+        //movingboard
+        Task.Run(() => LoadTexture("assets/p2"));
     }
     
     private void LoadTexture(string textureName)

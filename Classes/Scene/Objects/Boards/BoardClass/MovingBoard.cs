@@ -6,15 +6,14 @@ namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
 {
     public class MovingBoard
     {
-        private readonly Texture2D _texture;
-
         private Rectangle _position;
 
         private int _speed;
+        private Texture2D _texture;
 
-        public MovingBoard(ContentManager content, Rectangle position, int speed)
+        public MovingBoard(Texture2D texture, Rectangle position, int speed)
         {
-            _texture = content.Load<Texture2D>("assets/p2");
+            _texture = texture;
             _position = position;
             _speed = speed;
         }

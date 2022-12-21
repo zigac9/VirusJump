@@ -94,8 +94,11 @@ public class Game1 : Game
         _textures = new Textures(Content);
         Nivo = new List<bool> { false, false, false, false, false };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-        BoardsList = new BoardsList(Content);
-
+        
+        Sound = new Sound(Content);
+        Score = new ScorClass(Content);
+        Pointer = new Pointer(Content);
+        
         Player = new Player(Content, _textures);
         PlayerMenu = new Player(Content, _textures)
         {
@@ -103,20 +106,18 @@ public class Game1 : Game
         };
 
         Background = new Background(_textures);
-        Score = new ScorClass(Content);
-        Pointer = new Pointer(Content);
         Bullet = new Bullet(0, _textures);
-            
+        BulletEnemy = new Bullet(1, _textures);
+
         Trampo = new Trampo(_textures);
         Spring = new Spring(_textures);
         Jetpack = new Jetpack(_textures);
-        BulletEnemy = new Bullet(1, _textures);
 
         StaticEnemy = new StaticEnemy(_textures);
         MovingEnemy = new MovingEnemy(_textures);
+        
+        BoardsList = new BoardsList(_textures);
 
-        Sound = new Sound(Content);
-            
         ScoreManager = ScoreManager.Load();
 
         _playerName = RandomString(10);

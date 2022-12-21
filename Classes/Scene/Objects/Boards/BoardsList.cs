@@ -12,10 +12,11 @@ namespace VirusJump.Classes.Scene.Objects.Boards
         private FakeBoard[] _fakeBoards;
         private GoneBoard[] _goneBoards;
         private MovingBoard[] _movingBoards;
+        private Textures _textures;
 
-        public BoardsList(ContentManager content)
+        public BoardsList(Textures textures)
         {
-            _content = content;
+            _textures = textures;
             _boardsCoords = new BoardsCoords();
             Initialize();
         }
@@ -33,22 +34,22 @@ namespace VirusJump.Classes.Scene.Objects.Boards
         {
             for (var i = 0; i<_boards.Length; i++)
             {
-                _boards[i] = new Board(_content, _boardsCoords.BoardsCoordsArr[i]);
+                _boards[i] = new Board(_textures.Textures1["assets/p1"], _boardsCoords.BoardsCoordsArr[i]);
             }
             for (var i = 0; i < _fakeBoards.Length; i++)
             {
-                _fakeBoards[i] = new FakeBoard(_content, _boardsCoords.FakeBoardsCoordsArr[i]);
+                _fakeBoards[i] = new FakeBoard(_textures.Textures1["assets/p3"], _boardsCoords.FakeBoardsCoordsArr[i]);
             }
             for (var i = 0; i < _goneBoards.Length; i++)
             {
-                _goneBoards[i] = new GoneBoard(_content, _boardsCoords.GoneBoardsCoordsArr[i]);
+                _goneBoards[i] = new GoneBoard(_textures.Textures1["assets/p4"], _boardsCoords.GoneBoardsCoordsArr[i]);
             }
             for (var i = 0; i < _movingBoards.Length; i++)
             {
                 var rand = new System.Random();
                 var num = rand.Next(-4,4);
                 if (num == 0) num = 1;
-                _movingBoards[i] = new MovingBoard(_content, _boardsCoords.MovingBoardsCoordsArr[i], num);
+                _movingBoards[i] = new MovingBoard(_textures.Textures1["assets/p2"], _boardsCoords.MovingBoardsCoordsArr[i], num);
             }
         }
 
