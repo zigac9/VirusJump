@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements;
@@ -8,14 +8,15 @@ public class Sound
 {
     private bool _check;
 
-    public Sound(ContentManager content)
+    public Sound(IReadOnlyDictionary<string, SoundEffect> soundEffectsDictionary,
+        IReadOnlyDictionary<string, Song> songDictionary)
     {
-        Background = content.Load<Song>("assets/background");
-        End = content.Load<Song>("assets/patmat");
-        Board = content.Load<SoundEffect>("assets/jump");
-        PlayerShoot = content.Load<SoundEffect>("assets/shootPlayer");
-        EnemyShoot = content.Load<SoundEffect>("assets/enemyShot");
-        Dead = content.Load<SoundEffect>("assets/deadSound");
+        Background = songDictionary["assets/background"];
+        End = songDictionary["assets/patmat"];
+        Board = soundEffectsDictionary["assets/jump"];
+        PlayerShoot = soundEffectsDictionary["assets/shootPlayer"];
+        EnemyShoot = soundEffectsDictionary["assets/enemyShot"];
+        Dead = soundEffectsDictionary["assets/deadSound"];
         Initialize();
     }
 

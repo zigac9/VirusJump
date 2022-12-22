@@ -88,7 +88,15 @@ internal interface ITextures
             Task.Run(() => LoadTexture("assets/p2", LoadTextureEnum.texture)),
 
             //pointer
-            Task.Run(() => LoadTexture("assets/shoot.sf", LoadTextureEnum.spriteSheet))
+            Task.Run(() => LoadTexture("assets/shoot.sf", LoadTextureEnum.spriteSheet)),
+
+            //Sound
+            Task.Run(() => LoadTexture("assets/background", LoadTextureEnum.song)),
+            Task.Run(() => LoadTexture("assets/patmat", LoadTextureEnum.song)),
+            Task.Run(() => LoadTexture("assets/jump", LoadTextureEnum.soundEffect)),
+            Task.Run(() => LoadTexture("assets/shootPlayer", LoadTextureEnum.soundEffect)),
+            Task.Run(() => LoadTexture("assets/enemyShot", LoadTextureEnum.soundEffect)),
+            Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.soundEffect))
         };
         await Task.WhenAll(tasks);
     }
