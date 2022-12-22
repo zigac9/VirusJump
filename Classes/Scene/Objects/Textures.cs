@@ -14,12 +14,12 @@ internal interface ITextures
 {
     private static ContentManager _content;
 
-    private static readonly object _texturesLock = new();
-    private static readonly object _songsLock = new();
-    private static readonly object _soundEffectsLock = new();
-    private static readonly object _spriteFontsLock = new();
-    private static readonly object _spriteSheetsLock = new();
-    private static readonly object _loadTextureLock = new();
+    private static readonly object TexturesLock = new();
+    private static readonly object SongsLock = new();
+    private static readonly object SoundEffectsLock = new();
+    private static readonly object SpriteFontsLock = new();
+    private static readonly object SpriteSheetsLock = new();
+    private static readonly object LoadTextureLock = new();
     protected static Dictionary<string, Texture2D> TexturesLoad { get; } = new();
     protected static Dictionary<string, SpriteSheet> SpriteSheetsLoad { get; } = new();
     protected static Dictionary<string, Song> SongsLoad { get; } = new();
@@ -108,14 +108,14 @@ internal interface ITextures
     private static void LoadTexture(string textureName, LoadTextureEnum loadTextureEnum)
     {
         // Load the texture using the ContentManager
-        lock (_loadTextureLock)
+        lock (LoadTextureLock)
         {
             switch (loadTextureEnum)
             {
                 case LoadTextureEnum.texture:
                 {
                     var texture = _content.Load<Texture2D>(textureName);
-                    lock (_texturesLock)
+                    lock (TexturesLock)
                     {
                         TexturesLoad.Add(textureName, texture);
                     }
@@ -125,7 +125,7 @@ internal interface ITextures
                 case LoadTextureEnum.song:
                 {
                     var texture = _content.Load<Song>(textureName);
-                    lock (_songsLock)
+                    lock (SongsLock)
                     {
                         SongsLoad.Add(textureName, texture);
                     }
@@ -135,7 +135,7 @@ internal interface ITextures
                 case LoadTextureEnum.soundEffect:
                 {
                     var texture = _content.Load<SoundEffect>(textureName);
-                    lock (_soundEffectsLock)
+                    lock (SoundEffectsLock)
                     {
                         SoundEffectsLoad.Add(textureName, texture);
                     }
@@ -145,7 +145,7 @@ internal interface ITextures
                 case LoadTextureEnum.spriteFonts:
                 {
                     var texture = _content.Load<SpriteFont>(textureName);
-                    lock (_spriteFontsLock)
+                    lock (SpriteFontsLock)
                     {
                         SpriteFontsLoad.Add(textureName, texture);
                     }
@@ -155,7 +155,7 @@ internal interface ITextures
                 case LoadTextureEnum.spriteSheet:
                 {
                     var texture = _content.Load<SpriteSheet>(textureName, new JsonContentLoader());
-                    lock (_spriteSheetsLock)
+                    lock (SpriteSheetsLock)
                     {
                         SpriteSheetsLoad.Add(textureName, texture);
                     }
