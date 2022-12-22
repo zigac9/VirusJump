@@ -1,89 +1,165 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Xml;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
+using MonoGame.Extended.Content;
+using MonoGame.Extended.Serialization;
+using MonoGame.Extended.Sprites;
 
 namespace VirusJump.Classes.Scene.Objects;
 
-public class Textures
+internal interface ITextures
 {
-    private ContentManager _content;
-    private Dictionary<string, Texture2D> textures = new();
-    private readonly object _lock = new();
-    
+    private static ContentManager _content;
 
-    public Textures(ContentManager content)
+    private static readonly object _texturesLock = new();
+    private static readonly object _songsLock = new();
+    private static readonly object _soundEffectsLock = new();
+    private static readonly object _spriteFontsLock = new();
+    private static readonly object _spriteSheetsLock = new();
+    private static readonly object _loadTextureLock = new();
+    protected static Dictionary<string, Texture2D> TexturesLoad { get; } = new();
+    protected static Dictionary<string, SpriteSheet> SpriteSheetsLoad { get; } = new();
+    protected static Dictionary<string, Song> SongsLoad { get; } = new();
+    protected static Dictionary<string, SoundEffect> SoundEffectsLoad { get; } = new();
+    protected static Dictionary<string, SpriteFont> SpriteFontsLoad { get; } = new();
+
+    protected static async Task GenerateThreads(ContentManager content)
     {
         _content = content;
-        //player
-        Task.Run(() => LoadTexture("assets/DoodleR1"));
-        Task.Run(() => LoadTexture("assets/injection"));
-        Task.Run(() => LoadTexture("assets/manjetpack"));
-        Task.Run(() => LoadTexture("assets/manjetpackL"));
-        Task.Run(() => LoadTexture("assets/dead"));
-        
-        //background
-        Task.Run(() => LoadTexture("assets/gradient"));
-        Task.Run(() => LoadTexture("assets/kooh"));
-        Task.Run(() => LoadTexture("assets/mainMenu1"));
-        Task.Run(() => LoadTexture("assets/option"));
-        Task.Run(() => LoadTexture("assets/sOn"));
-        Task.Run(() => LoadTexture("assets/sOff"));
-        Task.Run(() => LoadTexture("assets/notif"));
-        Task.Run(() => LoadTexture("assets/pause"));
-        Task.Run(() => LoadTexture("assets/sides"));
-        Task.Run(() => LoadTexture("assets/gameOver"));
-        Task.Run(() => LoadTexture("assets/highscore"));
-        
-        //bullet
-        Task.Run(() => LoadTexture("assets/tir"));
-        Task.Run(() => LoadTexture("assets/virus"));
-        
-        //trampo
-        Task.Run(() => LoadTexture("assets/toshak"));
-        
-        //Spring
-        Task.Run(() => LoadTexture("assets/fanar"));
-        Task.Run(() => LoadTexture("assets/oFanar"));
+        var tasks = new List<Task>
+        {
+            //player
+            Task.Run(() => LoadTexture("assets/DoodleR1", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/injection", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/manjetpack", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/manjetpackL", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/dead", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/fire.sf", LoadTextureEnum.spriteSheet)),
 
-        //jetpack
-        Task.Run(() => LoadTexture("assets/jet"));
-        
-        //staticEnemy
-        Task.Run(() => LoadTexture("assets/ena"));
-        Task.Run(() => LoadTexture("assets/sedem"));
+            //background
+            Task.Run(() => LoadTexture("assets/gradient", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/kooh", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/mainMenu1", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/option", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/sOn", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/sOff", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/notif", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/pause", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/sides", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/gameOver", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/highscore", LoadTextureEnum.texture)),
 
-        //movingEnemy
-        Task.Run(() => LoadTexture("assets/tri"));
-        Task.Run(() => LoadTexture("assets/stiri"));
-        Task.Run(() => LoadTexture("assets/pet"));
-        
-        //board
-        Task.Run(() => LoadTexture("assets/p1"));
+            //bullet
+            Task.Run(() => LoadTexture("assets/tir", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/virus", LoadTextureEnum.texture)),
 
-        //fakeboard
-        Task.Run(() => LoadTexture("assets/p3"));
+            //trampo
+            Task.Run(() => LoadTexture("assets/toshak", LoadTextureEnum.texture)),
 
-        //goneboard
-        Task.Run(() => LoadTexture("assets/p4"));
+            //Spring
+            Task.Run(() => LoadTexture("assets/fanar", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/oFanar", LoadTextureEnum.texture)),
 
-        //movingboard
-        Task.Run(() => LoadTexture("assets/p2"));
+            //jetpack
+            Task.Run(() => LoadTexture("assets/jet", LoadTextureEnum.texture)),
+
+            //staticEnemy
+            Task.Run(() => LoadTexture("assets/ena", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/sedem", LoadTextureEnum.texture)),
+
+            //movingEnemy
+            Task.Run(() => LoadTexture("assets/tri", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/stiri", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/pet", LoadTextureEnum.texture)),
+
+            //board
+            Task.Run(() => LoadTexture("assets/p1", LoadTextureEnum.texture)),
+
+            //fakeboard
+            Task.Run(() => LoadTexture("assets/p3", LoadTextureEnum.texture)),
+
+            //goneboard
+            Task.Run(() => LoadTexture("assets/p4", LoadTextureEnum.texture)),
+
+            //movingboard
+            Task.Run(() => LoadTexture("assets/p2", LoadTextureEnum.texture)),
+
+            //pointer
+            Task.Run(() => LoadTexture("assets/shoot.sf", LoadTextureEnum.spriteSheet))
+        };
+        await Task.WhenAll(tasks);
     }
-    
-    private void LoadTexture(string textureName)
+
+    private static void LoadTexture(string textureName, LoadTextureEnum loadTextureEnum)
     {
         // Load the texture using the ContentManager
-        var texture = _content.Load<Texture2D>(textureName);
-
-        // Use the lock statement to synchronize access to the dictionary
-        lock (_lock)
+        lock (_loadTextureLock)
         {
-            // Add the texture to the dictionary
-            textures.Add(textureName, texture);
+            switch (loadTextureEnum)
+            {
+                case LoadTextureEnum.texture:
+                {
+                    var texture = _content.Load<Texture2D>(textureName);
+                    lock (_texturesLock)
+                    {
+                        TexturesLoad.Add(textureName, texture);
+                    }
+
+                    break;
+                }
+                case LoadTextureEnum.song:
+                {
+                    var texture = _content.Load<Song>(textureName);
+                    lock (_songsLock)
+                    {
+                        SongsLoad.Add(textureName, texture);
+                    }
+
+                    break;
+                }
+                case LoadTextureEnum.soundEffect:
+                {
+                    var texture = _content.Load<SoundEffect>(textureName);
+                    lock (_soundEffectsLock)
+                    {
+                        SoundEffectsLoad.Add(textureName, texture);
+                    }
+
+                    break;
+                }
+                case LoadTextureEnum.spriteFonts:
+                {
+                    var texture = _content.Load<SpriteFont>(textureName);
+                    lock (_spriteFontsLock)
+                    {
+                        SpriteFontsLoad.Add(textureName, texture);
+                    }
+
+                    break;
+                }
+                case LoadTextureEnum.spriteSheet:
+                {
+                    var texture = _content.Load<SpriteSheet>(textureName, new JsonContentLoader());
+                    lock (_spriteSheetsLock)
+                    {
+                        SpriteSheetsLoad.Add(textureName, texture);
+                    }
+
+                    break;
+                }
+            }
         }
     }
 
-    public Dictionary<string, Texture2D> Textures1 => textures;
+    private enum LoadTextureEnum
+    {
+        texture = 0,
+        spriteSheet,
+        song,
+        soundEffect,
+        spriteFonts
+    }
 }

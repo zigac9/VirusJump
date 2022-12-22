@@ -1,10 +1,8 @@
-﻿namespace VirusJump.Classes.Scene.Objects.Scoring
+﻿namespace VirusJump.Classes.Scene.Objects.Scoring;
+
+public class Score
 {
-    public class Score
-    {
-        public string PlayerName { get; set; }
+    public string PlayerName { get; set; }
 
-        public int Value { get; set; }
-    }
+    public int Value { get; set; }
 }
-

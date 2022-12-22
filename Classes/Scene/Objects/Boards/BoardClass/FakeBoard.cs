@@ -1,54 +1,44 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass
+namespace VirusJump.Classes.Scene.Objects.Boards.BoardClass;
+
+public class FakeBoard
 {
-    public class FakeBoard
+    private Rectangle _position;
+    private readonly Texture2D _texture;
+
+    public FakeBoard(Texture2D texture, Rectangle position)
     {
-        private Rectangle _position;
+        _texture = texture;
+        _position = position;
+        Visible = true;
+        DrawVisible = true;
+    }
 
-        private bool _visible;
-        private bool _drawVisible;
-        private Texture2D _texture;
+    public Rectangle Position
+    {
+        get => _position;
+        set => _position = value;
+    }
 
-        public FakeBoard(Texture2D texture, Rectangle position)
-        {
-            _texture = texture;
-            _position = position;
-            _visible = true;
-            _drawVisible = true;
-        }
+    public bool Visible { get; set; }
 
-        public void DrawSprite(SpriteBatch s)
-        {
-            s.Draw(_texture, _position, Color.White);
-        }
+    public bool DrawVisible { get; set; }
 
-        public bool Collision(Player player)
-        {
-            if ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) || (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60))
-                if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 && player.Speed.Y > 0)
-                    return true;
-                else return false;
+    public void DrawSprite(SpriteBatch s)
+    {
+        s.Draw(_texture, _position, Color.White);
+    }
+
+    public bool Collision(Player player)
+    {
+        if ((player.PlayerPosition.X + 15 > _position.X && player.PlayerPosition.X + 15 < _position.X + 60) ||
+            (player.PlayerPosition.X + 45 > _position.X && player.PlayerPosition.X + 45 < _position.X + 60))
+            if (_position.Y - player.PlayerPosition.Y - 60 < 5 && _position.Y - player.PlayerPosition.Y - 60 > -20 &&
+                player.Speed.Y > 0)
+                return true;
             else return false;
-        }
-
-        public Rectangle Position
-        {
-            get => _position;
-            set => _position = value;
-        }
-
-        public bool Visible
-        {
-            get => _visible;
-            set => _visible = value;
-        }
-        public bool DrawVisible
-        {
-            get => _drawVisible;
-            set => _drawVisible = value;
-        }
+        return false;
     }
 }
