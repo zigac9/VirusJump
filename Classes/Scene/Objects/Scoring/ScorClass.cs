@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using static VirusJump.Game1;
@@ -9,12 +10,12 @@ public class ScorClass
 {
     private readonly Vector2 _position;
 
-    public ScorClass(ContentManager content)
+    public ScorClass(Dictionary<string, SpriteFont> SpriteFontsLoad)
     {
         Score = 0;
         _position = new Vector2(15f, 4f);
         Check = true;
-        SFont = content.Load<SpriteFont>("assets/SpriteFont1");
+        SFont = SpriteFontsLoad["assets/SpriteFont1"];
     }
 
     public bool Check { get; set; }

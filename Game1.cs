@@ -106,11 +106,11 @@ public class Game1 : Game, ITextures
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
         Sound = new Sound(ITextures.SoundEffectsLoad, ITextures.SongsLoad);
-        Score = new ScorClass(Content);
-        Pointer = new Pointer(Content);
+        Score = new ScorClass(ITextures.SpriteFontsLoad);
+        Pointer = new Pointer(ITextures.SpriteSheetsLoad);
 
-        Player = new Player(Content, ITextures.TexturesLoad);
-        PlayerMenu = new Player(Content, ITextures.TexturesLoad)
+        Player = new Player(ITextures.TexturesLoad,ITextures.SpriteSheetsLoad);
+        PlayerMenu = new Player(ITextures.TexturesLoad,ITextures.SpriteSheetsLoad)
         {
             PlayerPosition = new Rectangle(60, 520, 80, 80)
         };

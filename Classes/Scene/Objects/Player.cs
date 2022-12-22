@@ -23,10 +23,10 @@ public class Player
     private Rectangle _shootPosition;
     private Vector2 _speed;
 
-    public Player(ContentManager content, Dictionary<string, Texture2D> textures)
+    public Player(Dictionary<string, Texture2D> textures, Dictionary<string, SpriteSheet> spriteSheets)
     {
         _textures = textures;
-        var spriteSheet = content.Load<SpriteSheet>("assets/fire.sf", new JsonContentLoader());
+        var spriteSheet = spriteSheets["assets/fire.sf"];
         GetAnimatedSprite = new AnimatedSprite(spriteSheet);
         Initialize();
     }

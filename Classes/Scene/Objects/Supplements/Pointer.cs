@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Content;
@@ -9,10 +10,10 @@ namespace VirusJump.Classes.Scene.Objects.Supplements;
 
 public class Pointer
 {
-    public Pointer(ContentManager content)
+    public Pointer(Dictionary<string, SpriteSheet> spriteSheetDictionary)
     {
         Position = new Vector2(0, 0);
-        var spriteSheet = content.Load<SpriteSheet>("assets/shoot.sf", new JsonContentLoader());
+        var spriteSheet = spriteSheetDictionary["assets/shoot.sf"];
         GetAnimatedSprite = new AnimatedSprite(spriteSheet);
     }
 

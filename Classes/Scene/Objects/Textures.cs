@@ -96,7 +96,11 @@ internal interface ITextures
             Task.Run(() => LoadTexture("assets/jump", LoadTextureEnum.soundEffect)),
             Task.Run(() => LoadTexture("assets/shootPlayer", LoadTextureEnum.soundEffect)),
             Task.Run(() => LoadTexture("assets/enemyShot", LoadTextureEnum.soundEffect)),
-            Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.soundEffect))
+            Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.soundEffect)),
+            
+            //ScorClass
+            Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.spriteFonts))
+
         };
         await Task.WhenAll(tasks);
     }
