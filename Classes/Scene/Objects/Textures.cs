@@ -26,7 +26,7 @@ internal interface ITexturesClasses
     protected static Dictionary<string, SoundEffect> SoundEffectsLoad { get; } = new();
     protected static Dictionary<string, SpriteFont> SpriteFontsLoad { get; } = new();
 
-    protected static async Task GenerateThreads(ContentManager content)
+    protected static async Task GenerateThreadsTextures(ContentManager content)
     {
         _content = content;
         var tasks = new List<Task>
@@ -104,6 +104,8 @@ internal interface ITexturesClasses
         };
         await Task.WhenAll(tasks);
     }
+    
+    
 
     private static void LoadTexture(string textureName, LoadTextureEnum loadTextureEnum)
     {

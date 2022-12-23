@@ -105,7 +105,7 @@ public class Game1 : Game, ITexturesClasses
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        await ITexturesClasses.GenerateThreads(Content);
+        await ITexturesClasses.GenerateThreadsTextures(Content);
 
         Sound = new Sound(ITexturesClasses.SoundEffectsLoad, ITexturesClasses.SongsLoad);
         Score = new ScorClass(ITexturesClasses.SpriteFontsLoad);
