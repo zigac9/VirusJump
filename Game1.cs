@@ -96,14 +96,16 @@ public class Game1 : Game, ITextures
         CollisionCheck = true;
         ThingsCollisionCheck = true;
         Gameover = false;
+        _playerName = RandomString(10);
+        Nivo = new List<bool> { false, false, false, false, false };
         base.Initialize();
     }
 
     protected override async void LoadContent()
     {
-        await ITextures.GenerateThreads(Content);
-        Nivo = new List<bool> { false, false, false, false, false };
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+        await ITextures.GenerateThreads(Content);
 
         Sound = new Sound(ITextures.SoundEffectsLoad, ITextures.SongsLoad);
         Score = new ScorClass(ITextures.SpriteFontsLoad);
@@ -130,7 +132,6 @@ public class Game1 : Game, ITextures
 
         ScoreManager = ScoreManager.Load();
 
-        _playerName = RandomString(10);
         contentLoaded = true;
     }
 
