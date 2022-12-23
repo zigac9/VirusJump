@@ -51,78 +51,81 @@ internal interface ITexturesClasses
 
     protected static async Task GenerateThreadsTextures(ContentManager content)
     {
-        _content = content;
+        lock (LoadTextureLock)
+        {
+            _content = content;
+        }
         var tasks = new List<Task>
         {
             //player
-            Task.Run(() => LoadTexture("assets/DoodleR1", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/injection", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/manjetpack", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/manjetpackL", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/dead", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/fire.sf", LoadTextureEnum.spriteSheet)),
+            Task.Run(() => LoadTexture("assets/DoodleR1", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/injection", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/manjetpack", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/manjetpackL", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/dead", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/fire.sf", LoadTextureEnum.SpriteSheet)),
 
             //background
-            Task.Run(() => LoadTexture("assets/gradient", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/kooh", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/mainMenu1", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/option", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/sOn", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/sOff", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/notif", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/pause", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/sides", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/gameOver", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/highscore", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/gradient", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/kooh", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/mainMenu1", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/option", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/sOn", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/sOff", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/notif", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/pause", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/sides", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/gameOver", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/highscore", LoadTextureEnum.Texture)),
 
             //bullet
-            Task.Run(() => LoadTexture("assets/tir", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/virus", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/tir", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/virus", LoadTextureEnum.Texture)),
 
             //trampo
-            Task.Run(() => LoadTexture("assets/toshak", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/toshak", LoadTextureEnum.Texture)),
 
             //Spring
-            Task.Run(() => LoadTexture("assets/fanar", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/oFanar", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/fanar", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/oFanar", LoadTextureEnum.Texture)),
 
             //jetpack
-            Task.Run(() => LoadTexture("assets/jet", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/jet", LoadTextureEnum.Texture)),
 
             //staticEnemy
-            Task.Run(() => LoadTexture("assets/ena", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/sedem", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/ena", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/sedem", LoadTextureEnum.Texture)),
 
             //movingEnemy
-            Task.Run(() => LoadTexture("assets/tri", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/stiri", LoadTextureEnum.texture)),
-            Task.Run(() => LoadTexture("assets/pet", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/tri", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/stiri", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/pet", LoadTextureEnum.Texture)),
 
             //board
-            Task.Run(() => LoadTexture("assets/p1", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/p1", LoadTextureEnum.Texture)),
 
             //fakeboard
-            Task.Run(() => LoadTexture("assets/p3", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/p3", LoadTextureEnum.Texture)),
 
             //goneboard
-            Task.Run(() => LoadTexture("assets/p4", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/p4", LoadTextureEnum.Texture)),
 
             //movingboard
-            Task.Run(() => LoadTexture("assets/p2", LoadTextureEnum.texture)),
+            Task.Run(() => LoadTexture("assets/p2", LoadTextureEnum.Texture)),
 
             //pointer
-            Task.Run(() => LoadTexture("assets/shoot.sf", LoadTextureEnum.spriteSheet)),
+            Task.Run(() => LoadTexture("assets/shoot.sf", LoadTextureEnum.SpriteSheet)),
 
             //Sound
-            Task.Run(() => LoadTexture("assets/background", LoadTextureEnum.song)),
-            Task.Run(() => LoadTexture("assets/patmat", LoadTextureEnum.song)),
-            Task.Run(() => LoadTexture("assets/jump", LoadTextureEnum.soundEffect)),
-            Task.Run(() => LoadTexture("assets/shootPlayer", LoadTextureEnum.soundEffect)),
-            Task.Run(() => LoadTexture("assets/enemyShot", LoadTextureEnum.soundEffect)),
-            Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.soundEffect)),
+            Task.Run(() => LoadTexture("assets/background", LoadTextureEnum.Song)),
+            Task.Run(() => LoadTexture("assets/patmat", LoadTextureEnum.Song)),
+            Task.Run(() => LoadTexture("assets/jump", LoadTextureEnum.SoundEffect)),
+            Task.Run(() => LoadTexture("assets/shootPlayer", LoadTextureEnum.SoundEffect)),
+            Task.Run(() => LoadTexture("assets/enemyShot", LoadTextureEnum.SoundEffect)),
+            Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.SoundEffect)),
 
             //ScorClass
-            Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.spriteFonts))
+            Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.SpriteFonts))
         };
         await Task.WhenAll(tasks);
         await GenerateThreadsClasses();
@@ -159,7 +162,7 @@ internal interface ITexturesClasses
         {
             switch (loadTextureEnum)
             {
-                case LoadTextureEnum.texture:
+                case LoadTextureEnum.Texture:
                 {
                     var texture = _content.Load<Texture2D>(textureName);
                     lock (TexturesLock)
@@ -169,7 +172,7 @@ internal interface ITexturesClasses
 
                     break;
                 }
-                case LoadTextureEnum.song:
+                case LoadTextureEnum.Song:
                 {
                     var texture = _content.Load<Song>(textureName);
                     lock (SongsLock)
@@ -179,7 +182,7 @@ internal interface ITexturesClasses
 
                     break;
                 }
-                case LoadTextureEnum.soundEffect:
+                case LoadTextureEnum.SoundEffect:
                 {
                     var texture = _content.Load<SoundEffect>(textureName);
                     lock (SoundEffectsLock)
@@ -189,7 +192,7 @@ internal interface ITexturesClasses
 
                     break;
                 }
-                case LoadTextureEnum.spriteFonts:
+                case LoadTextureEnum.SpriteFonts:
                 {
                     var texture = _content.Load<SpriteFont>(textureName);
                     lock (SpriteFontsLock)
@@ -199,7 +202,7 @@ internal interface ITexturesClasses
 
                     break;
                 }
-                case LoadTextureEnum.spriteSheet:
+                case LoadTextureEnum.SpriteSheet:
                 {
                     var texture = _content.Load<SpriteSheet>(textureName, new JsonContentLoader());
                     lock (SpriteSheetsLock)
@@ -215,10 +218,10 @@ internal interface ITexturesClasses
 
     private enum LoadTextureEnum
     {
-        texture = 0,
-        spriteSheet,
-        song,
-        soundEffect,
-        spriteFonts
+        Texture = 0,
+        SpriteSheet,
+        Song,
+        SoundEffect,
+        SpriteFonts
     }
 }
