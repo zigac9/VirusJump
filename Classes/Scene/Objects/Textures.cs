@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,6 +8,11 @@ using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
+using VirusJump.Classes.Scene.Objects.Boards;
+using VirusJump.Classes.Scene.Objects.Enemies;
+using VirusJump.Classes.Scene.Objects.Jumpers;
+using VirusJump.Classes.Scene.Objects.Scoring;
+using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump.Classes.Scene.Objects;
 
@@ -25,6 +31,23 @@ internal interface ITexturesClasses
     protected static Dictionary<string, Song> SongsLoad { get; } = new();
     protected static Dictionary<string, SoundEffect> SoundEffectsLoad { get; } = new();
     protected static Dictionary<string, SpriteFont> SpriteFontsLoad { get; } = new();
+
+    protected static ScorClass Score { get; set; }
+    protected static Player Player { get; set; }
+    protected static Player PlayerMenu { get; set; }
+    protected static BoardsList BoardsList { get; set; }
+    protected static Background Background { get; set; }
+    protected static Pointer Pointer { get; set; }
+    protected static Bullet Bullet { get; set; }
+    protected static Bullet BulletEnemy { get; set; }
+    protected static Trampo Trampo { get; set; }
+    protected static Spring Spring { get; set; }
+    protected static Jetpack Jetpack { get; set; }
+    protected static StaticEnemy StaticEnemy { get; set; }
+    protected static MovingEnemy MovingEnemy { get; set; }
+    protected static Sound Sound { get; set; }
+    protected static ScoreManager ScoreManager { get; set; }
+
 
     protected static async Task GenerateThreadsTextures(ContentManager content)
     {
@@ -97,15 +120,37 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/shootPlayer", LoadTextureEnum.soundEffect)),
             Task.Run(() => LoadTexture("assets/enemyShot", LoadTextureEnum.soundEffect)),
             Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.soundEffect)),
-            
+
             //ScorClass
             Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.spriteFonts))
+        };
+        await Task.WhenAll(tasks);
+        await GenerateThreadsClasses();
+    }
 
+    private static async Task GenerateThreadsClasses()
+    {
+        var tasks = new List<Task>
+        {
+            Task.Run(() => Score = new ScorClass(SpriteFontsLoad)),
+            Task.Run(() => Player = new Player(TexturesLoad, SpriteSheetsLoad)),
+            Task.Run(() => PlayerMenu = new Player(TexturesLoad, SpriteSheetsLoad)
+                { PlayerPosition = new Rectangle(60, 520, 80, 80) }),
+            Task.Run(() => BoardsList = new BoardsList(TexturesLoad)),
+            Task.Run(() => Background = new Background(TexturesLoad)),
+            Task.Run(() => Pointer = new Pointer(SpriteSheetsLoad)),
+            Task.Run(() => Bullet = new Bullet(0, TexturesLoad)),
+            Task.Run(() => BulletEnemy = new Bullet(1, TexturesLoad)),
+            Task.Run(() => Trampo = new Trampo(TexturesLoad)),
+            Task.Run(() => Spring = new Spring(TexturesLoad)),
+            Task.Run(() => Jetpack = new Jetpack(TexturesLoad)),
+            Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
+            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad)),
+            Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
+            Task.Run(() => ScoreManager = ScoreManager.Load())
         };
         await Task.WhenAll(tasks);
     }
-    
-    
 
     private static void LoadTexture(string textureName, LoadTextureEnum loadTextureEnum)
     {

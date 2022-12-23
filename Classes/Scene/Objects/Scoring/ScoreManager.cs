@@ -9,12 +9,12 @@ public class ScoreManager
 {
     private static readonly string _fileName = "scores.xml";
 
-    public ScoreManager()
+    private ScoreManager()
         : this(new List<Score>())
     {
     }
 
-    public ScoreManager(List<Score> scores)
+    private ScoreManager(List<Score> scores)
     {
         Scores = scores;
         Highscores = new List<int>(5) { 0, 0, 0, 0, 0 };
@@ -24,7 +24,7 @@ public class ScoreManager
 
     public List<int> Highscores { get; }
 
-    public List<Score> Scores { get; private set; }
+    private List<Score> Scores { get; set; }
 
     public void Add(Score score, string playername)
     {
@@ -70,7 +70,7 @@ public class ScoreManager
         }
     }
 
-    public void UpdateHighscores()
+    private void UpdateHighscores()
     {
         if (Scores.Count > 0)
             Highscores[0] = Scores[0].Value;

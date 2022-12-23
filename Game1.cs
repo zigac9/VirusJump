@@ -107,30 +107,21 @@ public class Game1 : Game, ITexturesClasses
 
         await ITexturesClasses.GenerateThreadsTextures(Content);
 
-        Sound = new Sound(ITexturesClasses.SoundEffectsLoad, ITexturesClasses.SongsLoad);
-        Score = new ScorClass(ITexturesClasses.SpriteFontsLoad);
-        Pointer = new Pointer(ITexturesClasses.SpriteSheetsLoad);
-
-        Player = new Player(ITexturesClasses.TexturesLoad,ITexturesClasses.SpriteSheetsLoad);
-        PlayerMenu = new Player(ITexturesClasses.TexturesLoad,ITexturesClasses.SpriteSheetsLoad)
-        {
-            PlayerPosition = new Rectangle(60, 520, 80, 80)
-        };
-
-        Background = new Background(ITexturesClasses.TexturesLoad);
-        Bullet = new Bullet(0, ITexturesClasses.TexturesLoad);
-        BulletEnemy = new Bullet(1, ITexturesClasses.TexturesLoad);
-
-        Trampo = new Trampo(ITexturesClasses.TexturesLoad);
-        Spring = new Spring(ITexturesClasses.TexturesLoad);
-        Jetpack = new Jetpack(ITexturesClasses.TexturesLoad);
-
-        StaticEnemy = new StaticEnemy(ITexturesClasses.TexturesLoad);
-        MovingEnemy = new MovingEnemy(ITexturesClasses.TexturesLoad);
-
-        BoardsList = new BoardsList(ITexturesClasses.TexturesLoad);
-
-        ScoreManager = ScoreManager.Load();
+        Sound = ITexturesClasses.Sound;
+        Score = ITexturesClasses.Score;
+        Pointer = ITexturesClasses.Pointer;
+        Player = ITexturesClasses.Player;
+        PlayerMenu = ITexturesClasses.PlayerMenu;
+        Background = ITexturesClasses.Background;
+        Bullet = ITexturesClasses.Bullet;
+        BulletEnemy = ITexturesClasses.BulletEnemy;
+        Trampo = ITexturesClasses.Trampo;
+        Spring = ITexturesClasses.Spring;
+        Jetpack = ITexturesClasses.Jetpack;
+        StaticEnemy = ITexturesClasses.StaticEnemy;
+        MovingEnemy = ITexturesClasses.MovingEnemy;
+        BoardsList = ITexturesClasses.BoardsList;
+        ScoreManager = ITexturesClasses.ScoreManager;
 
         contentLoaded = true;
     }
