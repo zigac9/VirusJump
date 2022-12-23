@@ -10,7 +10,7 @@ using MonoGame.Extended.Sprites;
 
 namespace VirusJump.Classes.Scene.Objects;
 
-internal interface ITextures
+internal interface ITexturesClasses
 {
     private static ContentManager _content;
 

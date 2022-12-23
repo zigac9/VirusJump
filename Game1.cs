@@ -16,7 +16,7 @@ using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump;
 
-public class Game1 : Game, ITextures
+public class Game1 : Game, ITexturesClasses
 {
     public enum GameStateEnum
     {
@@ -76,7 +76,7 @@ public class Game1 : Game, ITextures
     private string _playerName;
     private SpriteBatch _spriteBatch;
 
-    private ITextures _textures;
+    private ITexturesClasses _texturesClasses;
 
     private bool contentLoaded;
     public GameStateEnum GameState;
@@ -105,30 +105,30 @@ public class Game1 : Game, ITextures
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-        await ITextures.GenerateThreads(Content);
+        await ITexturesClasses.GenerateThreads(Content);
 
-        Sound = new Sound(ITextures.SoundEffectsLoad, ITextures.SongsLoad);
-        Score = new ScorClass(ITextures.SpriteFontsLoad);
-        Pointer = new Pointer(ITextures.SpriteSheetsLoad);
+        Sound = new Sound(ITexturesClasses.SoundEffectsLoad, ITexturesClasses.SongsLoad);
+        Score = new ScorClass(ITexturesClasses.SpriteFontsLoad);
+        Pointer = new Pointer(ITexturesClasses.SpriteSheetsLoad);
 
-        Player = new Player(ITextures.TexturesLoad,ITextures.SpriteSheetsLoad);
-        PlayerMenu = new Player(ITextures.TexturesLoad,ITextures.SpriteSheetsLoad)
+        Player = new Player(ITexturesClasses.TexturesLoad,ITexturesClasses.SpriteSheetsLoad);
+        PlayerMenu = new Player(ITexturesClasses.TexturesLoad,ITexturesClasses.SpriteSheetsLoad)
         {
             PlayerPosition = new Rectangle(60, 520, 80, 80)
         };
 
-        Background = new Background(ITextures.TexturesLoad);
-        Bullet = new Bullet(0, ITextures.TexturesLoad);
-        BulletEnemy = new Bullet(1, ITextures.TexturesLoad);
+        Background = new Background(ITexturesClasses.TexturesLoad);
+        Bullet = new Bullet(0, ITexturesClasses.TexturesLoad);
+        BulletEnemy = new Bullet(1, ITexturesClasses.TexturesLoad);
 
-        Trampo = new Trampo(ITextures.TexturesLoad);
-        Spring = new Spring(ITextures.TexturesLoad);
-        Jetpack = new Jetpack(ITextures.TexturesLoad);
+        Trampo = new Trampo(ITexturesClasses.TexturesLoad);
+        Spring = new Spring(ITexturesClasses.TexturesLoad);
+        Jetpack = new Jetpack(ITexturesClasses.TexturesLoad);
 
-        StaticEnemy = new StaticEnemy(ITextures.TexturesLoad);
-        MovingEnemy = new MovingEnemy(ITextures.TexturesLoad);
+        StaticEnemy = new StaticEnemy(ITexturesClasses.TexturesLoad);
+        MovingEnemy = new MovingEnemy(ITexturesClasses.TexturesLoad);
 
-        BoardsList = new BoardsList(ITextures.TexturesLoad);
+        BoardsList = new BoardsList(ITexturesClasses.TexturesLoad);
 
         ScoreManager = ScoreManager.Load();
 
