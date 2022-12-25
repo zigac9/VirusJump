@@ -27,8 +27,7 @@ public class Player
     public Player(Dictionary<string, Texture2D> textures, Dictionary<string, SpriteSheet> spriteSheets)
     {
         _textures = textures;
-        var spriteSheet = spriteSheets["assets/fire.sf"];
-        GetAnimatedSprite = new AnimatedSprite(spriteSheet);
+        GetAnimatedSprite = new AnimatedSprite(spriteSheets["assets/fire.sf"]);
         Initialize();
     }
 

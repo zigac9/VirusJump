@@ -104,3 +104,6 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\shootP
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\shootPlayer.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\deadSound.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Windows.Forms.HintTextBox.dll
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\Loading.xnb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\looping.sf
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\looping.xnb

@@ -21,6 +21,8 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jet.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/jump.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/kooh.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/Loading.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/looping.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/mainMenu1.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpack.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/manjetpackL.png</File>
@@ -52,6 +54,8 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

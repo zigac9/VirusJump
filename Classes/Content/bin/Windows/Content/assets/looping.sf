@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "looping.png",
+    "regionWidth": 128,
+    "regionHeight": 128
+  },
+  "cycles": {
+    "rotate": {
+      "frames": [0,1,2,3,4,5,6,7],
+      "isLooping": true,
+      "frameDuration": 0.049999976
+    }
+  }
+}
