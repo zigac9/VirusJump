@@ -162,46 +162,7 @@ public class Game1 : Game, ITexturesClasses
                     BoardsList.MovingBoardList[i].Move();
 
                 //to move and replace tampeolines
-                if (Score.Score > Trampo.ScoreToMove && !Trampo.Visible)
-                {
-                    Trampo.ScoreToMove += Trampo.ScoreMoveStep;
-                    do
-                    {
-                        var rnd = new Random();
-                        Trampo.TRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
-                    } while (BoardsList.BoardList[Trampo.TRand].Position.Y > 0 ||
-                             BoardsList.BoardList[Trampo.TRand].Visible == false ||
-                             (Spring.SRand == Trampo.TRand && Spring.SRand != -1 && Trampo.TRand != -1) ||
-                             (Spring.SRand == Jetpack.JRand && Spring.SRand != -1 && Jetpack.JRand != -1) ||
-                             (Trampo.TRand == Jetpack.JRand && Trampo.TRand != -1 && Jetpack.JRand != -1));
-
-                    Trampo.Visible = true;
-                }
-
-                if (Trampo.TRand != -1)
-                {
-                    Trampo.TrampoPosition = new Rectangle(BoardsList.BoardList[Trampo.TRand].Position.X + 10,
-                        BoardsList.BoardList[Trampo.TRand].Position.Y - 15, Trampo.TrampoPosition.Width,
-                        Trampo.TrampoPosition.Height);
-                    Trampo.Visible = true;
-                }
-
-                if (Trampo.Visible) Trampo.Check = Trampo.Collision(Player, CollisionCheck);
-
-                if (Trampo.Check && ThingsCollisionCheck)
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, -32);
-                    Trampo.TRand = -1;
-                    Trampo.Visible = false;
-                    Trampo.Check = false;
-                }
-
-                if (Trampo.TrampoPosition.Y > 690)
-                {
-                    Trampo.TRand = -1;
-                    Trampo.Visible = false;
-                    Trampo.Check = false;
-                }
+                Trampo.Update(Score, Spring, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //spring
                 if (Score.Score > Spring.ScoreToMove && !Spring.Visible)
