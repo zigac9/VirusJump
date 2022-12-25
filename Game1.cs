@@ -384,11 +384,8 @@ public class Game1 : Game, ITexturesClasses
                 if (PlayerMenu.PlayerPosition.Y > 550)
                     PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
 
-                Background.HScore1 = ScoreManager.Highscores[0];
-                Background.HScore2 = ScoreManager.Highscores[1];
-                Background.HScore3 = ScoreManager.Highscores[2];
-                Background.HScore4 = ScoreManager.Highscores[3];
-                Background.HScore5 = ScoreManager.Highscores[4];
+                //update scores
+                Background.UpdateScores(ScoreManager, _playerName );
 
                 break;
             case GameStateEnum.HScore:
@@ -418,12 +415,8 @@ public class Game1 : Game, ITexturesClasses
                     ScoreManager.Save(ScoreManager);
                 }
 
-                Background.Bests = ScoreManager.BestOfYou(_playerName);
-                Background.HScore1 = ScoreManager.Highscores[0];
-                Background.HScore2 = ScoreManager.Highscores[1];
-                Background.HScore3 = ScoreManager.Highscores[2];
-                Background.HScore4 = ScoreManager.Highscores[3];
-                Background.HScore5 = ScoreManager.Highscores[4];
+                //update scores
+                Background.UpdateScores(ScoreManager, _playerName );
 
                 if (_mouseState.LeftButton == ButtonState.Pressed)
                 {

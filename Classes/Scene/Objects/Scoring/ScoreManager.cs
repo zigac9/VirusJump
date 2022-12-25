@@ -49,7 +49,7 @@ public class ScoreManager
     {
         var bestofyou = new List<Score>();
         bestofyou = Scores.Where(name => name.PlayerName == playername).OrderByDescending(c => c.Value).ToList();
-        return bestofyou[0].Value;
+        return bestofyou.Count > 0 ? bestofyou[0].Value : 0;
     }
 
     public static ScoreManager Load()

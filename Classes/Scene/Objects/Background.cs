@@ -130,4 +130,14 @@ public class Background
         if (_sPosise2.Y > 720)
             _sPosise2.Y = _sPosise1.Y - 3600;
     }
+
+    public void UpdateScores(ScoreManager scoreManager, string playerName)
+    {
+        Bests = scoreManager.BestOfYou(playerName);
+        HScore1 = scoreManager.Highscores[0];
+        HScore2 = scoreManager.Highscores[1];
+        HScore3 = scoreManager.Highscores[2];
+        HScore4 = scoreManager.Highscores[3];
+        HScore5 = scoreManager.Highscores[4];
+    }
 }
