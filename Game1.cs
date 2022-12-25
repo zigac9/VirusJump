@@ -55,6 +55,8 @@ public class Game1 : Game, ITexturesClasses
 
     public static bool ThingsCollisionCheck;
 
+    private bool _contentLoaded;
+
     //tipkovnica in miska
     private KeyboardState _k;
     private KeyboardState _kTemp;
@@ -65,8 +67,6 @@ public class Game1 : Game, ITexturesClasses
 
     private string _playerName;
     private SpriteBatch _spriteBatch;
-    
-    private bool _contentLoaded;
     public GameStateEnum GameState;
 
     public Game1()
@@ -146,20 +146,26 @@ public class Game1 : Game, ITexturesClasses
                     BoardsList.MovingBoardList[i].Move();
 
                 //to move and replace tampeolines
-                ITexturesClasses.Trampo.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Trampo.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Jetpack, BoardsList,
+                    Player, CollisionCheck, ThingsCollisionCheck);
 
                 //spring
-                ITexturesClasses.Spring.Update(Score, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Spring.Update(Score, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, BoardsList,
+                    Player, CollisionCheck, ThingsCollisionCheck);
 
                 //jetpack
-                ITexturesClasses.Jetpack.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Trampo, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Jetpack.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Trampo, BoardsList,
+                    Player, CollisionCheck, ThingsCollisionCheck);
 
                 //movingEnemy
                 ITexturesClasses.MovingEnemy.Move();
-                ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
+                ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
+                    ref CollisionCheck);
 
                 //static enemy
-                ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, GameOver, ref CollisionCheck, Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, ITexturesClasses.Spring);
+                ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, GameOver, ref CollisionCheck,
+                    Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack,
+                    ITexturesClasses.Spring);
 
                 //to move boards_list and background with player
                 GameRenderer.MoveWithPlayer();
@@ -171,7 +177,7 @@ public class Game1 : Game, ITexturesClasses
                 GameRenderer.RePosition();
 
                 //to check boards_list coliision
-                BoardsList.Collision(ThingsCollisionCheck,CollisionCheck,GameOver, Player, Sound);
+                BoardsList.Collision(ThingsCollisionCheck, CollisionCheck, GameOver, Player, Sound);
 
                 //to go to pause menue bye esc clicking
                 _kTemp1 = Keyboard.GetState();
@@ -385,7 +391,7 @@ public class Game1 : Game, ITexturesClasses
                     PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
 
                 //update scores
-                Background.UpdateScores(ScoreManager, _playerName );
+                Background.UpdateScores(ScoreManager, _playerName);
 
                 break;
             case GameStateEnum.HScore:
@@ -416,7 +422,7 @@ public class Game1 : Game, ITexturesClasses
                 }
 
                 //update scores
-                Background.UpdateScores(ScoreManager, _playerName );
+                Background.UpdateScores(ScoreManager, _playerName);
 
                 if (_mouseState.LeftButton == ButtonState.Pressed)
                 {
@@ -502,7 +508,7 @@ public class Game1 : Game, ITexturesClasses
     private string RandomString(int length)
     {
         var random = new Random();
-        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         return new string(Enumerable.Repeat(chars, length)
             .Select(s => s[random.Next(s.Length)]).ToArray());
     }
