@@ -156,28 +156,7 @@ public class Game1 : Game, ITexturesClasses
                 }
 
                 Player.Move();
-                //to prevent from exiting from sides of screen
-                if (Player.PlayerPosition.X + 10 < 0)
-                {
-                    Player.PlayerPosition = new Rectangle(450, Player.PlayerPosition.Y, Player.PlayerPosition.Width,
-                        Player.PlayerPosition.Height);
-                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2,
-                        Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width,
-                        Player.ShootPosition.Height);
-                    Player.FirePosition = new Vector2(Player.PlayerPosition.X,
-                        Player.PlayerPosition.Y + Player.PlayerPosition.Height);
-                }
-
-                if (Player.PlayerPosition.X > 451)
-                {
-                    Player.PlayerPosition = new Rectangle(-10, Player.PlayerPosition.Y, Player.PlayerPosition.Width,
-                        Player.PlayerPosition.Height);
-                    Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2,
-                        Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width,
-                        Player.ShootPosition.Height);
-                    Player.FirePosition = new Vector2(Player.PlayerPosition.X,
-                        Player.PlayerPosition.Y + Player.PlayerPosition.Height);
-                }
+                Player.Update();
 
                 for (var i = 0; i < 4; i++)
                     BoardsList.MovingBoardList[i].Move();
@@ -482,7 +461,7 @@ public class Game1 : Game, ITexturesClasses
                     CurrentGameState = GameStateEnum.Pause;
                     break;
                 }
-
+                
                 //to move left and right
                 _kTemp = _kTemp1;
                 if (_k.IsKeyDown(Keys.Left))

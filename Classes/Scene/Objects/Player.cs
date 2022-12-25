@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
@@ -144,6 +145,31 @@ public class Player
         {
             s.Draw(_textures["assets/DoodleR1"], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None,
                 0f);
+        }
+    }
+
+    public void Update()
+    {
+        if (PlayerPosition.X + 10 < 0)
+        {
+            PlayerPosition = new Rectangle(450, PlayerPosition.Y, PlayerPosition.Width,
+                PlayerPosition.Height);
+            ShootPosition = new Rectangle(PlayerPosition.X + PlayerPosition.Width / 2,
+                PlayerPosition.Y + PlayerPosition.Height / 2 + 15, ShootPosition.Width,
+                ShootPosition.Height);
+            FirePosition = new Vector2(PlayerPosition.X,
+                PlayerPosition.Y + PlayerPosition.Height);
+        }
+
+        if (PlayerPosition.X > 451)
+        {
+            PlayerPosition = new Rectangle(-10, PlayerPosition.Y, PlayerPosition.Width,
+                PlayerPosition.Height);
+            ShootPosition = new Rectangle(PlayerPosition.X + PlayerPosition.Width / 2,
+                PlayerPosition.Y + PlayerPosition.Height / 2 + 15, ShootPosition.Width,
+                ShootPosition.Height);
+            FirePosition = new Vector2(PlayerPosition.X,
+                PlayerPosition.Y + PlayerPosition.Height);
         }
     }
 
