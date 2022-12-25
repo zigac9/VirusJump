@@ -9,8 +9,6 @@ using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects;
 using VirusJump.Classes.Scene.Objects.Boards;
-using VirusJump.Classes.Scene.Objects.Enemies;
-using VirusJump.Classes.Scene.Objects.Jumpers;
 using VirusJump.Classes.Scene.Objects.Scoring;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
@@ -46,16 +44,8 @@ public class Game1 : Game, ITexturesClasses
     public static Bullet Bullet;
     public static Bullet BulletEnemy;
 
-
-    public static Trampo Trampo;
-    public static Spring Spring;
-    public static Jetpack Jetpack;
-
     public static List<bool> Nivo;
     public static bool Brisi = false;
-
-    public static StaticEnemy StaticEnemy;
-    public static MovingEnemy MovingEnemy;
 
     public static ScoreManager ScoreManager;
     public static bool CollisionCheck;
@@ -75,10 +65,8 @@ public class Game1 : Game, ITexturesClasses
 
     private string _playerName;
     private SpriteBatch _spriteBatch;
-
-    private ITexturesClasses _texturesClasses;
-
-    private bool contentLoaded;
+    
+    private bool _contentLoaded;
     public GameStateEnum GameState;
 
     public Game1()
@@ -115,20 +103,15 @@ public class Game1 : Game, ITexturesClasses
         Background = ITexturesClasses.Background;
         Bullet = ITexturesClasses.Bullet;
         BulletEnemy = ITexturesClasses.BulletEnemy;
-        Trampo = ITexturesClasses.Trampo;
-        Spring = ITexturesClasses.Spring;
-        Jetpack = ITexturesClasses.Jetpack;
-        StaticEnemy = ITexturesClasses.StaticEnemy;
-        MovingEnemy = ITexturesClasses.MovingEnemy;
         BoardsList = ITexturesClasses.BoardsList;
         ScoreManager = ITexturesClasses.ScoreManager;
 
-        contentLoaded = true;
+        _contentLoaded = true;
     }
 
     protected override void Update(GameTime gameTime)
     {
-        if (!contentLoaded) return;
+        if (!_contentLoaded) return;
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
             Exit();
 
@@ -162,20 +145,20 @@ public class Game1 : Game, ITexturesClasses
                     BoardsList.MovingBoardList[i].Move();
 
                 //to move and replace tampeolines
-                Trampo.Update(Score, Spring, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Trampo.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //spring
-                Spring.Update(Score, Trampo, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Spring.Update(Score, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //jetpack
-                Jetpack.Update(Score, Spring, Trampo, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
+                ITexturesClasses.Jetpack.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Trampo, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //movingEnemy
-                MovingEnemy.Move();
-                MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
+                ITexturesClasses.MovingEnemy.Move();
+                ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
 
                 //static enemy
-                StaticEnemy.Update(Bullet, BoardsList, Sound, Player, Gameover, ref CollisionCheck, Score, ThingsCollisionCheck, Trampo, Jetpack, Spring);
+                ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, Gameover, ref CollisionCheck, Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, ITexturesClasses.Spring);
 
                 //to move boards_list and background with player
                 if (Player.PlayerPosition.Y < 300)
@@ -306,6 +289,7 @@ public class Game1 : Game, ITexturesClasses
                     {
                         if (!Bullet.IsCheck)
                         {
+                            // ReSharper disable once PossibleLossOfFraction
                             Player.Degree = (float)Math.Atan(-(_mouseState.Y - Player.PlayerPosition.Y - 27) /
                                                              (_mouseState.X - Player.PlayerPosition.X - 30));
                             Bullet.Position = new Rectangle(Player.PlayerPosition.X + 30,
@@ -541,7 +525,7 @@ public class Game1 : Game, ITexturesClasses
 
     protected override void Draw(GameTime gameTime)
     {
-        if (!contentLoaded) return;
+        if (!_contentLoaded) return;
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
@@ -563,14 +547,14 @@ public class Game1 : Game, ITexturesClasses
                     BoardsList.GoneBoardList[i].DrawSprite(_spriteBatch);
             }
 
-            if (Trampo.Visible) Trampo.Draw(_spriteBatch);
+            if (ITexturesClasses.Trampo.Visible) ITexturesClasses.Trampo.Draw(_spriteBatch);
 
-            if (Spring.Visible) Spring.Draw(_spriteBatch);
+            if (ITexturesClasses.Spring.Visible) ITexturesClasses.Spring.Draw(_spriteBatch);
 
-            if (Jetpack.Visible) Jetpack.Draw(_spriteBatch);
+            if (ITexturesClasses.Jetpack.Visible) ITexturesClasses.Jetpack.Draw(_spriteBatch);
 
-            StaticEnemy.Draw(_spriteBatch);
-            if (MovingEnemy.Visible) MovingEnemy.Draw(_spriteBatch);
+            ITexturesClasses.StaticEnemy.Draw(_spriteBatch);
+            if (ITexturesClasses.MovingEnemy.Visible) ITexturesClasses.MovingEnemy.Draw(_spriteBatch);
 
             Background.ScoreDraw(_spriteBatch, CurrentGameState);
             Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
