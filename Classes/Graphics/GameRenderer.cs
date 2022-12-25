@@ -221,4 +221,50 @@ public abstract class GameRenderer : Game1
             }
         }
     }
+
+    public static void MoveWithPlayer()
+    {
+        if (Player.PlayerPosition.Y < 300)
+        {
+            var speed = (int)Player.Speed.Y;
+            Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X,
+                Player.PlayerPosition.Y - (int)Player.Speed.Y, Player.PlayerPosition.Width,
+                Player.PlayerPosition.Height);
+            Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2,
+                Player.PlayerPosition.Y + Player.PlayerPosition.Height / 2 + 15, Player.ShootPosition.Width,
+                Player.ShootPosition.Height);
+            Player.FirePosition = new Vector2(Player.PlayerPosition.X,
+                Player.PlayerPosition.Y + Player.PlayerPosition.Height);
+        
+            foreach (var board in BoardsList.BoardList)
+                board.Position = new Rectangle(board.Position.X, board.Position.Y - speed,
+                    board.Position.Width, board.Position.Height);
+        
+            for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
+            {
+                BoardsList.MovingBoardList[i].Position = new Rectangle(
+                    BoardsList.MovingBoardList[i].Position.X,
+                    BoardsList.MovingBoardList[i].Position.Y - speed,
+                    BoardsList.MovingBoardList[i].Position.Width,
+                    BoardsList.MovingBoardList[i].Position.Height);
+                BoardsList.FakeBoardList[i].Position = new Rectangle(BoardsList.FakeBoardList[i].Position.X,
+                    BoardsList.FakeBoardList[i].Position.Y - speed,
+                    BoardsList.FakeBoardList[i].Position.Width,
+                    BoardsList.FakeBoardList[i].Position.Height);
+                BoardsList.GoneBoardList[i].Position = new Rectangle(BoardsList.GoneBoardList[i].Position.X,
+                    BoardsList.GoneBoardList[i].Position.Y - speed,
+                    BoardsList.GoneBoardList[i].Position.Width,
+                    BoardsList.GoneBoardList[i].Position.Height);
+            }
+        
+            if (Background.BPosize.Y < 0)
+                Background.BPosize = new Rectangle(Background.BPosize.X, Background.BPosize.Y - speed / 2,
+                    Background.BPosize.Width, Background.BPosize.Height);
+            Background.SPosise1 = new Rectangle(Background.SPosise1.X, Background.SPosise1.Y - speed / 2,
+                Background.SPosise1.Width, Background.SPosise1.Height);
+            Background.SPosise2 = new Rectangle(Background.SPosise2.X, Background.SPosise2.Y - speed / 2,
+                Background.SPosise2.Width, Background.SPosise2.Height);
+            Score.Score -= speed / 2;
+        }
+    }
 }
