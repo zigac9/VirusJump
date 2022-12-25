@@ -138,6 +138,7 @@ public class Game1 : Game, ITexturesClasses
                     Sound.PlayCheck = true;
                 }
 
+                //player
                 Player.Move();
                 Player.Update();
 
@@ -163,8 +164,10 @@ public class Game1 : Game, ITexturesClasses
                 //to move boards_list and background with player
                 GameRenderer.MoveWithPlayer();
 
+                //check side of background
                 Background.SideCheck();
 
+                //reposition items
                 GameRenderer.RePosition();
 
                 //to check boards_list coliision
