@@ -76,6 +76,8 @@ public class Game1 : Game, ITexturesClasses
     private AnimatedSprite _loading;
     private bool _loadingDraw;
     private Texture2D _loadingTexture;
+    
+    private double elapsedTime;
 
     public Game1()
     {
@@ -122,6 +124,7 @@ public class Game1 : Game, ITexturesClasses
 
     protected override void Update(GameTime gameTime)
     {
+        elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
         if (_contentLoaded)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -465,11 +468,13 @@ public class Game1 : Game, ITexturesClasses
             Player.GetAnimatedSprite.Update(gameTime);
             Pointer.GetAnimatedSprite.Update(gameTime);
         }
-        else
+
+        if (!_contentLoaded || elapsedTime <= 5.0)
         {
             _loading.Play("rotate");
             _loading.Update(gameTime);
         }
+
         base.Update(gameTime);
     }
 
@@ -478,7 +483,7 @@ public class Game1 : Game, ITexturesClasses
         _spriteBatch.Begin();
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        if (!_contentLoaded)
+        if (!_contentLoaded || elapsedTime <= 5.0)
         {
             _spriteBatch.Draw(_loadingTexture, new Vector2(0,0), null, Color.White);
             _loading.Draw(_spriteBatch, new Vector2(230, 500), 0f, new Vector2(1, 1));

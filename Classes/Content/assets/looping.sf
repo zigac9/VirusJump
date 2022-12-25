@@ -8,7 +8,7 @@
     "rotate": {
       "frames": [0,1,2,3,4,5,6,7],
       "isLooping": true,
-      "frameDuration": 0.049999976
+      "frameDuration": 0.089999976
     }
   }
 }
