@@ -168,45 +168,7 @@ public class Game1 : Game, ITexturesClasses
                 Spring.Update(Score, Trampo, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //jetpack
-                if (Score.Score > Jetpack.ScoreToMove && !Jetpack.Visible)
-                {
-                    Jetpack.ScoreToMove += Jetpack.ScoreMoveStep;
-                    do
-                    {
-                        var rnd = new Random();
-                        Jetpack.JRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
-                    } while (BoardsList.BoardList[Jetpack.JRand].Position.Y > 0 ||
-                             BoardsList.BoardList[Jetpack.JRand].Visible == false ||
-                             (Spring.SRand == Trampo.TRand && Spring.SRand != -1 && Trampo.TRand != -1) ||
-                             (Spring.SRand == Jetpack.JRand && Spring.SRand != -1 && Jetpack.JRand != -1) ||
-                             (Trampo.TRand == Jetpack.JRand && Trampo.TRand != -1 && Jetpack.JRand != -1));
-
-                    Jetpack.Visible = true;
-                }
-
-                if (Jetpack.JRand != -1 && Jetpack.Visible)
-                    Jetpack.JetPosition = new Rectangle(BoardsList.BoardList[Jetpack.JRand].Position.X + 10,
-                        BoardsList.BoardList[Jetpack.JRand].Position.Y - Jetpack.JetPosition.Height,
-                        Jetpack.JetPosition.Width, Jetpack.JetPosition.Height);
-
-                if (Jetpack.Visible) Jetpack.JCheck = Jetpack.Collision(Player, CollisionCheck);
-
-                if (Jetpack.JCheck && ThingsCollisionCheck)
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, -60);
-                    Jetpack.JRand = -1;
-                    Jetpack.Visible = false;
-                    Jetpack.JCheck = false;
-                    Player.IsJetpack = true;
-                    Player.GetAnimatedSprite.Play("fire");
-                }
-
-                if (Jetpack.JetPosition.Y > 690)
-                {
-                    Jetpack.JRand = -1;
-                    Jetpack.Visible = false;
-                    Jetpack.JCheck = false;
-                }
+                Jetpack.Update(Score, Spring, Trampo, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //movingEnemy
                 MovingEnemy.Move();
@@ -386,7 +348,7 @@ public class Game1 : Game, ITexturesClasses
                     CurrentGameState = GameStateEnum.Pause;
                     break;
                 }
-                
+
                 //to move left and right
                 _kTemp = _kTemp1;
                 if (_k.IsKeyDown(Keys.Left))
