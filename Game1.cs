@@ -175,51 +175,7 @@ public class Game1 : Game, ITexturesClasses
                 MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
 
                 //static enemy
-                if (Score.Score % 430 > 400 && StaticEnemy.Position.Y > 780)
-                {
-                    var rnd = new Random();
-                    do
-                    {
-                        StaticEnemy.StRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
-                    } while (BoardsList.BoardList[StaticEnemy.StRand].Position.Y > 0 ||
-                             BoardsList.BoardList[StaticEnemy.StRand].Visible == false ||
-                             (Spring.SRand == Trampo.TRand && Spring.SRand != -1 && Trampo.TRand != -1) ||
-                             (Spring.SRand == Jetpack.JRand && Spring.SRand != -1 && Jetpack.JRand != -1) ||
-                             (Trampo.TRand == Jetpack.JRand && Trampo.TRand != -1 && Jetpack.JRand != -1));
-
-                    StaticEnemy.TextureRand = rnd.Next(0, 2);
-                }
-
-                if (StaticEnemy.StRand != -1)
-                    StaticEnemy.Position = new Rectangle(BoardsList.BoardList[StaticEnemy.StRand].Position.X,
-                        BoardsList.BoardList[StaticEnemy.StRand].Position.Y - 53, StaticEnemy.Position.Width,
-                        StaticEnemy.Position.Height);
-
-                if (StaticEnemy.Collision(Player, ref CollisionCheck) == 0 && !Gameover && ThingsCollisionCheck)
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, -15);
-                    StaticEnemy.StRand = -1;
-                }
-                else if (StaticEnemy.Collision(Player, ref CollisionCheck) == 1 && !Gameover &&
-                         ThingsCollisionCheck)
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, 0);
-                    MediaPlayer.Stop();
-                    Sound.Dead.Play();
-                    CollisionCheck = false;
-                }
-
-                if (StaticEnemy.Position.Y < 780 && StaticEnemy.StRand == -1)
-                    StaticEnemy.Position = new Rectangle(StaticEnemy.Position.X, StaticEnemy.Position.Y + 11,
-                        StaticEnemy.Position.Width, StaticEnemy.Position.Height);
-
-                if (StaticEnemy.Position.Y > 795 || StaticEnemy.BulletCollision(Bullet))
-                {
-                    if (StaticEnemy.BulletCollision(Bullet)) Bullet.IsCheck = false;
-
-                    StaticEnemy.StRand = -1;
-                    StaticEnemy.Position = new Rectangle(-200, 800, 60, 55);
-                }
+                StaticEnemy.Update(Bullet, BoardsList, Sound, Player, Gameover, ref CollisionCheck, Score, ThingsCollisionCheck, Trampo, Jetpack, Spring);
 
                 //to move boards_list and background with player
                 if (Player.PlayerPosition.Y < 300)
