@@ -2,132 +2,85 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
-using Microsoft.Xna.Framework.Content;
 
-namespace VirusJump.Classes.Scene.Objects.Enemies
+namespace VirusJump.Classes.Scene.Objects.Enemies;
+
+public class MovingEnemy
 {
-    public class MovingEnemy
+    private readonly List<Texture2D> _enemylist;
+
+    private Rectangle _position;
+    private Vector2 _speed;
+
+    public MovingEnemy(IReadOnlyDictionary<string, Texture2D> textures)
     {
-        private readonly List<Texture2D> _enemylist;
+        TextureRand = 0;
+        _enemylist = new List<Texture2D> { textures["assets/tri"], textures["assets/stiri"], textures["assets/pet"] };
+        Initialize();
+    }
 
-        private Rectangle _position;
-        private Vector2 _speed;
+    public Rectangle Position
+    {
+        get => _position;
+        set => _position = value;
+    }
 
-        private bool _visible;
-        private bool _mvRand;
-        private bool _meCollision;
+    public bool Visible { get; set; }
 
-        private int _startView;
-        private int _endView;
-        private int _viewEnemy;
-        private int _stepView;
-        private int _textureint;
-        private float _degree;
+    public bool MvRand { get; set; }
 
-        public MovingEnemy(ContentManager content)
-        {
-            _textureint = 0;
-            var movingEnemy1 = content.Load<Texture2D>("assets/tri");
-            var movingEnemy2 = content.Load<Texture2D>("assets/stiri");
-            var movingEnemy3 = content.Load<Texture2D>("assets/pet");
-            _enemylist = new List<Texture2D> {movingEnemy1,movingEnemy2,movingEnemy3 };
-            Initialize();
-        }
+    public bool MvCollision { get; set; }
 
-        public void Initialize()
-        {
-            _degree = 0;
-            _startView = 2000;
-            _endView = 3000;
-            _viewEnemy = 1000;
-            _stepView = 4000;
-            _meCollision = false;
-            _mvRand = false;
-            _position = new Rectangle(20, -200, 80, 60);
-            _speed = new Vector2(3, 0);
-            _visible = false;
-        }
+    public int Start { get; set; }
 
-        public void Draw(SpriteBatch s)
-        {
-            if (_speed.X > 0)
-                s.Draw(_enemylist[_textureint], _position, null, Color.White, 0f, Vector2.Zero,SpriteEffects.None, 0);
-            else
-                s.Draw(_enemylist[_textureint], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0);
-        }
+    public int End { get; set; }
 
-        public void Move()
-        {
-            _position.X += (int)_speed.X;
-            if (_position.X > 410)
-                _speed.X *= -1;
-            if (_position.X < 10)
-                _speed.X *= -1;
-        }
+    public int View { get; set; }
 
-        public bool BulletCollision(Bullet bullet)
-        {
-            if (bullet.Position.X > _position.X && bullet.Position.X + bullet.Position.Width < _position.X + _position.Width && bullet.Position.Y > _position.Y && bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height) return true;
-            else return false;
-        }
+    public int Step { get; set; }
 
-        public Rectangle Position
-        {
-            get => _position;
-            set => _position = value;
-        }
+    public float Degree { get; set; }
 
-        public bool Visible
-        {
-            get => _visible;
-            set => _visible = value;
-        }
+    public int TextureRand { get; set; }
 
-        public bool MvRand
-        {
-            get => _mvRand;
-            set => _mvRand = value;
-        }
+    public void Initialize()
+    {
+        Degree = 0;
+        Start = 2000;
+        End = 3000;
+        View = 1000;
+        Step = 4000;
+        MvCollision = false;
+        MvRand = false;
+        _position = new Rectangle(20, -200, 80, 60);
+        _speed = new Vector2(3, 0);
+        Visible = false;
+    }
 
-        public bool MvCollision
-        {
-            get => _meCollision;
-            set => _meCollision = value;
-        }
+    public void Draw(SpriteBatch s)
+    {
+        if (_speed.X > 0)
+            s.Draw(_enemylist[TextureRand], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 0);
+        else
+            s.Draw(_enemylist[TextureRand], _position, null, Color.White, 0f, Vector2.Zero,
+                SpriteEffects.FlipHorizontally, 0);
+    }
 
-        public int Start
-        {
-            get => _startView;
-            set => _startView = value;
-        }
+    public void Move()
+    {
+        _position.X += (int)_speed.X;
+        if (_position.X > 410)
+            _speed.X *= -1;
+        if (_position.X < 10)
+            _speed.X *= -1;
+    }
 
-        public int End
-        {
-            get => _endView;
-            set => _endView = value;
-        }
-
-        public int View
-        {
-            get => _viewEnemy;
-            set => _viewEnemy = value;
-        }
-
-        public int Step
-        {
-            get => _stepView;
-            set => _stepView = value;
-        }
-
-        public float Degree
-        {
-            get => _degree;
-            set => _degree = value;
-        }
-        public int TextureRand
-        {
-            get => _textureint;
-            set => _textureint = value;
-        }
+    public bool BulletCollision(Bullet bullet)
+    {
+        if (bullet.Position.X > _position.X &&
+            bullet.Position.X + bullet.Position.Width < _position.X + _position.Width &&
+            bullet.Position.Y > _position.Y &&
+            bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height) return true;
+        return false;
     }
 }

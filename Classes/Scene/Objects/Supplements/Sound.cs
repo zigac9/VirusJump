@@ -1,62 +1,42 @@
-﻿using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
-using MonoGame.Extended.Content;
 
-namespace VirusJump.Classes.Scene.Objects.Supplements
+namespace VirusJump.Classes.Scene.Objects.Supplements;
+
+public class Sound
 {
-    public class Sound
+    private bool _check;
+
+    public Sound(IReadOnlyDictionary<string, SoundEffect> soundEffectsDictionary,
+        IReadOnlyDictionary<string, Song> songDictionary)
     {
+        Background = songDictionary["assets/background"];
+        End = songDictionary["assets/patmat"];
+        Board = soundEffectsDictionary["assets/jump"];
+        PlayerShoot = soundEffectsDictionary["assets/shootPlayer"];
+        EnemyShoot = soundEffectsDictionary["assets/enemyShot"];
+        Dead = soundEffectsDictionary["assets/deadSound"];
+        Initialize();
+    }
 
-        private Song _background;
-        private Song _end;
-        private SoundEffect _board;
-        private SoundEffect _dead;
-        private SoundEffect _playerShoot;
-        private SoundEffect _enemyShoot;
+    public bool PlayCheck { get; set; }
 
-        private bool _check;
-        private bool _playCheck;
+    public Song Background { get; }
 
-        public Sound(ContentManager content) 
-        {
-            _background = content.Load<Song>("assets/background");
-            _end = content.Load<Song>("assets/patmat");
-            _board = content.Load<SoundEffect>("assets/jump");
-            _playerShoot = content.Load<SoundEffect>("assets/shootPlayer");
-            _enemyShoot = content.Load<SoundEffect>("assets/enemyShot");
-            _dead = content.Load<SoundEffect>("assets/deadSound");
-            Initialize();
-        }
+    public Song End { get; }
 
-        public void Initialize()
-        {
-            _check = true;
-            _playCheck = true;  
-        }
+    public SoundEffect Board { get; }
 
-        public bool PlayCheck
-        {
-            get => _playCheck;
-            set => _playCheck = value;
-        }
-        
-        public Song Background => _background;
+    public SoundEffect PlayerShoot { get; }
 
-        public Song End => _end;
+    public SoundEffect EnemyShoot { get; }
 
-        public SoundEffect Board => _board;
+    public SoundEffect Dead { get; }
 
-        public SoundEffect PlayerShoot => _playerShoot;
-
-        public SoundEffect EnemyShoot => _enemyShoot;
-
-        public SoundEffect Dead => _dead;
+    public void Initialize()
+    {
+        _check = true;
+        PlayCheck = true;
     }
 }
