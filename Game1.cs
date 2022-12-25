@@ -165,43 +165,7 @@ public class Game1 : Game, ITexturesClasses
                 Trampo.Update(Score, Spring, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //spring
-                if (Score.Score > Spring.ScoreToMove && !Spring.Visible)
-                {
-                    Spring.ScoreToMove += Spring.ScoreMoveStep;
-                    do
-                    {
-                        var rnd = new Random();
-                        Spring.SRand = rnd.Next(0, BoardsList.BoardList.Length - 1);
-                    } while (BoardsList.BoardList[Spring.SRand].Position.Y > 0 ||
-                             BoardsList.BoardList[Spring.SRand].Visible == false ||
-                             (Spring.SRand == Trampo.TRand && Spring.SRand != -1 && Trampo.TRand != -1) ||
-                             (Spring.SRand == Jetpack.JRand && Spring.SRand != -1 && Jetpack.JRand != -1) ||
-                             (Trampo.TRand == Jetpack.JRand && Trampo.TRand != -1 && Jetpack.JRand != -1));
-
-                    Spring.Visible = true;
-                }
-
-                if (Spring.SRand != -1 && Spring.Visible)
-                    Spring.SpringPosition = new Rectangle(BoardsList.BoardList[Spring.SRand].Position.X + 10,
-                        BoardsList.BoardList[Spring.SRand].Position.Y - 30, Spring.SpringPosition.Width,
-                        Spring.SpringPosition.Height);
-
-                if (Spring.Visible) Spring.SCheck = Spring.Collision(Player, CollisionCheck);
-
-                if (Spring.SCheck && ThingsCollisionCheck)
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, -23);
-                    Spring.SRand = -1;
-                    Spring.SCheck = false;
-                    Spring.Visible = false;
-                }
-
-                if (Spring.SpringPosition.Y > 690)
-                {
-                    Spring.SRand = -1;
-                    Spring.Visible = false;
-                    Spring.SCheck = false;
-                }
+                Spring.Update(Score, Trampo, Jetpack, BoardsList, Player, CollisionCheck, ThingsCollisionCheck);
 
                 //jetpack
                 if (Score.Score > Jetpack.ScoreToMove && !Jetpack.Visible)
