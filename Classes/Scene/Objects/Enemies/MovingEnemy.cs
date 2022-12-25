@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump.Classes.Scene.Objects.Enemies;
@@ -75,7 +77,52 @@ public class MovingEnemy
             _speed.X *= -1;
     }
 
-    public bool BulletCollision(Bullet bullet)
+    public void Update(Bullet bullet, Bullet bulletEnemy, Sound sound, Player player, Game1.GameStateEnum currentGameState, ref bool collisionCheck)
+    {
+        if (BulletCollision(bullet))
+        {
+            MvRand = true;
+            MvCollision = false;
+            Visible = false;
+        }
+        
+        if (Math.Abs(Position.X - player.PlayerPosition.X) < 10 && Position.Y > 0)
+            if (!bulletEnemy.IsCheck)
+            {
+                Degree =
+                    // ReSharper disable once PossibleLossOfFraction
+                    (float)Math.Atan(-(player.PlayerPosition.Y - 30 - Position.Y) /
+                                     (player.PlayerPosition.X - 30 - Position.X));
+                bulletEnemy.Position = new Rectangle(Position.X + 30,
+                    Position.Y + 30, bulletEnemy.Position.Width, bulletEnemy.Position.Height);
+                if (player.PlayerPosition.X < Position.X + 30)
+                    bulletEnemy.Speed = new Vector2(-1 * (float)Math.Cos(Degree),
+                        +1 * (float)Math.Sin(Degree));
+                else
+                    bulletEnemy.Speed = new Vector2(1 * (float)Math.Cos(Degree),
+                        -1 * (float)Math.Sin(Degree));
+        
+                bulletEnemy.IsCheck = true;
+                sound.EnemyShoot.Play();
+            }
+        
+        if (bulletEnemy.Position.Y > 740 || bulletEnemy.Position.X is < -20 or > 500 ||
+            bulletEnemy.Position.Y < -20)
+            bulletEnemy.IsCheck = false;
+        if (bulletEnemy.IsCheck && currentGameState == Game1.GameStateEnum.GameRunning)
+            bulletEnemy.Move();
+        
+        if (bulletEnemy.IsCheck && player.BulletCollision(bulletEnemy))
+        {
+            player.Speed = new Vector2(player.Speed.X, 0);
+            MediaPlayer.Stop();
+            sound.Dead.Play();
+            bulletEnemy.IsCheck = false;
+            collisionCheck = false;
+        }
+    }
+
+    private bool BulletCollision(Bullet bullet)
     {
         if (bullet.Position.X > _position.X &&
             bullet.Position.X + bullet.Position.Width < _position.X + _position.Width &&

@@ -172,47 +172,7 @@ public class Game1 : Game, ITexturesClasses
 
                 //movingEnemy
                 MovingEnemy.Move();
-                if (MovingEnemy.BulletCollision(Bullet))
-                {
-                    MovingEnemy.MvRand = true;
-                    MovingEnemy.MvCollision = false;
-                    MovingEnemy.Visible = false;
-                }
-
-                if (Math.Abs(MovingEnemy.Position.X - Player.PlayerPosition.X) < 10 && MovingEnemy.Position.Y > 0)
-                    if (!BulletEnemy.IsCheck)
-                    {
-                        MovingEnemy.Degree =
-                            // ReSharper disable once PossibleLossOfFraction
-                            (float)Math.Atan(-(Player.PlayerPosition.Y - 30 - MovingEnemy.Position.Y) /
-                                             (Player.PlayerPosition.X - 30 - MovingEnemy.Position.X));
-                        BulletEnemy.Position = new Rectangle(MovingEnemy.Position.X + 30,
-                            MovingEnemy.Position.Y + 30, BulletEnemy.Position.Width, BulletEnemy.Position.Height);
-                        if (Player.PlayerPosition.X < MovingEnemy.Position.X + 30)
-                            BulletEnemy.Speed = new Vector2(-1 * (float)Math.Cos(MovingEnemy.Degree),
-                                +1 * (float)Math.Sin(MovingEnemy.Degree));
-                        else
-                            BulletEnemy.Speed = new Vector2(1 * (float)Math.Cos(MovingEnemy.Degree),
-                                -1 * (float)Math.Sin(MovingEnemy.Degree));
-
-                        BulletEnemy.IsCheck = true;
-                        Sound.EnemyShoot.Play();
-                    }
-
-                if (BulletEnemy.Position.Y > 740 || BulletEnemy.Position.X is < -20 or > 500 ||
-                    BulletEnemy.Position.Y < -20)
-                    BulletEnemy.IsCheck = false;
-                if (BulletEnemy.IsCheck && CurrentGameState == GameStateEnum.GameRunning)
-                    BulletEnemy.Move();
-
-                if (BulletEnemy.IsCheck && Player.BulletCollision(BulletEnemy))
-                {
-                    Player.Speed = new Vector2(Player.Speed.X, 0);
-                    MediaPlayer.Stop();
-                    Sound.Dead.Play();
-                    BulletEnemy.IsCheck = false;
-                    CollisionCheck = false;
-                }
+                MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
 
                 //static enemy
                 if (Score.Score % 430 > 400 && StaticEnemy.Position.Y > 780)
