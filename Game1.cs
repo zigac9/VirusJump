@@ -49,7 +49,7 @@ public class Game1 : Game, ITexturesClasses
 
     public static ScoreManager ScoreManager;
     public static bool CollisionCheck;
-    public static bool Gameover;
+    public static bool GameOver;
 
     public static Sound Sound;
 
@@ -83,7 +83,7 @@ public class Game1 : Game, ITexturesClasses
         PlayerOrientation = PlayerOrientEnum.Right;
         CollisionCheck = true;
         ThingsCollisionCheck = true;
-        Gameover = false;
+        GameOver = false;
         _playerName = RandomString(10);
         Nivo = new List<bool> { false, false, false, false, false };
         base.Initialize();
@@ -123,7 +123,7 @@ public class Game1 : Game, ITexturesClasses
         {
             case GameStateEnum.GameRunning:
             {
-                if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) Gameover = true;
+                if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) GameOver = true;
 
                 if (Sound.PlayCheck && Background.SoundCheck)
                 {
@@ -159,7 +159,7 @@ public class Game1 : Game, ITexturesClasses
                 ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState, ref CollisionCheck);
 
                 //static enemy
-                ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, Gameover, ref CollisionCheck, Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, ITexturesClasses.Spring);
+                ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, GameOver, ref CollisionCheck, Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, ITexturesClasses.Spring);
 
                 //to move boards_list and background with player
                 GameRenderer.MoveWithPlayer();
@@ -171,36 +171,7 @@ public class Game1 : Game, ITexturesClasses
                 GameRenderer.RePosition();
 
                 //to check boards_list coliision
-                if (ThingsCollisionCheck)
-                {
-                    foreach (var board in BoardsList.BoardList)
-                        if (board.Visible && board.Collision(Player) && !Gameover && CollisionCheck)
-                        {
-                            Player.Speed = new Vector2(Player.Speed.X, -13);
-                            Sound.Board.Play();
-                        }
-
-                    for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
-                    {
-                        if (BoardsList.MovingBoardList[i].Collision(Player) && !Gameover && CollisionCheck)
-                        {
-                            Player.Speed = new Vector2(Player.Speed.X, -13);
-                            Sound.Board.Play();
-                        }
-
-                        if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].Collision(Player) &&
-                            !Gameover && CollisionCheck)
-                            BoardsList.FakeBoardList[i].Visible = false;
-
-                        if (BoardsList.GoneBoardList[i].Visible && BoardsList.GoneBoardList[i].Collision(Player) &&
-                            !Gameover && CollisionCheck)
-                        {
-                            Player.Speed = new Vector2(Player.Speed.X, -13);
-                            Sound.Board.Play();
-                            BoardsList.GoneBoardList[i].Visible = false;
-                        }
-                    }
-                }
+                BoardsList.Collision(ThingsCollisionCheck,CollisionCheck,GameOver, Player, Sound);
 
                 //to go to pause menue bye esc clicking
                 _kTemp1 = Keyboard.GetState();

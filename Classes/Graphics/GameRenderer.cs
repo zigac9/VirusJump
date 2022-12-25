@@ -16,7 +16,7 @@ public abstract class GameRenderer : Game1
         CollisionCheck = true;
         Score.Check = true;
         ThingsCollisionCheck = true;
-        Gameover = false;
+        GameOver = false;
         Player.Initialize();
         BoardsList.Initialize();
         Bullet.Initialize();
