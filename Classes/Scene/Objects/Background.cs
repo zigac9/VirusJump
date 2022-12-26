@@ -58,17 +58,17 @@ public class Background
 
     public bool GameStateCheck { get; set; }
 
-    public int HScore1 { get; set; }
+    private int HScore1 { get; set; }
 
-    public int HScore2 { get; set; }
+    private int HScore2 { get; set; }
 
-    public int HScore3 { get; set; }
+    private int HScore3 { get; set; }
 
-    public int HScore4 { get; set; }
+    private int HScore4 { get; set; }
 
-    public int HScore5 { get; set; }
+    private int HScore5 { get; set; }
 
-    public int Bests { get; set; }
+    private int Bests { get; set; }
 
     public void Initialize()
     {

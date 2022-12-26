@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Content;
-using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using static VirusJump.Game1;
@@ -24,7 +20,7 @@ public class Player
     private Rectangle _shootPosition;
     private Vector2 _speed;
 
-    public Player(Dictionary<string, Texture2D> textures, Dictionary<string, SpriteSheet> spriteSheets)
+    public Player(Dictionary<string, Texture2D> textures, IReadOnlyDictionary<string, SpriteSheet> spriteSheets)
     {
         _textures = textures;
         GetAnimatedSprite = new AnimatedSprite(spriteSheets["assets/fire.sf"]);

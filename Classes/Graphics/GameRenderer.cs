@@ -14,7 +14,6 @@ public abstract class GameRenderer : Game1
     {
         CurrentGameState = GameStateEnum.GameRunning; //menjaj
         CollisionCheck = true;
-        Score.Check = true;
         ThingsCollisionCheck = true;
         GameOver = false;
         Player.Initialize();

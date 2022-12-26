@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
 using VirusJump.Classes.Scene.Objects.Supplements;
@@ -11,7 +10,6 @@ namespace VirusJump.Classes.Scene.Objects.Boards;
 public class BoardsList
 {
     private readonly BoardsCoords _boardsCoords;
-    private readonly ContentManager _content;
 
     private readonly Dictionary<string, Texture2D> _textures;
 
@@ -22,13 +20,13 @@ public class BoardsList
         Initialize();
     }
 
-    public Board[] BoardList { get; set; }
+    public Board[] BoardList { get; private set; }
 
-    public FakeBoard[] FakeBoardList { get; set; }
+    public FakeBoard[] FakeBoardList { get; private set; }
 
-    public GoneBoard[] GoneBoardList { get; set; }
+    public GoneBoard[] GoneBoardList { get; private set; }
 
-    public MovingBoard[] MovingBoardList { get; set; }
+    public MovingBoard[] MovingBoardList { get; private set; }
 
     public void Initialize()
     {
