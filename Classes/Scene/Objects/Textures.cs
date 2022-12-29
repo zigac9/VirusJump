@@ -148,7 +148,7 @@ internal interface ITexturesClasses
             Task.Run(() => Spring = new Spring(TexturesLoad)),
             Task.Run(() => Jetpack = new Jetpack(TexturesLoad)),
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
-            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad)),
+            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManager = ScoreManager.Load())
         };

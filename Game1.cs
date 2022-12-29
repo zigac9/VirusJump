@@ -13,6 +13,7 @@ using MonoGame.Extended.Sprites;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects;
 using VirusJump.Classes.Scene.Objects.Boards;
+using VirusJump.Classes.Scene.Objects.Enemies;
 using VirusJump.Classes.Scene.Objects.Scoring;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
@@ -465,6 +466,7 @@ public class Game1 : Game, ITexturesClasses
 
                     break;
             }
+            ITexturesClasses.MovingEnemy.GetAnimatedSprite.Update(gameTime);
             Player.GetAnimatedSprite.Update(gameTime);
             Pointer.GetAnimatedSprite.Update(gameTime);
         }
@@ -483,7 +485,7 @@ public class Game1 : Game, ITexturesClasses
         _spriteBatch.Begin();
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        if (!_contentLoaded || elapsedTime <= 5.0)
+        if (!_contentLoaded || elapsedTime <= 3.0)
         {
             _spriteBatch.Draw(_loadingTexture, new Vector2(0,0), null, Color.White);
             _loading.Draw(_spriteBatch, new Vector2(230, 500), 0f, new Vector2(1, 1));
