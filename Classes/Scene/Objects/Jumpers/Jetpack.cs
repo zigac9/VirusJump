@@ -94,7 +94,7 @@ public class Jetpack
 
         if (JCheck && thingsCollisionCheck)
         {
-            player.Speed = new Vector2(player.Speed.X, -60);
+            player.Speed = new Vector2(player.Speed.X, -50);
             JRand = -1;
             Visible = false;
             JCheck = false;

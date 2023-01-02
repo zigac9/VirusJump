@@ -105,6 +105,10 @@ public abstract class GameRenderer : Game1
             if (BoardsList.GoneBoardList[i].Position.Y < -28)
                 BoardsList.GoneBoardList[i].DrawVisible = false;
             else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
+            
+            if (BoardsList.MovingBoardList[i].Position.Y < -28)
+                BoardsList.MovingBoardList[i].DrawVisible = false;
+            else if (BoardsList.MovingBoardList[i].Position.Y > -28) BoardsList.MovingBoardList[i].DrawVisible = true;
         }
 
         var rnd = new Random();

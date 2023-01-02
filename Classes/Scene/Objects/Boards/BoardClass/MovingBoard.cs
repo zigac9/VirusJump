@@ -15,7 +15,10 @@ public class MovingBoard
         _texture = texture;
         _position = position;
         _speed = speed;
+        DrawVisible = true;
     }
+    
+    public bool DrawVisible { get; set; }
 
     public Rectangle Position
     {

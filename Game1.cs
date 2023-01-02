@@ -502,7 +502,8 @@ public class Game1 : Game, ITexturesClasses
 
                 for (var i = 0; i < 4; i++)
                 {
-                    BoardsList.MovingBoardList[i].DrawSprite(_spriteBatch);
+                    if (BoardsList.MovingBoardList[i].DrawVisible)
+                        BoardsList.MovingBoardList[i].DrawSprite(_spriteBatch);
                     if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].DrawVisible)
                         BoardsList.FakeBoardList[i].DrawSprite(_spriteBatch);
 
