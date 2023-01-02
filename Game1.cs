@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Microsoft.Xna.Framework;
@@ -13,7 +12,6 @@ using MonoGame.Extended.Sprites;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects;
 using VirusJump.Classes.Scene.Objects.Boards;
-using VirusJump.Classes.Scene.Objects.Enemies;
 using VirusJump.Classes.Scene.Objects.Scoring;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
@@ -77,7 +75,6 @@ public class Game1 : Game, ITexturesClasses
     private AnimatedSprite _loading;
     private bool _loadingDraw;
     private Texture2D _loadingTexture;
-    
     private double elapsedTime;
 
     public Game1()
@@ -186,6 +183,13 @@ public class Game1 : Game, ITexturesClasses
                     //to move boards_list and background with player
                     GameRenderer.MoveWithPlayer();
 
+                    if (Bullet.Position.Intersects(BulletEnemy.Position) ||
+                        BulletEnemy.Position.Intersects(Bullet.Position))
+                    {
+                        BulletEnemy.IsCheck = false;
+                        Bullet.IsCheck = false;
+                    }
+                    
                     //check side of background
                     Background.SideCheck();
 
