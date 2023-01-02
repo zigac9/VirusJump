@@ -54,6 +54,7 @@ public class MovingEnemy
         _bullFirePosition = new Vector2(0, 0);
         _drawFire = false;
         Degree = 0;
+        //popravi ko bo za konc
         Start = 2000;
         End = 3000;
         View = 1000;

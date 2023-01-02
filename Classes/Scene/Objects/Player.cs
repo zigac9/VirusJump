@@ -98,7 +98,7 @@ public class Player
                 case PlayerOrientEnum.Left:
                     if (IsJetpack)
                     {
-                        _active = _textures["assets/manjetpackL"];
+                        _active = _textures["assets/manjetpack"];
                         _firePosition = new Vector2(_firePosition.X + _position.Width - 10, _firePosition.Y);
                         GetAnimatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
                     }
