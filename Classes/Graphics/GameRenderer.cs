@@ -95,21 +95,21 @@ public abstract class GameRenderer : Game1
                     break;
             }
         }
+        
+        for(int i = 0; i < 4; i++)
+        {
+            if (BoardsList.FakeBoardList[i].Position.Y < -28)
+                BoardsList.FakeBoardList[i].DrawVisible = false;
+            else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
+
+            if (BoardsList.GoneBoardList[i].Position.Y < -28)
+                BoardsList.GoneBoardList[i].DrawVisible = false;
+            else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
+        }
 
         var rnd = new Random();
         for (var i = 0; i < BoardsList.BoardList.Length; i++)
         {
-            if (i < 4)
-            {
-                if (BoardsList.FakeBoardList[i].Position.Y < -28)
-                    BoardsList.FakeBoardList[i].DrawVisible = false;
-                else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
-
-                if (BoardsList.GoneBoardList[i].Position.Y < -28)
-                    BoardsList.GoneBoardList[i].DrawVisible = false;
-                else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
-            }
-
             switch (i)
             {
                 case 1:
