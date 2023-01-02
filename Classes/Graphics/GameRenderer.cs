@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using VirusJump.Classes.Scene.Objects;
-using VirusJump.Classes.Scene.Objects.Enemies;
-using VirusJump.Classes.Scene.Objects.Jumpers;
 
 namespace VirusJump.Classes.Graphics;
 
@@ -36,130 +34,6 @@ public abstract class GameRenderer : Game1
 
     public static void RePosition()
     {
-        var minY = 999;
-        var rnd = new Random();
-
-        for (var i = 0; i < BoardsList.BoardList.Length; i++)
-        {
-            if (BoardsList.BoardList[i].Visible)
-            {
-                if (BoardsList.BoardList[i].Position.Y < -28)
-                    BoardsList.BoardList[i].DrawVisible = false;
-                else if (BoardsList.BoardList[i].Position.Y > -28) BoardsList.BoardList[i].DrawVisible = true;
-                if (BoardsList.BoardList[i].Position.Y > 734)
-                {
-                    foreach (var board in BoardsList.BoardList)
-                        if (board.Position.Y < minY)
-                            minY = board.Position.Y;
-
-                    for (var j = 0; j < 4; j++)
-                    {
-                        if (BoardsList.MovingBoardList[j].Position.Y < minY)
-                            minY = BoardsList.MovingBoardList[j].Position.Y;
-                        if (BoardsList.FakeBoardList[j].Position.Y < minY)
-                            minY = BoardsList.FakeBoardList[j].Position.Y;
-                        if (BoardsList.GoneBoardList[j].Position.Y < minY)
-                            minY = BoardsList.GoneBoardList[j].Position.Y;
-                    }
-
-                    BoardsList.BoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28),
-                        BoardsList.BoardList[i].Position.Width, BoardsList.BoardList[i].Position.Height);
-                }
-            }
-
-            if (i < 4)
-            {
-                if (BoardsList.FakeBoardList[i].Position.Y < -28)
-                    BoardsList.FakeBoardList[i].DrawVisible = false;
-                else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
-
-                if (BoardsList.GoneBoardList[i].Position.Y < -28)
-                    BoardsList.GoneBoardList[i].DrawVisible = false;
-                else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
-
-                if (BoardsList.MovingBoardList[i].Position.Y > 734)
-                {
-                    foreach (var board in BoardsList.BoardList)
-                        if (board.Position.Y < minY && BoardsList.BoardList[i].Visible)
-                            minY = board.Position.Y;
-
-                    for (var j = 0; j < 4; j++)
-                    {
-                        if (BoardsList.MovingBoardList[j].Position.Y < minY)
-                            minY = BoardsList.MovingBoardList[j].Position.Y;
-                        if (BoardsList.FakeBoardList[j].Position.Y < minY)
-                            minY = BoardsList.FakeBoardList[j].Position.Y;
-                        if (BoardsList.GoneBoardList[j].Position.Y < minY)
-                            minY = BoardsList.GoneBoardList[j].Position.Y;
-                    }
-
-                    BoardsList.MovingBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
-                        rnd.Next(minY - 56, minY - 28), BoardsList.MovingBoardList[i].Position.Width,
-                        BoardsList.MovingBoardList[i].Position.Height);
-                }
-
-                if (BoardsList.FakeBoardList[i].Position.Y > 734)
-                {
-                    foreach (var t in BoardsList.BoardList)
-                        if (t.Position.Y < minY && BoardsList.BoardList[i].Visible)
-                            minY = t.Position.Y;
-
-                    for (var j = 0; j < 4; j++)
-                    {
-                        if (BoardsList.MovingBoardList[j].Position.Y < minY)
-                            minY = BoardsList.MovingBoardList[j].Position.Y;
-                        if (BoardsList.FakeBoardList[j].Position.Y < minY)
-                            minY = BoardsList.FakeBoardList[j].Position.Y;
-                        if (BoardsList.GoneBoardList[j].Position.Y < minY)
-                            minY = BoardsList.GoneBoardList[j].Position.Y;
-                    }
-
-                    BoardsList.FakeBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
-                        rnd.Next(minY - 56, minY - 28), BoardsList.FakeBoardList[i].Position.Width,
-                        BoardsList.FakeBoardList[i].Position.Height);
-                    BoardsList.FakeBoardList[i].Visible = true;
-                }
-
-                if (BoardsList.GoneBoardList[i].Position.Y > 734)
-                {
-                    foreach (var t in BoardsList.BoardList)
-                        if (t.Position.Y < minY && BoardsList.BoardList[i].Visible)
-                            minY = t.Position.Y;
-
-                    for (var j = 0; j < 4; j++)
-                    {
-                        if (BoardsList.MovingBoardList[j].Position.Y < minY)
-                            minY = BoardsList.MovingBoardList[j].Position.Y;
-                        if (BoardsList.FakeBoardList[j].Position.Y < minY)
-                            minY = BoardsList.FakeBoardList[j].Position.Y;
-                        if (BoardsList.GoneBoardList[j].Position.Y < minY)
-                            minY = BoardsList.GoneBoardList[j].Position.Y;
-                    }
-
-                    BoardsList.GoneBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
-                        rnd.Next(minY - 56, minY - 28), BoardsList.GoneBoardList[i].Position.Width,
-                        BoardsList.GoneBoardList[i].Position.Height);
-                    BoardsList.GoneBoardList[i].Visible = true;
-                }
-            }
-        }
-
-        //move movable enemy
-        if (Score.Score > ITexturesClasses.MovingEnemy.Start && !ITexturesClasses.MovingEnemy.Visible)
-        {
-            ITexturesClasses.MovingEnemy.TextureRand = rnd.Next(0, 3);
-            ITexturesClasses.MovingEnemy.Position = new Rectangle(ITexturesClasses.MovingEnemy.Position.X, 50, ITexturesClasses.MovingEnemy.Position.Width,
-                ITexturesClasses.MovingEnemy.Position.Height);
-            ITexturesClasses.MovingEnemy.Start += ITexturesClasses.MovingEnemy.Step;
-            ITexturesClasses.MovingEnemy.Visible = true;
-        }
-        else if (Score.Score > ITexturesClasses.MovingEnemy.End)
-        {
-            ITexturesClasses.MovingEnemy.Visible = false;
-            ITexturesClasses.MovingEnemy.End = ITexturesClasses.MovingEnemy.Start + ITexturesClasses.MovingEnemy.View;
-        }
-
-
         //delete boards
         if (Score.Score > 500 && !Nivo[0])
         {
@@ -208,8 +82,10 @@ public abstract class GameRenderer : Game1
             var outBoard = 0;
             for (var j = 0; j < BoardsList.BoardList.Length; j++)
             {
-                if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible && j != ITexturesClasses.Trampo.TRand &&
-                    j != ITexturesClasses.Spring.SRand && j != ITexturesClasses.Jetpack.JRand && j != ITexturesClasses.StaticEnemy.StRand)
+                if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible &&
+                    j != ITexturesClasses.Trampo.TRand &&
+                    j != ITexturesClasses.Spring.SRand && j != ITexturesClasses.Jetpack.JRand &&
+                    j != ITexturesClasses.StaticEnemy.StRand)
                 {
                     BoardsList.BoardList[j].Visible = false;
                     outBoard++;
@@ -219,6 +95,150 @@ public abstract class GameRenderer : Game1
                     break;
             }
         }
+
+        var rnd = new Random();
+        for (var i = 0; i < BoardsList.BoardList.Length; i++)
+        {
+            if (i < 4)
+            {
+                if (BoardsList.FakeBoardList[i].Position.Y < -28)
+                    BoardsList.FakeBoardList[i].DrawVisible = false;
+                else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
+
+                if (BoardsList.GoneBoardList[i].Position.Y < -28)
+                    BoardsList.GoneBoardList[i].DrawVisible = false;
+                else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
+            }
+
+            switch (i)
+            {
+                case 1:
+                    MoveMovingBoard(0, rnd);
+                    break;
+                case 3:
+                    MoveFakeBoard(0, rnd);
+                    break;
+                case 5:
+                    MoveGoneBoard(0, rnd);
+                    break;
+                case 7:
+                    MoveMovingBoard(1, rnd);
+                    break;
+                case 9:
+                    MoveFakeBoard(1, rnd);
+                    break;
+                case 11:
+                    MoveGoneBoard(1, rnd);
+                    break;
+                case 13:
+                    MoveMovingBoard(2, rnd);
+                    break;
+                case 15:
+                    MoveFakeBoard(2, rnd);
+                    break;
+                case 17:
+                    MoveGoneBoard(2, rnd);
+                    break;
+                case 19:
+                    MoveMovingBoard(3, rnd);
+                    break;
+                case 21:
+                    MoveFakeBoard(3, rnd);
+                    break;
+                case 22:
+                    MoveGoneBoard(3, rnd);
+                    break;
+            }
+
+            if (BoardsList.BoardList[i].Visible)
+            {
+                if (BoardsList.BoardList[i].Position.Y < -28)
+                    BoardsList.BoardList[i].DrawVisible = false;
+                else if (BoardsList.BoardList[i].Position.Y > -28) BoardsList.BoardList[i].DrawVisible = true;
+
+                if (BoardsList.BoardList[i].Position.Y > 734)
+                {
+                    var minY = FindMinY();
+
+                    BoardsList.BoardList[i].Position = new Rectangle(rnd.Next(0, 420), rnd.Next(minY - 56, minY - 28),
+                        BoardsList.BoardList[i].Position.Width, BoardsList.BoardList[i].Position.Height);
+                }
+            }
+        }
+
+        //move movable enemy
+        if (Score.Score > ITexturesClasses.MovingEnemy.Start && !ITexturesClasses.MovingEnemy.Visible)
+        {
+            ITexturesClasses.MovingEnemy.TextureRand = rnd.Next(0, 3);
+            ITexturesClasses.MovingEnemy.Position = new Rectangle(ITexturesClasses.MovingEnemy.Position.X, 50,
+                ITexturesClasses.MovingEnemy.Position.Width,
+                ITexturesClasses.MovingEnemy.Position.Height);
+            ITexturesClasses.MovingEnemy.Start += ITexturesClasses.MovingEnemy.Step;
+            ITexturesClasses.MovingEnemy.Visible = true;
+        }
+        else if (Score.Score > ITexturesClasses.MovingEnemy.End)
+        {
+            ITexturesClasses.MovingEnemy.Visible = false;
+            ITexturesClasses.MovingEnemy.End = ITexturesClasses.MovingEnemy.Start + ITexturesClasses.MovingEnemy.View;
+        }
+    }
+
+    private static void MoveGoneBoard(int i, Random rnd)
+    {
+        if (BoardsList.GoneBoardList[i].Position.Y > 734)
+        {
+            var minY = FindMinY();
+
+            BoardsList.GoneBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
+                rnd.Next(minY - 56, minY - 28), BoardsList.GoneBoardList[i].Position.Width,
+                BoardsList.GoneBoardList[i].Position.Height);
+            BoardsList.GoneBoardList[i].Visible = true;
+        }
+    }
+
+    private static void MoveFakeBoard(int i, Random rnd)
+    {
+        if (BoardsList.FakeBoardList[i].Position.Y > 734)
+        {
+            var minY = FindMinY();
+
+            BoardsList.FakeBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
+                rnd.Next(minY - 56, minY - 28), BoardsList.FakeBoardList[i].Position.Width,
+                BoardsList.FakeBoardList[i].Position.Height);
+            BoardsList.FakeBoardList[i].Visible = true;
+        }
+    }
+
+    private static void MoveMovingBoard(int i, Random rnd)
+    {
+        if (BoardsList.MovingBoardList[i].Position.Y > 734)
+        {
+            var minY = FindMinY();
+
+            BoardsList.MovingBoardList[i].Position = new Rectangle(rnd.Next(0, 420),
+                rnd.Next(minY - 56, minY - 28), BoardsList.MovingBoardList[i].Position.Width,
+                BoardsList.MovingBoardList[i].Position.Height);
+        }
+    }
+
+    private static int FindMinY()
+    {
+        var minY = int.MaxValue;
+        foreach (var board in BoardsList.BoardList)
+            if (board.Position.Y < minY && board.Visible)
+                minY = board.Position.Y;
+
+        for (var j = 0; j < 4; j++)
+        {
+            if (BoardsList.MovingBoardList[j].Position.Y < minY)
+                minY = BoardsList.MovingBoardList[j].Position.Y;
+            if (BoardsList.FakeBoardList[j].Position.Y < minY)
+                minY = BoardsList.FakeBoardList[j].Position.Y;
+            if (BoardsList.GoneBoardList[j].Position.Y < minY)
+                minY = BoardsList.GoneBoardList[j].Position.Y;
+        }
+
+        return minY;
     }
 
     public static void MoveWithPlayer()
@@ -234,11 +254,11 @@ public abstract class GameRenderer : Game1
                 Player.ShootPosition.Height);
             Player.FirePosition = new Vector2(Player.PlayerPosition.X,
                 Player.PlayerPosition.Y + Player.PlayerPosition.Height);
-        
+
             foreach (var board in BoardsList.BoardList)
                 board.Position = new Rectangle(board.Position.X, board.Position.Y - speed,
                     board.Position.Width, board.Position.Height);
-        
+
             for (var i = 0; i < BoardsList.MovingBoardList.Length; i++)
             {
                 BoardsList.MovingBoardList[i].Position = new Rectangle(
@@ -255,7 +275,7 @@ public abstract class GameRenderer : Game1
                     BoardsList.GoneBoardList[i].Position.Width,
                     BoardsList.GoneBoardList[i].Position.Height);
             }
-        
+
             if (Background.BPosize.Y < 0)
                 Background.BPosize = new Rectangle(Background.BPosize.X, Background.BPosize.Y - speed / 2,
                     Background.BPosize.Width, Background.BPosize.Height);
