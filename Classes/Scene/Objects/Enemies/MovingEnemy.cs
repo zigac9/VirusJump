@@ -144,10 +144,7 @@ public class MovingEnemy
     private bool BulletCollision(Bullet bullet)
     {
         if (bullet.IsCheck)
-            return bullet.Position.X > _position.X &&
-                   bullet.Position.X + bullet.Position.Width < _position.X + _position.Width &&
-                   bullet.Position.Y > _position.Y &&
-                   bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height;
+            return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
         return false;
     }
 

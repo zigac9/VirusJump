@@ -179,7 +179,7 @@ public class Game1 : Game, ITexturesClasses
                         ref CollisionCheck);
 
                     //static enemy
-                    ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, GameOver, ref CollisionCheck,
+                    ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
                         Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack,
                         ITexturesClasses.Spring);
 
