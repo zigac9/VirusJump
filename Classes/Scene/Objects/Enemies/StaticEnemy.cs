@@ -33,10 +33,13 @@ public class StaticEnemy
     public int StRand { get; set; }
 
     public int TextureRand { get; set; }
+    
+    public bool DrawVisible { get; set; }
 
     public void Initialize()
     {
         StRand = -1;
+        DrawVisible = true;
         _position = new Rectangle(-200, 800, 60, 55);
     }
 

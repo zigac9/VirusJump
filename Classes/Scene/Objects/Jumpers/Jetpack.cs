@@ -33,6 +33,8 @@ public class Jetpack
     public int ScoreToMove { get; set; }
 
     public int ScoreMoveStep { get; set; }
+    
+    public bool DrawVisible { get; set; }
 
     public void Initialize()
     {
@@ -42,6 +44,7 @@ public class Jetpack
         _position = new Rectangle(-100, 730, 30, 40);
         JRand = -1;
         JCheck = false;
+        DrawVisible = true;
     }
 
     public void Draw(SpriteBatch s)

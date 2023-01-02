@@ -33,12 +33,15 @@ public class Spring
     public int ScoreToMove { get; set; }
 
     public int ScoreMoveStep { get; set; }
+    
+    public bool DrawVisible { get; set; }
 
     public void Initialize()
     {
         Visible = false;
         ScoreToMove = 200;
         ScoreMoveStep = 500;
+        DrawVisible = true;
         _position = new Rectangle(-100, 730, 20, 30);
         SRand = -1;
         SCheck = false;

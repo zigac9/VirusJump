@@ -21,11 +21,11 @@ public abstract class GameRenderer : Game1
         Background.Initialize();
         PlayerOrientation = PlayerOrientEnum.Right;
         Score.Score = 0;
-        ITexturesClasses.Trampo.Initialize();
-        ITexturesClasses.Spring.Initialize();
-        ITexturesClasses.Jetpack.Initialize();
+        Trampo.Initialize();
+        Spring.Initialize();
+        Jetpack.Initialize();
         ITexturesClasses.MovingEnemy.Initialize();
-        ITexturesClasses.StaticEnemy.Initialize();
+        StaticEnemy.Initialize();
 
         //delete boards
         Nivo = new List<bool> { false, false, false, false, false };
@@ -39,41 +39,41 @@ public abstract class GameRenderer : Game1
         {
             Nivo[0] = true;
             Brisi = true;
-            ITexturesClasses.Spring.ScoreMoveStep = 700;
-            ITexturesClasses.Trampo.ScoreMoveStep = 1700;
-            ITexturesClasses.Jetpack.ScoreMoveStep = 3000;
+            Spring.ScoreMoveStep = 700;
+            Trampo.ScoreMoveStep = 1700;
+            Jetpack.ScoreMoveStep = 3000;
         }
         else if (Score.Score > 1000 && !Nivo[1])
         {
             Nivo[1] = true;
             Brisi = true;
-            ITexturesClasses.Spring.ScoreMoveStep = 1000;
-            ITexturesClasses.Trampo.ScoreMoveStep = 2000;
-            ITexturesClasses.Jetpack.ScoreMoveStep = 5000;
+            Spring.ScoreMoveStep = 1000;
+            Trampo.ScoreMoveStep = 2000;
+            Jetpack.ScoreMoveStep = 5000;
         }
         else if (Score.Score > 2000 && !Nivo[2])
         {
             Nivo[2] = true;
             Brisi = true;
-            ITexturesClasses.Spring.ScoreMoveStep = 2000;
-            ITexturesClasses.Trampo.ScoreMoveStep = 3000;
-            ITexturesClasses.Jetpack.ScoreMoveStep = 6000;
+            Spring.ScoreMoveStep = 2000;
+            Trampo.ScoreMoveStep = 3000;
+            Jetpack.ScoreMoveStep = 6000;
         }
         else if (Score.Score > 3000 && !Nivo[3])
         {
             Nivo[3] = true;
             Brisi = true;
-            ITexturesClasses.Spring.ScoreMoveStep = 3000;
-            ITexturesClasses.Trampo.ScoreMoveStep = 4000;
-            ITexturesClasses.Jetpack.ScoreMoveStep = 8000;
+            Spring.ScoreMoveStep = 3000;
+            Trampo.ScoreMoveStep = 4000;
+            Jetpack.ScoreMoveStep = 8000;
         }
         else if (Score.Score > 4000 && !Nivo[4])
         {
             Nivo[4] = true;
             Brisi = true;
-            ITexturesClasses.Spring.ScoreMoveStep = 4000;
-            ITexturesClasses.Trampo.ScoreMoveStep = 6000;
-            ITexturesClasses.Jetpack.ScoreMoveStep = 12000;
+            Spring.ScoreMoveStep = 4000;
+            Trampo.ScoreMoveStep = 6000;
+            Jetpack.ScoreMoveStep = 12000;
         }
 
         if (Brisi)
@@ -83,9 +83,9 @@ public abstract class GameRenderer : Game1
             for (var j = 0; j < BoardsList.BoardList.Length; j++)
             {
                 if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible &&
-                    j != ITexturesClasses.Trampo.TRand &&
-                    j != ITexturesClasses.Spring.SRand && j != ITexturesClasses.Jetpack.JRand &&
-                    j != ITexturesClasses.StaticEnemy.StRand)
+                    j != Trampo.TRand &&
+                    j != Spring.SRand && j != Jetpack.JRand &&
+                    j != StaticEnemy.StRand)
                 {
                     BoardsList.BoardList[j].Visible = false;
                     outBoard++;
@@ -96,20 +96,7 @@ public abstract class GameRenderer : Game1
             }
         }
         
-        for(int i = 0; i < 4; i++)
-        {
-            if (BoardsList.FakeBoardList[i].Position.Y < -28)
-                BoardsList.FakeBoardList[i].DrawVisible = false;
-            else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
-
-            if (BoardsList.GoneBoardList[i].Position.Y < -28)
-                BoardsList.GoneBoardList[i].DrawVisible = false;
-            else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
-            
-            if (BoardsList.MovingBoardList[i].Position.Y < -28)
-                BoardsList.MovingBoardList[i].DrawVisible = false;
-            else if (BoardsList.MovingBoardList[i].Position.Y > -28) BoardsList.MovingBoardList[i].DrawVisible = true;
-        }
+        MakeVisibleOrNot();
 
         var rnd = new Random();
         for (var i = 0; i < BoardsList.BoardList.Length; i++)
@@ -171,19 +158,19 @@ public abstract class GameRenderer : Game1
         }
 
         //move movable enemy
-        if (Score.Score > ITexturesClasses.MovingEnemy.Start && !ITexturesClasses.MovingEnemy.Visible)
+        if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
         {
-            ITexturesClasses.MovingEnemy.TextureRand = rnd.Next(0, 3);
-            ITexturesClasses.MovingEnemy.Position = new Rectangle(ITexturesClasses.MovingEnemy.Position.X, 50,
-                ITexturesClasses.MovingEnemy.Position.Width,
-                ITexturesClasses.MovingEnemy.Position.Height);
-            ITexturesClasses.MovingEnemy.Start += ITexturesClasses.MovingEnemy.Step;
-            ITexturesClasses.MovingEnemy.Visible = true;
+            MovingEnemy.TextureRand = rnd.Next(0, 3);
+            MovingEnemy.Position = new Rectangle(MovingEnemy.Position.X, 50,
+                MovingEnemy.Position.Width,
+                MovingEnemy.Position.Height);
+            MovingEnemy.Start += MovingEnemy.Step;
+            MovingEnemy.Visible = true;
         }
-        else if (Score.Score > ITexturesClasses.MovingEnemy.End)
+        else if (Score.Score > MovingEnemy.End)
         {
-            ITexturesClasses.MovingEnemy.Visible = false;
-            ITexturesClasses.MovingEnemy.End = ITexturesClasses.MovingEnemy.Start + ITexturesClasses.MovingEnemy.View;
+            MovingEnemy.Visible = false;
+            MovingEnemy.End = MovingEnemy.Start + MovingEnemy.View;
         }
     }
 
@@ -289,5 +276,38 @@ public abstract class GameRenderer : Game1
                 Background.SPosise2.Width, Background.SPosise2.Height);
             Score.Score -= speed / 2;
         }
+    }
+
+    public static void MakeVisibleOrNot()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (BoardsList.FakeBoardList[i].Position.Y < -28)
+                BoardsList.FakeBoardList[i].DrawVisible = false;
+            else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
+
+            if (BoardsList.GoneBoardList[i].Position.Y < -28)
+                BoardsList.GoneBoardList[i].DrawVisible = false;
+            else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
+            
+            if (BoardsList.MovingBoardList[i].Position.Y < -28)
+                BoardsList.MovingBoardList[i].DrawVisible = false;
+            else if (BoardsList.MovingBoardList[i].Position.Y > -28) BoardsList.MovingBoardList[i].DrawVisible = true;
+        }
+        if (Trampo.TrampoPosition.Y < -28)
+            Trampo.DrawVisible = false;
+        else if (Trampo.TrampoPosition.Y > -28) Trampo.DrawVisible = true;
+        
+        if (Spring.SpringPosition.Y < -28)
+            Spring.DrawVisible = false;
+        else if (Spring.SpringPosition.Y > -28) Spring.DrawVisible = true;
+        
+        if (Jetpack.JetPosition.Y < -28)
+            Jetpack.DrawVisible = false;
+        else if (Jetpack.JetPosition.Y > -28) Jetpack.DrawVisible = true;
+        
+        if (StaticEnemy.Position.Y < -28)
+            StaticEnemy.DrawVisible = false;
+        else if (StaticEnemy.Position.Y > -28) StaticEnemy.DrawVisible = true;
     }
 }

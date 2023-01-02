@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using Microsoft.Xna.Framework;
@@ -12,6 +13,8 @@ using MonoGame.Extended.Sprites;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects;
 using VirusJump.Classes.Scene.Objects.Boards;
+using VirusJump.Classes.Scene.Objects.Enemies;
+using VirusJump.Classes.Scene.Objects.Jumpers;
 using VirusJump.Classes.Scene.Objects.Scoring;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
@@ -47,6 +50,13 @@ public class Game1 : Game, ITexturesClasses
     public static Bullet Bullet;
     public static Bullet BulletEnemy;
 
+    public static Trampo Trampo;
+    public static Jetpack Jetpack;
+    public static Spring Spring;
+
+    public static MovingEnemy MovingEnemy;
+    public static StaticEnemy StaticEnemy;
+
     public static List<bool> Nivo;
     public static bool Brisi = false;
 
@@ -77,6 +87,9 @@ public class Game1 : Game, ITexturesClasses
     private Texture2D _loadingTexture;
     private double elapsedTime;
 
+    private int _allObjects;
+    private int _visibleObjects;
+
     public Game1()
     {
         var graphics = new GraphicsDeviceManager(this);
@@ -96,6 +109,8 @@ public class Game1 : Game, ITexturesClasses
         Nivo = new List<bool> { false, false, false, false, false };
         _loading = new AnimatedSprite(Content.Load<SpriteSheet>("assets/looping.sf", new JsonContentLoader()));
         _loadingDraw = true;
+        _allObjects = 0;
+        _visibleObjects = 0;
         base.Initialize();
     }
 
@@ -116,7 +131,12 @@ public class Game1 : Game, ITexturesClasses
         BulletEnemy = ITexturesClasses.BulletEnemy;
         BoardsList = ITexturesClasses.BoardsList;
         ScoreManager = ITexturesClasses.ScoreManager;
-
+        Spring = ITexturesClasses.Spring;
+        Trampo = ITexturesClasses.Trampo;
+        Jetpack = ITexturesClasses.Jetpack;
+        StaticEnemy = ITexturesClasses.StaticEnemy;
+        MovingEnemy = ITexturesClasses.MovingEnemy;
+        
         _contentLoaded = true;
     }
 
@@ -159,15 +179,15 @@ public class Game1 : Game, ITexturesClasses
                         BoardsList.MovingBoardList[i].Move();
 
                     //to move and replace tampeolines
-                    ITexturesClasses.Trampo.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Jetpack, BoardsList,
+                    Trampo.Update(Score, Spring, Jetpack, BoardsList,
                         Player, CollisionCheck, ThingsCollisionCheck);
 
                     //spring
-                    ITexturesClasses.Spring.Update(Score, ITexturesClasses.Trampo, ITexturesClasses.Jetpack, BoardsList,
+                    Spring.Update(Score, Trampo, Jetpack, BoardsList,
                         Player, CollisionCheck, ThingsCollisionCheck);
 
                     //jetpack
-                    ITexturesClasses.Jetpack.Update(Score, ITexturesClasses.Spring, ITexturesClasses.Trampo, BoardsList,
+                    Jetpack.Update(Score, Spring, Trampo, BoardsList,
                         Player, CollisionCheck, ThingsCollisionCheck);
 
                     //movingEnemy
@@ -176,9 +196,9 @@ public class Game1 : Game, ITexturesClasses
                         ref CollisionCheck);
 
                     //static enemy
-                    ITexturesClasses.StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
-                        Score, ThingsCollisionCheck, ITexturesClasses.Trampo, ITexturesClasses.Jetpack,
-                        ITexturesClasses.Spring);
+                    StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
+                        Score, ThingsCollisionCheck, Trampo, Jetpack,
+                        Spring);
 
                     //to move boards_list and background with player
                     GameRenderer.MoveWithPlayer();
@@ -487,6 +507,8 @@ public class Game1 : Game, ITexturesClasses
     protected override void Draw(GameTime gameTime)
     {
         _spriteBatch.Begin();
+        _allObjects = 0;
+        _visibleObjects = 0;
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         if (!_contentLoaded || elapsedTime <= 3.0)
@@ -501,33 +523,79 @@ public class Game1 : Game, ITexturesClasses
             if (CurrentGameState == GameStateEnum.GameRunning)
             {
                 foreach (var board in BoardsList.BoardList)
+                {
+                    _allObjects++;
                     if (board.Visible && board.DrawVisible)
+                    {
                         board.DrawSprite(_spriteBatch);
+                        _visibleObjects++;
+                    }
+                }
 
                 for (var i = 0; i < 4; i++)
                 {
+                    _allObjects++;
                     if (BoardsList.MovingBoardList[i].DrawVisible)
+                    {
+                        _visibleObjects++;
                         BoardsList.MovingBoardList[i].DrawSprite(_spriteBatch);
+                    }
+                    
+                    _allObjects++;
                     if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].DrawVisible)
+                    {
+                        _visibleObjects++;
                         BoardsList.FakeBoardList[i].DrawSprite(_spriteBatch);
+                    }
 
+                    _allObjects++;
                     if (BoardsList.GoneBoardList[i].Visible && BoardsList.GoneBoardList[i].DrawVisible)
+                    {
+                        _visibleObjects++;
                         BoardsList.GoneBoardList[i].DrawSprite(_spriteBatch);
+                    }
                 }
 
-                if (ITexturesClasses.Trampo.Visible) ITexturesClasses.Trampo.Draw(_spriteBatch);
+                _allObjects++;
+                if (Trampo.Visible && Trampo.DrawVisible)
+                {
+                    Trampo.Draw(_spriteBatch);
+                    _visibleObjects++;
+                }
 
-                if (ITexturesClasses.Spring.Visible) ITexturesClasses.Spring.Draw(_spriteBatch);
+                _allObjects++;
+                if (Spring.Visible && Spring.DrawVisible)
+                {
+                    Spring.Draw(_spriteBatch);
+                    _visibleObjects++;
+                }
 
-                if (ITexturesClasses.Jetpack.Visible) ITexturesClasses.Jetpack.Draw(_spriteBatch);
+                _allObjects++;
+                if (Jetpack.Visible && Jetpack.DrawVisible)
+                {
+                    Jetpack.Draw(_spriteBatch);
+                    _visibleObjects++;
+                }
 
-                ITexturesClasses.StaticEnemy.Draw(_spriteBatch);
-                if (ITexturesClasses.MovingEnemy.Visible) ITexturesClasses.MovingEnemy.Draw(_spriteBatch);
+                _allObjects++;
+                if(StaticEnemy.DrawVisible)
+                {
+                    StaticEnemy.Draw(_spriteBatch);
+                    _visibleObjects++;
+                }
+                
+                _allObjects++;
+                if (MovingEnemy.Visible)
+                {
+                    MovingEnemy.Draw(_spriteBatch);
+                    _visibleObjects++;
+                }
 
                 Background.ScoreDraw(_spriteBatch, CurrentGameState);
                 Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
                 Score.Draw(_spriteBatch, CurrentGameState);
             }
+            Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
 
             if (CurrentGameState == GameStateEnum.IntroMenu)
                 PlayerMenu.Draw(_spriteBatch, PlayerOrientation, GameStateEnum.IntroMenu, CollisionCheck);

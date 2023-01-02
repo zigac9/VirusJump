@@ -33,6 +33,8 @@ public class Trampo
     public int ScoreToMove { get; set; }
 
     public int ScoreMoveStep { get; set; }
+    
+    public bool DrawVisible { get; set; }
 
     public void Initialize()
     {
@@ -40,6 +42,7 @@ public class Trampo
         ScoreMoveStep = 700;
         TRand = -1;
         Visible = false;
+        DrawVisible = true;
         Check = false;
         _position = new Rectangle(-100, 730, 40, 18);
     }
