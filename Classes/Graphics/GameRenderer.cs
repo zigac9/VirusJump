@@ -66,14 +66,18 @@ public abstract class GameRenderer : Game1
             Spring.ScoreMoveStep = 3000;
             Trampo.ScoreMoveStep = 4000;
             Jetpack.ScoreMoveStep = 8000;
+            MovingEnemy.View = 1000;
+            MovingEnemy.Step = 1500;
         }
-        else if (Score.Score > 4000 && !Nivo[4])
+        else if (Score.Score > 6000 && !Nivo[4])
         {
             Nivo[4] = true;
             Brisi = true;
             Spring.ScoreMoveStep = 4000;
             Trampo.ScoreMoveStep = 6000;
             Jetpack.ScoreMoveStep = 12000;
+            MovingEnemy.View = 1500;
+            MovingEnemy.Step = 2000;
         }
 
         if (Brisi)

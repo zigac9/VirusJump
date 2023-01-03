@@ -41,9 +41,9 @@ public class MovingEnemy
 
     public int End { get; set; }
 
-    public int View { get; private set; }
+    public int View { get; set; }
 
-    public int Step { get; private set; }
+    public int Step { get; set; }
 
     private float Degree { get; set; }
 
@@ -55,10 +55,10 @@ public class MovingEnemy
         _drawFire = false;
         Degree = 0;
         //TODO popravi ko bo za konc
-        Start = 20000;
-        End = 3000;
-        View = 1000;
-        Step = 4000;
+        Start = 1000;
+        End = 1500;
+        View = 500;
+        Step = 1000;
         _position = new Rectangle(20, -200, 80, 60);
         _speed = new Vector2(3, 0);
         Visible = false;
