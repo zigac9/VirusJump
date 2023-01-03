@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VirusJump.Classes.Scene.Objects.Boards.BoardClass;
+using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump.Classes.Scene.Objects.Boards;
 
 public class BoardsList
 {
     private readonly BoardsCoords _boardsCoords;
-    private readonly ContentManager _content;
 
     private readonly Dictionary<string, Texture2D> _textures;
 
@@ -20,13 +20,13 @@ public class BoardsList
         Initialize();
     }
 
-    public Board[] BoardList { get; set; }
+    public Board[] BoardList { get; private set; }
 
-    public FakeBoard[] FakeBoardList { get; set; }
+    public FakeBoard[] FakeBoardList { get; private set; }
 
-    public GoneBoard[] GoneBoardList { get; set; }
+    public GoneBoard[] GoneBoardList { get; private set; }
 
-    public MovingBoard[] MovingBoardList { get; set; }
+    public MovingBoard[] MovingBoardList { get; private set; }
 
     public void Initialize()
     {
@@ -52,6 +52,40 @@ public class BoardsList
             if (num == 0) num = 1;
             MovingBoardList[i] =
                 new MovingBoard(_textures["assets/p2"], _boardsCoords.MovingBoardsCoordsArr[i], num);
+        }
+    }
+
+    public void Collision(bool thingsCollisionCheck, bool collisionCheck, bool gameOver, Player player, Sound sound)
+    {
+        if (thingsCollisionCheck)
+        {
+            foreach (var board in BoardList)
+                if (board.Visible && board.Collision(player) && !gameOver && collisionCheck)
+                {
+                    player.Speed = new Vector2(player.Speed.X, -13);
+                    sound.Board.Play();
+                }
+
+            for (var i = 0; i < MovingBoardList.Length; i++)
+            {
+                if (MovingBoardList[i].Collision(player) && !gameOver && collisionCheck)
+                {
+                    player.Speed = new Vector2(player.Speed.X, -13);
+                    sound.Board.Play();
+                }
+
+                if (FakeBoardList[i].Visible && FakeBoardList[i].Collision(player) &&
+                    !gameOver && collisionCheck)
+                    FakeBoardList[i].Visible = false;
+
+                if (GoneBoardList[i].Visible && GoneBoardList[i].Collision(player) &&
+                    !gameOver && collisionCheck)
+                {
+                    player.Speed = new Vector2(player.Speed.X, -13);
+                    sound.Board.Play();
+                    GoneBoardList[i].Visible = false;
+                }
+            }
         }
     }
 }

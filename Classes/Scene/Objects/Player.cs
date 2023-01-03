@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGame.Extended.Content;
-using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using static VirusJump.Game1;
@@ -23,11 +20,10 @@ public class Player
     private Rectangle _shootPosition;
     private Vector2 _speed;
 
-    public Player(Dictionary<string, Texture2D> textures, Dictionary<string, SpriteSheet> spriteSheets)
+    public Player(Dictionary<string, Texture2D> textures, IReadOnlyDictionary<string, SpriteSheet> spriteSheets)
     {
         _textures = textures;
-        var spriteSheet = spriteSheets["assets/fire.sf"];
-        GetAnimatedSprite = new AnimatedSprite(spriteSheet);
+        GetAnimatedSprite = new AnimatedSprite(spriteSheets["assets/fire.sf"]);
         Initialize();
     }
 
@@ -102,7 +98,7 @@ public class Player
                 case PlayerOrientEnum.Left:
                     if (IsJetpack)
                     {
-                        _active = _textures["assets/manjetpackL"];
+                        _active = _textures["assets/manjetpack"];
                         _firePosition = new Vector2(_firePosition.X + _position.Width - 10, _firePosition.Y);
                         GetAnimatedSprite.Draw(s, _firePosition, 0f, new Vector2(2, 2));
                     }
@@ -147,12 +143,33 @@ public class Player
         }
     }
 
+    public void Update()
+    {
+        if (PlayerPosition.X + 10 < 0)
+        {
+            PlayerPosition = new Rectangle(450, PlayerPosition.Y, PlayerPosition.Width,
+                PlayerPosition.Height);
+            ShootPosition = new Rectangle(PlayerPosition.X + PlayerPosition.Width / 2,
+                PlayerPosition.Y + PlayerPosition.Height / 2 + 15, ShootPosition.Width,
+                ShootPosition.Height);
+            FirePosition = new Vector2(PlayerPosition.X,
+                PlayerPosition.Y + PlayerPosition.Height);
+        }
+
+        if (PlayerPosition.X > 451)
+        {
+            PlayerPosition = new Rectangle(-10, PlayerPosition.Y, PlayerPosition.Width,
+                PlayerPosition.Height);
+            ShootPosition = new Rectangle(PlayerPosition.X + PlayerPosition.Width / 2,
+                PlayerPosition.Y + PlayerPosition.Height / 2 + 15, ShootPosition.Width,
+                ShootPosition.Height);
+            FirePosition = new Vector2(PlayerPosition.X,
+                PlayerPosition.Y + PlayerPosition.Height);
+        }
+    }
+
     public bool BulletCollision(Bullet bullet)
     {
-        if (bullet.Position.X > _position.X &&
-            bullet.Position.X + bullet.Position.Width < _position.X + _position.Width &&
-            bullet.Position.Y > _position.Y &&
-            bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height) return true;
-        return false;
+        return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
     }
 }

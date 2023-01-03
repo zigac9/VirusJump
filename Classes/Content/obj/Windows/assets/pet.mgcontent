@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/pet.png</SourceFile>
-  <SourceTime>2022-12-18T10:49:32.2448375+01:00</SourceTime>
+  <SourceTime>2022-12-21T20:00:32.182442+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/pet.xnb</DestFile>
-  <DestTime>2022-12-18T11:05:24.4040957+01:00</DestTime>
+  <DestTime>2022-12-25T17:11:47.6555987+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

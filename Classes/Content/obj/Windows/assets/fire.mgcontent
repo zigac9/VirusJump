@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/fire.png</SourceFile>
-  <SourceTime>2022-12-15T16:02:02.6706549+01:00</SourceTime>
+  <SourceTime>2022-12-21T20:00:32.1621532+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/assets/fire.xnb</DestFile>
-  <DestTime>2022-12-15T16:17:14.4439304+01:00</DestTime>
+  <DestTime>2022-12-25T17:11:45.2434186+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

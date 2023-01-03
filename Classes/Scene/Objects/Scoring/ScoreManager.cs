@@ -7,7 +7,7 @@ namespace VirusJump.Classes.Scene.Objects.Scoring;
 
 public class ScoreManager
 {
-    private static readonly string _fileName = "scores.xml";
+    private const string FileName = "scores.xml";
 
     private ScoreManager()
         : this(new List<Score>())
@@ -47,27 +47,25 @@ public class ScoreManager
 
     public int BestOfYou(string playername)
     {
-        var bestofyou = new List<Score>();
+        List<Score> bestofyou;
         bestofyou = Scores.Where(name => name.PlayerName == playername).OrderByDescending(c => c.Value).ToList();
-        return bestofyou[0].Value;
+        return bestofyou.Count > 0 ? bestofyou[0].Value : 0;
     }
 
     public static ScoreManager Load()
     {
         // If there isn't a file to load - create a new instance of "ScoreManager"
-        if (!File.Exists(_fileName))
+        if (!File.Exists(FileName))
             return new ScoreManager();
 
         // Otherwise we load the file
 
-        using (var reader = new StreamReader(new FileStream(_fileName, FileMode.Open)))
-        {
-            var serilizer = new XmlSerializer(typeof(List<Score>));
+        using var reader = new StreamReader(new FileStream(FileName, FileMode.Open));
+        var serilizer = new XmlSerializer(typeof(List<Score>));
 
-            var scores = (List<Score>)serilizer.Deserialize(reader);
+        var scores = (List<Score>)serilizer.Deserialize(reader);
 
-            return new ScoreManager(scores);
-        }
+        return new ScoreManager(scores);
     }
 
     private void UpdateHighscores()
@@ -99,11 +97,9 @@ public class ScoreManager
     public static void Save(ScoreManager scoreManager)
     {
         // Overrides the file if it alreadt exists
-        using (var writer = new StreamWriter(new FileStream(_fileName, FileMode.Create)))
-        {
-            var serilizer = new XmlSerializer(typeof(List<Score>));
+        using var writer = new StreamWriter(new FileStream(FileName, FileMode.Create));
+        var serilizer = new XmlSerializer(typeof(List<Score>));
 
-            serilizer.Serialize(writer, scoreManager.Scores);
-        }
+        serilizer.Serialize(writer, scoreManager.Scores);
     }
 }

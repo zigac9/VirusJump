@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VirusJump.Classes.Scene.Objects.Boards;
+using VirusJump.Classes.Scene.Objects.Scoring;
 
 namespace VirusJump.Classes.Scene.Objects.Jumpers;
 
@@ -30,6 +33,8 @@ public class Trampo
     public int ScoreToMove { get; set; }
 
     public int ScoreMoveStep { get; set; }
+    
+    public bool DrawVisible { get; set; }
 
     public void Initialize()
     {
@@ -37,6 +42,7 @@ public class Trampo
         ScoreMoveStep = 700;
         TRand = -1;
         Visible = false;
+        DrawVisible = true;
         Check = false;
         _position = new Rectangle(-100, 730, 40, 18);
     }
@@ -66,5 +72,49 @@ public class Trampo
         }
 
         return false;
+    }
+
+    public void Update(ScorClass score, Spring spring, Jetpack jetpack, BoardsList boardsList, Player player, bool collisionCheck, bool thingsCollisionCheck)
+    {
+        if (score.Score > ScoreToMove && !Visible)
+        {
+            ScoreToMove += ScoreMoveStep;
+            do
+            {
+                var rnd = new Random();
+                TRand = rnd.Next(0, boardsList.BoardList.Length - 1);
+            } while (boardsList.BoardList[TRand].Position.Y > 0 ||
+                     boardsList.BoardList[TRand].Visible == false ||
+                     (spring.SRand == TRand && spring.SRand != -1 && TRand != -1) ||
+                     (spring.SRand == jetpack.JRand && spring.SRand != -1 && jetpack.JRand != -1) ||
+                     (TRand == jetpack.JRand && TRand != -1 && jetpack.JRand != -1));
+
+            Visible = true;
+        }
+
+        if (TRand != -1)
+        {
+            TrampoPosition = new Rectangle(boardsList.BoardList[TRand].Position.X + 10,
+                boardsList.BoardList[TRand].Position.Y - 15, TrampoPosition.Width,
+                TrampoPosition.Height);
+            Visible = true;
+        }
+
+        if (Visible) Check = Collision(player, collisionCheck);
+
+        if (Check && thingsCollisionCheck)
+        {
+            player.Speed = new Vector2(player.Speed.X, -32);
+            TRand = -1;
+            Visible = false;
+            Check = false;
+        }
+
+        if (TrampoPosition.Y > 690)
+        {
+            TRand = -1;
+            Visible = false;
+            Check = false;
+        }
     }
 }

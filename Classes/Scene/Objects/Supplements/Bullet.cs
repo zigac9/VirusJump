@@ -20,6 +20,7 @@ public class Bullet
         _shootList = new List<Texture2D> { textures["assets/tir"], textures["assets/virus"] };
         _accelertion = 0.5f;
         _speed = new Vector2(0, 0);
+        Radius = 10;
         Initialize();
     }
 
@@ -36,9 +37,14 @@ public class Bullet
     }
 
     public bool IsCheck { get; set; }
+    
+    public int Radius { get; }
 
     public void Initialize()
     {
+        // int diameter = 20;
+        // int radius = diameter / 2;
+        // Rectangle circleRect = new Rectangle(200 - radius, 200 - radius, diameter, diameter);
         IsCheck = false;
         _position = new Rectangle(-50, -50, 20, 20);
     }
@@ -54,5 +60,11 @@ public class Bullet
         _speed.Y += _accelertion;
         _position.Y += (int)_speed.Y;
         _position.X += (int)_speed.X;
+    }
+
+    public bool BulletCollision(Bullet bullet)
+    {
+        var distance = Vector2.Distance(new Vector2(_position.X, _position.Y), new Vector2(bullet._position.X, bullet.Position.Y));
+        return distance <= Radius + bullet.Radius;
     }
 }

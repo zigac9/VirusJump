@@ -61,7 +61,6 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/DoodleR1", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/injection", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/manjetpack", LoadTextureEnum.Texture)),
-            Task.Run(() => LoadTexture("assets/manjetpackL", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/dead", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/fire.sf", LoadTextureEnum.SpriteSheet)),
 
@@ -148,7 +147,7 @@ internal interface ITexturesClasses
             Task.Run(() => Spring = new Spring(TexturesLoad)),
             Task.Run(() => Jetpack = new Jetpack(TexturesLoad)),
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
-            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad)),
+            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManager = ScoreManager.Load())
         };
