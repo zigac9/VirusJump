@@ -55,7 +55,7 @@ public class MovingEnemy
         _drawFire = false;
         Degree = 0;
         //TODO popravi ko bo za konc
-        Start = 2000;
+        Start = 20000;
         End = 3000;
         View = 1000;
         Step = 4000;
@@ -86,7 +86,7 @@ public class MovingEnemy
     public void Update(Bullet bullet, Bullet bulletEnemy, Sound sound, Player player,
         Game1.GameStateEnum currentGameState, ref bool collisionCheck)
     {
-        if (_life > 0 && BulletCloseCollision(bullet))
+        if (_life > 0 && BulletCloseCollision(bullet) && Visible)
         {
             bullet.IsCheck = false;
             GetAnimatedSprite.Play("fire");
@@ -97,7 +97,7 @@ public class MovingEnemy
         else
         {
             _drawFire = false;
-            if (BulletCollision(bullet))
+            if (BulletCollision(bullet) && Visible)
             {
                 Visible = false;
                 _life = 2;
@@ -141,11 +141,22 @@ public class MovingEnemy
         }
     }
 
+    // private bool BulletCollision(Bullet bullet)
+    // {
+    //     if (bullet.IsCheck)
+    //         return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
+    //     return false;
+    // }
+    
     private bool BulletCollision(Bullet bullet)
     {
-        if (bullet.IsCheck)
-            return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
-        return false;
+        var closest = new Vector2(
+            MathHelper.Clamp(bullet.Position.X, Position.Left, Position.Right),
+            MathHelper.Clamp(bullet.Position.Y, Position.Top, Position.Bottom)
+        );
+        var distance = Vector2.Distance(new Vector2(bullet.Position.X, bullet.Position.Y), closest);
+
+        return distance <= bullet.Radius;
     }
 
     private bool BulletCloseCollision(Bullet bullet)

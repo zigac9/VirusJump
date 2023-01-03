@@ -127,8 +127,19 @@ public class StaticEnemy
         }
     }
 
+    // private bool BulletCollision(Bullet bullet)
+    // {
+    //     return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
+    // }    
+    
     private bool BulletCollision(Bullet bullet)
     {
-        return bullet.Position.Intersects(_position) || _position.Intersects(bullet.Position);
+        var closest = new Vector2(
+            MathHelper.Clamp(bullet.Position.X, Position.Left, Position.Right),
+            MathHelper.Clamp(bullet.Position.Y, Position.Top, Position.Bottom)
+        );
+        var distance = Vector2.Distance(new Vector2(bullet.Position.X, bullet.Position.Y), closest);
+
+        return distance <= bullet.Radius;
     }
 }

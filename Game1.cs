@@ -203,8 +203,14 @@ public class Game1 : Game, ITexturesClasses
                     //to move boards_list and background with player
                     GameRenderer.MoveWithPlayer();
 
-                    if (Bullet.Position.Intersects(BulletEnemy.Position) ||
-                        BulletEnemy.Position.Intersects(Bullet.Position))
+                    // if (Bullet.Position.Intersects(BulletEnemy.Position) ||
+                    //     BulletEnemy.Position.Intersects(Bullet.Position))
+                    // {
+                    //     BulletEnemy.IsCheck = false;
+                    //     Bullet.IsCheck = false;
+                    // }
+                    
+                    if (Bullet.BulletCollision(BulletEnemy))
                     {
                         BulletEnemy.IsCheck = false;
                         Bullet.IsCheck = false;
@@ -229,7 +235,7 @@ public class Game1 : Game, ITexturesClasses
 
                     //to move left and right
                     _kTemp = _kTemp1;
-                    if (_k.IsKeyDown(Keys.Left))
+                    if (_k.IsKeyDown(Keys.Left) && !GameOver)
                     {
                         PlayerOrientation = PlayerOrientEnum.Left;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X - 7, Player.PlayerPosition.Y,
@@ -240,7 +246,7 @@ public class Game1 : Game, ITexturesClasses
                         Player.FirePosition = new Vector2(Player.PlayerPosition.X,
                             Player.PlayerPosition.Y + Player.PlayerPosition.Height);
                     }
-                    else if (_k.IsKeyDown(Keys.Right))
+                    else if (_k.IsKeyDown(Keys.Right) && !GameOver)
                     {
                         PlayerOrientation = PlayerOrientEnum.Right;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X + 7, Player.PlayerPosition.Y,
