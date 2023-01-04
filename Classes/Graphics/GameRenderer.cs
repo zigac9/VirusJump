@@ -84,6 +84,8 @@ public abstract class GameRenderer : Game1
             Jetpack.ScoreMoveStep = 8000;
             MovingEnemy.View = 1000;
             MovingEnemy.Step = 1500;
+            MovingEnemy.MaxLife = 3;
+            MovingEnemy.Life = 3;
         }
         else if (Score.Score > 6000 && !Nivo[4])
         {
@@ -94,6 +96,8 @@ public abstract class GameRenderer : Game1
             Jetpack.ScoreMoveStep = 12000;
             MovingEnemy.View = 1500;
             MovingEnemy.Step = 2000;
+            MovingEnemy.MaxLife = 4;
+            MovingEnemy.Life = 4;
         }
 
         if (Brisi)
@@ -163,9 +167,9 @@ public abstract class GameRenderer : Game1
 
             if (BoardsList.BoardList[i].Visible)
             {
-                if (BoardsList.BoardList[i].Position.Y < -28)
+                if (BoardsList.BoardList[i].Position.Y < -14)
                     BoardsList.BoardList[i].DrawVisible = false;
-                else if (BoardsList.BoardList[i].Position.Y > -28) BoardsList.BoardList[i].DrawVisible = true;
+                else if (BoardsList.BoardList[i].Position.Y > -14) BoardsList.BoardList[i].DrawVisible = true;
 
                 if (BoardsList.BoardList[i].Position.Y > 734)
                 {
@@ -302,17 +306,17 @@ public abstract class GameRenderer : Game1
     {
         for(int i = 0; i < 4; i++)
         {
-            if (BoardsList.FakeBoardList[i].Position.Y < -28)
+            if (BoardsList.FakeBoardList[i].Position.Y < -14)
                 BoardsList.FakeBoardList[i].DrawVisible = false;
             else if (BoardsList.FakeBoardList[i].Position.Y > -28) BoardsList.FakeBoardList[i].DrawVisible = true;
 
-            if (BoardsList.GoneBoardList[i].Position.Y < -28)
+            if (BoardsList.GoneBoardList[i].Position.Y < -14)
                 BoardsList.GoneBoardList[i].DrawVisible = false;
             else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
             
-            if (BoardsList.MovingBoardList[i].Position.Y < -28)
+            if (BoardsList.MovingBoardList[i].Position.Y < -14)
                 BoardsList.MovingBoardList[i].DrawVisible = false;
-            else if (BoardsList.MovingBoardList[i].Position.Y > -28) BoardsList.MovingBoardList[i].DrawVisible = true;
+            else if (BoardsList.MovingBoardList[i].Position.Y > -14) BoardsList.MovingBoardList[i].DrawVisible = true;
         }
         if (Trampo.TrampoPosition.Y < -28)
             Trampo.DrawVisible = false;

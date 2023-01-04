@@ -14,7 +14,6 @@ public class MovingEnemy
     private readonly List<Texture2D> _enemyList;
     private Vector2 _bullFirePosition;
     private bool _drawFire;
-    private int _life;
 
     private Rectangle _position;
     private Vector2 _speed;
@@ -49,6 +48,10 @@ public class MovingEnemy
     private float Degree { get; set; }
 
     public int TextureRand { get; set; }
+    
+    public int MaxLife { get; set; }
+    
+    public int Life { get; set; }
 
     public void Initialize()
     {
@@ -56,14 +59,15 @@ public class MovingEnemy
         _drawFire = false;
         Degree = 0;
         //TODO popravi ko bo za konc
-        Start = 1000;
+        Start = 200;
         End = 1500;
         View = 500;
         Step = 1000;
         _position = new Rectangle(20, -200, 80, 60);
         _speed = new Vector2(3, 0);
         Visible = false;
-        _life = 2;
+        MaxLife = 2;
+        Life = MaxLife;
     }
 
     public void Draw(SpriteBatch s)
@@ -87,13 +91,13 @@ public class MovingEnemy
     public void Update(Bullet bullet, Bullet bulletEnemy, Sound sound, Player player,
         GameRenderer.GameStateEnum currentGameState, ref bool collisionCheck)
     {
-        if (_life > 0 && BulletCloseCollision(bullet) && Visible)
+        if (Life > 0 && BulletCloseCollision(bullet) && Visible)
         {
             bullet.IsCheck = false;
             GetAnimatedSprite.Play("fire");
             _drawFire = true;
             _bullFirePosition = new Vector2(bullet.Position.X, bullet.Position.Y);
-            _life--;
+            Life--;
         }
         else
         {
@@ -101,7 +105,7 @@ public class MovingEnemy
             if (BulletCollision(bullet) && Visible)
             {
                 Visible = false;
-                _life = 2;
+                Life = MaxLife;
             }
 
             if (Math.Abs(Position.X - player.PlayerPosition.X) < 10 && Position.Y > 0 && Visible)
@@ -138,7 +142,7 @@ public class MovingEnemy
             sound.Dead.Play();
             bulletEnemy.IsCheck = false;
             collisionCheck = false;
-            _life = 2;
+            Life = MaxLife;
         }
     }
 
@@ -162,8 +166,8 @@ public class MovingEnemy
 
     private bool BulletCloseCollision(Bullet bullet)
     {
-        if (bullet.Position.X > _position.X - 15 &&
-            bullet.Position.X + bullet.Position.Width < _position.X + _position.Width + 15 &&
+        if (bullet.Position.X > _position.X - 30 &&
+            bullet.Position.X + bullet.Position.Width < _position.X + _position.Width + 30 &&
             bullet.Position.Y > _position.Y &&
             bullet.Position.Y + bullet.Position.Height < _position.Y + _position.Height + 50) return true;
         return false;

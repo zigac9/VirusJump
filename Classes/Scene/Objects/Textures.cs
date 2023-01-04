@@ -48,6 +48,95 @@ internal interface ITexturesClasses
     protected static Sound Sound { get; set; }
     protected static ScoreManager ScoreManager { get; set; }
 
+    protected static void GenerateTexturesClasses(ContentManager content)
+    {
+        //player
+            LoadTexture("assets/DoodleR1", LoadTextureEnum.Texture);
+            LoadTexture("assets/injection", LoadTextureEnum.Texture);
+            LoadTexture("assets/manjetpack", LoadTextureEnum.Texture);
+            LoadTexture("assets/dead", LoadTextureEnum.Texture);
+            LoadTexture("assets/fire.sf", LoadTextureEnum.SpriteSheet);
+
+            //background
+            LoadTexture("assets/gradient", LoadTextureEnum.Texture);
+            LoadTexture("assets/kooh", LoadTextureEnum.Texture);
+            LoadTexture("assets/mainMenu1", LoadTextureEnum.Texture);
+            LoadTexture("assets/option", LoadTextureEnum.Texture);
+            LoadTexture("assets/sOn", LoadTextureEnum.Texture);
+            LoadTexture("assets/sOff", LoadTextureEnum.Texture);
+            LoadTexture("assets/notif", LoadTextureEnum.Texture);
+            LoadTexture("assets/pause", LoadTextureEnum.Texture);
+            LoadTexture("assets/sides", LoadTextureEnum.Texture);
+            LoadTexture("assets/gameOver", LoadTextureEnum.Texture);
+            LoadTexture("assets/highscore", LoadTextureEnum.Texture);
+
+            //bullet
+            LoadTexture("assets/tir", LoadTextureEnum.Texture);
+            LoadTexture("assets/virus", LoadTextureEnum.Texture);
+
+            //trampo
+            LoadTexture("assets/toshak", LoadTextureEnum.Texture);
+
+            //Spring
+            LoadTexture("assets/fanar", LoadTextureEnum.Texture);
+            LoadTexture("assets/oFanar", LoadTextureEnum.Texture);
+
+            //jetpack
+            LoadTexture("assets/jet", LoadTextureEnum.Texture);
+
+            //staticEnemy
+            LoadTexture("assets/ena", LoadTextureEnum.Texture);
+            LoadTexture("assets/sedem", LoadTextureEnum.Texture);
+
+            //movingEnemy
+            LoadTexture("assets/tri", LoadTextureEnum.Texture);
+            LoadTexture("assets/stiri", LoadTextureEnum.Texture);
+            LoadTexture("assets/pet", LoadTextureEnum.Texture);
+
+            //board
+            LoadTexture("assets/p1", LoadTextureEnum.Texture);
+
+            //fakeboard
+            LoadTexture("assets/p3", LoadTextureEnum.Texture);
+
+            //goneboard
+            LoadTexture("assets/p4", LoadTextureEnum.Texture);
+
+            //movingboard
+            LoadTexture("assets/p2", LoadTextureEnum.Texture);
+
+            //pointer
+            LoadTexture("assets/shoot.sf", LoadTextureEnum.SpriteSheet);
+
+            //Sound
+            LoadTexture("assets/background", LoadTextureEnum.Song);
+            LoadTexture("assets/patmat", LoadTextureEnum.Song);
+            LoadTexture("assets/jump", LoadTextureEnum.SoundEffect);
+            LoadTexture("assets/shootPlayer", LoadTextureEnum.SoundEffect);
+            LoadTexture("assets/enemyShot", LoadTextureEnum.SoundEffect);
+            LoadTexture("assets/deadSound", LoadTextureEnum.SoundEffect);
+
+            //ScorClass
+            LoadTexture("assets/SpriteFont1", LoadTextureEnum.SpriteFonts);
+
+            Score = new ScorClass(SpriteFontsLoad);
+            Player = new Player(TexturesLoad, SpriteSheetsLoad);
+            PlayerMenu = new Player(TexturesLoad, SpriteSheetsLoad)
+                { PlayerPosition = new Rectangle(60, 520, 80, 80) };
+            BoardsList = new BoardsList(TexturesLoad);
+            Background = new Background(TexturesLoad);
+            Pointer = new Pointer(SpriteSheetsLoad);
+            Bullet = new Bullet(0, TexturesLoad);
+            BulletEnemy = new Bullet(1, TexturesLoad);
+            Trampo = new Trampo(TexturesLoad);
+            Spring = new Spring(TexturesLoad);
+            Jetpack = new Jetpack(TexturesLoad);
+            StaticEnemy = new StaticEnemy(TexturesLoad);
+            MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad);
+            Sound = new Sound(SoundEffectsLoad, SongsLoad);
+            ScoreManager = ScoreManager.Load();
+    }
+
 
     protected static async Task GenerateThreadsTextures(ContentManager content)
     {

@@ -71,6 +71,7 @@ public class Game1 : Game, ITexturesClasses
     private bool _loadingDraw;
     private Texture2D _loadingTexture;
     private double _elapsedTime;
+    private Stopwatch _stopwatch;
 
     private int _allObjects;
     private int _visibleObjects;
@@ -96,11 +97,13 @@ public class Game1 : Game, ITexturesClasses
         _loadingDraw = true;
         _allObjects = 0;
         _visibleObjects = 0;
+        _stopwatch = new Stopwatch();
         base.Initialize();
     }
 
     protected override async void LoadContent()
     {
+        _stopwatch.Start();
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _loadingTexture = Content.Load<Texture2D>("assets/Loading");
 
@@ -123,6 +126,7 @@ public class Game1 : Game, ITexturesClasses
         MovingEnemy = ITexturesClasses.MovingEnemy;
         
         _contentLoaded = true;
+        _stopwatch.Stop();
     }
 
     protected override void Update(GameTime gameTime)
@@ -501,6 +505,7 @@ public class Game1 : Game, ITexturesClasses
     protected override void Draw(GameTime gameTime)
     {
         _spriteBatch.Begin();
+        // Debug.WriteLine($"Izmerjen čas: {_stopwatch}");
         _allObjects = 0;
         _visibleObjects = 0;
         GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -589,7 +594,7 @@ public class Game1 : Game, ITexturesClasses
                 Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
                 Score.Draw(_spriteBatch, CurrentGameState);
             }
-            Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
+            // Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
 
             if (CurrentGameState == GameRenderer.GameStateEnum.IntroMenu)
                 PlayerMenu.Draw(_spriteBatch, PlayerOrientation, GameRenderer.GameStateEnum.IntroMenu, CollisionCheck);
