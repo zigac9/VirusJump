@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Sprites;
+using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump.Classes.Scene.Objects.Enemies;
@@ -84,7 +85,7 @@ public class MovingEnemy
     }
 
     public void Update(Bullet bullet, Bullet bulletEnemy, Sound sound, Player player,
-        Game1.GameStateEnum currentGameState, ref bool collisionCheck)
+        GameRenderer.GameStateEnum currentGameState, ref bool collisionCheck)
     {
         if (_life > 0 && BulletCloseCollision(bullet) && Visible)
         {
@@ -127,7 +128,7 @@ public class MovingEnemy
         if (bulletEnemy.Position.Y > 740 || bulletEnemy.Position.X is < -20 or > 500 ||
             bulletEnemy.Position.Y < -20)
             bulletEnemy.IsCheck = false;
-        if (bulletEnemy.IsCheck && currentGameState == Game1.GameStateEnum.GameRunning)
+        if (bulletEnemy.IsCheck && currentGameState == GameRenderer.GameStateEnum.GameRunning)
             bulletEnemy.Move();
 
         if (bulletEnemy.IsCheck && player.BulletCollision(bulletEnemy))

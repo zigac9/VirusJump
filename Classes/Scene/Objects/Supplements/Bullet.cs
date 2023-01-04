@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VirusJump.Classes.Graphics;
 using static VirusJump.Game1;
 
 namespace VirusJump.Classes.Scene.Objects.Supplements;
@@ -49,9 +50,9 @@ public class Bullet
         _position = new Rectangle(-50, -50, 20, 20);
     }
 
-    public void Draw(SpriteBatch s, GameStateEnum gameState)
+    public void Draw(SpriteBatch s, GameRenderer.GameStateEnum gameState)
     {
-        if (gameState == GameStateEnum.GameRunning)
+        if (gameState == GameRenderer.GameStateEnum.GameRunning)
             s.Draw(_shootList[_textureRnd], _position, Color.White);
     }
 

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended.Sprites;
+using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Supplements;
 using static VirusJump.Game1;
 
@@ -89,13 +90,13 @@ public class Player
         _firePosition.Y = _position.Y + _position.Height;
     }
 
-    public void Draw(SpriteBatch s, PlayerOrientEnum name, GameStateEnum game, bool collisionCheck)
+    public void Draw(SpriteBatch s, GameRenderer.PlayerOrientEnum name, GameRenderer.GameStateEnum game, bool collisionCheck)
     {
-        if (game == GameStateEnum.GameRunning)
+        if (game == GameRenderer.GameStateEnum.GameRunning)
         {
             switch (name)
             {
-                case PlayerOrientEnum.Left:
+                case GameRenderer.PlayerOrientEnum.Left:
                     if (IsJetpack)
                     {
                         _active = _textures["assets/manjetpack"];
@@ -113,7 +114,7 @@ public class Player
 
                     s.Draw(_active, _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0f);
                     break;
-                case PlayerOrientEnum.Right:
+                case GameRenderer.PlayerOrientEnum.Right:
                     if (IsJetpack)
                     {
                         _active = _textures["assets/manjetpack"];
@@ -136,7 +137,7 @@ public class Player
             s.Draw(_textures["assets/injection"], _shootPosition, null, Color.White, ShootDegree, new Vector2(50, 0),
                 SpriteEffects.None, 1f);
         }
-        else if (game == GameStateEnum.IntroMenu)
+        else if (game == GameRenderer.GameStateEnum.IntroMenu)
         {
             s.Draw(_textures["assets/DoodleR1"], _position, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None,
                 0f);

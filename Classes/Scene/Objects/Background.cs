@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects.Scoring;
 using static VirusJump.Game1;
 
@@ -81,17 +82,17 @@ public class Background
         GameStateCheck = true;
     }
 
-    public void Draw(SpriteBatch s, GameStateEnum gameState, ScorClass score)
+    public void Draw(SpriteBatch s, GameRenderer.GameStateEnum gameState, ScorClass score)
     {
         s.Draw(_textures["assets/gradient"], _bPosize, Color.White);
         s.Draw(_textures["assets/kooh"], _kPosize, Color.White);
         s.Draw(_textures["assets/sides"], _sPosise1, Color.White);
         s.Draw(_textures["assets/sides"], _sPosise2, Color.White);
-        if (gameState == GameStateEnum.IntroMenu)
+        if (gameState == GameRenderer.GameStateEnum.IntroMenu)
             s.Draw(_textures["assets/mainMenu1"], _introMenuposize, Color.White);
-        if (gameState == GameStateEnum.Pause)
+        if (gameState == GameRenderer.GameStateEnum.Pause)
             s.Draw(_textures["assets/pause"], _pauseposize, Color.White);
-        if (gameState == GameStateEnum.Option)
+        if (gameState == GameRenderer.GameStateEnum.Option)
         {
             s.Draw(_textures["assets/option"], _optionposize, Color.White);
             if (SoundCheck)
@@ -100,14 +101,14 @@ public class Background
                 s.Draw(_textures["assets/sOff"], _sOffposize, Color.White);
         }
 
-        if (gameState == GameStateEnum.GameOver)
+        if (gameState == GameRenderer.GameStateEnum.GameOver)
         {
             s.Draw(_textures["assets/gameOver"], _gameOverposize, Color.White);
             s.DrawString(score.SFont, score.Score.ToString(), new Vector2(325f, 228f), Color.Black);
             s.DrawString(score.SFont, Bests.ToString(), new Vector2(325f, 290f), Color.Black);
         }
 
-        if (gameState == GameStateEnum.HScore)
+        if (gameState == GameRenderer.GameStateEnum.HScore)
         {
             s.Draw(_textures["assets/highscore"], _hScoreposize, Color.White);
             s.DrawString(score.SFont, HScore1.ToString(), new Vector2(150f, 295f), Color.Black);
@@ -118,7 +119,7 @@ public class Background
         }
     }
 
-    public void ScoreDraw(SpriteBatch s, GameStateEnum gameState)
+    public void ScoreDraw(SpriteBatch s, GameRenderer.GameStateEnum gameState)
     {
         s.Draw(_textures["assets/notif"], _notifposize, Color.White);
     }

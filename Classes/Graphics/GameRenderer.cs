@@ -7,6 +7,22 @@ namespace VirusJump.Classes.Graphics;
 
 public abstract class GameRenderer : Game1
 {
+    
+    public enum GameStateEnum
+    {
+        IntroMenu = 0,
+        GameRunning,
+        Pause,
+        Option,
+        GameOver,
+        HScore
+    }
+
+    public enum PlayerOrientEnum
+    {
+        Left = 1,
+        Right
+    } //kako bo obrnjena slika
     //playagain in reposition gre v renderer
     public static void PlayAgain()
     {
