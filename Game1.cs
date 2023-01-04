@@ -53,28 +53,28 @@ public class Game1 : Game, ITexturesClasses
 
     public static bool ThingsCollisionCheck;
 
+    private int _allObjects;
+
     private bool _contentLoaded;
+    private double _elapsedTime;
 
     //tipkovnica in miska
     private KeyboardState _k;
     private KeyboardState _kTemp;
     private KeyboardState _kTemp1;
+
+    private AnimatedSprite _loading;
+    private bool _loadingDraw;
+    private Texture2D _loadingTexture;
     private MouseState _mouseState;
     private MouseState _mTemp;
     private MouseState _mTemp1;
 
     private string _playerName;
     private SpriteBatch _spriteBatch;
-    public GameRenderer.GameStateEnum GameState;
-    
-    private AnimatedSprite _loading;
-    private bool _loadingDraw;
-    private Texture2D _loadingTexture;
-    private double _elapsedTime;
     private Stopwatch _stopwatch;
-
-    private int _allObjects;
     private int _visibleObjects;
+    public GameRenderer.GameStateEnum GameState;
 
     public Game1()
     {
@@ -108,6 +108,7 @@ public class Game1 : Game, ITexturesClasses
         _loadingTexture = Content.Load<Texture2D>("assets/Loading");
 
         await ITexturesClasses.GenerateThreadsTextures(Content);
+        // ITexturesClasses.GenerateTexturesClassesNoThreads(Content);
 
         Sound = ITexturesClasses.Sound;
         Score = ITexturesClasses.Score;
@@ -124,7 +125,7 @@ public class Game1 : Game, ITexturesClasses
         Jetpack = ITexturesClasses.Jetpack;
         StaticEnemy = ITexturesClasses.StaticEnemy;
         MovingEnemy = ITexturesClasses.MovingEnemy;
-        
+
         _contentLoaded = true;
         _stopwatch.Stop();
     }
@@ -199,13 +200,13 @@ public class Game1 : Game, ITexturesClasses
                     //     BulletEnemy.IsCheck = false;
                     //     Bullet.IsCheck = false;
                     // }
-                    
+
                     if (Bullet.BulletCollision(BulletEnemy))
                     {
                         BulletEnemy.IsCheck = false;
                         Bullet.IsCheck = false;
                     }
-                    
+
                     //check side of background
                     Background.SideCheck();
 
@@ -414,15 +415,15 @@ public class Game1 : Game, ITexturesClasses
                                 Thread.Sleep(100);
                             }
                     }
+
                     if (MouseExtended.Current.WasDoubleClick(MouseButton.Left))
-                    {
                         if (_mouseState.X is > 292 and < 410)
-                            if (_mouseState.Y is > 528 and < 582 && CurrentGameState == GameRenderer.GameStateEnum.IntroMenu)
+                            if (_mouseState.Y is > 528 and < 582 &&
+                                CurrentGameState == GameRenderer.GameStateEnum.IntroMenu)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                    Exit();
+                                Exit();
                             }
-                    }
 
                     PlayerMenu.Move();
                     if (PlayerMenu.PlayerPosition.Y > 550)
@@ -488,6 +489,7 @@ public class Game1 : Game, ITexturesClasses
 
                     break;
             }
+
             ITexturesClasses.MovingEnemy.GetAnimatedSprite.Update(gameTime);
             Player.GetAnimatedSprite.Update(gameTime);
             Pointer.GetAnimatedSprite.Update(gameTime);
@@ -505,14 +507,14 @@ public class Game1 : Game, ITexturesClasses
     protected override void Draw(GameTime gameTime)
     {
         _spriteBatch.Begin();
-        // Debug.WriteLine($"Izmerjen čas: {_stopwatch}");
+        Debug.WriteLine($"Izmerjen čas: {_stopwatch.Elapsed}");
         _allObjects = 0;
         _visibleObjects = 0;
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         if (!_contentLoaded || _elapsedTime <= 3.0)
         {
-            _spriteBatch.Draw(_loadingTexture, new Vector2(0,0), null, Color.White);
+            _spriteBatch.Draw(_loadingTexture, new Vector2(0, 0), null, Color.White);
             _loading.Draw(_spriteBatch, new Vector2(230, 500), 0f, new Vector2(1, 1));
         }
         else
@@ -539,7 +541,7 @@ public class Game1 : Game, ITexturesClasses
                         _visibleObjects++;
                         BoardsList.MovingBoardList[i].DrawSprite(_spriteBatch);
                     }
-                    
+
                     _allObjects++;
                     if (BoardsList.FakeBoardList[i].Visible && BoardsList.FakeBoardList[i].DrawVisible)
                     {
@@ -577,12 +579,12 @@ public class Game1 : Game, ITexturesClasses
                 }
 
                 _allObjects++;
-                if(StaticEnemy.DrawVisible)
+                if (StaticEnemy.DrawVisible)
                 {
                     StaticEnemy.Draw(_spriteBatch);
                     _visibleObjects++;
                 }
-                
+
                 _allObjects++;
                 if (MovingEnemy.Visible)
                 {
@@ -605,6 +607,7 @@ public class Game1 : Game, ITexturesClasses
 
             Pointer.Draw(_spriteBatch);
         }
+
         _spriteBatch.End();
         base.Draw(gameTime);
     }
