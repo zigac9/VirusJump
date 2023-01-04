@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/looping.png</SourceFile>
-  <SourceTime>2022-12-25T17:11:02.919828+01:00</SourceTime>
+  <SourceTime>2023-01-03T13:19:41.8870829+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/looping.xnb</DestFile>
-  <DestTime>2022-12-25T17:19:51.1247101+01:00</DestTime>
+  <DestTime>2023-01-04T19:49:38.399391+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

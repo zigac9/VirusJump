@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
+using PTC.Input;
 using VirusJump.Classes.Graphics;
 using VirusJump.Classes.Scene.Objects;
 using VirusJump.Classes.Scene.Objects.Boards;
@@ -143,6 +144,7 @@ public class Game1 : Game, ITexturesClasses
     protected override void Update(GameTime gameTime)
     {
         elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
+        MouseExtended.Current.GetState(gameTime);
         if (_contentLoaded)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
@@ -408,13 +410,6 @@ public class Game1 : Game, ITexturesClasses
                                 Thread.Sleep(100);
                             }
 
-                        if (_mouseState.X is > 292 and < 410)
-                            if (_mouseState.Y is > 528 and < 582 && CurrentGameState == GameStateEnum.IntroMenu)
-                            {
-                                Pointer.GetAnimatedSprite.Play("shoot");
-                                Exit();
-                            }
-
                         if (_mouseState.X is > 217 and < 335)
                             if (_mouseState.Y is > 454 and < 508)
                             {
@@ -429,6 +424,15 @@ public class Game1 : Game, ITexturesClasses
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 CurrentGameState = GameStateEnum.HScore;
                                 Thread.Sleep(100);
+                            }
+                    }
+                    if (MouseExtended.Current.WasDoubleClick(MouseButton.Left))
+                    {
+                        if (_mouseState.X is > 292 and < 410)
+                            if (_mouseState.Y is > 528 and < 582 && CurrentGameState == GameStateEnum.IntroMenu)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                    Exit();
                             }
                     }
 

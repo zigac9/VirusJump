@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/assets/gradient.png</SourceFile>
-  <SourceTime>2023-01-02T18:45:44.4706281+01:00</SourceTime>
+  <SourceTime>2023-01-03T13:19:41.8870829+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Classes/Content/bin/Windows/Content/assets/gradient.xnb</DestFile>
-  <DestTime>2023-01-02T20:10:39.6042362+01:00</DestTime>
+  <DestTime>2023-01-04T19:49:37.8916436+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>
