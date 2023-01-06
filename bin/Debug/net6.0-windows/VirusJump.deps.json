@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "VirusJump/1.0.0": {
         "dependencies": {
+          "JumperLibrary": "1.0.0",
           "MonoGame.Content.Builder.Task": "3.8.1.303",
           "MonoGame.Extended": "3.8.0",
           "MonoGame.Extended.Animations": "3.7.0",
@@ -1555,6 +1556,18 @@
             "fileVersion": "1.3.12.0"
           }
         }
+      },
+      "JumperLibrary/1.0.0": {
+        "dependencies": {
+          "MonoGame.Content.Builder.Task": "3.8.1.303",
+          "MonoGame.Extended": "3.8.0",
+          "MonoGame.Extended.Animations": "3.7.0",
+          "MonoGame.Extended.Content.Pipeline": "3.8.0",
+          "MonoGame.Framework.WindowsDX": "3.8.1.303"
+        },
+        "runtime": {
+          "JumperLibrary.dll": {}
+        }
       }
     }
   },
@@ -2466,6 +2479,11 @@
       "sha512": "sha512-U3QrhVqPY6APBgHzaaSPfsP0+xQiaMDaCNtiqdRotlANOGgHlKE9po27gzPyH2jZnOSNug4+uF2S5cHZVKzEOA==",
       "path": "textbox/1.3.12",
       "hashPath": "textbox.1.3.12.nupkg.sha512"
+    },
+    "JumperLibrary/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

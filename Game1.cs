@@ -10,21 +10,16 @@ using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
-using PTC.Input;
+
+using JumperLibrary;
 using VirusJump.Classes.Graphics;
-using VirusJump.Classes.Scene.Objects;
-using VirusJump.Classes.Scene.Objects.Boards;
-using VirusJump.Classes.Scene.Objects.Enemies;
-using VirusJump.Classes.Scene.Objects.Jumpers;
-using VirusJump.Classes.Scene.Objects.Scoring;
-using VirusJump.Classes.Scene.Objects.Supplements;
 
 namespace VirusJump;
 
 public class Game1 : Game, ITexturesClasses
 {
-    public static GameRenderer.GameStateEnum CurrentGameState;
-    public static GameRenderer.PlayerOrientEnum PlayerOrientation;
+    public static ClassEnums.GameStateEnum CurrentGameState;
+    public static ClassEnums.PlayerOrientEnum PlayerOrientation;
 
     public static ScorClass Score;
     public static Player Player;
@@ -74,7 +69,7 @@ public class Game1 : Game, ITexturesClasses
     private SpriteBatch _spriteBatch;
     private Stopwatch _stopwatch;
     private int _visibleObjects;
-    public GameRenderer.GameStateEnum GameState;
+    public ClassEnums.GameStateEnum GameState;
 
     public Game1()
     {
@@ -87,7 +82,7 @@ public class Game1 : Game, ITexturesClasses
 
     protected override void Initialize()
     {
-        PlayerOrientation = GameRenderer.PlayerOrientEnum.Right;
+        PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
         CollisionCheck = true;
         ThingsCollisionCheck = true;
         GameOver = false;
@@ -145,7 +140,7 @@ public class Game1 : Game, ITexturesClasses
 
             switch (CurrentGameState)
             {
-                case GameRenderer.GameStateEnum.GameRunning:
+                case ClassEnums.GameStateEnum.GameRunning:
                 {
                     if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) GameOver = true;
 
@@ -220,7 +215,7 @@ public class Game1 : Game, ITexturesClasses
                     _kTemp1 = Keyboard.GetState();
                     if (_kTemp1.IsKeyDown(Keys.Escape) && !_kTemp.IsKeyDown(Keys.Escape))
                     {
-                        CurrentGameState = GameRenderer.GameStateEnum.Pause;
+                        CurrentGameState = ClassEnums.GameStateEnum.Pause;
                         break;
                     }
 
@@ -228,7 +223,7 @@ public class Game1 : Game, ITexturesClasses
                     _kTemp = _kTemp1;
                     if (_k.IsKeyDown(Keys.Left) && !GameOver)
                     {
-                        PlayerOrientation = GameRenderer.PlayerOrientEnum.Left;
+                        PlayerOrientation = ClassEnums.PlayerOrientEnum.Left;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X - 7, Player.PlayerPosition.Y,
                             Player.PlayerPosition.Width, Player.PlayerPosition.Height);
                         Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2,
@@ -239,7 +234,7 @@ public class Game1 : Game, ITexturesClasses
                     }
                     else if (_k.IsKeyDown(Keys.Right) && !GameOver)
                     {
-                        PlayerOrientation = GameRenderer.PlayerOrientEnum.Right;
+                        PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X + 7, Player.PlayerPosition.Y,
                             Player.PlayerPosition.Width, Player.PlayerPosition.Height);
                         Player.ShootPosition = new Rectangle(Player.PlayerPosition.X + Player.PlayerPosition.Width / 2,
@@ -252,12 +247,12 @@ public class Game1 : Game, ITexturesClasses
                     //check mouse state for shoot and pause menu 
                     _mouseState = Mouse.GetState();
                     if (_mouseState.LeftButton == ButtonState.Pressed && _mTemp.LeftButton != ButtonState.Pressed &&
-                        CurrentGameState == GameRenderer.GameStateEnum.GameRunning)
+                        CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
                     {
                         if (_mouseState.X is > 420 and < 470 && _mouseState.Y is > 5 and < 40)
                         {
                             Pointer.GetAnimatedSprite.Play("shoot");
-                            CurrentGameState = GameRenderer.GameStateEnum.Pause;
+                            CurrentGameState = ClassEnums.GameStateEnum.Pause;
                             MediaPlayer.Pause();
                         }
                         //to shoot tir
@@ -286,7 +281,7 @@ public class Game1 : Game, ITexturesClasses
 
                     if (Bullet.Position.Y > 740 || Bullet.Position.X is < -20 or > 500 || Bullet.Position.Y < -20)
                         Bullet.IsCheck = false;
-                    if (Bullet.IsCheck && CurrentGameState == GameRenderer.GameStateEnum.GameRunning)
+                    if (Bullet.IsCheck && CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
                         Bullet.Move();
 
                     var mouseControl = Mouse.GetState();
@@ -307,19 +302,19 @@ public class Game1 : Game, ITexturesClasses
                     //to end and gameovering game
                     if (Player.PlayerPosition.Y > 720)
                     {
-                        CurrentGameState = GameRenderer.GameStateEnum.GameOver;
+                        CurrentGameState = ClassEnums.GameStateEnum.GameOver;
                         if (CollisionCheck) Sound.Dead.Play();
                     }
                 }
                     break;
-                case GameRenderer.GameStateEnum.Pause:
+                case ClassEnums.GameStateEnum.Pause:
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (_mouseState.X is > 131 and < 251)
                             if (_mouseState.Y is > 372 and < 428)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.GameRunning;
+                                CurrentGameState = ClassEnums.GameStateEnum.GameRunning;
                                 MediaPlayer.Resume();
                                 Thread.Sleep(100);
                             }
@@ -328,8 +323,8 @@ public class Game1 : Game, ITexturesClasses
                             if (_mouseState.Y is > 454 and < 510)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.IntroMenu;
-                                PlayerOrientation = GameRenderer.PlayerOrientEnum.Right;
+                                CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
+                                PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }
 
@@ -337,19 +332,19 @@ public class Game1 : Game, ITexturesClasses
                             if (_mouseState.Y is > 282 and < 338)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.Option;
-                                PlayerOrientation = GameRenderer.PlayerOrientEnum.Right;
+                                CurrentGameState = ClassEnums.GameStateEnum.Option;
+                                PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }
                     }
 
                     _kTemp = Keyboard.GetState();
                     if (_kTemp.IsKeyDown(Keys.Escape) && !_kTemp1.IsKeyDown(Keys.Escape))
-                        CurrentGameState = GameRenderer.GameStateEnum.GameRunning;
+                        CurrentGameState = ClassEnums.GameStateEnum.GameRunning;
                     _kTemp1 = _kTemp;
                     Background.GameStateCheck = false;
                     break;
-                case GameRenderer.GameStateEnum.Option:
+                case ClassEnums.GameStateEnum.Option:
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
                         if (_mouseState.X is > 297 and < 415)
@@ -357,13 +352,13 @@ public class Game1 : Game, ITexturesClasses
                                 if (Background.GameStateCheck)
                                 {
                                     Pointer.GetAnimatedSprite.Play("shoot");
-                                    CurrentGameState = GameRenderer.GameStateEnum.IntroMenu;
+                                    CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
                                     Thread.Sleep(100);
                                 }
                                 else
                                 {
                                     Pointer.GetAnimatedSprite.Play("shoot");
-                                    CurrentGameState = GameRenderer.GameStateEnum.Pause;
+                                    CurrentGameState = ClassEnums.GameStateEnum.Pause;
                                     Thread.Sleep(100);
                                 }
 
@@ -383,7 +378,7 @@ public class Game1 : Game, ITexturesClasses
                     }
 
                     break;
-                case GameRenderer.GameStateEnum.IntroMenu:
+                case ClassEnums.GameStateEnum.IntroMenu:
                     _mouseState = Mouse.GetState();
                     if (_mouseState.LeftButton == ButtonState.Pressed && _mTemp1.LeftButton != ButtonState.Pressed)
                     {
@@ -393,7 +388,7 @@ public class Game1 : Game, ITexturesClasses
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 _mouseState = _mTemp;
-                                CurrentGameState = GameRenderer.GameStateEnum.GameRunning;
+                                CurrentGameState = ClassEnums.GameStateEnum.GameRunning;
                                 MediaPlayer.Resume();
                                 GameRenderer.PlayAgain();
                                 Thread.Sleep(100);
@@ -403,7 +398,7 @@ public class Game1 : Game, ITexturesClasses
                             if (_mouseState.Y is > 454 and < 508)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.Option;
+                                CurrentGameState = ClassEnums.GameStateEnum.Option;
                                 Thread.Sleep(100);
                             }
 
@@ -411,7 +406,7 @@ public class Game1 : Game, ITexturesClasses
                             if (_mouseState.Y is > 373 and < 427)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.HScore;
+                                CurrentGameState = ClassEnums.GameStateEnum.HScore;
                                 Thread.Sleep(100);
                             }
                     }
@@ -419,7 +414,7 @@ public class Game1 : Game, ITexturesClasses
                     if (MouseExtended.Current.WasDoubleClick(MouseButton.Left))
                         if (_mouseState.X is > 292 and < 410)
                             if (_mouseState.Y is > 528 and < 582 &&
-                                CurrentGameState == GameRenderer.GameStateEnum.IntroMenu)
+                                CurrentGameState == ClassEnums.GameStateEnum.IntroMenu)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 Exit();
@@ -433,19 +428,19 @@ public class Game1 : Game, ITexturesClasses
                     Background.UpdateScores(ScoreManager, _playerName);
 
                     break;
-                case GameRenderer.GameStateEnum.HScore:
+                case ClassEnums.GameStateEnum.HScore:
                     _mouseState = Mouse.GetState();
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                         if (_mouseState.X is > 296 and < 415)
                             if (_mouseState.Y is > 529 and < 584)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.IntroMenu;
+                                CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
                                 Thread.Sleep(100);
                             }
 
                     break;
-                case GameRenderer.GameStateEnum.GameOver:
+                case ClassEnums.GameStateEnum.GameOver:
                     if (!Sound.PlayCheck)
                     {
                         MediaPlayer.Play(Sound.End);
@@ -478,9 +473,9 @@ public class Game1 : Game, ITexturesClasses
                             if (_mouseState.Y is > 504 and < 559)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = GameRenderer.GameStateEnum.IntroMenu;
+                                CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
                                 MediaPlayer.Stop();
-                                PlayerOrientation = GameRenderer.PlayerOrientEnum.Right;
+                                PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
                                 Thread.Sleep(100);
                             }
 
@@ -521,7 +516,7 @@ public class Game1 : Game, ITexturesClasses
         {
             Background.Draw(_spriteBatch, CurrentGameState, Score);
 
-            if (CurrentGameState == GameRenderer.GameStateEnum.GameRunning)
+            if (CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
             {
                 foreach (var board in BoardsList.BoardList)
                 {
@@ -598,8 +593,8 @@ public class Game1 : Game, ITexturesClasses
             }
             // Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
 
-            if (CurrentGameState == GameRenderer.GameStateEnum.IntroMenu)
-                PlayerMenu.Draw(_spriteBatch, PlayerOrientation, GameRenderer.GameStateEnum.IntroMenu, CollisionCheck);
+            if (CurrentGameState == ClassEnums.GameStateEnum.IntroMenu)
+                PlayerMenu.Draw(_spriteBatch, PlayerOrientation, ClassEnums.GameStateEnum.IntroMenu, CollisionCheck);
 
             if (Bullet.IsCheck) Bullet.Draw(_spriteBatch, CurrentGameState);
 
