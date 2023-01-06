@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
 using JumperLibrary;
+using VirusJump.Graphics;
 
-namespace VirusJump.Classes.Graphics;
+namespace VirusJump.Graphics;
 
 public abstract class GameRenderer : Game1
 {

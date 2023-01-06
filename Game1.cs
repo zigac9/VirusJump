@@ -12,7 +12,7 @@ using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 
 using JumperLibrary;
-using VirusJump.Classes.Graphics;
+using VirusJump.Graphics;
 
 namespace VirusJump;
 
