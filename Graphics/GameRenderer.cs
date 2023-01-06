@@ -30,7 +30,7 @@ public abstract class GameRenderer : Game1
         StaticEnemy.Initialize();
 
         //delete boards
-        Nivo = new List<bool> { false, false, false, false, false };
+        Nivo = new List<bool> { false, false, false, false, false, false };
         Brisi = false;
     }
 
@@ -84,6 +84,11 @@ public abstract class GameRenderer : Game1
             MovingEnemy.Step = 2000;
             MovingEnemy.MaxLife = 4;
             MovingEnemy.Life = 4;
+        }
+        else if (Score.Score > 10000 && !Nivo[5])
+        {
+            Nivo[5] = true;
+            MovingEnemy.NotDie = true;
         }
 
         if (Brisi)
@@ -170,7 +175,8 @@ public abstract class GameRenderer : Game1
         //move movable enemy
         if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
         {
-            MovingEnemy.TextureRand = rnd.Next(0, 3);
+            if (MovingEnemy.NotDie) MovingEnemy.TextureRand = rnd.Next(0, 2);
+            else MovingEnemy.TextureRand = rnd.Next(0, 3);
             MovingEnemy.Position = new Rectangle(MovingEnemy.Position.X, 50,
                 MovingEnemy.Position.Width,
                 MovingEnemy.Position.Height);

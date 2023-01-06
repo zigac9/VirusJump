@@ -87,7 +87,7 @@ public class Game1 : Game, ITexturesClasses
         ThingsCollisionCheck = true;
         GameOver = false;
         _playerName = RandomString(10);
-        Nivo = new List<bool> { false, false, false, false, false };
+        Nivo = new List<bool> { false, false, false, false, false, false };
         _loading = new AnimatedSprite(Content.Load<SpriteSheet>("assets/looping.sf", new JsonContentLoader()));
         _loadingDraw = true;
         _allObjects = 0;
@@ -260,9 +260,10 @@ public class Game1 : Game, ITexturesClasses
                         {
                             if (!Bullet.IsCheck)
                             {
+                                var del = _mouseState.X - Player.PlayerPosition.X - 30;
+                                if (del == 0) del = 1;
                                 // ReSharper disable once PossibleLossOfFraction
-                                Player.Degree = (float)Math.Atan(-(_mouseState.Y - Player.PlayerPosition.Y - 27) /
-                                                                 (_mouseState.X - Player.PlayerPosition.X - 30));
+                                Player.Degree = (float)Math.Atan(-(_mouseState.Y - Player.PlayerPosition.Y - 27) / del);
                                 Bullet.Position = new Rectangle(Player.PlayerPosition.X + 30,
                                     Player.PlayerPosition.Y + 27, Bullet.Position.Width, Bullet.Position.Height);
                                 Pointer.GetAnimatedSprite.Play("shoot");

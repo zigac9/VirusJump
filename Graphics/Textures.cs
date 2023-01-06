@@ -72,6 +72,8 @@ internal interface ITexturesClasses
         LoadTextureNoThreads("assets/ena", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/sedem", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/tri", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/dva", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/sest", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/stiri", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/pet", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/p1", LoadTextureEnum.Texture);
@@ -155,6 +157,8 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/tri", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/stiri", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/pet", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/dva", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/sest", LoadTextureEnum.Texture)),
 
             //board
             Task.Run(() => LoadTexture("assets/p1", LoadTextureEnum.Texture)),
