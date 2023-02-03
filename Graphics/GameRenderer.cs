@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 
 using JumperLibrary;
@@ -173,6 +174,8 @@ public abstract class GameRenderer : Game1
         }
 
         //move movable enemy
+        // Debug.WriteLine("Start" + MovingEnemy.Start);
+        // Debug.WriteLine("END" + MovingEnemy.End);
         if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
         {
             if (MovingEnemy.NotDie) MovingEnemy.TextureRand = rnd.Next(0, 2);
