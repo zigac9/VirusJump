@@ -37,6 +37,8 @@ public class Game1 : Game, ITexturesClasses
     public static MovingEnemy MovingEnemy;
     public static StaticEnemy StaticEnemy;
 
+    public static MyInputField MyInputField;
+
     public static List<bool> Nivo;
     public static bool Brisi = false;
 
@@ -102,8 +104,8 @@ public class Game1 : Game, ITexturesClasses
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _loadingTexture = Content.Load<Texture2D>("assets/Loading");
 
-        await ITexturesClasses.GenerateThreadsTextures(Content);
-        // ITexturesClasses.GenerateTexturesClassesNoThreads(Content);
+        await ITexturesClasses.GenerateThreadsTextures(Content, GraphicsDevice);
+        //ITexturesClasses.GenerateTexturesClassesNoThreads(Content, GraphicsDevice);
 
         Sound = ITexturesClasses.Sound;
         Score = ITexturesClasses.Score;
@@ -120,6 +122,7 @@ public class Game1 : Game, ITexturesClasses
         Jetpack = ITexturesClasses.Jetpack;
         StaticEnemy = ITexturesClasses.StaticEnemy;
         MovingEnemy = ITexturesClasses.MovingEnemy;
+        MyInputField = ITexturesClasses.MyInputField;
 
         _contentLoaded = true;
         _stopwatch.Stop();
@@ -489,6 +492,7 @@ public class Game1 : Game, ITexturesClasses
             ITexturesClasses.MovingEnemy.GetAnimatedSprite.Update(gameTime);
             Player.GetAnimatedSprite.Update(gameTime);
             Pointer.GetAnimatedSprite.Update(gameTime);
+            MyInputField.Update(Keyboard.GetState(), Mouse.GetState());
         }
 
         if (!_contentLoaded || _elapsedTime <= 5.0)
@@ -496,14 +500,13 @@ public class Game1 : Game, ITexturesClasses
             _loading.Play("rotate");
             _loading.Update(gameTime);
         }
-
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         _spriteBatch.Begin();
-        Debug.WriteLine($"Izmerjen čas: {_stopwatch.Elapsed}");
+        //Debug.WriteLine($"Izmerjen čas: {_stopwatch.Elapsed}");
         _allObjects = 0;
         _visibleObjects = 0;
         GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -516,6 +519,7 @@ public class Game1 : Game, ITexturesClasses
         else
         {
             Background.Draw(_spriteBatch, CurrentGameState, Score);
+            //MyInputField.Draw(_spriteBatch);
 
             if (CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
             {

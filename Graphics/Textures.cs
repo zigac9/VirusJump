@@ -44,7 +44,9 @@ internal interface ITexturesClasses
     protected static Sound Sound { get; set; }
     protected static ScoreManager ScoreManager { get; set; }
 
-    protected static void GenerateTexturesClassesNoThreads(ContentManager content)
+    protected static MyInputField MyInputField { get; set; }
+
+    protected static void GenerateTexturesClassesNoThreads(ContentManager content, GraphicsDevice graphicsDevice)
     {
         _content = content;
         LoadTextureNoThreads("assets/DoodleR1", LoadTextureEnum.Texture);
@@ -104,9 +106,11 @@ internal interface ITexturesClasses
         MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad);
         Sound = new Sound(SoundEffectsLoad, SongsLoad);
         ScoreManager = ScoreManager.Load();
+        MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 100), 
+            "Enter your name", 10);
     }
 
-    protected static async Task GenerateThreadsTextures(ContentManager content)
+    protected static async Task GenerateThreadsTextures(ContentManager content, GraphicsDevice graphicsDevice)
     {
         lock (LoadTextureLock)
         {
@@ -187,10 +191,10 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.SpriteFonts))
         };
         await Task.WhenAll(tasks);
-        await GenerateThreadsClasses();
+        await GenerateThreadsClasses(graphicsDevice);
     }
 
-    private static async Task GenerateThreadsClasses()
+    private static async Task GenerateThreadsClasses(GraphicsDevice graphicsDevice)
     {
         var tasks = new List<Task>
         {
@@ -209,7 +213,9 @@ internal interface ITexturesClasses
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
             Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
-            Task.Run(() => ScoreManager = ScoreManager.Load())
+            Task.Run(() => ScoreManager = ScoreManager.Load()),
+            Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 100), 
+                "Enter your name", 10))
         };
         await Task.WhenAll(tasks);
     }
