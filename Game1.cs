@@ -447,8 +447,9 @@ public class Game1 : Game, ITexturesClasses
                 case ClassEnums.GameStateEnum.GameOver:
                     if (!Sound.PlayCheck)
                     {
-                        MediaPlayer.Play(Sound.End);
-                        MediaPlayer.IsRepeating = true;
+                        // MediaPlayer.Play(Sound.End);
+                        // MediaPlayer.IsRepeating = true;
+                        MediaPlayer.Stop();
                         Sound.PlayCheck = true;
                         ScoreManager.Add(new Score
                             {
