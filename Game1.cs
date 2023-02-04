@@ -182,12 +182,12 @@ public class Game1 : Game, ITexturesClasses
                     //movingEnemy
                     ITexturesClasses.MovingEnemy.Move();
                     ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
-                        ref CollisionCheck);
+                        ref CollisionCheck, Background.SoundEffectCheck);
 
                     //static enemy
                     StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
                         Score, ThingsCollisionCheck, Trampo, Jetpack,
-                        Spring);
+                        Spring, Background.SoundEffectCheck);
 
                     //to move boards_list and background with player
                     GameRenderer.MoveWithPlayer();
@@ -212,7 +212,7 @@ public class Game1 : Game, ITexturesClasses
                     GameRenderer.RePosition();
 
                     //to check boards_list coliision
-                    BoardsList.Collision(ThingsCollisionCheck, CollisionCheck, GameOver, Player, Sound);
+                    BoardsList.Collision(ThingsCollisionCheck, CollisionCheck, GameOver, Player, Sound, Background.SoundEffectCheck);
 
                     //to go to pause menue bye esc clicking
                     _kTemp1 = Keyboard.GetState();
@@ -278,7 +278,7 @@ public class Game1 : Game, ITexturesClasses
                                         -25 * (float)Math.Sin(Player.Degree));
 
                                 Bullet.IsCheck = true;
-                                Sound.PlayerShoot.Play();
+                                if (Background.SoundEffectCheck) Sound.PlayerShoot.Play();
                             }
                         }
                     }
@@ -307,7 +307,7 @@ public class Game1 : Game, ITexturesClasses
                     if (Player.PlayerPosition.Y > 720)
                     {
                         CurrentGameState = ClassEnums.GameStateEnum.GameOver;
-                        if (CollisionCheck) Sound.Dead.Play();
+                        if (CollisionCheck && Background.SoundEffectCheck) Sound.Dead.Play();
                     }
                 }
                     break;
@@ -351,8 +351,8 @@ public class Game1 : Game, ITexturesClasses
                 case ClassEnums.GameStateEnum.Option:
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
-                        if (_mouseState.X is > 297 and < 415)
-                            if (_mouseState.Y is > 530 and < 584)
+                        if (_mouseState.X is > 318 and < 436)
+                            if (_mouseState.Y is > 542 and < 597)
                                 if (Background.GameStateCheck)
                                 {
                                     Pointer.GetAnimatedSprite.Play("shoot");
@@ -366,18 +366,32 @@ public class Game1 : Game, ITexturesClasses
                                     Thread.Sleep(100);
                                 }
 
-                        if (_mouseState.X is > 210 and < 278)
-                            if (_mouseState.Y is > 405 and < 462)
+                        if (_mouseState.X is > 268 and < 355)
+                            if (_mouseState.Y is > 364 and < 416)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 Background.SoundCheck = true;
                             }
 
-                        if (_mouseState.X is > 99 and < 176)
-                            if (_mouseState.Y is > 407 and < 461)
+                        if (_mouseState.X is > 159 and < 246)
+                            if (_mouseState.Y is > 364 and < 416)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 Background.SoundCheck = false;
+                            }
+                        
+                        if (_mouseState.X is > 268 and < 355)
+                            if (_mouseState.Y is > 484 and < 537)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                Background.SoundEffectCheck = true;
+                            }
+
+                        if (_mouseState.X is > 159 and < 246)
+                            if (_mouseState.Y is > 484 and < 537)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                Background.SoundEffectCheck = false;
                             }
                     }
 
