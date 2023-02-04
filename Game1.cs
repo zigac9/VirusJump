@@ -21,6 +21,7 @@ public class Game1 : Game, ITexturesClasses
 {
     public static ClassEnums.GameStateEnum CurrentGameState;
     public static ClassEnums.PlayerOrientEnum PlayerOrientation;
+    public static ClassEnums.GameModeEnum GameModeEnum;
 
     public static ScorClass Score;
     public static Player Player;
@@ -73,6 +74,7 @@ public class Game1 : Game, ITexturesClasses
     private Stopwatch _stopwatch;
     private int _visibleObjects;
     public ClassEnums.GameStateEnum GameState;
+    public ClassEnums.GameModeEnum GameMode;
 
     public Game1()
     {
@@ -98,6 +100,7 @@ public class Game1 : Game, ITexturesClasses
         _visibleObjects = 0;
         _stopwatch = new Stopwatch();
         CurrentGameState = ClassEnums.GameStateEnum.InputName;
+        GameMode = ClassEnums.GameModeEnum.Easy;
         base.Initialize();
     }
 
@@ -455,11 +458,32 @@ public class Game1 : Game, ITexturesClasses
                                 CurrentGameState = ClassEnums.GameStateEnum.HScore;
                                 Thread.Sleep(100);
                             }
+                        if (_mouseState.X is > 292 and < 411)
+                            if (_mouseState.Y is > 528 and < 582)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                CurrentGameState = ClassEnums.GameStateEnum.About;
+                                Thread.Sleep(100);
+                            }
+                        
+                        //game mode
+                        if (_mouseState.X is > 199 and < 295)
+                            if (_mouseState.Y is > 280 and < 342)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                GameMode = ClassEnums.GameModeEnum.Easy;
+                            }
+                        if (_mouseState.X is > 331 and < 427)
+                            if (_mouseState.Y is > 280 and < 342)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                GameMode = ClassEnums.GameModeEnum.Hard;
+                            }
                     }
 
                     if (MouseExtended.Current.WasDoubleClick(MouseButton.Left))
-                        if (_mouseState.X is > 292 and < 410)
-                            if (_mouseState.Y is > 528 and < 582 &&
+                        if (_mouseState.X is > 292 and < 411)
+                            if (_mouseState.Y is > 621 and < 675 &&
                                 CurrentGameState == ClassEnums.GameStateEnum.IntroMenu)
                             {
                                 Pointer.GetAnimatedSprite.Play("shoot");
@@ -561,13 +585,13 @@ public class Game1 : Game, ITexturesClasses
         }
         else if (CurrentGameState == ClassEnums.GameStateEnum.InputName)
         {
-            Background.Draw(_spriteBatch, CurrentGameState, Score);
+            Background.Draw(_spriteBatch, CurrentGameState, Score, GameMode);
             MyInputField.Draw(_spriteBatch);
             Pointer.Draw(_spriteBatch);
         }
         else
         {
-            Background.Draw(_spriteBatch, CurrentGameState, Score);
+            Background.Draw(_spriteBatch, CurrentGameState, Score, GameMode);
 
             if (CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
             {

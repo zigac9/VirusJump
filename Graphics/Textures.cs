@@ -82,6 +82,8 @@ internal interface ITexturesClasses
         LoadTextureNoThreads("assets/p3", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/p4", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/p2", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/easy", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/hard", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/input", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/shoot.sf", LoadTextureEnum.SpriteSheet);
         LoadTextureNoThreads("assets/background", LoadTextureEnum.Song);
@@ -108,7 +110,7 @@ internal interface ITexturesClasses
         Sound = new Sound(SoundEffectsLoad, SongsLoad);
         ScoreManager = ScoreManager.Load();
         MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
-            "Enter your name ...     ", 10);
+            "Enter your name ...    ", 10);
     }
 
     protected static async Task GenerateThreadsTextures(ContentManager content, GraphicsDevice graphicsDevice)
@@ -190,7 +192,12 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/deadSound", LoadTextureEnum.SoundEffect)),
 
             //ScorClass
-            Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.SpriteFonts))
+            Task.Run(() => LoadTexture("assets/SpriteFont1", LoadTextureEnum.SpriteFonts)),
+            
+            //Game Mode
+            Task.Run(() => LoadTexture("assets/easy", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/hard", LoadTextureEnum.Texture))
+
         };
         await Task.WhenAll(tasks);
         await GenerateThreadsClasses(graphicsDevice);
@@ -217,7 +224,7 @@ internal interface ITexturesClasses
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManager = ScoreManager.Load()),
             Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
-                "Enter your name ...     ", 10))
+                "Enter your name ...    ", 10))
         };
         await Task.WhenAll(tasks);
     }
