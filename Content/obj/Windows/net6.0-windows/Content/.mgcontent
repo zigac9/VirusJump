@@ -18,6 +18,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/highscore.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/Hscore.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/injection.png</File>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/input.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/jet.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/jump.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/kooh.png</File>
@@ -54,6 +55,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

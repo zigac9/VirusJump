@@ -109,3 +109,4 @@ D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\loopin
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\looping.xnb
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\JumperLibrary.dll
 D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\JumperLibrary.pdb
+D:\FRI_Ljubljana\GitHub\VirusJump\bin\Debug\net6.0-windows\Content\assets\input.xnb

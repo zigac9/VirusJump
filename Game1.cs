@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -88,13 +89,15 @@ public class Game1 : Game, ITexturesClasses
         CollisionCheck = true;
         ThingsCollisionCheck = true;
         GameOver = false;
-        _playerName = RandomString(10);
+        //_playerName = RandomString(10);
+        _playerName = "";
         Nivo = new List<bool> { false, false, false, false, false, false };
         _loading = new AnimatedSprite(Content.Load<SpriteSheet>("assets/looping.sf", new JsonContentLoader()));
         _loadingDraw = true;
         _allObjects = 0;
         _visibleObjects = 0;
         _stopwatch = new Stopwatch();
+        CurrentGameState = ClassEnums.GameStateEnum.InputName;
         base.Initialize();
     }
 
@@ -143,6 +146,31 @@ public class Game1 : Game, ITexturesClasses
 
             switch (CurrentGameState)
             {
+                case ClassEnums.GameStateEnum.InputName:
+                {
+                    if (_mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        if (_mouseState.X is > 150 and < 335)
+                            if (_mouseState.Y is > 510 and < 565)
+                            {
+                                if (MyInputField.text.Length > 0)
+                                {
+                                    Pointer.GetAnimatedSprite.Play("shoot");
+                                    CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
+                                    _playerName = MyInputField.text.ToString();
+                                    Thread.Sleep(100);
+                                }
+                            }
+                        
+                        if (_mouseState.X is > 295 and < 415)
+                            if (_mouseState.Y is > 620 and < 675)
+                            {
+                                Pointer.GetAnimatedSprite.Play("shoot");
+                                Exit();
+                            }
+                    }
+                }
+                    break;
                 case ClassEnums.GameStateEnum.GameRunning:
                 {
                     if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) GameOver = true;
@@ -224,7 +252,7 @@ public class Game1 : Game, ITexturesClasses
 
                     //to move left and right
                     _kTemp = _kTemp1;
-                    if (_k.IsKeyDown(Keys.Left) && !GameOver)
+                    if ((_k.IsKeyDown(Keys.Left) || _k.IsKeyDown(Keys.A)) && !GameOver)
                     {
                         PlayerOrientation = ClassEnums.PlayerOrientEnum.Left;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X - 7, Player.PlayerPosition.Y,
@@ -235,7 +263,7 @@ public class Game1 : Game, ITexturesClasses
                         Player.FirePosition = new Vector2(Player.PlayerPosition.X,
                             Player.PlayerPosition.Y + Player.PlayerPosition.Height);
                     }
-                    else if (_k.IsKeyDown(Keys.Right) && !GameOver)
+                    else if ((_k.IsKeyDown(Keys.Right) || _k.IsKeyDown(Keys.D)) && !GameOver)
                     {
                         PlayerOrientation = ClassEnums.PlayerOrientEnum.Right;
                         Player.PlayerPosition = new Rectangle(Player.PlayerPosition.X + 7, Player.PlayerPosition.Y,
@@ -531,10 +559,15 @@ public class Game1 : Game, ITexturesClasses
             _spriteBatch.Draw(_loadingTexture, new Vector2(0, 0), null, Color.White);
             _loading.Draw(_spriteBatch, new Vector2(230, 500), 0f, new Vector2(1, 1));
         }
+        else if (CurrentGameState == ClassEnums.GameStateEnum.InputName)
+        {
+            Background.Draw(_spriteBatch, CurrentGameState, Score);
+            MyInputField.Draw(_spriteBatch);
+            Pointer.Draw(_spriteBatch);
+        }
         else
         {
             Background.Draw(_spriteBatch, CurrentGameState, Score);
-            //MyInputField.Draw(_spriteBatch);
 
             if (CurrentGameState == ClassEnums.GameStateEnum.GameRunning)
             {
@@ -614,7 +647,10 @@ public class Game1 : Game, ITexturesClasses
             // Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
 
             if (CurrentGameState == ClassEnums.GameStateEnum.IntroMenu)
+            {
+                MyInputField.DrawName(_spriteBatch);
                 PlayerMenu.Draw(_spriteBatch, PlayerOrientation, ClassEnums.GameStateEnum.IntroMenu, CollisionCheck);
+            }
 
             if (Bullet.IsCheck) Bullet.Draw(_spriteBatch, CurrentGameState);
 
@@ -627,11 +663,11 @@ public class Game1 : Game, ITexturesClasses
         base.Draw(gameTime);
     }
 
-    private string RandomString(int length)
-    {
-        var random = new Random();
-        const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        return new string(Enumerable.Repeat(chars, length)
-            .Select(s => s[random.Next(s.Length)]).ToArray());
-    }
+    // private string RandomString(int length)
+    // {
+    //     var random = new Random();
+    //     const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    //     return new string(Enumerable.Repeat(chars, length)
+    //         .Select(s => s[random.Next(s.Length)]).ToArray());
+    // }
 }
