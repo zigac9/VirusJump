@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
+using JumperLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,8 +10,6 @@ using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
-
-using JumperLibrary;
 using VirusJump.Graphics;
 
 namespace VirusJump;
@@ -73,8 +70,8 @@ public class Game1 : Game, ITexturesClasses
     private SpriteBatch _spriteBatch;
     private Stopwatch _stopwatch;
     private int _visibleObjects;
-    public ClassEnums.GameStateEnum GameState;
     public ClassEnums.GameModeEnum GameMode;
+    public ClassEnums.GameStateEnum GameState;
 
     public Game1()
     {
@@ -155,7 +152,6 @@ public class Game1 : Game, ITexturesClasses
                     {
                         if (_mouseState.X is > 150 and < 335)
                             if (_mouseState.Y is > 510 and < 565)
-                            {
                                 if (MyInputField.text.Length > 0)
                                 {
                                     Pointer.GetAnimatedSprite.Play("shoot");
@@ -163,8 +159,7 @@ public class Game1 : Game, ITexturesClasses
                                     _playerName = MyInputField.text.ToString();
                                     Thread.Sleep(100);
                                 }
-                            }
-                        
+
                         if (_mouseState.X is > 295 and < 415)
                             if (_mouseState.Y is > 620 and < 675)
                             {
@@ -243,7 +238,8 @@ public class Game1 : Game, ITexturesClasses
                     GameRenderer.RePosition();
 
                     //to check boards_list coliision
-                    BoardsList.Collision(ThingsCollisionCheck, CollisionCheck, GameOver, Player, Sound, Background.SoundEffectCheck);
+                    BoardsList.Collision(ThingsCollisionCheck, CollisionCheck, GameOver, Player, Sound,
+                        Background.SoundEffectCheck);
 
                     //to go to pause menue bye esc clicking
                     _kTemp1 = Keyboard.GetState();
@@ -410,7 +406,7 @@ public class Game1 : Game, ITexturesClasses
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 Background.SoundCheck = false;
                             }
-                        
+
                         if (_mouseState.X is > 268 and < 355)
                             if (_mouseState.Y is > 484 and < 537)
                             {
@@ -458,6 +454,7 @@ public class Game1 : Game, ITexturesClasses
                                 CurrentGameState = ClassEnums.GameStateEnum.HScore;
                                 Thread.Sleep(100);
                             }
+
                         if (_mouseState.X is > 292 and < 411)
                             if (_mouseState.Y is > 528 and < 582)
                             {
@@ -465,7 +462,7 @@ public class Game1 : Game, ITexturesClasses
                                 CurrentGameState = ClassEnums.GameStateEnum.About;
                                 Thread.Sleep(100);
                             }
-                        
+
                         //game mode
                         if (_mouseState.X is > 199 and < 295)
                             if (_mouseState.Y is > 280 and < 342)
@@ -473,6 +470,7 @@ public class Game1 : Game, ITexturesClasses
                                 Pointer.GetAnimatedSprite.Play("shoot");
                                 GameMode = ClassEnums.GameModeEnum.Easy;
                             }
+
                         if (_mouseState.X is > 331 and < 427)
                             if (_mouseState.Y is > 280 and < 342)
                             {
@@ -567,6 +565,7 @@ public class Game1 : Game, ITexturesClasses
             _loading.Play("rotate");
             _loading.Update(gameTime);
         }
+
         base.Update(gameTime);
     }
 
