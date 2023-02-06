@@ -15,7 +15,7 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/Hscore.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/Hscore.xnb","TextureProcessor","Texture2DContent",194183,1382485,0.0592364
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/HscoreHard.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/HscoreHard.xnb","TextureProcessor","Texture2DContent",194666,1382485,0.0614143
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/injection.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/injection.xnb","TextureProcessor","Texture2DContent",4893,77461,0.002958
-"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/input.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/input.xnb","TextureProcessor","Texture2DContent",171505,1382485,0.1987321
+"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/input.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/input.xnb","TextureProcessor","Texture2DContent",174169,1382485,0.3919436
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/jet.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/jet.xnb","TextureProcessor","Texture2DContent",2348,12733,0.00215
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/jump.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/jump.xnb","SoundEffectProcessor","SoundEffectContent",6686,32455,0.2387136
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/kooh.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/kooh.xnb","TextureProcessor","Texture2DContent",50471,1382485,0.0360523
