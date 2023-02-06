@@ -108,7 +108,7 @@ internal interface ITexturesClasses
         Spring = new Spring(TexturesLoad);
         Jetpack = new Jetpack(TexturesLoad);
         StaticEnemy = new StaticEnemy(TexturesLoad);
-        MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad);
+        MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad, SpriteFontsLoad);
         Sound = new Sound(SoundEffectsLoad, SongsLoad);
         ScoreManagerEasy = ScoreManager.Load("scores-easy.xml");
         ScoreManagerHard = ScoreManager.Load("scores-hard.xml");
@@ -224,7 +224,7 @@ internal interface ITexturesClasses
             Task.Run(() => Spring = new Spring(TexturesLoad)),
             Task.Run(() => Jetpack = new Jetpack(TexturesLoad)),
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
-            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad)),
+            Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad, SpriteFontsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManagerEasy = ScoreManager.Load("scores-easy.xml")),
             Task.Run(() => ScoreManagerHard = ScoreManager.Load("scores-hard.xml")),

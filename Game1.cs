@@ -690,6 +690,7 @@ public class Game1 : Game, ITexturesClasses
                 _allObjects++;
                 if (MovingEnemy.Visible)
                 {
+                    MovingEnemy.LifeDraw(_spriteBatch);
                     MovingEnemy.Draw(_spriteBatch);
                     _visibleObjects++;
                 }
