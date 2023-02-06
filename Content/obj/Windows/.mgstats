@@ -13,8 +13,8 @@ Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Siz
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/gameOver.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/gameOver.xnb","TextureProcessor","Texture2DContent",185432,1382485,0.1095455
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/gradient.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/gradient.xnb","TextureProcessor","Texture2DContent",216064,7864405,0.3654821
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/hard.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/hard.xnb","TextureProcessor","Texture2DContent",10627,81685,0.0128604
-"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/highscore.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/highscore.xnb","TextureProcessor","Texture2DContent",238304,1382485,0.0526486
-"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/Hscore.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/Hscore.xnb","TextureProcessor","Texture2DContent",315735,2457685,0.0972765
+"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/Hscore.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/Hscore.xnb","TextureProcessor","Texture2DContent",194183,1382485,0.206485
+"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/HscoreHard.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/HscoreHard.xnb","TextureProcessor","Texture2DContent",194666,1382485,0.0458289
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/injection.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/injection.xnb","TextureProcessor","Texture2DContent",4893,77461,0.0058583
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/input.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/input.xnb","TextureProcessor","Texture2DContent",171505,1382485,0.0523657
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/jet.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/assets/jet.xnb","TextureProcessor","Texture2DContent",2348,12733,0.0040754

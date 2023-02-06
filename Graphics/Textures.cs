@@ -42,7 +42,8 @@ internal interface ITexturesClasses
     protected static StaticEnemy StaticEnemy { get; set; }
     protected static MovingEnemy MovingEnemy { get; set; }
     protected static Sound Sound { get; set; }
-    protected static ScoreManager ScoreManager { get; set; }
+    protected static ScoreManager ScoreManagerEasy { get; set; }
+    protected static ScoreManager ScoreManagerHard { get; set; }
 
     protected static MyInputField MyInputField { get; set; }
 
@@ -64,7 +65,8 @@ internal interface ITexturesClasses
         LoadTextureNoThreads("assets/pause", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/sides", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/gameOver", LoadTextureEnum.Texture);
-        LoadTextureNoThreads("assets/highscore", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/Hscore", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/HscoreHard", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/tir", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/virus", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/toshak", LoadTextureEnum.Texture);
@@ -108,7 +110,8 @@ internal interface ITexturesClasses
         StaticEnemy = new StaticEnemy(TexturesLoad);
         MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad);
         Sound = new Sound(SoundEffectsLoad, SongsLoad);
-        ScoreManager = ScoreManager.Load();
+        ScoreManagerEasy = ScoreManager.Load("scores-easy.xml");
+        ScoreManagerHard = ScoreManager.Load("scores-hard.xml");
         MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
             "Enter your name ...    ", 10);
     }
@@ -140,7 +143,8 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/pause", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/sides", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/gameOver", LoadTextureEnum.Texture)),
-            Task.Run(() => LoadTexture("assets/highscore", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/Hscore", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/HscoreHard", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/input", LoadTextureEnum.Texture)),
 
             //bullet
@@ -222,7 +226,8 @@ internal interface ITexturesClasses
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
             Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
-            Task.Run(() => ScoreManager = ScoreManager.Load()),
+            Task.Run(() => ScoreManagerEasy = ScoreManager.Load("scores-easy.xml")),
+            Task.Run(() => ScoreManagerHard = ScoreManager.Load("scores-hard.xml")),
             Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
                 "Enter your name ...    ", 10))
         };

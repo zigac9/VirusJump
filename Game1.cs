@@ -41,7 +41,8 @@ public class Game1 : Game, ITexturesClasses
     public static List<bool> Nivo;
     public static bool Brisi = false;
 
-    public static ScoreManager ScoreManager;
+    public static ScoreManager ScoreManagerEasy;
+    public static ScoreManager ScoreManagerHard;
     public static bool CollisionCheck;
     public static bool GameOver;
 
@@ -119,7 +120,8 @@ public class Game1 : Game, ITexturesClasses
         Bullet = ITexturesClasses.Bullet;
         BulletEnemy = ITexturesClasses.BulletEnemy;
         BoardsList = ITexturesClasses.BoardsList;
-        ScoreManager = ITexturesClasses.ScoreManager;
+        ScoreManagerEasy = ITexturesClasses.ScoreManagerEasy;
+        ScoreManagerHard = ITexturesClasses.ScoreManagerHard;
         Spring = ITexturesClasses.Spring;
         Trampo = ITexturesClasses.Trampo;
         Jetpack = ITexturesClasses.Jetpack;
@@ -152,11 +154,11 @@ public class Game1 : Game, ITexturesClasses
                     {
                         if (_mouseState.X is > 150 and < 335)
                             if (_mouseState.Y is > 510 and < 565)
-                                if (MyInputField.text.Length > 0)
+                                if (MyInputField.Text.Length > 0)
                                 {
                                     Pointer.GetAnimatedSprite.Play("shoot");
                                     CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
-                                    _playerName = MyInputField.text.ToString();
+                                    _playerName = MyInputField.Text.ToString();
                                     Thread.Sleep(100);
                                 }
 
@@ -493,19 +495,24 @@ public class Game1 : Game, ITexturesClasses
                         PlayerMenu.Speed = new Vector2(PlayerMenu.Speed.X, -13);
 
                     //update scores
-                    Background.UpdateScores(ScoreManager, _playerName);
+                    if (GameMode == ClassEnums.GameModeEnum.Easy)
+                    {
+                        Background.UpdateScores(ScoreManagerEasy, _playerName);
+                    }
+                    else if (GameMode == ClassEnums.GameModeEnum.Hard)
+                    {
+                        Background.UpdateScores(ScoreManagerHard, _playerName);
+                    }
 
                     break;
                 case ClassEnums.GameStateEnum.HScore:
                     _mouseState = Mouse.GetState();
-                    if (_mouseState.LeftButton == ButtonState.Pressed)
-                        if (_mouseState.X is > 296 and < 415)
-                            if (_mouseState.Y is > 529 and < 584)
-                            {
-                                Pointer.GetAnimatedSprite.Play("shoot");
-                                CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
-                                Thread.Sleep(100);
-                            }
+                    if (_mouseState is { LeftButton: ButtonState.Pressed, X: > 296 and < 415, Y: > 529 and < 584 })
+                    {
+                        Pointer.GetAnimatedSprite.Play("shoot");
+                        CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
+                        Thread.Sleep(100);
+                    }
 
                     break;
                 case ClassEnums.GameStateEnum.GameOver:
@@ -515,17 +522,41 @@ public class Game1 : Game, ITexturesClasses
                         // MediaPlayer.IsRepeating = true;
                         MediaPlayer.Stop();
                         Sound.PlayCheck = true;
-                        ScoreManager.Add(new Score
-                            {
-                                PlayerName = _playerName,
-                                Value = Score.Score
-                            }
-                            , _playerName);
-                        ScoreManager.Save(ScoreManager);
+                        switch (GameMode)
+                        {
+                            case ClassEnums.GameModeEnum.Easy:
+                                ScoreManagerEasy.Add(new Score
+                                    {
+                                        PlayerName = _playerName,
+                                        Value = Score.Score
+                                    }
+                                    , _playerName);
+                                ScoreManager.Save(ScoreManagerEasy, "scores-easy.xml");
+                                break;
+                            case ClassEnums.GameModeEnum.Hard:
+                                ScoreManagerHard.Add(new Score
+                                    {
+                                        PlayerName = _playerName,
+                                        Value = Score.Score
+                                    }
+                                    , _playerName);
+                                ScoreManager.Save(ScoreManagerHard, "scores-hard.xml");
+                                break;
+                        }
                     }
 
-                    //update scores
-                    Background.UpdateScores(ScoreManager, _playerName);
+                    switch (GameMode)
+                    {
+                        //update scores
+                        case ClassEnums.GameModeEnum.Easy:
+                            Background.UpdateScores(ScoreManagerEasy, _playerName);
+                            break;
+                        case ClassEnums.GameModeEnum.Hard:
+                            Background.UpdateScores(ScoreManagerHard, _playerName);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
 
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
