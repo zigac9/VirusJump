@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/shootPlayer.mp3</SourceFile>
-  <SourceTime>2022-12-21T20:00:32.1855679+01:00</SourceTime>
+  <SourceTime>2023-02-06T21:33:33.6295028+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/shootPlayer.xnb</DestFile>
-  <DestTime>2023-01-06T11:20:24.8464529+01:00</DestTime>
+  <DestTime>2023-02-06T21:34:20.1207096+01:00</DestTime>
   <Importer>Mp3Importer</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>

@@ -113,7 +113,7 @@ internal interface ITexturesClasses
         ScoreManagerEasy = ScoreManager.Load("scores-easy.xml");
         ScoreManagerHard = ScoreManager.Load("scores-hard.xml");
         MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
-            "Enter your name ...    ", 10);
+            "Enter your name ...    ", 11);
     }
 
     protected static async Task GenerateThreadsTextures(ContentManager content, GraphicsDevice graphicsDevice)
@@ -229,7 +229,7 @@ internal interface ITexturesClasses
             Task.Run(() => ScoreManagerEasy = ScoreManager.Load("scores-easy.xml")),
             Task.Run(() => ScoreManagerHard = ScoreManager.Load("scores-hard.xml")),
             Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
-                "Enter your name ...    ", 10))
+                "Enter your name ...    ", 11))
         };
         await Task.WhenAll(tasks);
     }
