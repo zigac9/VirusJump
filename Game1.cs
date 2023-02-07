@@ -152,11 +152,11 @@ public class Game1 : Game, ITexturesClasses
                 {
                     if (_mouseState.LeftButton == ButtonState.Pressed)
                     {
+                        Pointer.GetAnimatedSprite.Play("shoot");
                         if (_mouseState.X is > 150 and < 335)
                             if (_mouseState.Y is > 510 and < 565)
                                 if (MyInputField.Text.Length > 0)
                                 {
-                                    Pointer.GetAnimatedSprite.Play("shoot");
                                     CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
                                     _playerName = MyInputField.Text.ToString();
                                     Thread.Sleep(100);
@@ -165,7 +165,6 @@ public class Game1 : Game, ITexturesClasses
                         if (_mouseState.X is > 295 and < 415)
                             if (_mouseState.Y is > 620 and < 675)
                             {
-                                Pointer.GetAnimatedSprite.Play("shoot");
                                 Exit();
                             }
                     }
