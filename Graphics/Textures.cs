@@ -87,6 +87,7 @@ internal interface ITexturesClasses
         LoadTextureNoThreads("assets/easy", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/hard", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/input", LoadTextureEnum.Texture);
+        LoadTextureNoThreads("assets/about", LoadTextureEnum.Texture);
         LoadTextureNoThreads("assets/shoot.sf", LoadTextureEnum.SpriteSheet);
         LoadTextureNoThreads("assets/background", LoadTextureEnum.Song);
         LoadTextureNoThreads("assets/patmat", LoadTextureEnum.Song);
@@ -146,6 +147,7 @@ internal interface ITexturesClasses
             Task.Run(() => LoadTexture("assets/Hscore", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/HscoreHard", LoadTextureEnum.Texture)),
             Task.Run(() => LoadTexture("assets/input", LoadTextureEnum.Texture)),
+            Task.Run(() => LoadTexture("assets/about", LoadTextureEnum.Texture)),
 
             //bullet
             Task.Run(() => LoadTexture("assets/tir", LoadTextureEnum.Texture)),
@@ -228,7 +230,7 @@ internal interface ITexturesClasses
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManagerEasy = ScoreManager.Load("scores-easy.xml")),
             Task.Run(() => ScoreManagerHard = ScoreManager.Load("scores-hard.xml")),
-            Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 355), 
+            Task.Run(() => MyInputField = new MyInputField(graphicsDevice, SpriteFontsLoad["assets/SpriteFont1"], new Vector2(100, 360), 
                 "Enter your name ...    ", 11))
         };
         await Task.WhenAll(tasks);

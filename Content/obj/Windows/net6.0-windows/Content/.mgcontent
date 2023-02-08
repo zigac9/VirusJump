@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/about.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/background.mp3</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/dead.png</File>
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/deadSound.mp3</File>
@@ -57,6 +58,7 @@
     <File>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/virus.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

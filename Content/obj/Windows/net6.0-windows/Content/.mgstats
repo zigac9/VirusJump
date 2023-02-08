@@ -1,10 +1,11 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/about.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/about.xnb","TextureProcessor","Texture2DContent",222332,1382485,0.2362605
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/background.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/background.xnb","SongProcessor","SongContent",5130867,128,2.567132
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/dead.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/dead.xnb","TextureProcessor","Texture2DContent",22785,97429,0.0322681
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/deadSound.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/deadSound.xnb","SoundEffectProcessor","SoundEffectContent",25920,124521,0.1929668
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/DoodleR1.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/DoodleR1.xnb","TextureProcessor","Texture2DContent",29748,97429,0.0061052
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/dva.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/dva.xnb","TextureProcessor","Texture2DContent",36236,124405,0.0057474
-"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/easy.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/easy.xnb","TextureProcessor","Texture2DContent",11189,81685,0.1477858
+"D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/easy.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/easy.xnb","TextureProcessor","Texture2DContent",10133,81685,0.2303083
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/ena.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/ena.xnb","TextureProcessor","Texture2DContent",10511,30961,0.0025794
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/enemyShot.mp3","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/enemyShot.xnb","SoundEffectProcessor","SoundEffectContent",30240,145257,0.20756
 "D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/fanar.png","D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/fanar.xnb","TextureProcessor","Texture2DContent",3866,7293,0.0019684

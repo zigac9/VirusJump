@@ -170,6 +170,22 @@ public class Game1 : Game, ITexturesClasses
                     }
                 }
                     break;
+                case ClassEnums.GameStateEnum.About:
+                {
+                    if (_mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        Pointer.GetAnimatedSprite.Play("shoot");
+                        if (_mouseState.X is > 291 and < 411)
+                        {
+                            if (_mouseState.Y is > 621 and < 678)
+                            {
+                                CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
+                                Thread.Sleep(100);
+                            }
+                        }
+                    }
+                }
+                    break;
                 case ClassEnums.GameStateEnum.GameRunning:
                 {
                     if (Player.PlayerPosition.Y + Player.PlayerPosition.Height > 720) GameOver = true;
