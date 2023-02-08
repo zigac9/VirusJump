@@ -238,7 +238,6 @@ internal interface ITexturesClasses
 
     private static void LoadTexture(string textureName, LoadTextureEnum loadTextureEnum)
     {
-        // Load the texture using the ContentManager
         lock (LoadTextureLock)
         {
             switch (loadTextureEnum)
