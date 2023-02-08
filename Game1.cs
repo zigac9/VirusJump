@@ -71,7 +71,7 @@ public class Game1 : Game, ITexturesClasses
     private SpriteBatch _spriteBatch;
     private Stopwatch _stopwatch;
     private int _visibleObjects;
-    public ClassEnums.GameModeEnum GameMode;
+    public static ClassEnums.GameModeEnum GameMode;
     public ClassEnums.GameStateEnum GameState;
 
     public Game1()
@@ -139,6 +139,7 @@ public class Game1 : Game, ITexturesClasses
         MouseExtended.Current.GetState(gameTime);
         if (_contentLoaded)
         {
+            Debug.WriteLine(Player.Speed.Y);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
@@ -223,10 +224,13 @@ public class Game1 : Game, ITexturesClasses
                         Player, CollisionCheck, ThingsCollisionCheck);
 
                     //movingEnemy
-                    ITexturesClasses.MovingEnemy.Move();
-                    ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
-                        ref CollisionCheck, Background.SoundEffectCheck);
-
+                    if (GameMode == ClassEnums.GameModeEnum.Hard)
+                    {
+                        ITexturesClasses.MovingEnemy.Move();
+                        ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
+                            ref CollisionCheck, Background.SoundEffectCheck);
+                    }
+                    
                     //static enemy
                     StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
                         Score, ThingsCollisionCheck, Trampo, Jetpack,
@@ -242,10 +246,13 @@ public class Game1 : Game, ITexturesClasses
                     //     Bullet.IsCheck = false;
                     // }
 
-                    if (Bullet.BulletCollision(BulletEnemy))
+                    if (GameMode == ClassEnums.GameModeEnum.Hard)
                     {
-                        BulletEnemy.IsCheck = false;
-                        Bullet.IsCheck = false;
+                        if (Bullet.BulletCollision(BulletEnemy))
+                        {
+                            BulletEnemy.IsCheck = false;
+                            Bullet.IsCheck = false;
+                        }
                     }
 
                     //check side of background
@@ -702,12 +709,15 @@ public class Game1 : Game, ITexturesClasses
                     _visibleObjects++;
                 }
 
-                _allObjects++;
-                if (MovingEnemy.Visible)
+                if (GameMode == ClassEnums.GameModeEnum.Hard)
                 {
-                    MovingEnemy.LifeDraw(_spriteBatch);
-                    MovingEnemy.Draw(_spriteBatch);
-                    _visibleObjects++;
+                    _allObjects++;
+                    if (MovingEnemy.Visible)
+                    {
+                        MovingEnemy.LifeDraw(_spriteBatch);
+                        MovingEnemy.Draw(_spriteBatch);
+                        _visibleObjects++;
+                    }
                 }
 
                 Background.ScoreDraw(_spriteBatch, CurrentGameState);
@@ -724,7 +734,7 @@ public class Game1 : Game, ITexturesClasses
 
             if (Bullet.IsCheck) Bullet.Draw(_spriteBatch, CurrentGameState);
 
-            if (BulletEnemy.IsCheck) BulletEnemy.Draw(_spriteBatch, CurrentGameState);
+            if (BulletEnemy.IsCheck && GameMode == ClassEnums.GameModeEnum.Hard) BulletEnemy.Draw(_spriteBatch, CurrentGameState);
 
             Pointer.Draw(_spriteBatch);
         }

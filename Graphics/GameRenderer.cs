@@ -38,80 +38,83 @@ public abstract class GameRenderer : Game1
     public static void RePosition()
     {
         //delete boards
-        if (Score.Score > 500 && !Nivo[0])
+        if (GameMode == ClassEnums.GameModeEnum.Hard)
         {
-            Nivo[0] = true;
-            Brisi = true;
-            Spring.ScoreMoveStep = 700;
-            Trampo.ScoreMoveStep = 1700;
-            Jetpack.ScoreMoveStep = 3000;
-        }
-        else if (Score.Score > 1000 && !Nivo[1])
-        {
-            Nivo[1] = true;
-            Brisi = true;
-            Spring.ScoreMoveStep = 1000;
-            Trampo.ScoreMoveStep = 2000;
-            Jetpack.ScoreMoveStep = 5000;
-        }
-        else if (Score.Score > 2000 && !Nivo[2])
-        {
-            Nivo[2] = true;
-            Brisi = true;
-            Spring.ScoreMoveStep = 2000;
-            Trampo.ScoreMoveStep = 3000;
-            Jetpack.ScoreMoveStep = 6000;
-        }
-        else if (Score.Score > 3000 && !Nivo[3])
-        {
-            Nivo[3] = true;
-            Brisi = true;
-            Spring.ScoreMoveStep = 3000;
-            Trampo.ScoreMoveStep = 4000;
-            Jetpack.ScoreMoveStep = 8000;
-            MovingEnemy.View = 1000;
-            MovingEnemy.Step = 1500;
-            MovingEnemy.MaxLife = 3;
-            MovingEnemy.Life = 3;
-        }
-        else if (Score.Score > 6000 && !Nivo[4])
-        {
-            Nivo[4] = true;
-            Brisi = true;
-            Spring.ScoreMoveStep = 4000;
-            Trampo.ScoreMoveStep = 6000;
-            Jetpack.ScoreMoveStep = 12000;
-            MovingEnemy.View = 1500;
-            MovingEnemy.Step = 2000;
-            MovingEnemy.MaxLife = 4;
-            MovingEnemy.Life = 4;
-        }
-        else if (Score.Score > 10000 && !Nivo[5])
-        {
-            Nivo[5] = true;
-            MovingEnemy.NotDie = true;
-        }
-
-        if (Brisi)
-        {
-            Brisi = false;
-            var outBoard = 0;
-            for (var j = 0; j < BoardsList.BoardList.Length; j++)
+            if (Score.Score > 500 && !Nivo[0])
             {
-                if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible &&
-                    j != Trampo.TRand &&
-                    j != Spring.SRand && j != Jetpack.JRand &&
-                    j != StaticEnemy.StRand)
-                {
-                    BoardsList.BoardList[j].Visible = false;
-                    outBoard++;
-                }
+                Nivo[0] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 700;
+                Trampo.ScoreMoveStep = 1700;
+                Jetpack.ScoreMoveStep = 3000;
+            }
+            else if (Score.Score > 1000 && !Nivo[1])
+            {
+                Nivo[1] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 1000;
+                Trampo.ScoreMoveStep = 2000;
+                Jetpack.ScoreMoveStep = 5000;
+            }
+            else if (Score.Score > 2000 && !Nivo[2])
+            {
+                Nivo[2] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 2000;
+                Trampo.ScoreMoveStep = 3000;
+                Jetpack.ScoreMoveStep = 6000;
+            }
+            else if (Score.Score > 3000 && !Nivo[3])
+            {
+                Nivo[3] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 3000;
+                Trampo.ScoreMoveStep = 4000;
+                Jetpack.ScoreMoveStep = 8000;
+                MovingEnemy.View = 1000;
+                MovingEnemy.Step = 1500;
+                MovingEnemy.MaxLife = 3;
+                MovingEnemy.Life = 3;
+            }
+            else if (Score.Score > 6000 && !Nivo[4])
+            {
+                Nivo[4] = true;
+                Brisi = true;
+                Spring.ScoreMoveStep = 4000;
+                Trampo.ScoreMoveStep = 6000;
+                Jetpack.ScoreMoveStep = 12000;
+                MovingEnemy.View = 1500;
+                MovingEnemy.Step = 2000;
+                MovingEnemy.MaxLife = 4;
+                MovingEnemy.Life = 4;
+            }
+            else if (Score.Score > 10000 && !Nivo[5])
+            {
+                Nivo[5] = true;
+                MovingEnemy.NotDie = true;
+            }
 
-                if (outBoard == 2)
-                    break;
+            if (Brisi)
+            {
+                Brisi = false;
+                var outBoard = 0;
+                for (var j = 0; j < BoardsList.BoardList.Length; j++)
+                {
+                    if (BoardsList.BoardList[j].Position.Y < -20 && BoardsList.BoardList[j].Visible &&
+                        j != Trampo.TRand &&
+                        j != Spring.SRand && j != Jetpack.JRand &&
+                        j != StaticEnemy.StRand)
+                    {
+                        BoardsList.BoardList[j].Visible = false;
+                        outBoard++;
+                    }
+
+                    if (outBoard == 2)
+                        break;
+                }
             }
         }
-        
+
         MakeVisibleOrNot();
 
         var rnd = new Random();
@@ -176,20 +179,22 @@ public abstract class GameRenderer : Game1
         //move movable enemy
         // Debug.WriteLine("Start" + MovingEnemy.Start);
         // Debug.WriteLine("END" + MovingEnemy.End);
-        if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
+        if (GameMode == ClassEnums.GameModeEnum.Hard)
         {
-            if (MovingEnemy.NotDie) MovingEnemy.TextureRand = rnd.Next(0, 2);
-            else MovingEnemy.TextureRand = rnd.Next(0, 3);
-            MovingEnemy.Position = new Rectangle(MovingEnemy.Position.X, 50,
-                MovingEnemy.Position.Width,
-                MovingEnemy.Position.Height);
-            MovingEnemy.Start += MovingEnemy.Step;
-            MovingEnemy.Visible = true;
-        }
-        else if (Score.Score > MovingEnemy.End)
-        {
-            MovingEnemy.Visible = false;
-            MovingEnemy.End = MovingEnemy.Start + MovingEnemy.View;
+            if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)
+            {
+                MovingEnemy.TextureRand = rnd.Next(0, MovingEnemy.NotDie ? 2 : 3);
+                MovingEnemy.Position = new Rectangle(MovingEnemy.Position.X, 50,
+                    MovingEnemy.Position.Width,
+                    MovingEnemy.Position.Height);
+                MovingEnemy.Start += MovingEnemy.Step;
+                MovingEnemy.Visible = true;
+            }
+            else if (Score.Score > MovingEnemy.End)
+            {
+                MovingEnemy.Visible = false;
+                MovingEnemy.End = MovingEnemy.Start + MovingEnemy.View;
+            }
         }
     }
 
