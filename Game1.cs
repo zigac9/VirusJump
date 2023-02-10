@@ -141,7 +141,7 @@ public class Game1 : Game, ITexturesClasses
         MouseExtended.Current.GetState(gameTime);
         if (_contentLoaded)
         {
-            Debug.WriteLine(Player.Speed.Y);
+            // Debug.WriteLine(Player.Speed.Y);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
@@ -228,9 +228,13 @@ public class Game1 : Game, ITexturesClasses
                     //movingEnemy
                     if (GameMode == ClassEnums.GameModeEnum.Hard)
                     {
-                        ITexturesClasses.MovingEnemy.Move();
-                        ITexturesClasses.MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
+                        MovingEnemy.Move();
+                        MovingEnemy.Update(Bullet, BulletEnemy, Sound, Player, CurrentGameState,
                             ref CollisionCheck, Background.SoundEffectCheck);
+                    }
+                    else if (GameMode == ClassEnums.GameModeEnum.Easy)
+                    {
+                        EasyMovingEnemy.Update(Bullet, Sound, Player, ref GameOver, ref CollisionCheck, ThingsCollisionCheck, Background.SoundEffectCheck);
                     }
                     
                     //static enemy
@@ -609,7 +613,7 @@ public class Game1 : Game, ITexturesClasses
                     break;
             }
 
-            ITexturesClasses.MovingEnemy.GetAnimatedSprite.Update(gameTime);
+            MovingEnemy.GetAnimatedSprite.Update(gameTime);
             Player.GetAnimatedSprite.Update(gameTime);
             Pointer.GetAnimatedSprite.Update(gameTime);
             MyInputField.Update(Keyboard.GetState(), Mouse.GetState());
@@ -718,6 +722,16 @@ public class Game1 : Game, ITexturesClasses
                     {
                         MovingEnemy.LifeDraw(_spriteBatch);
                         MovingEnemy.Draw(_spriteBatch);
+                        _visibleObjects++;
+                    }
+                }
+                else if (GameMode == ClassEnums.GameModeEnum.Easy)
+                {
+                    _allObjects++;
+                    Debug.WriteLine(EasyMovingEnemy.Position.ToString());
+                    if (EasyMovingEnemy.Visible)
+                    {
+                        EasyMovingEnemy.Draw(_spriteBatch);
                         _visibleObjects++;
                     }
                 }

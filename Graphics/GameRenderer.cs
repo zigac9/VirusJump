@@ -194,6 +194,18 @@ public abstract class GameRenderer : Game1
                 MovingEnemy.End = MovingEnemy.Start + MovingEnemy.View;
             }
         }
+        else if (GameMode == ClassEnums.GameModeEnum.Easy)
+        {
+            if (Score.Score % 730 > 700 &&
+                EasyMovingEnemy.Position.Y > 780)
+            {
+                EasyMovingEnemy.Speed = new Vector2(rnd.Next(1,4), EasyMovingEnemy.Speed.Y);
+                EasyMovingEnemy.TextureRand = rnd.Next(0, 5);
+                var minY = FindMinY();
+                EasyMovingEnemy.Position = new Rectangle(EasyMovingEnemy.Position.X, rnd.Next(minY - 80, minY - 70),
+                    EasyMovingEnemy.Position.Width, EasyMovingEnemy.Position.Height);
+            }
+        }
     }
 
     private static void MoveGoneBoard(int i, Random rnd)
@@ -289,6 +301,12 @@ public abstract class GameRenderer : Game1
                     BoardsList.GoneBoardList[i].Position.Height);
             }
 
+            if (EasyMovingEnemy.Position.Y < 800 && GameMode == ClassEnums.GameModeEnum.Easy)
+            {
+                EasyMovingEnemy.Position = new Rectangle(EasyMovingEnemy.Position.X, EasyMovingEnemy.Position.Y - speed,
+                    EasyMovingEnemy.Position.Width, EasyMovingEnemy.Position.Height);
+            }
+            
             if (Background.BPosize.Y < 0)
                 Background.BPosize = new Rectangle(Background.BPosize.X, Background.BPosize.Y - speed / 2,
                     Background.BPosize.Width, Background.BPosize.Height);
@@ -300,7 +318,7 @@ public abstract class GameRenderer : Game1
         }
     }
 
-    public static void MakeVisibleOrNot()
+    private static void MakeVisibleOrNot()
     {
         for (var i = 0; i < 4; i++)
         {
@@ -332,5 +350,9 @@ public abstract class GameRenderer : Game1
         if (StaticEnemy.Position.Y < -28)
             StaticEnemy.DrawVisible = false;
         else if (StaticEnemy.Position.Y > -28) StaticEnemy.DrawVisible = true;
+        
+        if (EasyMovingEnemy.Position.Y is < -28 or > 790 && GameMode == ClassEnums.GameModeEnum.Easy)
+            EasyMovingEnemy.Visible = false;
+        else if (EasyMovingEnemy.Position.Y > -28 && GameMode == ClassEnums.GameModeEnum.Easy) EasyMovingEnemy.Visible = true;
     }
 }
