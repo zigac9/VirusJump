@@ -24,7 +24,8 @@ public abstract class GameRenderer : Game1
         Trampo.Initialize();
         Spring.Initialize();
         Jetpack.Initialize();
-        ITexturesClasses.MovingEnemy.Initialize();
+        EasyMovingEnemy.Initialize();
+        MovingEnemy.Initialize();
         StaticEnemy.Initialize();
 
         //delete boards
