@@ -50,6 +50,7 @@ public class Game1 : Game, ITexturesClasses
     public static Sound Sound;
 
     public static bool ThingsCollisionCheck;
+    public static ClassEnums.GameModeEnum GameMode;
 
     private int _allObjects;
 
@@ -72,7 +73,6 @@ public class Game1 : Game, ITexturesClasses
     private SpriteBatch _spriteBatch;
     private Stopwatch _stopwatch;
     private int _visibleObjects;
-    public static ClassEnums.GameModeEnum GameMode;
     public ClassEnums.GameStateEnum GameState;
 
     public Game1()
@@ -167,9 +167,7 @@ public class Game1 : Game, ITexturesClasses
 
                         if (_mouseState.X is > 295 and < 415)
                             if (_mouseState.Y is > 620 and < 675)
-                            {
                                 Exit();
-                            }
                     }
                 }
                     break;
@@ -179,13 +177,11 @@ public class Game1 : Game, ITexturesClasses
                     {
                         Pointer.GetAnimatedSprite.Play("shoot");
                         if (_mouseState.X is > 291 and < 411)
-                        {
                             if (_mouseState.Y is > 621 and < 678)
                             {
                                 CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
                                 Thread.Sleep(100);
                             }
-                        }
                     }
                 }
                     break;
@@ -234,9 +230,10 @@ public class Game1 : Game, ITexturesClasses
                     }
                     else if (GameMode == ClassEnums.GameModeEnum.Easy)
                     {
-                        EasyMovingEnemy.Update(Bullet, Sound, Player, ref GameOver, ref CollisionCheck, ThingsCollisionCheck, Background.SoundEffectCheck);
+                        EasyMovingEnemy.Update(Bullet, Sound, Player, ref GameOver, ref CollisionCheck,
+                            ThingsCollisionCheck, Background.SoundEffectCheck);
                     }
-                    
+
                     //static enemy
                     StaticEnemy.Update(Bullet, BoardsList, Sound, Player, ref GameOver, ref CollisionCheck,
                         Score, ThingsCollisionCheck, Trampo, Jetpack,
@@ -253,13 +250,11 @@ public class Game1 : Game, ITexturesClasses
                     // }
 
                     if (GameMode == ClassEnums.GameModeEnum.Hard)
-                    {
                         if (Bullet.BulletCollision(BulletEnemy))
                         {
                             BulletEnemy.IsCheck = false;
                             Bullet.IsCheck = false;
                         }
-                    }
 
                     //check side of background
                     Background.SideCheck();
@@ -524,13 +519,9 @@ public class Game1 : Game, ITexturesClasses
 
                     //update scores
                     if (GameMode == ClassEnums.GameModeEnum.Easy)
-                    {
                         Background.UpdateScores(ScoreManagerEasy, _playerName);
-                    }
                     else if (GameMode == ClassEnums.GameModeEnum.Hard)
-                    {
                         Background.UpdateScores(ScoreManagerHard, _playerName);
-                    }
 
                     break;
                 case ClassEnums.GameStateEnum.HScore:
@@ -728,7 +719,7 @@ public class Game1 : Game, ITexturesClasses
                 else if (GameMode == ClassEnums.GameModeEnum.Easy)
                 {
                     _allObjects++;
-                    Debug.WriteLine(EasyMovingEnemy.Position.ToString());
+                    //Debug.WriteLine(EasyMovingEnemy.Position.ToString());
                     if (EasyMovingEnemy.Visible)
                     {
                         EasyMovingEnemy.Draw(_spriteBatch);
@@ -750,7 +741,8 @@ public class Game1 : Game, ITexturesClasses
 
             if (Bullet.IsCheck) Bullet.Draw(_spriteBatch, CurrentGameState);
 
-            if (BulletEnemy.IsCheck && GameMode == ClassEnums.GameModeEnum.Hard) BulletEnemy.Draw(_spriteBatch, CurrentGameState);
+            if (BulletEnemy.IsCheck && GameMode == ClassEnums.GameModeEnum.Hard)
+                BulletEnemy.Draw(_spriteBatch, CurrentGameState);
 
             Pointer.Draw(_spriteBatch);
         }
