@@ -41,6 +41,7 @@ internal interface ITexturesClasses
     protected static Jetpack Jetpack { get; set; }
     protected static StaticEnemy StaticEnemy { get; set; }
     protected static MovingEnemy MovingEnemy { get; set; }
+    protected static EasyMovingEnemy EasyMovingEnemy { get; set; }
     protected static Sound Sound { get; set; }
     protected static ScoreManager ScoreManagerEasy { get; set; }
     protected static ScoreManager ScoreManagerHard { get; set; }
@@ -107,6 +108,7 @@ internal interface ITexturesClasses
         BulletEnemy = new Bullet(1, TexturesLoad);
         Trampo = new Trampo(TexturesLoad);
         Spring = new Spring(TexturesLoad);
+        EasyMovingEnemy = new EasyMovingEnemy(TexturesLoad);
         Jetpack = new Jetpack(TexturesLoad);
         StaticEnemy = new StaticEnemy(TexturesLoad);
         MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad, SpriteFontsLoad);
@@ -226,6 +228,7 @@ internal interface ITexturesClasses
             Task.Run(() => Spring = new Spring(TexturesLoad)),
             Task.Run(() => Jetpack = new Jetpack(TexturesLoad)),
             Task.Run(() => StaticEnemy = new StaticEnemy(TexturesLoad)),
+            Task.Run(() => EasyMovingEnemy = new EasyMovingEnemy(TexturesLoad)),
             Task.Run(() => MovingEnemy = new MovingEnemy(TexturesLoad, SpriteSheetsLoad, SpriteFontsLoad)),
             Task.Run(() => Sound = new Sound(SoundEffectsLoad, SongsLoad)),
             Task.Run(() => ScoreManagerEasy = ScoreManager.Load("scores-easy.xml")),

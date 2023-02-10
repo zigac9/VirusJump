@@ -34,6 +34,7 @@ public class Game1 : Game, ITexturesClasses
     public static Spring Spring;
 
     public static MovingEnemy MovingEnemy;
+    public static EasyMovingEnemy EasyMovingEnemy;
     public static StaticEnemy StaticEnemy;
 
     public static MyInputField MyInputField;
@@ -127,6 +128,7 @@ public class Game1 : Game, ITexturesClasses
         Jetpack = ITexturesClasses.Jetpack;
         StaticEnemy = ITexturesClasses.StaticEnemy;
         MovingEnemy = ITexturesClasses.MovingEnemy;
+        EasyMovingEnemy = ITexturesClasses.EasyMovingEnemy;
         MyInputField = ITexturesClasses.MyInputField;
 
         _contentLoaded = true;
