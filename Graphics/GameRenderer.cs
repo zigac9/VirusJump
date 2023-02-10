@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-
 using JumperLibrary;
-using VirusJump.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace VirusJump.Graphics;
 
@@ -304,7 +301,7 @@ public abstract class GameRenderer : Game1
 
     public static void MakeVisibleOrNot()
     {
-        for(int i = 0; i < 4; i++)
+        for (var i = 0; i < 4; i++)
         {
             if (BoardsList.FakeBoardList[i].Position.Y < -14)
                 BoardsList.FakeBoardList[i].DrawVisible = false;
@@ -313,23 +310,24 @@ public abstract class GameRenderer : Game1
             if (BoardsList.GoneBoardList[i].Position.Y < -14)
                 BoardsList.GoneBoardList[i].DrawVisible = false;
             else if (BoardsList.GoneBoardList[i].Position.Y > -28) BoardsList.GoneBoardList[i].DrawVisible = true;
-            
+
             if (BoardsList.MovingBoardList[i].Position.Y < -14)
                 BoardsList.MovingBoardList[i].DrawVisible = false;
             else if (BoardsList.MovingBoardList[i].Position.Y > -14) BoardsList.MovingBoardList[i].DrawVisible = true;
         }
+
         if (Trampo.TrampoPosition.Y < -28)
             Trampo.DrawVisible = false;
         else if (Trampo.TrampoPosition.Y > -28) Trampo.DrawVisible = true;
-        
+
         if (Spring.SpringPosition.Y < -28)
             Spring.DrawVisible = false;
         else if (Spring.SpringPosition.Y > -28) Spring.DrawVisible = true;
-        
+
         if (Jetpack.JetPosition.Y < -28)
             Jetpack.DrawVisible = false;
         else if (Jetpack.JetPosition.Y > -28) Jetpack.DrawVisible = true;
-        
+
         if (StaticEnemy.Position.Y < -28)
             StaticEnemy.DrawVisible = false;
         else if (StaticEnemy.Position.Y > -28) StaticEnemy.DrawVisible = true;
