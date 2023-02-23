@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>D:/FRI_Ljubljana/GitHub/VirusJump/Content/assets/mainMenu1.png</SourceFile>
-  <SourceTime>2023-02-06T21:33:33.6138767+01:00</SourceTime>
+  <SourceTime>2023-02-22T11:45:23.6389356+01:00</SourceTime>
   <DestFile>D:/FRI_Ljubljana/GitHub/VirusJump/Content/bin/Windows/Content/assets/mainMenu1.xnb</DestFile>
-  <DestTime>2023-02-06T21:34:18.7548575+01:00</DestTime>
+  <DestTime>2023-02-22T11:47:17.8238655+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T13:44:56+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

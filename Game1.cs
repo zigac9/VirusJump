@@ -530,7 +530,7 @@ public class Game1 : Game, ITexturesClasses
                     {
                         Pointer.GetAnimatedSprite.Play("shoot");
                         CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
-                        Thread.Sleep(100);
+                        Thread.Sleep(200);
                     }
 
                     break;
