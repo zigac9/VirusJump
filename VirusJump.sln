@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirusJump", "VirusJump.csproj", "{6A8BA061-AFC3-4F96-A977-41659FCB0D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumperLibrary", "..\JumperLibrary\JumperLibrary.csproj", "{1B15B179-F123-42EA-A32C-EF5E4DCAF78D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumperLibrary", "..\JumperLibrary\JumperLibrary.csproj", "{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{6A8BA061-AFC3-4F96-A977-41659FCB0D36}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A8BA061-AFC3-4F96-A977-41659FCB0D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A8BA061-AFC3-4F96-A977-41659FCB0D36}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1B15B179-F123-42EA-A32C-EF5E4DCAF78D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1B15B179-F123-42EA-A32C-EF5E4DCAF78D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1B15B179-F123-42EA-A32C-EF5E4DCAF78D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1B15B179-F123-42EA-A32C-EF5E4DCAF78D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
