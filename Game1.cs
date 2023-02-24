@@ -627,7 +627,7 @@ public class Game1 : Game, ITexturesClasses
         _allObjects = 0;
         _visibleObjects = 0;
 
-        if (!_contentLoaded || _elapsedTime <= 3.0)
+        if (!_contentLoaded || _elapsedTime <= 5.0)
         {
             _spriteBatch.Draw(_loadingTexture, new Vector2(0, 0), null, Color.White);
             _loading.Draw(_spriteBatch, new Vector2(230, 500), 0f, new Vector2(1, 1));
