@@ -16,6 +16,8 @@ namespace VirusJump;
 
 public class Game1 : Game, ITexturesClasses
 {
+    public const int DesignedResolutionWidth = 480;
+    public const int DesignedResolutionHeight = 720;
     public static ClassEnums.GameStateEnum CurrentGameState;
     public static ClassEnums.PlayerOrientEnum PlayerOrientation;
     public static ClassEnums.GameModeEnum GameModeEnum;
@@ -52,7 +54,7 @@ public class Game1 : Game, ITexturesClasses
     public static bool ThingsCollisionCheck;
     public static ClassEnums.GameModeEnum GameMode;
 
-    public static Windowbox windowbox;
+    public static Windowbox Windowbox;
 
     private int _allObjects;
 
@@ -77,15 +79,12 @@ public class Game1 : Game, ITexturesClasses
     private int _visibleObjects;
     public ClassEnums.GameStateEnum GameState;
 
-    public const int designedResolutionWidth = 480;
-    public const int designedResolutionHeight = 720;
-
     public Game1()
     {
         var graphics = new GraphicsDeviceManager(this);
         graphics.IsFullScreen = false;
-        graphics.PreferredBackBufferWidth = designedResolutionWidth;
-        graphics.PreferredBackBufferHeight = designedResolutionHeight;
+        graphics.PreferredBackBufferWidth = DesignedResolutionWidth;
+        graphics.PreferredBackBufferHeight = DesignedResolutionHeight;
         Content.RootDirectory = "Content";
         Window.AllowUserResizing = true;
     }
@@ -106,7 +105,7 @@ public class Game1 : Game, ITexturesClasses
         _stopwatch = new Stopwatch();
         CurrentGameState = ClassEnums.GameStateEnum.InputName;
         GameMode = ClassEnums.GameModeEnum.Easy;
-        windowbox = new Windowbox(this, designedResolutionWidth, designedResolutionHeight);
+        Windowbox = new Windowbox(this, DesignedResolutionWidth, DesignedResolutionHeight);
         base.Initialize();
     }
 
@@ -146,7 +145,7 @@ public class Game1 : Game, ITexturesClasses
     {
         _elapsedTime += gameTime.ElapsedGameTime.TotalSeconds;
         MouseExtended.Current.GetState(gameTime);
-        var _mousePos = windowbox.GetCorrectMousePos(MouseExtended.Current.CurrentState);
+        var _mousePos = Windowbox.GetCorrectMousePos(MouseExtended.Current.CurrentState);
         if (_contentLoaded)
         {
             // Debug.WriteLine(Player.Speed.Y);
@@ -534,7 +533,8 @@ public class Game1 : Game, ITexturesClasses
                     break;
                 case ClassEnums.GameStateEnum.HScore:
                     _mouseState = Mouse.GetState();
-                    if (_mouseState is { LeftButton: ButtonState.Pressed } && (_mousePos.X > 296 && _mousePos.X < 415 && _mousePos.Y > 529 && _mousePos.Y < 584))
+                    if (_mouseState is { LeftButton: ButtonState.Pressed } && _mousePos.X > 296 && _mousePos.X < 415 &&
+                        _mousePos.Y > 529 && _mousePos.Y < 584)
                     {
                         Pointer.GetAnimatedSprite.Play("shoot");
                         CurrentGameState = ClassEnums.GameStateEnum.IntroMenu;
@@ -629,7 +629,7 @@ public class Game1 : Game, ITexturesClasses
 
     protected override void Draw(GameTime gameTime)
     {
-        windowbox.Draw(_spriteBatch, DrawAllObjects);
+        Windowbox.Draw(_spriteBatch, DrawAllObjects);
 
         base.Draw(gameTime);
     }
