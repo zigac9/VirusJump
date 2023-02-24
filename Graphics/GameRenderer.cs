@@ -7,10 +7,9 @@ namespace VirusJump.Graphics;
 
 public abstract class GameRenderer : Game1
 {
-    //playagain in reposition gre v renderer
     public static void PlayAgain()
     {
-        CurrentGameState = ClassEnums.GameStateEnum.GameRunning; //menjaj
+        CurrentGameState = ClassEnums.GameStateEnum.GameRunning;
         CollisionCheck = true;
         ThingsCollisionCheck = true;
         GameOver = false;
@@ -35,7 +34,6 @@ public abstract class GameRenderer : Game1
 
     public static void RePosition()
     {
-        //delete boards
         if (GameMode == ClassEnums.GameModeEnum.Hard)
         {
             if (Score.Score > 500 && !Nivo[0])
@@ -175,8 +173,6 @@ public abstract class GameRenderer : Game1
         }
 
         //move movable enemy
-        // Debug.WriteLine("Start" + MovingEnemy.Start);
-        // Debug.WriteLine("END" + MovingEnemy.End);
         if (GameMode == ClassEnums.GameModeEnum.Hard)
         {
             if (Score.Score > MovingEnemy.Start && !MovingEnemy.Visible)

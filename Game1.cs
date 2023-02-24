@@ -61,7 +61,6 @@ public class Game1 : Game, ITexturesClasses
     private bool _contentLoaded;
     private double _elapsedTime;
 
-    //tipkovnica in miska
     private KeyboardState _k;
     private KeyboardState _kTemp;
     private KeyboardState _kTemp1;
@@ -95,7 +94,6 @@ public class Game1 : Game, ITexturesClasses
         CollisionCheck = true;
         ThingsCollisionCheck = true;
         GameOver = false;
-        //_playerName = RandomString(10);
         _playerName = "";
         Nivo = new List<bool> { false, false, false, false, false, false };
         _loading = new AnimatedSprite(Content.Load<SpriteSheet>("assets/looping.sf", new JsonContentLoader()));
@@ -148,7 +146,6 @@ public class Game1 : Game, ITexturesClasses
         var _mousePos = Windowbox.GetCorrectMousePos(MouseExtended.Current.CurrentState);
         if (_contentLoaded)
         {
-            // Debug.WriteLine(Player.Speed.Y);
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 Exit();
 
@@ -248,13 +245,6 @@ public class Game1 : Game, ITexturesClasses
 
                     //to move boards_list and background with player
                     GameRenderer.MoveWithPlayer();
-
-                    // if (Bullet.Position.Intersects(BulletEnemy.Position) ||
-                    //     BulletEnemy.Position.Intersects(Bullet.Position))
-                    // {
-                    //     BulletEnemy.IsCheck = false;
-                    //     Bullet.IsCheck = false;
-                    // }
 
                     if (GameMode == ClassEnums.GameModeEnum.Hard)
                         if (Bullet.BulletCollision(BulletEnemy))
@@ -545,8 +535,6 @@ public class Game1 : Game, ITexturesClasses
                 case ClassEnums.GameStateEnum.GameOver:
                     if (!Sound.PlayCheck)
                     {
-                        // MediaPlayer.Play(Sound.End);
-                        // MediaPlayer.IsRepeating = true;
                         MediaPlayer.Stop();
                         Sound.PlayCheck = true;
                         switch (GameMode)
@@ -636,7 +624,6 @@ public class Game1 : Game, ITexturesClasses
 
     private void DrawAllObjects()
     {
-        //Debug.WriteLine($"Izmerjen čas: {_stopwatch.Elapsed}");
         _allObjects = 0;
         _visibleObjects = 0;
 
@@ -732,7 +719,6 @@ public class Game1 : Game, ITexturesClasses
                 else if (GameMode == ClassEnums.GameModeEnum.Easy)
                 {
                     _allObjects++;
-                    //Debug.WriteLine(EasyMovingEnemy.Position.ToString());
                     if (EasyMovingEnemy.Visible)
                     {
                         EasyMovingEnemy.Draw(_spriteBatch);
@@ -744,7 +730,6 @@ public class Game1 : Game, ITexturesClasses
                 Player.Draw(_spriteBatch, PlayerOrientation, CurrentGameState, CollisionCheck);
                 Score.Draw(_spriteBatch, CurrentGameState);
             }
-            // Debug.WriteLine($"All objects number: {_allObjects}. Visible objects number: {_visibleObjects} ");
 
             if (CurrentGameState == ClassEnums.GameStateEnum.IntroMenu)
             {
@@ -760,12 +745,4 @@ public class Game1 : Game, ITexturesClasses
             Pointer.Draw(_spriteBatch);
         }
     }
-
-    // private string RandomString(int length)
-    // {
-    //     var random = new Random();
-    //     const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    //     return new string(Enumerable.Repeat(chars, length)
-    //         .Select(s => s[random.Next(s.Length)]).ToArray());
-    // }
 }
