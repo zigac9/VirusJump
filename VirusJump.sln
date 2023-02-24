@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VirusJump", "VirusJump.cspr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JumperLibrary", "..\JumperLibrary\JumperLibrary.csproj", "{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup1", "..\Setup1\Setup1.vdproj", "{FF08DD9D-DA40-4FDE-BC44-DC30039DE973}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,8 +21,6 @@ Global
 		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAADCC63-960D-4E61-AEB8-0DDB6E662AE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF08DD9D-DA40-4FDE-BC44-DC30039DE973}.Debug|Any CPU.ActiveCfg = Debug
-		{FF08DD9D-DA40-4FDE-BC44-DC30039DE973}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
