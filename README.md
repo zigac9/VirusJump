@@ -20,3 +20,5 @@
 - **Jumper Library**: You'll need this library if you want to build the code from the repository and run it. Get it here: [Jumper Library on GitHub](https://github.com/zigac9/JumperLibrary)
 
 Good luck and enjoy the game!
+
+© 2024 zigac9. All rights reserved.
